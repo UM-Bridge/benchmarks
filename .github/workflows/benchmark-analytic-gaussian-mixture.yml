@@ -28,7 +28,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: analytic-gaussian-mixture/
+          context: benchmarks/analytic-gaussian-mixture/
           push: true
           tags: linusseelinger/benchmark-analytic-gaussian-mixture:latest
 
