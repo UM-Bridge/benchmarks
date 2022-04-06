@@ -19,10 +19,10 @@ class Banana(umbridge.Model):
         b = config.get('b', 0.2)
         scale = config.get('scale', 1.0)
 
-        y = [(parameters[0][0] / a) / scale,
-             (parameters[0][1] * a + a * b * (parameters[0][0]**2 + a**2)) / scale]
+        y = [(parameters[0][0] / a),
+             (parameters[0][1] * a + a * b * (parameters[0][0]**2 + a**2))]
 
-        return [[multivariate_normal.logpdf(y, [0, 4], [[1.0, 0.5], [0.5, 1.0]])]]
+        return [[multivariate_normal.logpdf(y, [0, 4], [[1.0*scale, 0.5*scale], [0.5*scale, 1.0*scale]])]]
 
     def supports_evaluate(self):
         return True
