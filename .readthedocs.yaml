@@ -12,5 +12,7 @@ python:
   # Install our python package before building the docs
   install:
     - method: pip
-      path: .
-      extra_requirements: "docs myst-parser"
+      extra_requirements: 
+        - docs
+        - myst-parser
+
