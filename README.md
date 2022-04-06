@@ -1,5 +1,10 @@
 # Benchmarks
 
+### Analytic banana
+```
+docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-banana:latest
+```
+
 ### Analytic donut
 ```
 docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-donut:latest
