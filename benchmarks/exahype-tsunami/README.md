@@ -73,7 +73,9 @@ This benchmark creates a sequence of three models:
 
 ##  UQ problem
 
-The likelihood of a given set of parameters given the simulation results is computed using weighted average of the maximal wave height and the time at which it is reached. The likelihood is given by a normal distribution $\mathcal{N}\left(\mu, \Sigma \right)$ with mean $\mu$ given by maximum waveheight $\max\{h\}$ and the time $t$ at which it is reached for the the two DART buoys 21418 and 21419 (This data can be obtained from [NDBC](https://www.ndbc.noaa.gov/). The covariance matrix $\Sigma$ depends on the level, but not the probe point.
+The likelihood of a given set of parameters given the simulation results is computed using weighted average of the maximal wave height and the time at which it is reached.
+The likelihood is given by a normal distribution $\mathcal{N}\left(\mu, \Sigma \right)$ with mean $\mu$ given by maximum waveheight $\max\{h\}$ and the time $t$ at which it is reached for the the two DART buoys 21418 and 21419 (This data can be obtained from [NDBC](https://www.ndbc.noaa.gov/)). 
+The covariance matrix $\Sigma$ depends on the level, but not the probe point.
 
 | $\mu$   | $\Sigma$ l=0 |  $\Sigma$ l=1 |  $\Sigma$ l=2 |
 |---------|--------------|---------------|---------------|
@@ -82,6 +84,7 @@ The likelihood of a given set of parameters given the simulation results is comp
 | 30.23   | 2.5          | 1.5           | 0.75          |
 | 87.98   | 2.5          | 1.5           | 0.75          |
 
-The prior cuts off all parameters which would lead to an initial displacement which is too close to the domain boundary. Some parameters may lead to unstable models, e.g. a parameter which initialise the tsunami on dry land, in this case we have treated the parameter as unphysical and assigned an almost zero likelihood.
+The prior cuts off all parameters which would lead to an initial displacement which is too close to the domain boundary.
+Some parameters may lead to unstable models, e.g. a parameter which initialise the tsunami on dry land, in this case we have treated the parameter as unphysical and assigned an almost zero likelihood.
 
-The paralle MLMCMC was implemented in the [MUQ library](https://joss.theoj.org/papers/10.21105/joss.03076).
+The parallel MLMCMC was implemented in the [MUQ library](https://joss.theoj.org/papers/10.21105/joss.03076).
