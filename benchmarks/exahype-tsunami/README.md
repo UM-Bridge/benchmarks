@@ -1,27 +1,36 @@
 # ExaHyPE-Tsunami Benchmark
 
-### Brief intro
+## Overview
 In this benchmark we model the propagation of the 2011 Tohoku tsunami by solving the shallow water equations. For the numerical solution of the PDE, we apply an ADER-DG method implemented in the [ExaHyPE framework](https://www.sciencedirect.com/science/article/pii/S001046552030076X). The aim is to obtain the parameters describing the initial displacements from the data of two available buoys located near the Japanese coast
 
-## Purpose 
+## Purpose
 Demonstrate the parallelized multi-level Markov Chain Monte Carlo (MLMCMC) method on a practically relevant large-scale application
 
 ## Run
 ```
-docker run -it -p 4243:4243 linusseelinger/model-exahype-tsunami
+docker run -it -p 4243:4243 linusseelinger/benchmark-exahype-tsunami
 ```
 
-## Technical properties
+## Properties
+Value | Dimensions
+---|---
+inputSizes | [2]
+outputSizes | [1]
 
-- Input size: 2
-- Output size: 4
-- Config JSON structure:
-    - `int level`
-    - `bool verbose`
-    - `bool vtk_output`
-- Supported endpoints (evaluate, jacobian etc)
+Feature | Supported
+---|---
+Evaluate | True
+Gradient | False
+ApplyJacobian | False
+ApplyHessian | False
 
-### Detailed description of technical properties
+### Configuration
+
+- `int level`
+- `bool verbose`
+- `bool vtk_output`
+
+### Description
 
 - Input consists of x and y coordinates of a proposed tsunami origin
 - Output consists of time and maximum water height at two buoy points
@@ -30,7 +39,9 @@ docker run -it -p 4243:4243 linusseelinger/model-exahype-tsunami
     - `verbose`: switches text output on/off
     - `vtk_output`: switches vtk output on/off
 
-## Forward model
+## Model
+
+### Forward model
 The underlying PDE model can be written in first-order hyperbolic form as
 $$
     \frac{\partial}{\partial t}
@@ -71,7 +82,7 @@ This benchmark creates a sequence of three models:
 - The bathymetry data has been obtained from [GEBCO](https://www.gebco.net/)
 - More details: [Reference Paper](https://dl.acm.org/doi/10.1145/3458817.3476150)
 
-##  UQ problem
+### UQ problem
 
 The likelihood of a given set of parameters given the simulation results is computed using weighted average of the maximal wave height and the time at which it is reached.
 The likelihood is given by a normal distribution $\mathcal{N}\left(\mu, \Sigma \right)$ with mean $\mu$ given by maximum waveheight $\max\{h\}$ and the time $t$ at which it is reached for the the two DART buoys 21418 and 21419 (This data can be obtained from [NDBC](https://www.ndbc.noaa.gov/)). 
