@@ -58,13 +58,13 @@ where
 - $b$ denotes the bathymetry.
 
 This benchmark creates a sequence of three models:
-1. First model: 
+1. First model:
     - bathymetry is approximated only by a depth average over the entire domain
     - pure DG discretisation of order 2
 2. The second model:
     - DG discretisation with a finite volume subcell limiter allowing for wetting and drying
     - smoothed bathymetry data (Gaussian filter)
-3. The third models:
+3. The third model:
     - DG discretisation with a finite volume subcell limiter allowing for wetting and drying
     - full bathymetry data
 
