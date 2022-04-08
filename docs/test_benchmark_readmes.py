@@ -3,6 +3,7 @@ import marko
 from argparse import ArgumentParser
 
 for filename in glob.glob('../benchmarks/*/README.md'):
+  print(f"Checking file {filename}")
 
   file = open(filename,mode='r')
   test_file_content = file.read()
@@ -23,3 +24,4 @@ for filename in glob.glob('../benchmarks/*/README.md'):
   print(f"Missing headings: {len(undefined_headings)} ({undefined_headings})")
   assert len(undefined_headings) == 0
   print("Test passed!")
+  print("")
