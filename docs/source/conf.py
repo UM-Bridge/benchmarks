@@ -29,6 +29,7 @@ author = 'UM-Bridge Team'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.mathjax'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -54,5 +55,5 @@ html_static_path = ['_static']
 # Allow documentation to be written in markdown
 # requires myst-parser extension
 extensions = ['myst_parser']
-
+myst_enable_extensions = ["dollarmath", "amsmath"]
 source_suffix = ['.rst', '.md']

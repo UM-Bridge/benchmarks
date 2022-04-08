@@ -1,26 +1,11 @@
 # Benchmarks
 
-### Analytic donut
-```
-docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-donut:latest
-```
+UM-Bridge is an open source project that enables easy and fast coupling between UQ software and simulation software. It separates both sides by introducing a new standardized network interface.
 
-### Analytic funnel
-```
-docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-funnel:latest
-```
+This repository hosts stand-alone reference problems for benchmarking of UQ algorithms.
 
-### Analytic Gaussian mixture
-```
-docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-gaussian-mixture:latest
-```
+The documentation for the project and for the benchmark problems within is at: [Documentation](https://um-bridge-benchmarks.readthedocs.io/en/latest/)
 
-### Poisson
-```
-docker run -it -p 4243:4243 linusseelinger/benchmark-poisson:latest
-```
+Join the project [slack channel](https://join.slack.com/t/um-bridge/shared_invite/zt-16uu2rzoz-~v~vE8MGHKKRRyaH~sbtvw)!
 
-### P-Poisson
-```
-docker run -it -p 4243:4243 linusseelinger/benchmark-p-poisson:latest
-```
+
