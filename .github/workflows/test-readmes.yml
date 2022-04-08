@@ -18,4 +18,4 @@ jobs:
        -
         name: Validate
         run: |
-          cd docs && python3 test_benchmarks_readmes.py
+          cd docs && python3 test_benchmark_readmes.py
