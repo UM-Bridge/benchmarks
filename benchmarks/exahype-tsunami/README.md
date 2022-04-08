@@ -21,7 +21,7 @@ docker run -it -p 4243:4243 linusseelinger/model-exahype-tsunami
     - `bool vtk_output`
 - Supported endpoints (evaluate, jacobian etc)
 
-## Detailed description on technical properties
+### Detailed description of technical properties
 
 - Input consists of x and y coordinates of a proposed tsunami origin
 - Output consists of time and maximum water height at two buoy points
