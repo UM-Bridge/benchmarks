@@ -1,7 +1,7 @@
-# ExaHyPE-Tsunami Benchmark
+# Analytic-Banana Benchmark
 
 ## Overview
-This benchmark consists of an analytically defined density $\pi : \mathbb{R}^2 \rightarrow \mathbb{R}$ resembling the shape of a banana. It is based on a transformed normal distribution. The variance may be adjusted.
+This benchmark consists of an analytically defined PDF $\pi : \mathbb{R}^2 \rightarrow \mathbb{R}$ resembling the shape of a banana. It is based on a transformed normal distribution. The variance may be adjusted.
 
 ## Purpose
 Simple test case especially useful for sampling methods.
@@ -33,7 +33,7 @@ ApplyHessian | False
 ### Description
 
 - Input: 2D coordinates $x \in \mathbb{R}^2$
-- Output: Density $\pi$ evaluated at $x$
+- Output: PDF $\pi$ evaluated at $x$
 - JSON Configuration:
     - `scale`: Scaling factor applied to the underlying normal distribution's variance
     - `a`: Transformation parameter
@@ -41,11 +41,12 @@ ApplyHessian | False
 
 ## Model
 
-We begin with a normally distributed random variable $Z \tilde \mathcal{N}(\begin{pmatrix} 0 \\ 4 \end{pmatrix}, scale * \begin{pmatrix} 1.0 & 0.5\\ 0.5 & 1.0 \end{pmatrix})$, and denote its PDF by $f_Z$.
+We begin with a normally distributed random variable $Z \sim \mathcal{N}(\begin{pmatrix} 0 \\ 4 \end{pmatrix}, scale \begin{pmatrix} 1.0 & 0.5\\ 0.5 & 1.0 \end{pmatrix})$, and denote its PDF by $f_Z$.
 
-In order to transform it, define a transformation $T : \mathbb{R}^2 \rightarrow \mathbb{R}^2$
+In order to the normal distribution, define a transformation $T : \mathbb{R}^2 \rightarrow \mathbb{R}^2$
 
-$$ T(x) \coloneqq \begin{pmatrix} x_1 / a \\ a x_2 + a b (x_1^2 + a^2) \end{pmatrix}. $$
+$$ T(x) := \begin{pmatrix} x_1 / a \\ a x_2 + a b (x_1^2 + a^2) \end{pmatrix}. $$
 
 Finally, the benchmark log PDF is defined as
-$$ log(f_{\pi(x)}) \coloneqq log(f_Z(T(x))). $$
+
+$$ log(f_{\pi(x)}) := log(f_Z(T(x))). $$
