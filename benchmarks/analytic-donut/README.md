@@ -37,7 +37,7 @@ None
 
 The PDF $\pi$ is defined as
 
-$$ \pi(x) := - \frac{(\| x \| - r)^2}{\simga^2}, $$
+$$ \pi(x) := - \frac{(\| x \| - r)^2}{\sigma^2}, $$
 
 where $r = 2.6$ and $\sigma^2 = 0.033$.
 
