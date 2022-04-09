@@ -37,7 +37,7 @@ None
 
 First, define a helper function
 
-$$ f(x,m,s) := - \frac12 \log(2 \pi) - \log(s) - \frac12 ((x-m)/s)**2. $$
+$$ f(x,m,s) := - \frac12 \log(2 \pi) - \log(s) - \frac12 ((x-m)/s)^2. $$
 
 Now, the output log PDF is defined as
 
