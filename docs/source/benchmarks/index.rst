@@ -12,4 +12,5 @@ For more details on the benchmarks see their individual documentation:
   :hidden:
 
   exahype-tsunami
+  benchmark-analytic-banana
 
