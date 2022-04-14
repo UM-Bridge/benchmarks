@@ -47,3 +47,8 @@ jobs:
         name: Validate
         run: |
           docker run --network=host -e model_host=http://localhost:4242 linusseelinger/testing-protocol-conformity-0.9:latest
+       -
+        name: ValidateOutput
+        run: |
+          python models/exahype-tsunami/test_exahype_tsunami.py  http://localhost:4242
+
