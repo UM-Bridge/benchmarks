@@ -49,6 +49,8 @@ RUN cd ApplicationExamples/SWE/ && \
     cd ../SWE_asagi_limited_l2 && make -j2 && mkdir Probes && mkdir vtk-output && \
     mkdir /shared
 
+ENV SHARED_DIR=/shared
+
 # Build model server
 COPY . /server
 RUN cd /server && \

@@ -18,6 +18,13 @@ public:
    : umbridge::Model(Eigen::VectorXi::Ones(1)*2, Eigen::VectorXi::Ones(1)*4)
   {
     outputs.push_back(Eigen::VectorXd::Ones(4));
+
+    char const* shared_dir_cstr = std::getenv("SHARED_DIR");
+    if ( shared_dir_cstr == NULL ) {
+      std::cerr << "Environment variable SHARED_DIR not set!" << std::endl;
+      exit(-1);
+    }
+    shared_dir = std::string(shared_dir_cstr);
   }
 
   void Evaluate(std::vector<std::reference_wrapper<const Eigen::VectorXd>> const& inputs, json config) override {
@@ -27,7 +34,7 @@ public:
 
     std::cout << "Entered for level " << level << std::endl;
 
-    std::ofstream inputsfile ("/shared/inputs.txt");
+    std::ofstream inputsfile (shared_dir + "/inputs.txt");
     typedef std::numeric_limits<double> dl;
     inputsfile << std::fixed << std::setprecision(dl::digits10);
     for (int i = 0; i < inputs[0].get().rows(); i++) {
@@ -66,7 +73,7 @@ public:
     }
     std::cout << "Exahype exit status " << status << std::endl;
 
-    std::ifstream outputsfile("/shared/outputs.txt");
+    std::ifstream outputsfile(shared_dir + "/outputs.txt");
     for (int i = 0; i < outputs[0].rows(); i++) {
       outputsfile >> outputs[0](i);
     }
@@ -79,6 +86,8 @@ public:
   bool SupportsEvaluate() override {
     return true;
   }
+private:
+  std::string shared_dir;
 };
 
 int main(){
