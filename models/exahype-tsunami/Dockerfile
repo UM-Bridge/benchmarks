@@ -55,5 +55,5 @@ RUN cd /server && \
     g++ -o server HTTPModPieceServerExaHyPE.cpp -I /usr/include/eigen3/ -lpthread
 
 ENV PORT=4242
-ENV SHARED_FILE=/shared/comm
+ENV SHARED_DIR=/shared/comm
 CMD /server/server
