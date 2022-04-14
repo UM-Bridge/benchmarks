@@ -50,5 +50,5 @@ jobs:
        -
         name: ValidateOutput
         run: |
-          python benchmarks/exahype-tsunami/test_exahype_tsunami.py  http://localhost:4242
+          python models/exahype-tsunami/test_exahype_tsunami.py  http://localhost:4242
 
