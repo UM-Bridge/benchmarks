@@ -46,7 +46,8 @@ RUN cd ApplicationExamples/SWE/ && \
     ../../Toolkit/toolkit.sh SWE_asagi_limited_l2.exahype2 && \
     cd SWE_asagi_limited_l0 && make -j2 && mkdir Probes && mkdir vtk-output  && \
     cd ../SWE_asagi_limited_l1 && make -j2  && mkdir Probes && mkdir vtk-output && \
-    cd ../SWE_asagi_limited_l2 && make -j2 && mkdir Probes && mkdir vtk-output
+    cd ../SWE_asagi_limited_l2 && make -j2 && mkdir Probes && mkdir vtk-output && \
+    mkdir /shared
 
 # Build model server
 COPY . /server

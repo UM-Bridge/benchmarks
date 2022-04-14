@@ -27,7 +27,7 @@ public:
 
     std::cout << "Entered for level " << level << std::endl;
 
-    std::ofstream inputsfile ("/tmp/inputs.txt");
+    std::ofstream inputsfile ("/shared/inputs.txt");
     typedef std::numeric_limits<double> dl;
     inputsfile << std::fixed << std::setprecision(dl::digits10);
     for (int i = 0; i < inputs[0].get().rows(); i++) {
@@ -66,7 +66,7 @@ public:
     }
     std::cout << "Exahype exit status " << status << std::endl;
 
-    std::ifstream outputsfile("/tmp/outputs.txt");
+    std::ifstream outputsfile("/shared/outputs.txt");
     for (int i = 0; i < outputs[0].rows(); i++) {
       outputsfile >> outputs[0](i);
     }
