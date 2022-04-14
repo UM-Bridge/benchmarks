@@ -49,12 +49,11 @@ RUN cd ApplicationExamples/SWE/ && \
     cd ../SWE_asagi_limited_l2 && make -j2 && mkdir Probes && mkdir vtk-output && \
     mkdir /shared
 
-ENV SHARED_DIR=/shared
-
 # Build model server
 COPY . /server
 RUN cd /server && \
     g++ -o server HTTPModPieceServerExaHyPE.cpp -I /usr/include/eigen3/ -lpthread
 
 ENV PORT=4242
+ENV SHARED_FILE=/shared/comm
 CMD /server/server

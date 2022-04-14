@@ -19,12 +19,12 @@ public:
   {
     outputs.push_back(Eigen::VectorXd::Ones(4));
 
-    char const* shared_dir_cstr = std::getenv("SHARED_DIR");
-    if ( shared_dir_cstr == NULL ) {
+    char const* shared_file_cstr = std::getenv("SHARED_FILE");
+    if ( shared_file_cstr == NULL ) {
       std::cerr << "Environment variable SHARED_DIR not set!" << std::endl;
       exit(-1);
     }
-    shared_dir = std::string(shared_dir_cstr);
+    shared_file = std::string(shared_file_cstr);
   }
 
   void Evaluate(std::vector<std::reference_wrapper<const Eigen::VectorXd>> const& inputs, json config) override {
@@ -34,7 +34,7 @@ public:
 
     std::cout << "Entered for level " << level << std::endl;
 
-    std::ofstream inputsfile (shared_dir + "/inputs.txt");
+    std::ofstream inputsfile (shared_file + "inputs.txt");
     typedef std::numeric_limits<double> dl;
     inputsfile << std::fixed << std::setprecision(dl::digits10);
     for (int i = 0; i < inputs[0].get().rows(); i++) {
@@ -73,7 +73,7 @@ public:
     }
     std::cout << "Exahype exit status " << status << std::endl;
 
-    std::ifstream outputsfile(shared_dir + "/outputs.txt");
+    std::ifstream outputsfile(shared_file + "outputs.txt");
     for (int i = 0; i < outputs[0].rows(); i++) {
       outputsfile >> outputs[0](i);
     }
@@ -87,7 +87,7 @@ public:
     return true;
   }
 private:
-  std::string shared_dir;
+  std::string shared_file;
 };
 
 int main(){
