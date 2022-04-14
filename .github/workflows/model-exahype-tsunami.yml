@@ -51,6 +51,10 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
        -
+        name: Dependencies
+        run: |
+          apt update && DEBIAN_FRONTEND="noninteractive" apt install -y python3-pip && pip3 install requests aiohttp
+       -
         name: ValidateOutput
         run: |
           cd models/exahype-tsunami && python3 test_exahype_tsunami.py  http://localhost:4242
