@@ -12,4 +12,7 @@ For more details on the benchmarks see their individual documentation:
   :hidden:
 
   exahype-tsunami
-
+  benchmark-analytic-banana
+  benchmark-analytic-donut
+  benchmark-analytic-funnel
+  benchmark-analytic-gaussian-mixture

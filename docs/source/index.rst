@@ -17,4 +17,3 @@ UQ Benchmarks documentation
 
 
 * :ref:`search`
-

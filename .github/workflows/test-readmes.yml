@@ -1,0 +1,21 @@
+name: test-readmes
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: ubuntu:latest
+
+    steps:
+       -
+        name: Checkout
+        uses: actions/checkout@v2
+       -
+        name: Dependencies
+        run: |
+          apt update; apt install -y python3-pip; pip3 install marko
+       -
+        name: Validate
+        run: |
+          cd docs && python3 test_benchmark_readmes.py

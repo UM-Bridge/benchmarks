@@ -42,6 +42,6 @@ class Benchmark(umbridge.Model):
     def supports_evaluate(self):
         return True
 
-benckmark = Benchmark("http://localhost:4242")
+benchmark = Benchmark("http://localhost:4242")
 
-umbridge.serve_model(benckmark, 4243)
+umbridge.serve_model(benchmark, 4243)
