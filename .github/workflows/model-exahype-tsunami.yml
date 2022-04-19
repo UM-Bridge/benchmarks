@@ -53,7 +53,7 @@ jobs:
        -
         name: Dependencies
         run: |
-          apt update && DEBIAN_FRONTEND="noninteractive" apt install -y python3-pip && pip3 install requests aiohttp
+          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-pip && pip3 install requests aiohttp
        -
         name: ValidateOutput
         run: |
