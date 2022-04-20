@@ -2,9 +2,7 @@
 
 #include <string>
 
-//#include <resolv.h> // Header included in httplib.h, causing potential issues with Eigen!
-
-#include "HTTPComm.h"
+#include "umbridge.h"
 
 #include <chrono>
 #include <thread>
