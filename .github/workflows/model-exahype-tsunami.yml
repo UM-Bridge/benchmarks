@@ -44,7 +44,7 @@ jobs:
 
     steps:
        -
-        name: Validate
+        name: Validate protocol
         run: |
           docker run --network=host -e model_host=http://localhost:4242 linusseelinger/testing-protocol-conformity-0.9:latest
        -
@@ -53,9 +53,9 @@ jobs:
        -
         name: Dependencies
         run: |
-          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-aiohttp python3-requests
+          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-aiohttp python3-requests python3-pytest
        -
-        name: ValidateOutput
+        name: Validate output
         run: |
           cd models/exahype-tsunami/ && \
           wget https://raw.githubusercontent.com/UM-Bridge/umbridge/main/clients/python/umbridge.py && \
