@@ -15,7 +15,7 @@ output = model([[0.0,0.0]],{"level" : 0, "vtk-output" : False, "verbose" : True}
 
 print(output)
 
-assert pytest.approx(output[0], 18) == 1847.59, "Tsunami output not as expected"
-assert pytest.approx(output[1], 0.00001) == 0.0016, "Tsunami output not as expected"
+assert pytest.approx(output[0], 18) == 1847.590542295737578, "Tsunami output not as expected"
+assert pytest.approx(output[1], 0.00001) == 0.001675019006365, "Tsunami output not as expected"
 assert pytest.approx(output[2], 55) == 5492.84, "Tsunami output not as expected"
-assert pytest.approx(output[3], 0.000003) == 0.00032, "Tsunami output not as expected"
+assert pytest.approx(output[3], 0.000003) == 0.000329495, "Tsunami output not as expected"
