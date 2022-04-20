@@ -14,8 +14,9 @@ model = umbridge.HTTPModel(args.url)
 
 output = model([[0.0,0.0]])[0]
 print(output)
-assert pytest.approx(output[0]) == -5.534036030183454, "Output not as expected"
+assert pytest.approx(output[0]) == -204.84848484848487, "Output not as expected"
 
-output = model([[2.0,0.0]])[0]
+
+output = model([[2.0,2.0]])[0]
 print(output)
-assert pytest.approx(output[0]) == -3.3207026968501214, "Output not as expected"
+assert pytest.approx(output[0]) == -1.581180343024592, "Output not as expected"
