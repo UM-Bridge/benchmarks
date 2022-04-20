@@ -59,4 +59,4 @@ jobs:
         run: |
           cd benchmarks/analytic-banana/ && \
           wget https://raw.githubusercontent.com/UM-Bridge/umbridge/main/clients/python/umbridge.py && \
-          python3 test_output.py http://localhost:4242
+          python3 test_output.py http://localhost:4243
