@@ -53,8 +53,10 @@ jobs:
        -
         name: Dependencies
         run: |
-          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-pip && pip3 install requests aiohttp
+          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-aiohttp python3-requests
        -
         name: ValidateOutput
         run: |
-          cd models/exahype-tsunami && python3 test_exahype_tsunami.py  http://localhost:4242
+          cd models/exahype-tsunami/ && \
+          wget https://raw.githubusercontent.com/UM-Bridge/umbridge/main/clients/python/umbridge.py && \
+          python3 test_output.py http://localhost:4242
