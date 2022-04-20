@@ -9,11 +9,11 @@
 #include <iomanip>
 #include <stdlib.h>
 
-class ExampleModPiece : public ShallowModPiece {
+class TsunamiModel : public umbridge::Model {
 public:
 
-  ExampleModPiece(int ranks)
-   : ShallowModPiece(Eigen::VectorXi::Ones(1)*2, Eigen::VectorXi::Ones(1)*4), ranks(ranks)
+  TsunamiModel(int ranks)
+   : Model(Eigen::VectorXi::Ones(1)*2, Eigen::VectorXi::Ones(1)*4), ranks(ranks)
   {
     outputs.push_back(Eigen::VectorXd::Ones(4));
 
@@ -117,9 +117,9 @@ int main(){
   }
   const int ranks = atoi(ranks_cstr);
 
-  ExampleModPiece modPiece(ranks);
+  TsunamiModel model(ranks);
 
-  serveModPiece(modPiece, "0.0.0.0", port);
+  umbridge::serveModel(model, "0.0.0.0", port);
 
   return 0;
 }
