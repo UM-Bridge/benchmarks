@@ -1,12 +1,14 @@
 # ExaHyPE-Tsunami Benchmark
 
+## Authors
+
 ## Overview
 In this benchmark we model the propagation of the 2011 Tohoku tsunami by solving the shallow water equations. For the numerical solution of the PDE, we apply an ADER-DG method implemented in the [ExaHyPE framework](https://www.sciencedirect.com/science/article/pii/S001046552030076X). The aim is to obtain the parameters describing the initial displacements from the data of two available buoys located near the Japanese coast
 
-## Purpose
-Demonstrate the parallelized multi-level Markov Chain Monte Carlo (MLMCMC) method on a practically relevant large-scale application
+![Tsunami-Model](/docs/source/images/tohoku_full.png?raw=true "Level Hierarchy for Tohoku Tsunami Model")
 
 ## Run
+
 ```
 docker run -it -p 4243:4243 linusseelinger/benchmark-exahype-tsunami
 ```
