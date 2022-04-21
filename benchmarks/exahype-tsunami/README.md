@@ -1,6 +1,8 @@
 # ExaHyPE-Tsunami Benchmark
 
 ## Authors
+- [Anne Reinarz](mailto:anne.k.reinarz@durham.ac.uk)
+- [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)
 
 ## Overview
 In this benchmark we model the propagation of the 2011 Tohoku tsunami by solving the shallow water equations. For the numerical solution of the PDE, we apply an ADER-DG method implemented in the [ExaHyPE framework](https://www.sciencedirect.com/science/article/pii/S001046552030076X). The aim is to obtain the parameters describing the initial displacements from the data of two available buoys located near the Japanese coast

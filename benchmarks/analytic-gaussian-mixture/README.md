@@ -1,10 +1,10 @@
 # Analytic-Gaussian-Mixture Benchmark
 
+## Authors
+- [Linus Seelinger](linus.seelinger@iwr.uni-heidelberg.de)
+
 ## Overview
 This benchmark consists of an analytically defined PDF $\pi : \mathbb{R}^2 \rightarrow \mathbb{R}$ consisting of a Gaussian mixture.
-
-## Purpose
-Simple test case especially useful for sampling methods.
 
 ## Run
 ```
