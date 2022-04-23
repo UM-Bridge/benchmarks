@@ -11,3 +11,16 @@ Requirements:
 * python
 
 
+## Contributing
+
+We welcome any new benchmarks added to the collection. To add a new benchmark you will need a Dockerfile containing the code and a README.md.
+Place these into a folder within benchmarks.
+
+The README must follow the structure prescribed. A template README file can be found ...
+
+Ensure that all appropriate sections are filled.
+
+To include images in the readme either link to an external website or place the image into docs/source/images and provide the full path of the image.
+
+
+
