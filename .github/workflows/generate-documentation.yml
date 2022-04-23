@@ -8,18 +8,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    steps:
+      -
+        name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Modify/add files
-      run: bash docs/generate_rst_files_from_readmes.sh
+      -
+        name: Generate rst files from readmes
+        run: bash docs/generate_rst_files_from_readmes.sh
 
-    - name: push changes to remote
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      -
+        name: push changes to remote without triggering CI
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-        git add docs/source/benchmarks/* docs/source/models/*
-        git commit -m "[skip ci] Generate rst files"
-        git push
+          git add docs/source/benchmarks/* docs/source/models/*
+          git commit -m "[skip ci] Generate rst files"
+          git push
