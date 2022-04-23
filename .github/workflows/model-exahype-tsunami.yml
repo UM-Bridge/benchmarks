@@ -1,4 +1,4 @@
-name: benchmark-analytic-donut
+name: model-exahype-tsunami
 
 on:
   push:
@@ -28,9 +28,9 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: benchmarks/analytic-donut/
+          context: models/exahype-tsunami/
           push: true
-          tags: linusseelinger/benchmark-analytic-donut:latest
+          tags: linusseelinger/model-exahype-tsunami:latest
 
   test:
     runs-on: ubuntu-latest
@@ -38,15 +38,15 @@ jobs:
 
     services:
       model:
-        image: linusseelinger/benchmark-analytic-donut:latest
+        image: linusseelinger/model-exahype-tsunami:latest
         ports:
-        - 4243:4243
+        - 4242:4242
 
     steps:
        -
         name: Validate protocol
         run: |
-          docker run --network=host -e model_host=http://localhost:4243 linusseelinger/testing-protocol-conformity-0.9:latest
+          docker run --network=host -e model_host=http://localhost:4242 linusseelinger/testing-protocol-conformity-0.9:latest
        -
         name: Checkout
         uses: actions/checkout@v2
@@ -57,6 +57,6 @@ jobs:
        -
         name: Validate output
         run: |
-          cd benchmarks/analytic-donut/ && \
+          cd models/exahype-tsunami/ && \
           wget https://raw.githubusercontent.com/UM-Bridge/umbridge/main/clients/python/umbridge.py && \
-          python3 test_output.py http://localhost:4243
+          python3 test_output.py http://localhost:4242

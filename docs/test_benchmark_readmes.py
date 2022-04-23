@@ -11,7 +11,7 @@ for filename in glob.glob('../benchmarks/*/README.md'):
 
   test_doc = marko.parse(test_file_content)
 
-  undefined_headings = {"Overview": 2, "Purpose": 2, "Run": 2, "Properties": 2, "Configuration": 3, "Description": 3, "Model": 2}
+  undefined_headings = {"Authors": 2, "Overview": 2, "Run": 2, "Properties": 2, "Configuration": 3, "Description": 3, "Model": 2}
 
   for entry in test_doc.children:
     if entry.get_type() == "Heading":
@@ -24,4 +24,8 @@ for filename in glob.glob('../benchmarks/*/README.md'):
   print(f"Missing headings: {len(undefined_headings)} ({undefined_headings})")
   assert len(undefined_headings) == 0
   print("Test passed!")
+<<<<<<< HEAD
   print("")
+=======
+  print("")
+>>>>>>> main
