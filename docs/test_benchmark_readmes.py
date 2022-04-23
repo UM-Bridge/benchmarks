@@ -24,8 +24,4 @@ for filename in glob.glob('../benchmarks/*/README.md'):
   print(f"Missing headings: {len(undefined_headings)} ({undefined_headings})")
   assert len(undefined_headings) == 0
   print("Test passed!")
-<<<<<<< HEAD
   print("")
-=======
-  print("")
->>>>>>> main
