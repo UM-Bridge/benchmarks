@@ -15,7 +15,9 @@ jobs:
 
       -
         name: Generate rst files from readmes
-        run: bash docs/generate_rst_files_from_readmes.sh
+        run: |
+            bash docs/generate_rst_files_from_readmes.sh
+            ls
 
       -
         name: push changes to remote without triggering CI
