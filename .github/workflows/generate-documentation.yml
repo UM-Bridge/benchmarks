@@ -15,7 +15,7 @@ jobs:
 
       -
         name: Generate rst files from readmes
-        workdir: docs
+        working-directory: docs
         run: |
             bash docs/generate_rst_files_from_readmes.sh
             ls
