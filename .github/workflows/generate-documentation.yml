@@ -26,5 +26,5 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
           git add --force ./docs/source/benchmarks/* ./docs/source/models/*
-          git commit -m "[skip ci] Generate rst files"
+          git commit -m "[skip ci] Generate rst files" || echo "Nothing to push"
           git push
