@@ -10,10 +10,12 @@ UQ Benchmarks documentation
    :parser: myst_parser.sphinx_
 
 .. toctree::
-   :maxdepth: 4
+   :glob:
+   :maxdepth: 1
 
    /quickstart
    /benchmarks/index
+   /models/*
 
 
 * :ref:`search`

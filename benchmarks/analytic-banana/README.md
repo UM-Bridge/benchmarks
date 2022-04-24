@@ -1,7 +1,7 @@
 # Analytic-Banana Benchmark
 
 ## Authors
-- [Linus Seelinger](linus.seelinger@iwr.uni-heidelberg.de)
+- [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)
 
 ## Overview
 This benchmark consists of an analytically defined PDF $\pi : \mathbb{R}^2 \rightarrow \mathbb{R}$ resembling the shape of a banana. It is based on a transformed normal distribution. The variance may be adjusted.

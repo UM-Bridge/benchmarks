@@ -1,7 +1,7 @@
 # Analytic-Funnel Benchmark
 
 ## Authors
-- [Linus Seelinger](linus.seelinger@iwr.uni-heidelberg.de)
+- [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)
 
 ## Overview
 This benchmark consists of an analytically defined PDF $\tau : \mathbb{R}^2 \rightarrow \mathbb{R}$ resembling the shape of a funnel.
