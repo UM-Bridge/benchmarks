@@ -17,7 +17,7 @@ for f in $(find ../models/ -name 'README.md'); do
     [ ! -z "$NAME" ] || NAME=index
     echo "Name of generated file " $NAME.rst
     cat > source/models/$NAME.rst << EOF
-.. include::../$f
-:parser: myst_parser.sphinx_
+.. include:: ../$f
+    :parser: myst_parser.sphinx_
 EOF
 done
