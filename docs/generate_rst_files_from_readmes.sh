@@ -16,6 +16,16 @@ For more details on the benchmarks see their individual documentation:
 
 EOF
 
+cat > source/models/index.rst << EOF
+.. include:: ../../../benchmarks/README.md
+   :parser: myst_parser.sphinx_
+
+For more details on the models see their individual documentation:
+
+.. toctree::
+   :maxdepth: 3
+
+EOF
 
 # Loop over all benchmarks
 for f in $(find ../benchmarks/ -name 'README.md'); do
@@ -42,5 +52,9 @@ for f in $(find ../models/ -name 'README.md'); do
 .. include:: ../../$f
    :parser: myst_parser.sphinx_
 
+EOF
+    # Append to toctree
+    cat >> source/models/index.rst << EOF
+   $NAME
 EOF
 done

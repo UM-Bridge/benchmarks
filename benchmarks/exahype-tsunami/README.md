@@ -41,7 +41,7 @@ ApplyHessian | False
     - `verbose`: switches text output on/off
     - `vtk_output`: switches vtk output on/off
 
-### UQ problem
+### Model
 
 The likelihood of a given set of parameters given the simulation results is computed using weighted average of the maximal wave height and the time at which it is reached.
 The likelihood is given by a normal distribution $\mathcal{N}\left(\mu, \Sigma \right)$ with mean $\mu$ given by maximum waveheight $\max\{h\}$ and the time $t$ at which it is reached for the the two DART buoys 21418 and 21419 (This data can be obtained from [NDBC](https://www.ndbc.noaa.gov/)). 
