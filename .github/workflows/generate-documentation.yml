@@ -18,7 +18,6 @@ jobs:
         working-directory: docs
         run: |
             bash generate_rst_files_from_readmes.sh
-            ls
 
       -
         name: push changes to remote without triggering CI
@@ -26,6 +25,6 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add ./docs/source/benchmarks/* ./docs/source/models/*
+          git add --force ./docs/source/benchmarks/* ./docs/source/models/*
           git commit -m "[skip ci] Generate rst files"
           git push
