@@ -84,3 +84,29 @@ class EulerBernoulli(mm.PyModPiece):
         # Solve system to get displacement
         displacement = np.linalg.solve(self.K, load)
         self.outputs = [displacement]
+
+
+if __name__=='__main__':
+    import h5py 
+
+    f = h5py.File('ProblemDefinition.h5','r')
+
+    x = np.array( f['/ForwardModel/NodeLocations'] )
+    
+    length = f['/ForwardModel'].attrs['BeamLength']
+    radius = f['/ForwardModel'].attrs['BeamRadius']
+
+    loads = np.array( f['/ForwardModel/Loads'])
+
+    forwardMod = EulerBernoulli(x.shape[1], length, radius)
+
+    loads = mm.ConstantVector(loads)
+
+    graph = mm.WorkGraph()
+    graph.AddNode(forwardMod, 'Forward Model')
+    graph.AddNode(loads,'Loads')
+    graph.AddEdge('Loads',0,'Forward Model', 0)
+
+    mod = graph.CreateModPiece('Forward Model')
+
+    mm.serveModPiece(mod, "0.0.0.0", 4243)

@@ -4,7 +4,7 @@
 - [Matthew Parno](mailto:matthew.d.parno@dartmouth.edu)
 
 ## Overview
-This is a Bayesian inverse problem for characterizing the log Young's modulus in an Euler-Bernoulli beam given observations of the beam displacement with a prescribed load.  The Young's modulus is piecewise constant over three regions.   This is shown below.  
+This is a Bayesian inverse problem for characterizing the stiffness in an Euler-Bernoulli beam given observations of the beam displacement with a prescribed load.  The Young's modulus is piecewise constant over three regions.   This is shown below.  
 
 This docker container uses [MUQ](https://mituq.bitbucket.io/source/_site/index.html) and [UM-Bridge](https://github.com/UM-Bridge/umbridge/tree/main) to evaluate the log posterior density of the problem.  Synthetic data is used.  A realization of a Gaussian process is used to define a "true" $m(x)$ that is then run through the PDE model.  Additive noise is added to the output of the model to create the synthetic data.
 
@@ -13,7 +13,7 @@ This docker container uses [MUQ](https://mituq.bitbucket.io/source/_site/index.h
 
 ## Run
 ```
-docker run -it -p 4243:4243 linusseelinger/muq-beam
+docker run -it -p 4243:4243 mparno/muq-beam-posterior
 ```
 
 ## Properties
