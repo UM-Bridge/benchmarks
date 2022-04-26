@@ -1,4 +1,4 @@
-FROM mparno/muq-beam-model:latest
+FROM linusseelinger/muq-beam-model:latest
 
 COPY . /server
 
