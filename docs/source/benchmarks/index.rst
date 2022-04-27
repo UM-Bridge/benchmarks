@@ -11,3 +11,4 @@ For more details on the benchmarks see their individual documentation:
    analytic-funnel
    analytic-banana
    exahype-tsunami
+   muq-beam
