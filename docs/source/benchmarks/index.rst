@@ -7,8 +7,8 @@ For more details on the benchmarks see their individual documentation:
    :maxdepth: 3
 
    analytic-gaussian-mixture
-   analytic-donut
-   analytic-funnel
-   analytic-banana
    exahype-tsunami
    muq-beam
+   analytic-banana
+   analytic-donut
+   analytic-funnel
