@@ -11,7 +11,7 @@ This docker container uses [MUQ](https://mituq.bitbucket.io/source/_site/index.h
 
 ## Run
 ```
-docker run -it -p 4243:4243 mparno/muq-beam-model
+docker run -it -p 4243:4243 linusseelinger/model-muq-beam:latest
 ```
 
 ## Properties
@@ -48,10 +48,10 @@ and
 $$
 \left.\frac{\partial^2 u}{\partial x^2}\right|_{x=L} = 0, \quad  \left.\frac{\partial^3 u}{\partial x^3}\right|_{x=L} = 0.
 $$
-  
+
 Discretizing this PDE with finite differences (or finite elements, etc...), we obtain a linear system of the form
 $$
 K(\hat{E})\hat{u} = \hat{f},
 $$
-where $\hat{u}\in\mathbb{R}^N$ and $\hat{f}\in\mathbb{R}^N$ are vectors containing approximations of $u(x)$ and $E(x)$ at finite difference nodes.  
+where $\hat{u}\in\mathbb{R}^N$ and $\hat{f}\in\mathbb{R}^N$ are vectors containing approximations of $u(x)$ and $E(x)$ at finite difference nodes.
 

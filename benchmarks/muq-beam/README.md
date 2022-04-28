@@ -12,7 +12,7 @@ This docker container uses [MUQ](https://mituq.bitbucket.io/source/_site/index.h
 
 ## Run
 ```
-docker run -it -p 4243:4243 mparno/muq-beam-posterior
+docker run -it -p 4243:4243 linusseelinger/benchmark-muq-beam:latest
 ```
 
 ## Properties
