@@ -2,7 +2,7 @@ import glob
 import marko
 from argparse import ArgumentParser
 
-for filename in glob.glob('../benchmarks/*/README.md'):
+for filename in glob.glob('../benchmarks/*/README.md') + glob.glob('../models/*/README.md'):
   print(f"Checking file {filename}")
 
   file = open(filename,mode='r')

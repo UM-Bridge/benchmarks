@@ -14,8 +14,8 @@ docker run -it -p 4243:4243 linusseelinger/model-muq-beam:latest
 ```
 
 ## Properties
-Value | Dimensions
----|---
+Mapping | Dimensions | Description
+---|---|---
 inputSizes | [31]
 outputSizes | [31]
 
@@ -26,12 +26,15 @@ Gradient | Yes (via finite difference)
 ApplyJacobian | Yes (vai finite difference)
 ApplyHessian | Yes (via finite difference)
 
-### Configuration
+Config | Type | Default | Description
+---|---|---|---
+None | | |
 
-None
+Mount directory | Purpose
+---|---
+None |
 
-
-## Problem Description
+## Description
 
 Let $u(x)$ denote the vertical deflection of the beam and let $m(x)$ denote the vertial force acting on the beam at point $x$ (positive for upwards, negative for downwards).  We assume that the displacement can be well approximated using Euler-Bernoulli beam theory and thus satisfies the PDE
 
