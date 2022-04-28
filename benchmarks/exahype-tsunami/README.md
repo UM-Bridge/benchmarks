@@ -1,11 +1,11 @@
 # ExaHyPE-Tsunami Benchmark
 
+## Overview
+In this benchmark we model the propagation of the 2011 Tohoku tsunami by solving the shallow water equations. For the numerical solution of the PDE, we apply an ADER-DG method implemented in the [ExaHyPE framework](https://www.sciencedirect.com/science/article/pii/S001046552030076X). The aim is to obtain the parameters describing the initial displacements from the data of two available buoys located near the Japanese coast.
+
 ## Authors
 - [Anne Reinarz](mailto:anne.k.reinarz@durham.ac.uk)
 - [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)
-
-## Overview
-In this benchmark we model the propagation of the 2011 Tohoku tsunami by solving the shallow water equations. For the numerical solution of the PDE, we apply an ADER-DG method implemented in the [ExaHyPE framework](https://www.sciencedirect.com/science/article/pii/S001046552030076X). The aim is to obtain the parameters describing the initial displacements from the data of two available buoys located near the Japanese coast
 
 ## Run
 
@@ -14,10 +14,11 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-exahype-tsunami
 ```
 
 ## Properties
-Value | Dimensions
+
+Mapping | Dimensions | Description
 ---|---
-inputSizes | [2]
-outputSizes | [1]
+input | [2] | x and y coordinates of a proposed tsunami origin
+output | [1] | Arrival time and maximum water height at two buoy points
 
 Feature | Supported
 ---|---
@@ -26,25 +27,20 @@ Gradient | False
 ApplyJacobian | False
 ApplyHessian | False
 
-### Configuration
+Config option | Type | Default | Description
+---|---|---|---
+level | integer | 0 | chooses the model level to run (see below for further details)
+verbose | boolean | false | switches text output on/off
+vtk_output | boolean | false | switches vtk output to the /output directory on/off
 
-- `int level`
-- `bool verbose`
-- `bool vtk_output`
+Mount directory | Purpose
+---|---
+/output | VTK output for visualization
 
-### Description
-
-- Input consists of x and y coordinates of a proposed tsunami origin
-- Output consists of time and maximum water height at two buoy points
-- JSON Configuration:
-    - `level`: chooses the model level to run (see below for further details)
-    - `verbose`: switches text output on/off
-    - `vtk_output`: switches vtk output on/off
-
-## Model
+## Description
 
 The likelihood of a given set of parameters given the simulation results is computed using weighted average of the maximal wave height and the time at which it is reached.
-The likelihood is given by a normal distribution $\mathcal{N}\left(\mu, \Sigma \right)$ with mean $\mu$ given by maximum waveheight $\max\{h\}$ and the time $t$ at which it is reached for the the two DART buoys 21418 and 21419 (This data can be obtained from [NDBC](https://www.ndbc.noaa.gov/)). 
+The likelihood is given by a normal distribution $\mathcal{N}\left(\mu, \Sigma \right)$ with mean $\mu$ given by maximum waveheight $\max\{h\}$ and the time $t$ at which it is reached for the the two DART buoys 21418 and 21419 (This data can be obtained from [NDBC](https://www.ndbc.noaa.gov/)).
 The covariance matrix $\Sigma$ depends on the level, but not the probe point.
 
 | $\mu$   | $\Sigma$ l=0 |  $\Sigma$ l=1 |  $\Sigma$ l=2 |

@@ -12,10 +12,11 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-gaussian-mixture
 ```
 
 ## Properties
-Value | Dimensions
+
+Mapping | Dimensions | Description
 ---|---
-inputSizes | [2]
-outputSizes | [1]
+input | [2] | 2D coordinates $x \in \mathbb{R}^2$
+output | [1] | PDF $\tau$ evaluated at $x$
 
 Feature | Supported
 ---|---
@@ -24,16 +25,15 @@ Gradient | True
 ApplyJacobian | True
 ApplyHessian | False
 
-### Configuration
+Config option | Type | Default | Description
+---|---|---|---
+None | | |
 
-None
+Mount directory | Purpose
+---|---
+None |
 
-### Description
-
-- Input: 2D coordinates $x \in \mathbb{R}^2$
-- Output: PDF $\tau$ evaluated at $x$
-
-## Model
+## Description
 
 Let
 $X_1 \sim \mathcal{N}(\begin{pmatrix} -1.5 \\ -1.5 \end{pmatrix}, 0.8 I)$,
