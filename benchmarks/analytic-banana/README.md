@@ -12,10 +12,11 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-banana
 ```
 
 ## Properties
-Value | Dimensions
----|---
-inputSizes | [2]
-outputSizes | [1]
+
+Mapping | Dimensions | Description
+---|---|---
+input | [2] | 2D coordinates $x \in \mathbb{R}^2$
+output | [1] | PDF $\pi$ evaluated at $x$
 
 Feature | Supported
 ---|---
@@ -24,22 +25,17 @@ Gradient | False
 ApplyJacobian | False
 ApplyHessian | False
 
-### Configuration
+Config | Type | Default | Description
+---|---|---|---
+a | double | 2.0 | Transformation parameter
+b | double | 0.2 | Transformation parameter
+scale | double | 1.0 | Scaling factor applied to the underlying normal distribution's variance
 
-- `double a` (default: 2.0)
-- `double b` (default: 0.2)
-- `double scale` (default: 1.0)
+Mount directory | Purpose
+---|---
+None |
 
-### Description
-
-- Input: 2D coordinates $x \in \mathbb{R}^2$
-- Output: PDF $\pi$ evaluated at $x$
-- JSON Configuration:
-    - `scale`: Scaling factor applied to the underlying normal distribution's variance
-    - `a`: Transformation parameter
-    - `b`: Transformation parameter
-
-## Model
+## Description
 
 We begin with a normally distributed random variable $Z \sim \mathcal{N}(\begin{pmatrix} 0 \\ 4 \end{pmatrix}, scale \begin{pmatrix} 1.0 & 0.5\\ 0.5 & 1.0 \end{pmatrix})$, and denote its PDF by $f_Z$.
 
