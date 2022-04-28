@@ -15,7 +15,7 @@ UQ Benchmarks documentation
 
    /quickstart
    /benchmarks/index
-   /models/*
+   /models/index
 
 
 * :ref:`search`
