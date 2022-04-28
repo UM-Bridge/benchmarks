@@ -6,7 +6,7 @@ print("## Properties")
 print("")
 
 print("Mapping | Dimensions | Description")
-print("---|---")
+print("---|---|---")
 print(f"input | {model.get_input_sizes()} | TODO: INPUT DESCRIPTION")
 print(f"output | {model.get_output_sizes()} | TODO: OUTPUT DESCRIPTION")
 
@@ -21,7 +21,7 @@ print(f"ApplyHessian | {model.supports_apply_hessian()}")
 
 print("")
 
-print("Config option | Type | Default | Description")
+print("Config | Type | Default | Description")
 print("---|---|---|---")
 print("None | | |")
 

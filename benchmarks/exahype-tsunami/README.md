@@ -16,7 +16,7 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-exahype-tsunami
 ## Properties
 
 Mapping | Dimensions | Description
----|---
+---|---|---
 input | [2] | x and y coordinates of a proposed tsunami origin
 output | [1] | Arrival time and maximum water height at two buoy points
 
@@ -27,11 +27,11 @@ Gradient | False
 ApplyJacobian | False
 ApplyHessian | False
 
-Config option | Type | Default | Description
+Config | Type | Default | Description
 ---|---|---|---
-level | integer | 0 | chooses the model level to run (see below for further details)
-verbose | boolean | false | switches text output on/off
-vtk_output | boolean | false | switches vtk output to the /output directory on/off
+level | int | 0 | chooses the model level to run (see below for further details)
+verbose | bool | false | switches text output on/off
+vtk_output | bool | false | switches vtk output to the /output directory on/off
 
 Mount directory | Purpose
 ---|---

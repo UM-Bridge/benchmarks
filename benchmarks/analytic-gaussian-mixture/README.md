@@ -14,7 +14,7 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-gaussian-mixture
 ## Properties
 
 Mapping | Dimensions | Description
----|---
+---|---|---
 input | [2] | 2D coordinates $x \in \mathbb{R}^2$
 output | [1] | PDF $\tau$ evaluated at $x$
 
@@ -25,7 +25,7 @@ Gradient | True
 ApplyJacobian | True
 ApplyHessian | False
 
-Config option | Type | Default | Description
+Config | Type | Default | Description
 ---|---|---|---
 None | | |
 
