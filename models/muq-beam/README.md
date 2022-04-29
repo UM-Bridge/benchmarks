@@ -23,7 +23,7 @@ Feature | Supported
 ---|---
 Evaluate | Yes
 Gradient | Yes (via finite difference)
-ApplyJacobian | Yes (vai finite difference)
+ApplyJacobian | Yes (via finite difference)
 ApplyHessian | Yes (via finite difference)
 
 Config | Type | Default | Description
