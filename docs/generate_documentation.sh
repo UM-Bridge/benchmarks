@@ -1,4 +1,5 @@
 #/bin/bash
+set -eu -o pipefail
 
 mkdir docs_output
 cp make.bat Makefile requirements.txt docs_output
