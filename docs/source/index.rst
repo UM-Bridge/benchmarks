@@ -6,11 +6,15 @@
 UQ Benchmarks documentation
 ======================================
 
+.. image:: logos/UM-bridge.png
+  :width: 400
+  :alt: UM-Bridge Logo
+
 .. include:: ../markdown/main.md
    :parser: myst_parser.sphinx_
 
 Getting started
-===================
+--------------------
 
 .. toctree::
    :glob:
@@ -19,7 +23,7 @@ Getting started
    /quickstart
 
 Benchmarks
-===================
+--------------------
 
 .. toctree::
    :glob:
@@ -28,7 +32,7 @@ Benchmarks
    /benchmarks/index
 
 Models
-===================
+--------------------
 
 .. toctree::
    :glob:
