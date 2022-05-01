@@ -5,6 +5,8 @@ mkdir docs_output
 cp make.bat Makefile requirements.txt docs_output
 mkdir docs_output/markdown
 cp -r source docs_output/source
+mkdir docs_output/source/benchmarks
+mkdir docs_output/source/models
 cp ../README.md docs_output/markdown/main.md
 
 # Create index file
