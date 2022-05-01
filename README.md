@@ -1,5 +1,3 @@
-# Benchmarks
-
 UM-Bridge is an open source project that enables easy and fast coupling between UQ software and simulation software. It separates both sides by introducing a new standardized network interface.
 
 This repository hosts stand-alone reference problems for benchmarking of UQ algorithms.
