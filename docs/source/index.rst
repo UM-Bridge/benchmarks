@@ -6,16 +6,36 @@
 UQ Benchmarks documentation
 ======================================
 
-.. include:: ../../README.md
+.. include:: ../markdown/main.md
    :parser: myst_parser.sphinx_
+
+Getting started
+===================
 
 .. toctree::
    :glob:
    :maxdepth: 1
 
    /quickstart
+
+Benchmarks
+===================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
    /benchmarks/index
+
+Models
+===================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
    /models/index
+
 
 
 * :ref:`search`
