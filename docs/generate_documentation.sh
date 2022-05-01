@@ -9,7 +9,7 @@ cp ../README.md docs_output/markdown/main.md
 
 # Create index file
 cp ../benchmarks/README.md docs_output/markdown/benchmarks.md
-cat > source/benchmarks/index.rst << EOF
+cat > docs_output/source/benchmarks/index.rst << EOF
 .. include:: ../markdown/benchmarks.md
    :parser: myst_parser.sphinx_
 
@@ -21,7 +21,7 @@ For more details on the benchmarks see their individual documentation:
 EOF
 
 cp ../models/README.md docs_output/markdown/models.md
-cat > source/models/index.rst << EOF
+cat > docs_output/source/models/index.rst << EOF
 .. include:: ../markdown/models.md
    :parser: myst_parser.sphinx_
 
@@ -36,9 +36,9 @@ EOF
 for f in $(find ../benchmarks/ -name 'README.md'); do
     NAME=`echo $f | xargs dirname | xargs basename`
     [ "$NAME" != "benchmarks" ] || continue
-    cp $f source/benchmarks/$NAME.md
+    cp $f docs_output/source/benchmarks/$NAME.md
     # Append to toctree
-    cat >> source/benchmarks/index.rst << EOF
+    cat >> docs_output/source/benchmarks/index.rst << EOF
    $NAME
 EOF
 done
@@ -47,9 +47,9 @@ done
 for f in $(find ../models/ -name 'README.md'); do
     NAME=`echo $f | xargs dirname | xargs basename`
     [ "$NAME" != "models" ] || continue
-    cp $f source/models/$NAME.md
+    cp $f docs_output/source/models/$NAME.md
     # Append to toctree
-    cat >> source/models/index.rst << EOF
+    cat >> docs_output/source/models/index.rst << EOF
    $NAME
 EOF
 done
