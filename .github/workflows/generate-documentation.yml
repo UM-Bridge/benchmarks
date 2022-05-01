@@ -1,6 +1,7 @@
 name: generate-documentation
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'main'
@@ -17,6 +18,7 @@ jobs:
         name: Generate documentation
         working-directory: docs
         run: |
+            ls -l
             bash generate_documentation.sh
 
       -
