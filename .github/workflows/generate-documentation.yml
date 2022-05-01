@@ -34,4 +34,4 @@ jobs:
 
           git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
 
-          git push origin
+          git push --set-upstream origin docs
