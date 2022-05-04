@@ -11,14 +11,14 @@ In this benchmark we model the propagation of the 2011 Tohoku tsunami by solving
 ## Run
 
 ```
-docker run -it -p 4243:4243 linusseelinger/model-exahype-tsunami
+docker run -it -p 4242:4242 linusseelinger/model-exahype-tsunami
 ```
 
 ## Properties
 Mapping | Dimensions | Description
 ---|---|---
 inputSizes | [2] | x and y coordinates of a proposed tsunami origin
-outputSizes | [1] | Arrival time and maximum water height at two buoy points
+outputSizes | [4] | Arrival time and maximum water height at two buoy points
 
 Feature | Supported
 ---|---
