@@ -3,6 +3,9 @@
 ## Overview
 This benchmark consists of an analytically defined PDF $\tau : \mathbb{R}^2 \rightarrow \mathbb{R}$ resembling the shape of a funnel.
 
+![Contour](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-funnel/contour.png "Contour plot")
+![Samples](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-funnel/samples.png "Sample scatterplot")
+
 ## Authors
 - [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)
 

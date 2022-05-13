@@ -6,6 +6,9 @@
 ## Overview
 This benchmark consists of an analytically defined PDF $\pi : \mathbb{R}^2 \rightarrow \mathbb{R}$ resembling the shape of a banana. It is based on a transformed normal distribution. The variance may be adjusted.
 
+![Contour](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-banana/contour.png "Contour plot")
+![Samples](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-banana/samples.png "Sample scatterplot")
+
 ## Run
 ```
 docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-banana

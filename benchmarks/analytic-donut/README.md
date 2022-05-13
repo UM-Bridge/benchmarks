@@ -3,6 +3,9 @@
 ## Overview
 This benchmark consists of an analytically defined PDF $\pi : \mathbb{R}^2 \rightarrow \mathbb{R}$ resembling the shape of a donut.
 
+![Contour](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-donut/contour.png "Contour plot")
+![Samples](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-donut/samples.png "Sample scatterplot")
+
 ## Authors
 - [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)
 

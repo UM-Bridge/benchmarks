@@ -3,6 +3,9 @@
 ## Overview
 This benchmark consists of an analytically defined PDF $\pi : \mathbb{R}^2 \rightarrow \mathbb{R}$ consisting of a Gaussian mixture.
 
+![Contour](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-gaussian-mixture/contour.png "Contour plot")
+![Samples](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-gaussian-mixture/samples.png "Sample scatterplot")
+
 ## Authors
 - [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)
 
