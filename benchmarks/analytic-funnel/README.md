@@ -1,4 +1,4 @@
-# Analytic-Funnel Benchmark
+# Analytic Funnel
 
 ## Overview
 This benchmark consists of an analytically defined PDF $\tau : \mathbb{R}^2 \rightarrow \mathbb{R}$ resembling the shape of a funnel.

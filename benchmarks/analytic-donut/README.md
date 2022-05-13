@@ -1,4 +1,4 @@
-# Analytic-Donut Benchmark
+# Analytic Donut
 
 ## Overview
 This benchmark consists of an analytically defined PDF $\pi : \mathbb{R}^2 \rightarrow \mathbb{R}$ resembling the shape of a donut.

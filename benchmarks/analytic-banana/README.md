@@ -1,4 +1,4 @@
-# Analytic-Banana Benchmark
+# Analytic Banana
 
 ## Authors
 - [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)

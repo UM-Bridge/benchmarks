@@ -1,4 +1,4 @@
-# Analytic-Gaussian-Mixture Benchmark
+# Analytic Gaussian Mixture
 
 ## Overview
 This benchmark consists of an analytically defined PDF $\pi : \mathbb{R}^2 \rightarrow \mathbb{R}$ consisting of a Gaussian mixture.
