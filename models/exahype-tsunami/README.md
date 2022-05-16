@@ -1,24 +1,24 @@
-# ExaHyPE-Tsunami Model
-
-## Authors
-- [Anne Reinarz](mailto:anne.k.reinarz@durham.ac.uk)
+# Tsunami
 
 ## Overview
 In this benchmark we model the propagation of the 2011 Tohoku tsunami by solving the shallow water equations. For the numerical solution of the PDE, we apply an ADER-DG method implemented in the [ExaHyPE framework](https://www.sciencedirect.com/science/article/pii/S001046552030076X). The aim is to obtain the parameters describing the initial displacements from the data of two available buoys located near the Japanese coast
 
 ![Tsunami-Model](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/docs/source/images/tohoku_full.png "Level Hierarchy for Tohoku Tsunami Model")
 
+## Authors
+- [Anne Reinarz](mailto:anne.k.reinarz@durham.ac.uk)
+
 ## Run
 
 ```
-docker run -it -p 4243:4243 linusseelinger/model-exahype-tsunami
+docker run -it -p 4242:4242 linusseelinger/model-exahype-tsunami
 ```
 
 ## Properties
-Value | Dimensions
----|---
-inputSizes | [2]
-outputSizes | [1]
+Mapping | Dimensions | Description
+---|---|---
+inputSizes | [2] | x and y coordinates of a proposed tsunami origin
+outputSizes | [4] | Arrival time and maximum water height at two buoy points
 
 Feature | Supported
 ---|---
@@ -27,26 +27,21 @@ Gradient | False
 ApplyJacobian | False
 ApplyHessian | False
 
-### Configuration
+Config | Type | Default | Description
+---|---|---|---
+level | int | 0 | chooses the model level to run (see below for further details)
+verbose | bool | false | switches text output on/off
+vtk_output | bool | false | switches vtk output to the /output directory on/off
 
-- `int level`
-- `bool verbose`
-- `bool vtk_output`
+Mount directory | Purpose
+---|---
+/output | VTK output for visualization
 
-### Description
+## Description
 
-- Input consists of x and y coordinates of a proposed tsunami origin
-- Output consists of time and maximum water height at two buoy points
-- JSON Configuration:
-    - `level`: chooses the model level to run (see below for further details)
-    - `verbose`: switches text output on/off
-    - `vtk_output`: switches vtk output on/off
-
-## Model
-
-### Forward model
 The underlying PDE model can be written in first-order hyperbolic form as
-$$
+
+$
     \frac{\partial}{\partial t}
     \begin{pmatrix}
     h\\hu\\hv\\ b
@@ -63,12 +58,12 @@ $$
     hg \, \partial_y (b+h)\\
     0\\
     \end{pmatrix}= 0,
-$$
+$
 
-where 
-- $h$ denotes the height of the water column, 
-- $(u,v)$ the horizontal flow velocity, 
-- $g$  gravity 
+where
+- $h$ denotes the height of the water column,
+- $(u,v)$ the horizontal flow velocity,
+- $g$  gravity
 - $b$ denotes the bathymetry.
 
 This benchmark creates a sequence of three models:

@@ -6,16 +6,40 @@
 UQ Benchmarks documentation
 ======================================
 
-.. include:: ../../README.md
+.. image:: logos/UM-bridge.png
+  :width: 400
+  :alt: UM-Bridge Logo
+
+.. include:: ../markdown/main.md
    :parser: myst_parser.sphinx_
+
+Getting started
+--------------------
 
 .. toctree::
    :glob:
    :maxdepth: 1
 
    /quickstart
+
+Benchmarks
+--------------------
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
    /benchmarks/index
-   /models/*
+
+Models
+--------------------
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   /models/index
+
 
 
 * :ref:`search`

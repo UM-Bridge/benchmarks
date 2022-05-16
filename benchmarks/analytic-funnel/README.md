@@ -1,10 +1,13 @@
-# Analytic-Funnel Benchmark
-
-## Authors
-- [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)
+# Analytic Funnel
 
 ## Overview
 This benchmark consists of an analytically defined PDF $\tau : \mathbb{R}^2 \rightarrow \mathbb{R}$ resembling the shape of a funnel.
+
+![Contour](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-funnel/contour.png "Contour plot")
+![Samples](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-funnel/samples.png "Sample scatterplot")
+
+## Authors
+- [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)
 
 ## Run
 ```
@@ -12,10 +15,10 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-funnel
 ```
 
 ## Properties
-Value | Dimensions
----|---
-inputSizes | [2]
-outputSizes | [1]
+Mapping | Dimensions | Description
+---|---|---
+input | [2] | 2D coordinates $x \in \mathbb{R}^2$
+output | [1] | PDF $\tau$ evaluated at $x$
 
 Feature | Supported
 ---|---
@@ -24,16 +27,15 @@ Gradient | True
 ApplyJacobian | True
 ApplyHessian | False
 
-### Configuration
+Config | Type | Default | Description
+---|---|---|---
+None | | |
 
-None
+Mount directory | Purpose
+---|---
+None |
 
-### Description
-
-- Input: 2D coordinates $x \in \mathbb{R}^2$
-- Output: PDF $\tau$ evaluated at $x$
-
-## Model
+## Description
 
 First, define a helper function
 

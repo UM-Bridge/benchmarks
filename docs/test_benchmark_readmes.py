@@ -2,7 +2,7 @@ import glob
 import marko
 from argparse import ArgumentParser
 
-for filename in glob.glob('../benchmarks/*/README.md'):
+for filename in glob.glob('../benchmarks/*/README.md') + glob.glob('../models/*/README.md'):
   print(f"Checking file {filename}")
 
   file = open(filename,mode='r')
@@ -11,7 +11,7 @@ for filename in glob.glob('../benchmarks/*/README.md'):
 
   test_doc = marko.parse(test_file_content)
 
-  undefined_headings = {"Authors": 2, "Overview": 2, "Run": 2, "Properties": 2, "Configuration": 3, "Description": 3, "Model": 2}
+  undefined_headings = {"Overview": 2, "Authors": 2, "Run": 2, "Properties": 2, "Description": 2}
 
   for entry in test_doc.children:
     if entry.get_type() == "Heading":

@@ -1,10 +1,13 @@
-# Analytic-Gaussian-Mixture Benchmark
-
-## Authors
-- [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)
+# Analytic Gaussian Mixture
 
 ## Overview
 This benchmark consists of an analytically defined PDF $\pi : \mathbb{R}^2 \rightarrow \mathbb{R}$ consisting of a Gaussian mixture.
+
+![Contour](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-gaussian-mixture/contour.png "Contour plot")
+![Samples](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/analytic-gaussian-mixture/samples.png "Sample scatterplot")
+
+## Authors
+- [Linus Seelinger](mailto:linus.seelinger@iwr.uni-heidelberg.de)
 
 ## Run
 ```
@@ -12,10 +15,11 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-gaussian-mixture
 ```
 
 ## Properties
-Value | Dimensions
----|---
-inputSizes | [2]
-outputSizes | [1]
+
+Mapping | Dimensions | Description
+---|---|---
+input | [2] | 2D coordinates $x \in \mathbb{R}^2$
+output | [1] | PDF $\tau$ evaluated at $x$
 
 Feature | Supported
 ---|---
@@ -24,16 +28,15 @@ Gradient | True
 ApplyJacobian | True
 ApplyHessian | False
 
-### Configuration
+Config | Type | Default | Description
+---|---|---|---
+None | | |
 
-None
+Mount directory | Purpose
+---|---
+None |
 
-### Description
-
-- Input: 2D coordinates $x \in \mathbb{R}^2$
-- Output: PDF $\tau$ evaluated at $x$
-
-## Model
+## Description
 
 Let
 $X_1 \sim \mathcal{N}(\begin{pmatrix} -1.5 \\ -1.5 \end{pmatrix}, 0.8 I)$,

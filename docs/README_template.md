@@ -13,22 +13,7 @@ Fill short overview of the benchmark
 docker run -it -p 4243:4243 docker-image-image
 ```
 
-## Properties
-Value | Dimensions
----|---
-inputSizes | [fill input size]
-outputSizes | [fill output size]
-
-Feature | Supported
----|---
-Evaluate | True
-Gradient | False
-ApplyJacobian | False
-ApplyHessian | False
-
-### Configuration
-
-Optionally fill any additional configuration parameters
+Insert "Properties" section from generator script here
 
 ### Description
 
