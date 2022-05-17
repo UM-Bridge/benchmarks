@@ -16,8 +16,9 @@ docker run -it -p 4243:4243 linusseelinger/model-muq-beam:latest
 ## Properties
 Mapping | Dimensions | Description
 ---|---|---
-inputSizes | [31]
-outputSizes | [31]
+inputSizes | [31] | The stiffness $E(x)$ at each finite difference node in the discretization.
+outputSizes | [31] | The vertical displacement $u(x)$ at each finite difference node.
+
 
 Feature | Supported
 ---|---
@@ -36,7 +37,7 @@ None |
 
 ## Description
 
-Let $u(x)$ denote the vertical deflection of the beam and let $m(x)$ denote the vertial force acting on the beam at point $x$ (positive for upwards, negative for downwards).  We assume that the displacement can be well approximated using Euler-Bernoulli beam theory and thus satisfies the PDE
+Let $u(x)$ denote the vertical deflection of the beam and let $f(x)$ denote the vertical force acting on the beam at point $x$ (positive for upwards, negative for downwards).  We assume that the displacement can be well approximated using Euler-Bernoulli beam theory and thus satisfies the PDE
 
 $$\frac{\partial^2}{\partial x^2}\left[ r E(x) \frac{\partial^2 u}{\partial x^2}\right] = f(x),$$
 
