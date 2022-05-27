@@ -19,8 +19,8 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-muq-beam:latest
 
 Mapping | Dimensions | Description
 ---|---|---
-inputSizes | [3]
-outputSizes | [1]
+inputSizes | [3] | The value of the beam stiffness in each lumped region. 
+outputSizes | [1] | The log posterior density.
 
 Feature | Supported
 ---|---

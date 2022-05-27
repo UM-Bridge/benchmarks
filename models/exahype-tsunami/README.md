@@ -1,4 +1,4 @@
-# ExaHyPE-Tsunami Model
+# Tsunami
 
 ## Overview
 In this benchmark we model the propagation of the 2011 Tohoku tsunami by solving the shallow water equations. For the numerical solution of the PDE, we apply an ADER-DG method implemented in the [ExaHyPE framework](https://www.sciencedirect.com/science/article/pii/S001046552030076X). The aim is to obtain the parameters describing the initial displacements from the data of two available buoys located near the Japanese coast
@@ -11,14 +11,14 @@ In this benchmark we model the propagation of the 2011 Tohoku tsunami by solving
 ## Run
 
 ```
-docker run -it -p 4243:4243 linusseelinger/model-exahype-tsunami
+docker run -it -p 4242:4242 linusseelinger/model-exahype-tsunami
 ```
 
 ## Properties
 Mapping | Dimensions | Description
 ---|---|---
 inputSizes | [2] | x and y coordinates of a proposed tsunami origin
-outputSizes | [1] | Arrival time and maximum water height at two buoy points
+outputSizes | [4] | Arrival time and maximum water height at two buoy points
 
 Feature | Supported
 ---|---
