@@ -69,9 +69,11 @@ $$m(x) = \sum_{i=1}^P m_i \,I\left(x\in [a_i, a_{i+1})\right),$$
 
 where $I(\cdot)$ is an indicator function.
 
-As our forward model, we define $ F : \mathbb{R}^3 \rightarrow \mathbb{R}^N $ mapping a parameter vector $m = [m_1, m_2, m_3]$ onto the corresponding solution vector $\hat{u}$
+As our forward model, we define $ F : \mathbb{R}^3 \rightarrow \mathbb{R}^N $ mapping a parameter vector $m = [m_1, m_2, m_3]$ onto the corresponding solution vector $\hat{u}$.
 
-Finally, the quantity of interest $ Q : \mathbb{R}^N \rightarrow \mathbb{R}^2 $ simply picks the solution at the 10th and 25th node, i.e. $ Q(\hat{u}) \coloneqq \left(\begin{matrix} \hat{u}_{10} \\ \hat{u}_{25} \end{matrix} \right) $
+Finally, the quantity of interest $ Q : \mathbb{R}^N \rightarrow \mathbb{R}^2 $ simply picks the solution at the 10th and 25th node, i.e. $ Q(\hat{u}) := \left(\begin{matrix} \hat{u}_{10} \\ \hat{u}_{25} \end{matrix} \right) $.
+
+The container implements the mapping $F$; implementing $Q$, i.e. picking out the respective solution entries, is up to the user.
 
 ### Uncertainty propagation
 
