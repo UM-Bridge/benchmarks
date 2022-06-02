@@ -1,11 +1,9 @@
 name: benchmark-muq-beam
 
 on:
-  workflow_run:
-    workflows: ["model-muq-beam"]
-    branches: [main]
-    types:
-      - completed
+  push:
+    branches:
+      - 'main'
 
 jobs:
   build:

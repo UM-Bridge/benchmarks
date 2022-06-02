@@ -19,8 +19,8 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-muq-beam:latest
 
 Mapping | Dimensions | Description
 ---|---|---
-inputSizes | [3] | The value of the beam stiffness in each lumped region. 
-outputSizes | [1] | The log posterior density.
+input | [3] | The value of the beam stiffness in each lumped region.
+output | [1] | The log posterior density.
 
 Feature | Supported
 ---|---
@@ -66,12 +66,12 @@ $$m(x) = \sum_{i=1}^P m_i \,I\left(x\in [a_i, a_{i+1})\right),$$
 
 where $I(\cdot)$ is an indicator function.
 
-#### Prior
+### Prior
 For the prior, we assume each value is an independent normal random variable
 
 $$m_i \sim N(\mu_i, \sigma_i^2).$$
 
-#### Likelihood
+### Likelihood
 Let $N_x$ denote the number of finite difference nodes used to discretize the Euler-Bernoulli PDE above.  For this problem, we will have observations of the solution $u(x)$ at $N_y$ of the finite difference nodes.  Let $\hat{u}\in\mathbb{R}^{N_x}$ denote a vector containing the finite difference solution and let $y\in\mathbb{R}^{N_y}$ denote the observable random variable, which is the solution $u$ at $N_y$ nodes plus some noise $\epsilon$, i.e.
 
 $$y = B\hat{u} + \epsilon,$$
@@ -88,7 +88,7 @@ The likelihood function then takes the form
 
 $$p(y | m) = N\left(\, B [K(m)]^{-1} f,\,\,\Sigma_y \,\right).$$
 
-#### Posterior
+### Posterior
 Evaluating the posterior, which is simply written as
 
 $$p(m|y) \propto p(y|m)p(m),$$
