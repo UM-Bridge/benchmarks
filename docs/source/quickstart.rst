@@ -3,7 +3,7 @@ Quickstart Guide
 ================
 
 Installation
-============
+==============
 
 The benchmarks do not need to be installed. Each benchmark is provided as a Docker image hosted on dockerhub and can be run with a single command, which you can find on the respective benchmark's documentation page.
 
@@ -12,7 +12,7 @@ Requirements:
 * Docker (available for all major operating systems at www.docker.com)
 
 Running a first model
-============
+========================
 
 We begin by starting the tsunami model from the benchmark library. To make it more interesting, we also mount the output directory specified in the model's documentation to a folder in our home directory. This will allow us later to conveniently access output files from the model.
 
@@ -29,7 +29,7 @@ Alternatively, any other UM-Bridge client can connect to the model. You can even
 ``curl http://localhost:4242/Evaluate -X POST -d '{"input": [[100.0, 50.0]], "config":{"vtk_output": true}}'``
 
 Contributing
-============
+==============
 
 We welcome any new benchmarks added to the collection. To add a new benchmark you will need a Dockerfile defining the setup of your software and a README.md. Place these into a folder within benchmarks. You can access all existing benchmarks definitions in this repository for reference.
 

@@ -22,14 +22,24 @@ Getting started
 
    /quickstart
 
-Benchmarks
---------------------
+Propagation Benchmarks
+-----------------------
 
 .. toctree::
    :glob:
    :maxdepth: 1
 
-   /benchmarks/index
+   /forward-benchmarks/index
+
+Inference Benchmarks
+-----------------------
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   /inverse-benchmarks/index
+
 
 Models
 --------------------
@@ -39,6 +49,15 @@ Models
    :maxdepth: 1
 
    /models/index
+
+About
+--------------------
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   /about
 
 
 
