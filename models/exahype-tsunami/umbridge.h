@@ -1,9 +1,5 @@
-#ifndef HTTPCOMM
-#define HTTPCOMM
-
-// Ensure that we only have 1 handler running at once!
-// More might cause the model itself to run concurrently!
-#define CPPHTTPLIB_THREAD_POOL_COUNT 1
+#ifndef UMBRIDGE
+#define UMBRIDGE
 
 // Increase timeout to allow for long-running models.
 // This should be (to be on the safe side) significantly greater than the maximum time your model may take
@@ -51,7 +47,7 @@ namespace umbridge {
 
     virtual void Evaluate(std::vector<std::reference_wrapper<const Eigen::VectorXd>> const& inputs,
                           json config = json()) {
-      throw std::runtime_error("Gradient was called, but not implemented by model!");
+      throw std::runtime_error("Evaluate was called, but not implemented by model!");
     }
 
     virtual void Gradient(unsigned int outWrt,
@@ -98,7 +94,7 @@ namespace umbridge {
   class HTTPModel : public Model {
   public:
 
-    HTTPModel(std::string host, httplib::Headers headers)
+    HTTPModel(std::string host, httplib::Headers headers = httplib::Headers())
     : host(host), headers(headers), Model(read_input_size(host, headers), read_output_size(host, headers))
     {
       outputs.resize(outputSizes.size());
@@ -289,6 +285,7 @@ namespace umbridge {
   void serveModel(Model& model, std::string host, int port) {
 
     httplib::Server svr;
+    std::mutex model_mutex; // Ensure the underlying model is only called sequentially
 
     svr.Post("/Evaluate", [&](const httplib::Request &req, httplib::Response &res) {
       if (!model.SupportsEvaluate()) {
@@ -298,6 +295,8 @@ namespace umbridge {
         res.set_content(response_body.dump(), "text/plain");
         return;
       }
+
+      const std::lock_guard<std::mutex> model_lock(model_mutex);
 
       //std::cout << "Received a Get with body " << req.body << std::endl;
       json request_body = json::parse(req.body);
@@ -332,6 +331,8 @@ namespace umbridge {
         res.set_content(response_body.dump(), "text/plain");
         return;
       }
+
+      const std::lock_guard<std::mutex> model_lock(model_mutex);
 
       json request_body = json::parse(req.body);
 
@@ -369,6 +370,8 @@ namespace umbridge {
         return;
       }
 
+      const std::lock_guard<std::mutex> model_lock(model_mutex);
+
       json request_body = json::parse(req.body);
 
       unsigned int inWrt = request_body.at("inWrt");
@@ -404,6 +407,8 @@ namespace umbridge {
         res.set_content(response_body.dump(), "text/plain");
         return;
       }
+
+      const std::lock_guard<std::mutex> model_lock(model_mutex);
 
       json request_body = json::parse(req.body);
 
