@@ -24,6 +24,6 @@ jobs:
 
   build:
     name: run make documentation
-    uses: ./benchmarks/.github/workflows/generate-documentation-shared.yml
+    uses: UM-Bridge/benchmarks/.github/workflows/generate-documentation-shared.yml@main
 
 
