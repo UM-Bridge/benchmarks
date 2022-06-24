@@ -1,4 +1,4 @@
-name: generate-documentation
+name: generate-documentation-shared
 
 on:
   workflow_call:
