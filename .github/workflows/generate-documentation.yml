@@ -24,6 +24,6 @@ jobs:
           path: umbridge
       -
         name: run make documentation
-        uses: ./benchmarks/.github/workflows/generate-documentation-shared.yaml
+        uses: ./benchmarks/.github/workflows/generate-documentation-shared.yml
 
 
