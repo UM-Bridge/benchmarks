@@ -1,0 +1,32 @@
+name: generate-documentation
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Generate documentation
+        working-directory: benchmarks/docs
+        run: |
+            ls -l
+            bash generate_documentation.sh
+
+      -
+        name: push changes to remote without triggering CI
+        working-directory: benchmarks/docs/docs_output
+        run: |
+          git init
+          git checkout --orphan docs
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add --all
+          git commit -m "[skip ci] Generate rst files" || echo "Nothing to push"
+
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+
+          git push --force --set-upstream origin docs
