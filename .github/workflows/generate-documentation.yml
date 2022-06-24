@@ -7,7 +7,7 @@ on:
       - 'main'
 
 jobs:
-  build:
+  checkout:
     runs-on: ubuntu-latest
     steps:
       -
@@ -21,8 +21,9 @@ jobs:
         with: 
           repository: UM-Bridge/umbridge
           path: umbridge
-      -
-        name: run make documentation
-        uses: ./benchmarks/.github/workflows/generate-documentation-shared.yml
+
+  build:
+    name: run make documentation
+    uses: ./benchmarks/.github/workflows/generate-documentation-shared.yml
 
 
