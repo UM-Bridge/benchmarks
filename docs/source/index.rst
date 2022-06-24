@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-UQ Benchmarks documentation
+UM-Bridge documentation
 ======================================
 
 .. image:: logos/UM-bridge.png
@@ -21,6 +21,7 @@ Getting started
    :maxdepth: 1
 
    /quickstart
+   /umbridge/index
 
 Propagation Benchmarks
 -----------------------

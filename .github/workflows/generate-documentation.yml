@@ -13,17 +13,25 @@ jobs:
       -
         name: Checkout code
         uses: actions/checkout@v2
+        with:
+          path: benchmarks
+      -
+        name: Checkout code
+        uses: actions/checkout@v2
+        with: 
+          repository: UM-Bridge/umbridge
+          path: umbridge
 
       -
         name: Generate documentation
-        working-directory: docs
+        working-directory: benchmarks/docs
         run: |
             ls -l
             bash generate_documentation.sh
 
       -
         name: push changes to remote without triggering CI
-        working-directory: docs/docs_output
+        working-directory: benchmarks/docs/docs_output
         run: |
           git init
           git checkout --orphan docs

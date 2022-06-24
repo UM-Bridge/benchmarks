@@ -8,9 +8,10 @@ cp -r source docs_output/source
 mkdir docs_output/source/forward-benchmarks
 mkdir docs_output/source/inverse-benchmarks
 mkdir docs_output/source/models
+mkdir docs_output/source/umbridge
 cp ../README.md docs_output/markdown/main.md
 
-# Create index file
+# Create index files
 cp ../benchmarks/README.md docs_output/markdown/forward-benchmarks.md
 cat > docs_output/source/forward-benchmarks/index.rst << EOF
 .. include:: ../markdown/forward-benchmarks.md
@@ -47,6 +48,15 @@ For more details on the models see their individual documentation:
 
 EOF
 
+cat > docs_output/source/umbridge/index.rst << EOF
+
+.. toctree::
+   :maxdepth: 3
+
+   clients
+   servers
+EOF
+
 # Loop over all forward benchmarks
 for f in $(find ../benchmarks/ -name 'README.md'); do
     NAME=`echo $f | xargs dirname | xargs basename`
@@ -81,3 +91,18 @@ for f in $(find ../models/ -name 'README.md'); do
    $NAME
 EOF
 done
+
+# Loop over UM-Bridge Documentation
+# TODO build class documentation
+for f in $(find ../../umbridge/ -name 'README.md'); do
+    NAME=`echo $f | xargs dirname | xargs basename`
+    [ "$NAME" != "umbridge"  ] || continue
+    cp $f docs_output/source/umbridge/$NAME.md
+    [ "$NAME" != "clients" ] || continue
+    [ "$NAME" != "servers" ] || continue
+    # Append to toctree
+    cat >> docs_output/source/umbridge/index.rst << EOF
+   $NAME
+EOF
+done
+
