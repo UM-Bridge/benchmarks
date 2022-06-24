@@ -7,21 +7,6 @@ on:
       - 'main'
 
 jobs:
-  checkout:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          path: benchmarks
-      -
-        name: Checkout code
-        uses: actions/checkout@v2
-        with: 
-          repository: UM-Bridge/umbridge
-          path: umbridge
-
   build:
     name: run make documentation
     uses: UM-Bridge/benchmarks/.github/workflows/generate-documentation-shared.yml@main
