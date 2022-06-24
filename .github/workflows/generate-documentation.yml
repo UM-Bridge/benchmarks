@@ -2,7 +2,7 @@ name: generate-documentation
 
 on:
   workflow_dispatch:
-  repository_dispatch:
+  workflow_call:
   push:
     branches:
       - 'main'
