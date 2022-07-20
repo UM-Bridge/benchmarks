@@ -712,20 +712,24 @@ namespace Sampler
 class Laplace : public umbridge::Model {
 public:
   Laplace(const std::string& dataset_name)
-   : Model(Eigen::VectorXi::Ones(1)*169, Eigen::VectorXi::Ones(1)*169),
+   : Model({64}, {169}),
      laplace_problem(
       /* global_refinements = */ 5,
       /* fe_degree = */ 1,
       dataset_name)
   {
-    outputs.push_back(Eigen::VectorXd::Ones(169));
+    outputs.push_back(std::vector<double>(169));
   }
 
-  void Evaluate(std::vector<std::reference_wrapper<const Eigen::VectorXd>> const& inputs, json config) override {
+  void Evaluate(std::vector<std::vector<double>> const& inputs, json config) override {
     // TODO
-    std::vector<double> input(inputs[0].get().data(), inputs[0].get().data() + inputs[0].get().size());
-    laplace_problem.evaluate(input);
+    //std::vector<double> input(inputs[0].get().data(), inputs[0].get().data() + inputs[0].get().size());
+
+    dealii::Vector<double> dealii_input(inputs[0].begin(), inputs[0].end());
+    const dealii::Vector<double> solution = laplace_problem.evaluate(dealii_input);
+    outputs[0] = std::vector<double>(solution.begin(), solution.end());
   }
+
   bool SupportsEvaluate() override {
     return true;
   }
