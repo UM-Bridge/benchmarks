@@ -1,9 +1,12 @@
 FROM dealii/dealii
 
-RUN sudo apt update && sudo apt install -y libeigen3-dev
-
 COPY . /laplace/
 
-RUN sudo mkdir /laplace/build && cd /laplace/build && sudo cmake .. && sudo make
+RUN cd / && sudo git clone https://github.com/UM-Bridge/umbridge.git
+
+RUN sudo mkdir /laplace/build &&\
+    cd /laplace/build &&\
+    sudo cmake -DCMAKE_CXX_FLAGS=-I\ /umbridge/lib .. &&\
+    sudo make
 
 CMD /laplace/build/mcmc-laplace

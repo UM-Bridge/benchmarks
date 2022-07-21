@@ -24,11 +24,6 @@ PROJECT("mcmc-laplace")
 # Set up program:
 #
 
-find_package (Eigen3 3.3 REQUIRED NO_MODULE)
-
 SET(TARGET "mcmc-laplace")
 SET(TARGET_SRC ${TARGET}.cc)
 DEAL_II_INVOKE_AUTOPILOT()
-
-target_link_libraries(mcmc-laplace Eigen3::Eigen)
-

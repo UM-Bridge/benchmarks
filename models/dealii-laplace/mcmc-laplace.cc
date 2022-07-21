@@ -721,10 +721,7 @@ public:
     outputs.push_back(std::vector<double>(169));
   }
 
-  void Evaluate(std::vector<std::vector<double>> const& inputs, json config) override {
-    // TODO
-    //std::vector<double> input(inputs[0].get().data(), inputs[0].get().data() + inputs[0].get().size());
-
+  void Evaluate(std::vector<std::vector<double>> const& inputs, [[maybe_unused]] json config) override {
     dealii::Vector<double> dealii_input(inputs[0].begin(), inputs[0].end());
     const dealii::Vector<double> solution = laplace_problem.evaluate(dealii_input);
     outputs[0] = std::vector<double>(solution.begin(), solution.end());
