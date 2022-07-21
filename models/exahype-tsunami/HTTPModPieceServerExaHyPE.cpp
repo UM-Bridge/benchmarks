@@ -13,9 +13,9 @@ class TsunamiModel : public umbridge::Model {
 public:
 
   TsunamiModel(int ranks)
-   : Model(Eigen::VectorXi::Ones(1)*2, Eigen::VectorXi::Ones(1)*4), ranks(ranks)
+   : Model({2}, {4}), ranks(ranks)
   {
-    outputs.push_back(Eigen::VectorXd::Ones(4));
+    outputs.push_back(std::vector<double>(4));
 
     char const* shared_dir_cstr = std::getenv("SHARED_DIR");
     if ( shared_dir_cstr == NULL ) {
@@ -25,7 +25,7 @@ public:
     shared_dir = std::string(shared_dir_cstr);
   }
 
-  void Evaluate(std::vector<std::reference_wrapper<const Eigen::VectorXd>> const& inputs, json config) override {
+  void Evaluate(std::vector<std::vector<double>> const& inputs, json config) override {
     std::cout << "Reading options" << std::endl;
     int level = config.value("level", 0);
     bool verbose = config.value("verbosity", false);
@@ -36,8 +36,8 @@ public:
     std::ofstream inputsfile (shared_dir + "inputs.txt");
     typedef std::numeric_limits<double> dl;
     inputsfile << std::fixed << std::setprecision(dl::digits10);
-    for (int i = 0; i < inputs[0].get().rows(); i++) {
-      inputsfile << inputs[0](i) << std::endl;
+    for (int i = 0; i < inputs[0].size(); i++) {
+      inputsfile << inputs[0][i] << std::endl;
     }
     inputsfile.close();
 
@@ -77,14 +77,14 @@ public:
     {
     std::ifstream outputsfile(shared_dir + "Probe18outputs.txt");
     for (int i = 0; i < 2; i++) {
-      outputsfile >> outputs[0](i);
+      outputsfile >> outputs[0][i];
     }
     outputsfile.close();
     }
     {
     std::ifstream outputsfile(shared_dir + "Probe19outputs.txt");
     for (int i = 2; i < 4; i++) {
-      outputsfile >> outputs[0](i);
+      outputsfile >> outputs[0][i];
     }
     outputsfile.close();
     }
