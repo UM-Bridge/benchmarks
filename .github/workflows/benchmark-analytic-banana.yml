@@ -53,10 +53,9 @@ jobs:
        -
         name: Dependencies
         run: |
-          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-aiohttp python3-requests python3-pytest
+          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-pip && pip3 install pytest umbridge
        -
         name: Validate output
         run: |
           cd benchmarks/analytic-banana/ && \
-          wget https://raw.githubusercontent.com/UM-Bridge/umbridge/main/clients/python/umbridge.py && \
           python3 test_output.py http://localhost:4243
