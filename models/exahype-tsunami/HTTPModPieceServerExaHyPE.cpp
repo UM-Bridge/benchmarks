@@ -88,7 +88,11 @@ public:
     }
     outputsfile.close();
     }
-    std::cout << "Read outputs from exahype:" << outputs[0] << std::endl;
+    // Print output zero from exahype
+    std::cout << "Outputs read from exahype: " << std::endl;
+    for (std::size_t i = 0; i < outputs[0].size(); i++) {
+      std::cout << outputs[0][i] << std::endl;
+    }
 
     std::cout << "Left" << std::endl;
   }
