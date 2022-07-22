@@ -2,6 +2,10 @@
 ## Overview
 ## Authors
 ## Run
+```
+docker run -it -p 4242:4242 linusseelinger/model-laplace:latest
+```
+
 ## Properties
 
 Mapping | Dimensions | Description
