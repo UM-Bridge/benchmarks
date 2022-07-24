@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('../../benchmarks/'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'UQ Benchmarks'
+project = 'UM-Bridge'
 copyright = '2022, UM-Bridge Team'
 author = 'UM-Bridge Team'
 
