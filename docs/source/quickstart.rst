@@ -20,6 +20,9 @@ We begin by starting the tsunami model from the benchmark library. To make it mo
 
 Now the model is running, ready to be called by a client.
 
+Calling the model from Python
+========================
+
 One way to access the model is from Python. First install UM-Bridge support in Python via pip:
 
 ``pip install umbridge``
@@ -30,6 +33,9 @@ Now, you can call the model by running the Python example ``umbridge-client.py``
 
 This example triggers two runs of the model. The second one activates the model's VTK output. You can access the resulting files in the folder we mounted above in your home directory, and view them using a suitable tool like ParaView.
 
-Alternatively, any other UM-Bridge client can connect to the model, for example the c++ example in the UM-Bridge repository. You can even do a raw HTTP request using the `curl` command line tool.
+Alternative clients
+========================
+
+Any other UM-Bridge client can connect to the model as well, for example the c++ example in the UM-Bridge repository. You can even do a raw HTTP request using the `curl` command line tool.
 
 ``curl http://localhost:4242/Evaluate -X POST -d '{"input": [[100.0, 50.0]], "config":{"vtk_output": true}}'``
