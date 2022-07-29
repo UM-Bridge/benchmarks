@@ -17,3 +17,5 @@ This repository hosts stand-alone reference problems for benchmarking of UQ algo
 The documentation for the project and for the benchmark problems within is at: [Documentation](https://um-bridge-benchmarks.readthedocs.io/en/docs/).
 
 The project source code is [hosted on GitHub](https://github.com/UM-Bridge).
+
+Join the project [slack channel](https://join.slack.com/t/um-bridge/shared_invite/zt-1da1ebkly-8s0YQdZUIYkJ1vws6edsAQ).
