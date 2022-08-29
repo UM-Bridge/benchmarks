@@ -42,7 +42,7 @@ None |
 
 We begin with a normally distributed random variable $Z \sim \mathcal{N}(\begin{pmatrix} 0 \\ 4 \end{pmatrix}, scale \begin{pmatrix} 1.0 & 0.5\\ 0.5 & 1.0 \end{pmatrix})$, and denote its PDF by $f_Z$.
 
-In order to the normal distribution, define a transformation $T : \mathbb{R}^2 \rightarrow \mathbb{R}^2$
+In order to reshape the normal distribution, define a transformation $T : \mathbb{R}^2 \rightarrow \mathbb{R}^2$
 
 $$ T(x) := \begin{pmatrix} x_1 / a \\ a x_2 + a b (x_1^2 + a^2) \end{pmatrix}. $$
 
