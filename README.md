@@ -12,7 +12,7 @@ The key idea of UM-Bridge is to now provide this mathematical "interface" as an 
 * Containarization of models, making collaboration easier due to portability of models and separation of concerns between fields (specifically model and statistics experts).
 * Unified, portable, fully reproducible and black-box benchmark problems defined software.
 
-This table shows what languages and frameworks UM-Bridge provides integrations for. Note that "server" refers to the model side, while "client" is the uncertainty quantification / statistics / optimization side.
+This table shows what languages and frameworks UM-Bridge currently provides integrations for. Note that "server" refers to the model side, while "client" is the uncertainty quantification / statistics / optimization side. We are happy to actively support the development of new integrations.
 
 Language / framework | Client support | Server support
 ---|---|---
