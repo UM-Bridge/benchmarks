@@ -12,6 +12,15 @@ The key idea of UM-Bridge is to now provide this mathematical "interface" as an 
 * Containarization of models, making collaboration easier due to portability of models and separation of concerns between fields (specifically model and statistics experts).
 * Unified, portable, fully reproducible and black-box benchmark problems defined software.
 
+
+Language / framework | Client support | Server support
+---|---|---
+C++ | 🗸 | 🗸
+Python | 🗸 | 🗸
+R | 🗸 | ✗
+MUQ | 🗸 | 🗸
+
+
 This repository hosts stand-alone reference problems for benchmarking of UQ algorithms.
 
 The documentation for the project and for the benchmark problems within is at: [Documentation](https://um-bridge-benchmarks.readthedocs.io/en/docs/).
