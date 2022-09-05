@@ -1,6 +1,6 @@
-UM-Bridge (the UQ and Model Bridge) provides a unified interface for numerical models that is accessible from virtually any programming language or framework. It is primarily intended for coupling advanced models (e.g. simulations of complex physical processes) to advanced statistical or optimization methods.
+UM-Bridge (the UQ and Model Bridge) provides a unified interface for numerical models that is accessible from virtually any programming language or framework. It is primarily intended for coupling advanced models (e.g. simulations of complex physical processes) to advanced statistics or optimization methods.
 
-In many statistical / uncertainty quantification or optimization methods, the model only appears as a function mapping vectors onto vectors with some of the following:
+In many statistics / uncertainty quantification or optimization methods, the model only appears as a function mapping vectors onto vectors with some of the following:
 * Simple evaluation,
 * Gradient evaluation,
 * Jacobian action,
@@ -12,6 +12,7 @@ The key idea of UM-Bridge is to now provide this mathematical "interface" as an 
 * Containarization of models, making collaboration easier due to portability of models and separation of concerns between fields (specifically model and statistics experts).
 * Unified, portable, fully reproducible and black-box benchmark problems defined software.
 
+This table shows what languages and frameworks UM-Bridge provides integrations for. Note that "server" refers to the model side, while "client" is the uncertainty quantification / statistics / optimization side.
 
 Language / framework | Client support | Server support
 ---|---|---
