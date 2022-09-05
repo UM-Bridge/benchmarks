@@ -19,7 +19,7 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-gaussian-mixture
 Mapping | Dimensions | Description
 ---|---|---
 input | [2] | 2D coordinates $x \in \mathbb{R}^2$
-output | [1] | PDF $\tau$ evaluated at $x$
+output | [1] | Log PDF $\pi$ evaluated at $x$
 
 Feature | Supported
 ---|---
