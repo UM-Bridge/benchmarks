@@ -49,3 +49,5 @@ The PDF $\pi$ is then defined as
 $$ \pi(x) := \sum_{i=1}^3 f_{X_i}(x), $$
 
 and the benchmark outputs $\log(\pi(x))$.
+
+This distribution is inspired by Chi Feng's excellent online mcmc-demo.

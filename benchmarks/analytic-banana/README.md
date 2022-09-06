@@ -49,3 +49,5 @@ $$ T(x) := \begin{pmatrix} x_1 / a \\ a x_2 + a b (x_1^2 + a^2) \end{pmatrix}. $
 Finally, the benchmark log PDF is defined as
 
 $$ log(\pi(x)) := log(f_Z(T(x))). $$
+
+This distribution is inspired by Chi Feng's excellent online mcmc-demo.

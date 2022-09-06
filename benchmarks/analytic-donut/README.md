@@ -45,3 +45,5 @@ $$ \pi(x) := - \frac{(\| x \| - r)^2}{\sigma^2}, $$
 where $r = 2.6$ and $\sigma^2 = 0.033$.
 
 The implementation then returns the log PDF $\log(\pi(x))$.
+
+This distribution is inspired by Chi Feng's excellent online mcmc-demo.

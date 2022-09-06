@@ -44,3 +44,5 @@ $$ f(x,m,s) := - \frac12 \log(2 \pi) - \log(s) - \frac12 ((x-m)/s)^2. $$
 Now, the output log PDF is defined as
 
 $$ \log(\tau(x)) := f(x_1, 0, 3) + f(x_2, 0, \exp(\frac12 x_1)). $$
+
+This distribution is from Neal, Radford M. 2003, “Slice Sampling.” Annals of Statistics 31 (3): 705–67.
