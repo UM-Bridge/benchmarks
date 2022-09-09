@@ -20,6 +20,7 @@ C++ | 🗸 | 🗸
 Python | 🗸 | 🗸
 R | 🗸 | ✗
 MUQ | 🗸 | 🗸
+PyMC (4.x) | 🗸 | ✗
 
 
 This repository hosts stand-alone reference problems for benchmarking of UQ algorithms.
