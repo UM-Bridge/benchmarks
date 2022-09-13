@@ -19,7 +19,8 @@ detail in the paper mentioned above.
 
 ## Authors
 
-David Aristoff and Wolfgang Bangerth (Colorado State University)
+[David Aristoff](mailto:David.Aristoff@colostate.edu) and
+[Wolfgang Bangerth](mailto:bangerth@colostate.edu) (Colorado State University).
 
 ## Run
 ```
