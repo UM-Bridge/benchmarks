@@ -6,13 +6,16 @@ import numpy as np
 
 class Funnel(umbridge.Model):
 
-    def get_input_sizes(self):
+    def __init__(self):
+        super().__init__("posterior")
+
+    def get_input_sizes(self, config):
         return [2]
 
-    def get_output_sizes(self):
+    def get_output_sizes(self, config):
         return [1]
 
-    def __call__(self, parameters, config={}):
+    def __call__(self, parameters, config):
         def f(x, m, s):
             return -0.5 * np.log(2 * np.pi) - np.log(s) - 0.5 * ((x-m)/s)**2
         m0 = 0
@@ -24,14 +27,14 @@ class Funnel(umbridge.Model):
     def supports_evaluate(self):
         return True
 
-    def gradient(self, out_wrt, in_wrt, parameters, sens, config={}):
+    def gradient(self, out_wrt, in_wrt, parameters, sens, config):
         return [self.apply_jacobian(out_wrt, in_wrt, parameters, [sens[0], 0])[0],
                 self.apply_jacobian(out_wrt, in_wrt, parameters, [0, sens[0]])[0]]
 
     def supports_gradient(self):
         return True
 
-    def apply_jacobian(self, out_wrt, in_wrt, parameters, vec, config={}):
+    def apply_jacobian(self, out_wrt, in_wrt, parameters, vec, config):
         def f(x, m, s):
             return -0.5 * np.log(2 * np.pi) - np.log(s) - 0.5 * ((x-m)/s)**2
         def dfdx(x, m, s):
@@ -51,4 +54,4 @@ class Funnel(umbridge.Model):
 
 model = Funnel()
 
-umbridge.serve_model(model, 4243)
+umbridge.serve_models([model], 4243)

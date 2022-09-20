@@ -712,19 +712,29 @@ namespace Sampler
 class Laplace : public umbridge::Model {
 public:
   Laplace(const std::string& dataset_name)
-   : Model({64}, {169}),
+   : Model("forward"),
      laplace_problem(
       /* global_refinements = */ 5,
       /* fe_degree = */ 1,
       dataset_name)
-  {
-    outputs.push_back(std::vector<double>(169));
+  {}
+
+  std::vector<size_t> GetInputSizes(const json& config_json) const override {
+    return {64};
   }
 
-  void Evaluate(std::vector<std::vector<double>> const& inputs, [[maybe_unused]] json config) override {
+  std::vector<size_t> GetOutputSizes(const json& config_json) const override {
+    return {169};
+  }
+
+  std::vector<std::vector<double>> Evaluate(std::vector<std::vector<double>> const& inputs, [[maybe_unused]] json config) override {
     dealii::Vector<double> dealii_input(inputs[0].begin(), inputs[0].end());
     const dealii::Vector<double> solution = laplace_problem.evaluate(dealii_input);
+
+    std::vector<std::vector<double>> outputs;
+    outputs.push_back(std::vector<double>(169));
     outputs[0] = std::vector<double>(solution.begin(), solution.end());
+    return outputs;
   }
 
   bool SupportsEvaluate() override {
@@ -873,7 +883,8 @@ int main()
   //laplace_problem.evaluate()
 
   Laplace model(dataset_name);
-  umbridge::serveModel(model, "0.0.0.0", 4242);
+  std::vector<umbridge::Model*> models {&model};
+  umbridge::serveModels(models, "0.0.0.0", 4242);
 
   /*Sampler::MetropolisHastings sampler(laplace_problem,
                                       log_likelihood,

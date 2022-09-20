@@ -13,10 +13,8 @@ class TsunamiModel : public umbridge::Model {
 public:
 
   TsunamiModel(int ranks)
-   : Model({2}, {4}), ranks(ranks)
+   : Model("forward"), ranks(ranks)
   {
-    outputs.push_back(std::vector<double>(4));
-
     char const* shared_dir_cstr = std::getenv("SHARED_DIR");
     if ( shared_dir_cstr == NULL ) {
       std::cerr << "Environment variable SHARED_DIR not set!" << std::endl;
@@ -25,7 +23,15 @@ public:
     shared_dir = std::string(shared_dir_cstr);
   }
 
-  void Evaluate(std::vector<std::vector<double>> const& inputs, json config) override {
+  std::vector<std::size_t> GetInputSizes(const json& config) const override {
+    return { 2 };
+  }
+
+  std::vector<std::size_t> GetOutputSizes(const json& config) const override {
+    return {4};
+  }
+
+  std::vector<std::vector<double>> Evaluate(std::vector<std::vector<double>> const& inputs, json config) override {
     std::cout << "Reading options" << std::endl;
     int level = config.value("level", 0);
     bool verbose = config.value("verbosity", false);
@@ -74,6 +80,9 @@ public:
       exit(-1);
     }
     std::cout << "Exahype exit status " << status << std::endl;
+
+    std::vector<std::vector<double>> outputs(1);
+    outputs[0] = std::vector<double>(4);
     {
     std::ifstream outputsfile(shared_dir + "Probe18outputs.txt");
     for (int i = 0; i < 2; i++) {
@@ -95,6 +104,7 @@ public:
     }
 
     std::cout << "Left" << std::endl;
+    return outputs;
   }
 
   bool SupportsEvaluate() override {
