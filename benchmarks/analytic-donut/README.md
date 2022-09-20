@@ -19,7 +19,7 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-donut
 Mapping | Dimensions | Description
 ---|---|---
 input | [2] | 2D coordinates $x \in \mathbb{R}^2$
-output | [1] | PDF $\pi$ evaluated at $x$
+output | [1] | Log PDF $\pi$ evaluated at $x$
 
 Feature | Supported
 ---|---
@@ -45,3 +45,5 @@ $$ \pi(x) := - \frac{(\| x \| - r)^2}{\sigma^2}, $$
 where $r = 2.6$ and $\sigma^2 = 0.033$.
 
 The implementation then returns the log PDF $\log(\pi(x))$.
+
+This distribution is inspired by Chi Feng's excellent online mcmc-demo.

@@ -19,7 +19,7 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-gaussian-mixture
 Mapping | Dimensions | Description
 ---|---|---
 input | [2] | 2D coordinates $x \in \mathbb{R}^2$
-output | [1] | PDF $\tau$ evaluated at $x$
+output | [1] | Log PDF $\pi$ evaluated at $x$
 
 Feature | Supported
 ---|---
@@ -49,3 +49,5 @@ The PDF $\pi$ is then defined as
 $$ \pi(x) := \sum_{i=1}^3 f_{X_i}(x), $$
 
 and the benchmark outputs $\log(\pi(x))$.
+
+This distribution is inspired by Chi Feng's excellent online mcmc-demo.
