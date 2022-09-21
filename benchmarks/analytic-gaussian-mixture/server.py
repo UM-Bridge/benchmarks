@@ -6,13 +6,16 @@ from scipy.stats import multivariate_normal
 
 class GaussianMixture(umbridge.Model):
 
-    def get_input_sizes(self):
+    def __init__(self):
+        super().__init__("posterior")
+
+    def get_input_sizes(self, config):
         return [2]
 
-    def get_output_sizes(self):
+    def get_output_sizes(self, config):
         return [1]
 
-    def __call__(self, parameters, config={}):
+    def __call__(self, parameters, config):
         dens1 = multivariate_normal.pdf(parameters[0], [-1.5, -1.5], 0.8)
         dens2 = multivariate_normal.pdf(parameters[0], [1.5, 1.5], 0.8)
         dens3 = multivariate_normal.pdf(parameters[0], [-2, 2], 0.5)
@@ -22,14 +25,14 @@ class GaussianMixture(umbridge.Model):
     def supports_evaluate(self):
         return True
 
-    def gradient(self, out_wrt, in_wrt, parameters, sens, config={}):
+    def gradient(self, out_wrt, in_wrt, parameters, sens, config):
         return [self.apply_jacobian(out_wrt, in_wrt, parameters, [sens[0], 0])[0],
                 self.apply_jacobian(out_wrt, in_wrt, parameters, [0, sens[0]])[0]]
 
     def supports_gradient(self):
         return True
 
-    def apply_jacobian(self, out_wrt, in_wrt, parameters, vec, config={}):
+    def apply_jacobian(self, out_wrt, in_wrt, parameters, vec, config):
         dens1 = multivariate_normal.pdf(parameters[0], [-1.5, -1.5], 0.8)
         dens2 = multivariate_normal.pdf(parameters[0], [1.5, 1.5], 0.8)
         dens3 = multivariate_normal.pdf(parameters[0], [-2, 2], 0.5)
@@ -49,4 +52,4 @@ class GaussianMixture(umbridge.Model):
 
 model = GaussianMixture()
 
-umbridge.serve_model(model, 4243)
+umbridge.serve_models([model], 4243)

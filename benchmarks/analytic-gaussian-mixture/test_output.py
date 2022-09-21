@@ -9,7 +9,7 @@ parser.add_argument('url', metavar='url', type=str,
 args = parser.parse_args()
 print(f"Connecting to host URL {args.url}")
 
-model = umbridge.HTTPModel(args.url)
+model = umbridge.HTTPModel(args.url, "posterior")
 
 
 output = model([[0.0,0.0]])[0]
