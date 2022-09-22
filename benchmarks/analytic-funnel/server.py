@@ -28,8 +28,8 @@ class Funnel(umbridge.Model):
         return True
 
     def gradient(self, out_wrt, in_wrt, parameters, sens, config):
-        return [self.apply_jacobian(out_wrt, in_wrt, parameters, [sens[0], 0])[0],
-                self.apply_jacobian(out_wrt, in_wrt, parameters, [0, sens[0]])[0]]
+        return [self.apply_jacobian(out_wrt, in_wrt, parameters, [sens[0], 0], config)[0],
+                self.apply_jacobian(out_wrt, in_wrt, parameters, [0, sens[0]], config)[0]]
 
     def supports_gradient(self):
         return True
