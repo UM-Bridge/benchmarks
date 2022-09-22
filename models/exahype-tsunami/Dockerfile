@@ -3,7 +3,7 @@ FROM mpioperator/openmpi-builder as builder
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    apt-get install -y python3 git cmake wget curl zlib1g libhdf5-openmpi-dev libc6-dev libnuma-dev doxygen libyaml-cpp-dev libeigen3-dev gfortran libtbb-dev libstdc++-8-dev
+    apt-get install -y python3 git cmake wget curl zlib1g pkg-config libhdf5-openmpi-dev libc6-dev libnuma-dev doxygen libyaml-cpp-dev gfortran libtbb-dev libstdc++-8-dev
 
 RUN cd / && mkdir dependencies && \
     cd /dependencies/ && git clone https://github.com/uphoffc/ImpalaJIT.git && \
@@ -65,10 +65,12 @@ RUN cd /ExaHyPE-Tsunami/ApplicationExamples/SWE/SWE_asagi_limited_l0 && cp exahy
     cd /ExaHyPE-Tsunami/ApplicationExamples/SWE/SWE_asagi_limited_l1 && cp exahype_debug.log-filter exahype.log-filter && \
     cd /ExaHyPE-Tsunami/ApplicationExamples/SWE/SWE_asagi_limited_l2 && cp exahype_debug.log-filter exahype.log-filter
 
+RUN cd / && git clone https://github.com/UM-Bridge/umbridge.git
+
 # Build model server
 COPY . /server
 RUN cd /server && \
-    g++ -o server HTTPModPieceServerExaHyPE.cpp -I /usr/include/eigen3/ -lpthread
+    g++ -o server server.cpp -I /umbridge/lib -lpthread
 
 FROM mpioperator/openmpi
 
