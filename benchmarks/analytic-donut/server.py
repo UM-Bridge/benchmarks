@@ -46,4 +46,4 @@ class Donut(umbridge.Model):
 
 model = Donut()
 
-umbridge.serve_model([model], 4243)
+umbridge.serve_models([model], 4243)
