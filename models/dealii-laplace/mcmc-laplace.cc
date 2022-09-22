@@ -777,6 +777,5 @@ int main()
   const std::string  dataset_name = Utilities::to_string(random_seed, 10);
 
   Laplace model(dataset_name);
-  std::vector<umbridge::Model*> models {&model};
-  umbridge::serveModels(models, "0.0.0.0", 4242);
+  umbridge::serveModels({&model}, "0.0.0.0", 4242);
 }

@@ -132,8 +132,8 @@ int main(){
   const int ranks = atoi(ranks_cstr);
 
   TsunamiModel model(ranks);
-
-  umbridge::serveModel(model, "0.0.0.0", port);
+  std::vector<umbridge::Model*> models {&model};
+  umbridge::serveModels(models, "0.0.0.0", port);
 
   return 0;
 }
