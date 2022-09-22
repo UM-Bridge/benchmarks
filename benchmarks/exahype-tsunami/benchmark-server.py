@@ -3,15 +3,16 @@ import scipy.stats
 
 class Benchmark(umbridge.Model):
     def __init__(self, model_url):
+        super().__init__("posterior")
         self.model = umbridge.HTTPModel(model_url)
 
-    def get_input_sizes(self):
+    def get_input_sizes(self, config):
         return self.model.get_input_sizes()
 
-    def get_output_sizes(self):
+    def get_output_sizes(self, config):
         return [1]
 
-    def __call__(self, parameters, config={}):
+    def __call__(self, parameters, config):
 
         if (not "level" in config):
             config["level"] = 0
@@ -44,4 +45,4 @@ class Benchmark(umbridge.Model):
 
 benchmark = Benchmark("http://localhost:4242")
 
-umbridge.serve_model(benchmark, 4243)
+umbridge.serve_models([benchmark], 4243)
