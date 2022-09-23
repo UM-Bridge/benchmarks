@@ -401,4 +401,4 @@ if __name__ == "__main__":
     # Construct the problem
     postDens = workgraph.CreateModPiece("Log_target")
 
-    mm.serveModPiece(postDens, "0.0.0.0", 4243)
+    mm.serveModPiece(postDens, "posterior", "0.0.0.0", 4243)

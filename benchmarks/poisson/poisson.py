@@ -362,4 +362,4 @@ if __name__ == "__main__":
     # Construct the problem
     post_dens = workgraph.CreateModPiece("Target")
 
-    mm.serveModPiece(post_dens, "0.0.0.0", 4243)
+    mm.serveModPiece(post_dens, "posterior", "0.0.0.0", 4243)
