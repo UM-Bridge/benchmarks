@@ -18,13 +18,15 @@ RUN pip3 install hippylib && \
 WORKDIR /home/fenics/
 
 # Install MUQ
-RUN mkdir -p ./lib/muq && \
+USER root
+RUN apt update && apt install -y libboost-all-dev libhdf5-dev && \
     git clone --depth 1 https://bitbucket.org/mituq/muq2.git && \
     cd muq2/; mkdir build; cd build && \
     cmake -DCMAKE_INSTALL_PREFIX=/home/fenics/lib/muq -DMUQ_USE_MPI=OFF -DMUQ_USE_PYTHON=ON ../ && \
     make -j2 install && \
     cd /home/fenics/ && \
     rm -rf muq2
+USER fenics
 
 # Install hippylib-muq interface
 RUN git clone https://github.com/hippylib/hippylib2muq.git
