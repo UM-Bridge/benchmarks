@@ -105,4 +105,4 @@ graph.AddEdge("u", 0, "B", 0)
 #logPost = graph.CreateModPiece("Posterior")
 forwardModel = graph.CreateModPiece("u")
 
-mm.serveModPiece(forwardModel, "0.0.0.0", 4243)
+mm.serveModPiece(forwardModel, "forward", "0.0.0.0", 4243)

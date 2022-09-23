@@ -93,4 +93,4 @@ graph.AddEdge("Likelihood",0, "Posterior",1)
 ## Serve up the log posterior density on port 4243
 logPost = graph.CreateModPiece("Posterior")
 
-mm.serveModPiece(logPost, "0.0.0.0", 4243)
+mm.serveModPiece(logPost, "posterior", "0.0.0.0", 4243)

@@ -109,4 +109,4 @@ if __name__=='__main__':
 
     mod = graph.CreateModPiece('Forward Model')
 
-    mm.serveModPiece(mod, "0.0.0.0", 4243)
+    mm.serveModPiece(mod, "forward", "0.0.0.0", 4242)
