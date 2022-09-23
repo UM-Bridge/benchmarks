@@ -40,10 +40,10 @@ jobs:
       model:
         image: linusseelinger/model-muq-beam:latest
         ports:
-        - 4243:4243
+        - 4242:4242
 
     steps:
        -
         name: Validate
         run: |
-          docker run --network=host -e model_host=http://localhost:4243 -e input_value=1.0 linusseelinger/testing-protocol-conformity-current:latest
+          docker run --network=host -e model_host=http://localhost:4242 -e input_value=1.0 linusseelinger/testing-protocol-conformity-current:latest

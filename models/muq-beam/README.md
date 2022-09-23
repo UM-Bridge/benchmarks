@@ -10,7 +10,7 @@ This docker container uses [MUQ](https://mituq.bitbucket.io/source/_site/index.h
 
 ## Run
 ```
-docker run -it -p 4243:4243 linusseelinger/model-muq-beam:latest
+docker run -it -p 4242:4242 linusseelinger/model-muq-beam:latest
 ```
 
 ## Properties
