@@ -27,7 +27,7 @@ jobs:
       -
         name: Build achlys-ubuntu
         run: |
-          docker build -t achlys-ubuntu --build-arg compile_cores=4 --build-arg build_git_sha=master https://raw.githubusercontent.com/aurora-multiphysics/achlys/master/docker/achlys-ubuntu/Dockerfile
+          docker build -t achlys-ubuntu --build-arg compile_cores=4 --build-arg build_git_sha=master https://raw.githubusercontent.com/aurora-multiphysics/achlys/master/docker/achlys-ubuntu/moose-stable/Dockerfile
 
       -
         name: Build and push
