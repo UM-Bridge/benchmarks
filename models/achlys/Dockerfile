@@ -7,9 +7,6 @@ RUN apt install -y python3-pip && pip3 install umbridge
 
 RUN cd /opt && git clone --branch=umbridge https://github.com/digiLab-ai/achlys-uq.git
 
-#RUN source achlys-uq/scripts/bashrc && \
-#    ./achlys-uq/achlys-uq/run_desorp
-
 COPY server.py /server.py
 
-RUN python3 /server.py
+CMD python3 /server.py
