@@ -15,11 +15,11 @@ class AchlysModel(umbridge.Model):
 
     def __call__(self, parameters, config):
 
-        input = {"Materials.implant.E1": parameters[0][0],
-                 "Materials.implant.E2": parameters[0][1],
-                 "Materials.implant.E3": parameters[0][2],
-                 "Materials.implant.n1": parameters[0][3],
-                 "Materials.implant.n2": parameters[0][4]}
+        input = {"Achlys:{Materials:{implant:{E1}}}": parameters[0][0]}
+                 #"Achlys.Materials.implant.E2": parameters[0][1],
+                 #"Achlys.Materials.implant.E3": parameters[0][2],
+                 #"Achlys.Materials.implant.n1": parameters[0][3],
+                 #"Achlys.Materials.implant.n2": parameters[0][4]}
 
         # Write input to JSON file
         with open("/achlys-uq/achlys-uq/input.json", "w") as f:
