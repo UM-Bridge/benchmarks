@@ -4,7 +4,7 @@ import os
 import csv
 
 class AchlysModel(umbridge.Model):
-    def __init(self):
+    def __init__(self):
         super().__init__("forward")
 
     def get_input_sizes(self, config):
