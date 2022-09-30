@@ -35,14 +35,14 @@ class AchlysModel(umbridge.Model):
         """
 
         # Write input to JSON file
-        with open("/achlys-uq/achlys-uq/input.json", "w") as f:
+        with open("/opt/achlys-uq/achlys-uq/input.json", "w") as f:
             f.write(input)
 
-        os.system("source achlys-uq/scripts/bashrc && /achlys-uq/achlys-uq/run_desorp_umbridge")
+        os.system(". /opt/achlys-uq/scripts/bashrc && cd /opt/achlys-uq/achlys-uq && /opt/achlys-uq/achlys-uq/run_desorp_umbridge")
 
         # Read results CSV file, write rows to output
         output = []
-        with open("/achlys-uq/achlys-uq/output.csv", "r") as f:
+        with open("/opt/achlys-uq/achlys-uq/output.csv", "r") as f:
             reader = csv.reader(f)
             for row in reader:
                 output.append(row)
