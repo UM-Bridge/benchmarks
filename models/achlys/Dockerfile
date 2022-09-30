@@ -5,7 +5,7 @@ RUN apt update && apt install -y inotify-tools && \
 
 RUN apt install -y python3-pip && pip3 install umbridge
 
-RUN cd /opt && git clone https://github.com/digiLab-ai/achlys-uq.git
+RUN cd /opt && git clone --branch=umbridge https://github.com/digiLab-ai/achlys-uq.git
 
 #RUN source achlys-uq/scripts/bashrc && \
 #    ./achlys-uq/achlys-uq/run_desorp

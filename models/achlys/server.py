@@ -25,7 +25,7 @@ class AchlysModel(umbridge.Model):
         with open("/achlys-uq/achlys-uq/input.json", "w") as f:
             f.write(json.dumps(input))
 
-        os.system("source achlys-uq/scripts/bashrc && /achlys-uq/achlys-uq/run_desorp")
+        os.system("source achlys-uq/scripts/bashrc && /achlys-uq/achlys-uq/run_desorp_umbridge")
 
         # Read results CSV file, write rows to output
         output = []
