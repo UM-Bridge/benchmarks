@@ -42,7 +42,7 @@ class AchlysModel(umbridge.Model):
 
         # Read results CSV file, write rows to output
         output = []
-        with open("/opt/achlys-uq/achlys-uq/output.csv", "r") as f:
+        with open("/opt/achlys/problems/thermal_desorption/ogorodnikova/tds_multiapp/desorp_multi_out.csv", "r") as f:
             reader = csv.reader(f)
             for row in reader:
                 output.append(row)
