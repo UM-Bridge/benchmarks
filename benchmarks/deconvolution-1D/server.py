@@ -99,7 +99,7 @@ class ExactSolution(umbridge.Model):
         return [len(self.exactSolution)]
 
     def __call__(self, parameters, config):
-        return [[self.exactSolution.tolist()]]
+        return [self.exactSolution.tolist()]
 
     def supports_evaluate(self):
         return True
