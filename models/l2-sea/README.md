@@ -7,7 +7,9 @@ TODO
 TODO
 
 ## Run
-TODO
+```
+docker run -it -p 4242:4242 linusseelinger/model-l2-sea
+```
 
 ## Model properties
 
