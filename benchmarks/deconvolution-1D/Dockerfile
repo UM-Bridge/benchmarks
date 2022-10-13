@@ -7,4 +7,6 @@ RUN pip3 install umbridge cuqipy
 
 COPY . /server
 
-CMD python3 /server/server.py
+WORKDIR /server
+
+CMD python3 server.py
