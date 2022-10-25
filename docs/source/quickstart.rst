@@ -36,4 +36,4 @@ Alternative clients
 
 Any other UM-Bridge client can connect to the model as well, for example the c++ example in the UM-Bridge repository. You can even do a raw HTTP request using the `curl` command line tool.
 
-``curl http://localhost:4242/Evaluate -X POST -d '{"input": [[100.0, 50.0]], "config":{"vtk_output": true}}'``
+``curl http://localhost:4242/Evaluate -X POST -d '{"name": "forward", "input": [[100.0, 50.0]], "config":{"vtk_output": true}}'``
