@@ -25,7 +25,7 @@ One way to access the model is from Python. First install UM-Bridge support in P
 
 ``pip install umbridge``
 
-Now, you can call the model by running the Python example ``umbridge-client.py`` from the `UM-Bridge repository <www.github.com/UM-Bridge/umbridge/tree/main/clients/python>`.
+Now, you can call the model by running the Python example ``umbridge-client.py`` from the `UM-Bridge repository <www.github.com/UM-Bridge/umbridge/tree/main/clients/python>`_.
 
 ``python3 umbridge-client.py http://localhost:4242``
 
