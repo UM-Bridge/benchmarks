@@ -94,7 +94,7 @@ done
 
 # Loop over UM-Bridge Documentation
 # TODO build class documentation
-cp CONTRIBUTING.md docs_output/source/umbridge/contributing.md
+cp ../../umbridge/CONTRIBUTING.md docs_output/source/umbridge/contributing.md
 for f in $(find ../../umbridge/ -name 'README.md'); do
     NAME=`echo $f | xargs dirname | xargs basename`
     [ "$NAME" != "umbridge"  ] || continue
