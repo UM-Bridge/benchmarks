@@ -131,6 +131,8 @@ int main(){
   }
   const int ranks = atoi(ranks_cstr);
 
+  std::cout << "Running on number of ranks: " << ranks << std::endl;
+
   TsunamiModel model(ranks);
   std::vector<umbridge::Model*> models {&model};
   umbridge::serveModels(models, "0.0.0.0", port);

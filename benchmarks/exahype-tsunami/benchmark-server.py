@@ -4,7 +4,7 @@ import scipy.stats
 class Benchmark(umbridge.Model):
     def __init__(self, model_url):
         super().__init__("posterior")
-        self.model = umbridge.HTTPModel(model_url)
+        self.model = umbridge.HTTPModel(model_url, "forward")
 
     def get_input_sizes(self, config):
         return self.model.get_input_sizes()
