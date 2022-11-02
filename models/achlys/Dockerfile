@@ -5,9 +5,8 @@ RUN apt update && apt install -y inotify-tools && \
 
 RUN apt install -y python3-pip && pip3 install umbridge
 
-# No longer needed
-# RUN cd /opt && git clone --branch=umbridge https://github.com/digiLab-ai/achlys-uq.git
+COPY server.py /server.py
 
-COPY   server.py /server.py
+COPY modify_input_file /opt/modify_input_file
 
 CMD python3 /server.py

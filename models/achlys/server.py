@@ -11,7 +11,7 @@ class AchlysModel(umbridge.Model):
         return [5]
 
     def get_output_sizes(self, config):
-        return [120]
+        return [500]
 
     def __call__(self, parameters, config):
 
@@ -35,10 +35,16 @@ class AchlysModel(umbridge.Model):
         """
 
         # Write input to JSON file
-        with open("/opt/achlys-uq/achlys-uq/input.json", "w") as f:
+        with open("/opt/input.json", "w") as f:
             f.write(input)
 
-        os.system(". /opt/achlys-uq/scripts/bashrc && cd /opt/achlys-uq/achlys-uq && /opt/achlys-uq/achlys-uq/run_desorp_umbridge")
+        # add MOOSE Python libraries to PYTHONPATH, modify input files and run achlys
+        os.system("cd /opt && export PYTHONPATH=$PYTHONPATH:/opt/moose/python && \
+                ACHLYS_PATH=/opt/achlys/problems/thermal_desorption/ogorodnikova/tds_multiapp && \
+                ./modify_input_file input.json $ACHLYS_PATH/implant_sub.i && \
+                ./modify_input_file input.json $ACHLYS_PATH/resting_multi.i && \
+                ./modify_input_file input.json $ACHLYS_PATH/desorp_multi.i && \
+                achlys/achlys-opt --n-threads=8 -i $ACHLYS_PATH/desorp_multi.i >> /dev/null")
 
         # Read results CSV file, write rows to output
         output = []
@@ -47,6 +53,15 @@ class AchlysModel(umbridge.Model):
             for row in reader:
                 output.append(row)
                 print(f"Read CSV Row: {row}")
+
+        # Interpolate data to a grid of size 500 before returning
+        from scipy.interpolate import interp1d
+        import pandas as pd
+        from numpy import linspace, ndarray
+
+        result = pd.read_csv('/opt/achlys/problems/thermal_desorption/ogorodnikova/tds_multiapp/desorp_multi_out.csv',usecols=['time','pfc_flux'])
+        f = interp1d(result['time'],result['pfc_flux'])
+        output = [ndarray.tolist(f(linspace(0,62.5,500)))]
 
         print(f"output: {output}")
 
