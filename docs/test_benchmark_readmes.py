@@ -11,7 +11,7 @@ for filename in glob.glob('../benchmarks/*/README.md') + glob.glob('../models/*/
 
   test_doc = marko.parse(test_file_content)
 
-  undefined_headings = {"Overview": 2, "Authors": 2, "Run": 2, "Properties": 2, "Description": 2}
+  undefined_headings = {"Overview": 2, "Authors": 2, "Run": 2, "Properties": 2, "Mount directories": 2, "Description": 2}
 
   for entry in test_doc.children:
     if entry.get_type() == "Heading":

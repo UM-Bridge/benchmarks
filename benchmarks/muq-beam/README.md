@@ -17,6 +17,11 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-muq-beam:latest
 
 ## Properties
 
+Model | Description
+---|---
+posterior | Posterior density
+
+### posterior
 Mapping | Dimensions | Description
 ---|---|---
 input | [3] | The value of the beam stiffness in each lumped region.
@@ -33,6 +38,7 @@ Config | Type | Default | Description
 ---|---|---|---
 None | | |
 
+## Mount directories
 Mount directory | Purpose
 ---|---
 None |

@@ -18,6 +18,11 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-muq-beam-propagation:latest
 
 ## Properties
 
+Model | Description
+---|---
+forward | Forward model
+
+### forward
 Mapping | Dimensions | Description
 ---|---|---
 input | [3] | The value of the beam stiffness in each lumped region.
@@ -34,6 +39,7 @@ Config | Type | Default | Description
 ---|---|---|---
 None | | |
 
+## Mount directories
 Mount directory | Purpose
 ---|---
 None |

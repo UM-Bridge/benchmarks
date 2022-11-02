@@ -16,6 +16,11 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-banana
 
 ## Properties
 
+Model | Description
+---|---
+posterior | Posterior density
+
+### posterior
 Mapping | Dimensions | Description
 ---|---|---
 input | [2] | 2D coordinates $x \in \mathbb{R}^2$
@@ -34,6 +39,7 @@ a | double | 2.0 | Transformation parameter
 b | double | 0.2 | Transformation parameter
 scale | double | 1.0 | Scaling factor applied to the underlying normal distribution's variance
 
+## Mount directories
 Mount directory | Purpose
 ---|---
 None |

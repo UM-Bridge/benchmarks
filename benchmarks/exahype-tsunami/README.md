@@ -15,10 +15,16 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-exahype-tsunami
 
 ## Properties
 
+Model | Description
+---|---
+posterior | Posterior density
+forward | Forward model
+
+### posterior
 Mapping | Dimensions | Description
 ---|---|---
 input | [2] | x and y coordinates of a proposed tsunami origin
-output | [1] | Arrival time and maximum water height at two buoy points
+output | [1] | Log posterior density
 
 Feature | Supported
 ---|---
@@ -33,6 +39,27 @@ level | int | 0 | chooses the model level to run (see below for further details)
 verbose | bool | false | switches text output on/off
 vtk_output | bool | false | switches vtk output to the /output directory on/off
 
+### forward
+Mapping | Dimensions | Description
+---|---|---
+inputSizes | [2] | x and y coordinates of a proposed tsunami origin
+outputSizes | [4] | Arrival time and maximum water height at two buoy points
+
+Feature | Supported
+---|---
+Evaluate | True
+Gradient | False
+ApplyJacobian | False
+ApplyHessian | False
+
+Config | Type | Default | Description
+---|---|---|---
+level | int | 0 | between 0 and 2, the model level to run (see below for further details)
+verbose | bool | false | switches text output on/off
+vtk_output | bool | false | switches vtk output to the /output directory on/off
+
+
+## Mount directories
 Mount directory | Purpose
 ---|---
 /output | VTK output for visualization

@@ -15,6 +15,12 @@ docker run -it -p 4242:4242 linusseelinger/model-exahype-tsunami
 ```
 
 ## Properties
+
+Model | Description
+---|---
+forward | Tsunami model
+
+### forward
 Mapping | Dimensions | Description
 ---|---|---
 inputSizes | [2] | x and y coordinates of a proposed tsunami origin
@@ -29,10 +35,11 @@ ApplyHessian | False
 
 Config | Type | Default | Description
 ---|---|---|---
-level | int | 0 | chooses the model level to run (see below for further details)
+level | int | 0 | between 0 and 2, the model level to run (see below for further details)
 verbose | bool | false | switches text output on/off
 vtk_output | bool | false | switches vtk output to the /output directory on/off
 
+## Mount directories
 Mount directory | Purpose
 ---|---
 /output | VTK output for visualization
