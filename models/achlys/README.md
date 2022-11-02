@@ -2,17 +2,16 @@
 
 ## Overview
 
-
 ## Authors
 [Mikkel Lykkegaard](mailto:mikkel@digilab.co.uk)
 
 
 ## Run
 ```
-docker run -it -p 4242:4242 TODO
+docker run -it -p 4242:4242 achlys
 ```
 
-## Model properties
+## Properties
 
 Model | Description
 ---|---
