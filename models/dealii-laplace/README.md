@@ -19,8 +19,8 @@ detail in the paper mentioned above.
 
 ## Authors
 
-[David Aristoff](mailto:David.Aristoff@colostate.edu) and
-[Wolfgang Bangerth](mailto:bangerth@colostate.edu) (Colorado State University).
+- [David Aristoff](mailto:David.Aristoff@colostate.edu) (Colorado State University)
+- [Wolfgang Bangerth](mailto:bangerth@colostate.edu) (Colorado State University)
 
 ## Run
 ```
@@ -29,6 +29,11 @@ docker run -it -p 4242:4242 linusseelinger/model-laplace:latest
 
 ## Properties
 
+Model | Description
+---|---
+forward | Forward evaluation of the Laplace equation
+
+### forward
 Mapping | Dimensions | Description
 ---|---|---
 input | [64] | A set of 64 parameters corresponding to an 8x8 grid of stiffness values of a membrane
@@ -45,6 +50,7 @@ Config | Type | Default | Description
 ---|---|---|---
 None | | |
 
+## Mount directories
 Mount directory | Purpose
 ---|---
 None |

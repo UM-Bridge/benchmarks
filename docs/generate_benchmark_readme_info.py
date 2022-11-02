@@ -8,15 +8,22 @@ parser.add_argument('url', metavar='url', type=str,
 args = parser.parse_args()
 print(f"Connecting to URL {args.url}")
 
-print("# Model / Benchmark Name")
+print("# TODO: Model / Benchmark Name")
 
 print("## Overview")
 
 print("## Authors")
+print("- [Jane Doe](mailto:jane.doe@uni.edu)")
+print("- [John Doe](mailto:john.doe@uni.edu)")
 
 print("## Run")
+print("```")
+print("docker run -it -p 4242:4242 TODO/IMAGE_NAME")
+print("```")
+print("")
 
-print("## Model properties")
+
+print("## Properties")
 print("")
 
 print("Model | Description")
@@ -57,5 +64,7 @@ print("## Mount directories")
 print("Mount directory | Purpose")
 print("---|---")
 print("None |")
+
+print("")
 
 print("## Description")

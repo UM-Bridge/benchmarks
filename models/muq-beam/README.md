@@ -14,23 +14,28 @@ docker run -it -p 4242:4242 linusseelinger/model-muq-beam:latest
 ```
 
 ## Properties
+Model | Description
+---|---
+forward | Forward evaluation of the beam model
+
+### forward
 Mapping | Dimensions | Description
 ---|---|---
 inputSizes | [31] | The stiffness $E(x)$ at each finite difference node in the discretization.
 outputSizes | [31] | The vertical displacement $u(x)$ at each finite difference node.
 
-
 Feature | Supported
 ---|---
-Evaluate | Yes
-Gradient | Yes (via finite difference)
-ApplyJacobian | Yes (via finite difference)
-ApplyHessian | Yes (via finite difference)
+Evaluate | True
+Gradient | True (via finite difference)
+ApplyJacobian | True (via finite difference)
+ApplyHessian | True (via finite difference)
 
 Config | Type | Default | Description
 ---|---|---|---
 None | | |
 
+## Mount directories
 Mount directory | Purpose
 ---|---
 None |

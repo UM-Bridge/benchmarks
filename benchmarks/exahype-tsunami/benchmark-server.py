@@ -44,5 +44,6 @@ class Benchmark(umbridge.Model):
         return True
 
 benchmark = Benchmark("http://localhost:4242")
+forward = umbridge.HTTPModel("http://localhost:4242", "forward")
 
-umbridge.serve_models([benchmark], 4243)
+umbridge.serve_models([benchmark, forward], 4243)

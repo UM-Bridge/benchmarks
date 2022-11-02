@@ -16,6 +16,11 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-gaussian-mixture
 
 ## Properties
 
+Model | Description
+---|---
+posterior | Posterior density
+
+### posterior
 Mapping | Dimensions | Description
 ---|---|---
 input | [2] | 2D coordinates $x \in \mathbb{R}^2$
@@ -32,6 +37,7 @@ Config | Type | Default | Description
 ---|---|---|---
 None | | |
 
+## Mount directories
 Mount directory | Purpose
 ---|---
 None |
