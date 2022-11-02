@@ -21,6 +21,7 @@ Getting started
    :maxdepth: 1
 
    /quickstart
+   /umbridge/contributing
    /umbridge/index
 
 Propagation Benchmarks
