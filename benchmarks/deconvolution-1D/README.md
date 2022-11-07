@@ -3,6 +3,14 @@
 ## Overview
 This benchmark is based on a [1D Deconvolution test problem](https://cuqi-dtu.github.io/CUQIpy/api/_autosummary/cuqi.testproblem/cuqi.testproblem.Deconvolution1D.html) from the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/). It defines a posterior distribution for a 1D deconvolution problem, with a Gaussian likelihood and four different choices of prior distributions with configurable parameters.
 
+Data plot
+
+![Data](data.png "Data")
+
+Credibility interval plot of posterior samples with LMRF prior:
+
+![Samples](samples.png "Credibility interval of samples")
+
 ## Authors
 - [Nicolai A. B. Riis](mailto:nabr@dtu.dk)
 - [Jakob S. Jørgensen](mailto:jakj@dtu.dk)
@@ -76,3 +84,35 @@ where $\mathcal{C}$ is the Cauchy distribution and $\mathcal{L}$ is the Laplace 
 The choice of prior is specified by providing the name to the HTTP model. In this case `Deconvolution1D_Gaussian`, `Deconvolution1D_GMRF`, `Deconvolution1D_CMRF`, and `Deconvolution1D_LMRF`, respectively. See [um-bridge Clients](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html) for more details.
 
 In addition to the HTTP models for the posterior, there is also an HTTP model for the exact solution to the problem. This model is called `Deconvolution1D_ExactSolution` and returns exact phantom used to generate the synthetic data when called.
+
+In CUQIpy the benchmark is defined and solved as follows:
+
+```python
+import numpy as np
+import cuqi
+
+# Parameters
+delta = 0.01
+prior = "LMRF"
+
+# Load data, define problem and sample posterior
+data = np.load("data_square.npz") # Data exists in repository for this benchmark
+TP = cuqi.testproblem.Deconvolution1D(
+    dim=128,
+    kernel="gauss",
+    kernel_param=10,
+    phantom=data["exact"], # Phantom was "pc".
+    data=data["data"], # data was None (i.e. generated from exact phantom).
+    noise_std=0.05,
+    noise_type="gaussian"
+)
+if prior == "Gaussian":
+    TP.prior = cuqi.distribution.Gaussian(np.zeros(128), delta)
+elif prior == "GMRF":
+    TP.prior = cuqi.distribution.GMRF(np.zeros(128), 1/delta)
+elif prior == "CMRF":
+    TP.prior = cuqi.distribution.Cauchy_diff(np.zeros(128), delta)
+elif prior == "LMRF":
+    TP.prior = cuqi.distribution.Laplace_diff(np.zeros(128), delta)
+TP.sample_posterior(2000).plot_ci(exact=TP.exactSolution)
+```
