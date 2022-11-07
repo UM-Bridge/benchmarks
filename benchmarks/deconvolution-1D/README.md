@@ -36,7 +36,7 @@ ApplyHessian | False
 
 Config | Type | Default | Description
 ---|---|---|---
-delta | double | 0.05 | The prior parameter $\delta$ (see below).
+delta | double | 0.01 | The prior parameter $\delta$ (see below).
 
 Mount directory | Purpose
 ---|---
