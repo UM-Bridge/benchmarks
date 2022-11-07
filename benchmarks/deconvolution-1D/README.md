@@ -3,7 +3,7 @@
 ## Overview
 This benchmark is based on a [1D Deconvolution test problem](https://cuqi-dtu.github.io/CUQIpy/api/_autosummary/cuqi.testproblem/cuqi.testproblem.Deconvolution1D.htm) from the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/).
 
-It defined a posterior distribution that characterizes the probability distribution of a sharp signal determined from a noisy blurred observation of the signal.
+It defines a posterior distribution that characterizes the probability distribution of a clean signal determined from a noisy blurred observation of the signal.
 
 The noise is assumed the be Gaussian, and so the likelihood function comes from a Gaussian distribution. The prior can be configured by choosing of the the multiple choices of HTTP models.
 
