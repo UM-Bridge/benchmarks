@@ -91,12 +91,11 @@ assert output_LMRF == pytest.approx(TP.posterior.logpdf(parameters))
 assert np.allclose(output_exactSolution, TP.exactSolution)
 
 print('Regression testing against known norm values of output')
-# TODO. Update values when the model is updated.
-#assert np.linalg.norm(output_Gaussian) == pytest.approx(492.6685962829914)
-#assert np.linalg.norm(output_GMRF) == pytest.approx(169.7613099191894)
-#assert np.linalg.norm(output_CMRF) == pytest.approx(585.9518078000048)
-#assert np.linalg.norm(output_LMRF) == pytest.approx(97.75894228418153)
-#assert np.linalg.norm(output_exactSolution) == pytest.approx(12.0)
+assert np.linalg.norm(output_Gaussian) == pytest.approx(1168.3071767271551)
+assert np.linalg.norm(output_GMRF) == pytest.approx(154.1227294750259)
+assert np.linalg.norm(output_CMRF) == pytest.approx(397.6367848942598)
+assert np.linalg.norm(output_LMRF) == pytest.approx(334.62356701181955)
+assert np.linalg.norm(output_exactSolution) == pytest.approx(12.0)
 
 print('All tests passed')
 

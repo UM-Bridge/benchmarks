@@ -48,7 +48,7 @@ class Deconvolution1D(umbridge.Model):
     def __call__(self, parameters, config):
         posterior = self._configure_posterior(config)
         output = posterior.logpdf(np.asarray(parameters[0]))
-        return [[output]]
+        return [[output[0]]]
 
     def gradient(self, out_wrt, in_wrt, parameters, sens, config):
         posterior = self._configure_posterior(config)
