@@ -21,7 +21,7 @@ forward | Achlys Tritium Diffusion
 ### forward
 Mapping | Dimensions | Description
 ---|---|---
-input | [5] | E1, E2, E3: The detrapping energy of traps. n1, n2: The density of intrinsic traps.
+input | [5] | E1, E2, E3: The detrapping energy of the traps. n1, n2: The density of the intrinsic traps.
 output | [500] | Volumetric flux of tritium across the boundary as a function of time.
 
 Feature | Supported
@@ -51,7 +51,7 @@ The setup used in this particular benchmark models the experimental work of [Ogo
     - E2: $\mathcal U(0.9, 1.3)$
     - E3: $\mathcal U(1.1, 1.75)$
     - n1: $\mathcal U(5 \cdot 10^{-4}, 5 \cdot 10^{-3})$
-    - n2: $\mathcal U(1 \cdot 10^{-4}, 1 \cdot 10^{-3})$
+    - n2: $\mathcal U(10^{-4}, 10^{-3})$
 
 2. An emulator of the input-to-output map is constructed using a functional GP. The input to the emulator is the five-dimensional parameter space described above, while the output is the corresponding tritium desorption curve, including the predictive uncertainty.
 
