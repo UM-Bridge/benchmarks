@@ -9,7 +9,7 @@ In this benchmark, we use [Achlys](https://github.com/aurora-multiphysics/achlys
 
 ## Run
 ```
-docker run -it -p 4242:4242 achlys
+docker run -it -p 4242:4242 linusseelinger/model-achlys:latest
 ```
 
 ## Properties
