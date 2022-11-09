@@ -16,11 +16,11 @@ This table shows what languages and frameworks UM-Bridge currently provides inte
 
 Language / framework | Client support | Server support
 ---|---|---
-C++ | 🗸 | 🗸
-Python | 🗸 | 🗸
-R | 🗸 | ✗
-MUQ | 🗸 | 🗸
-PyMC (4.x) | 🗸 | ✗
+C++ | ✓ | ✓
+Python | ✓ | ✓
+R | ✓ | ✗
+MUQ | ✓ | ✓
+PyMC (4.x) | ✓ | ✗
 
 
 This repository hosts stand-alone reference problems for benchmarking of UQ algorithms.
