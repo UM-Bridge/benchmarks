@@ -17,10 +17,13 @@ This table shows what languages and frameworks UM-Bridge currently provides inte
 Language / framework | Client support | Server support
 ---|---|---
 C++ | ✓ | ✓
+MATLAB | planned | ✗
 Python | ✓ | ✓
 R | ✓ | ✗
 MUQ | ✓ | ✓
 PyMC (4.x) | ✓ | ✗
+QMCPy | WIP | ✗
+Sparse Grids MATLAB Kit | planned | ✗
 
 
 This repository hosts stand-alone reference problems for benchmarking of UQ algorithms.
