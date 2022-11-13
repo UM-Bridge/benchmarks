@@ -46,8 +46,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: models/achlys
-          outputs: |
-            type=docker
           push: true
           tags: linusseelinger/model-achlys:latest
 
