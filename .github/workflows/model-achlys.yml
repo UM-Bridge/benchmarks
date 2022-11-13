@@ -37,7 +37,7 @@ jobs:
             compile_cores=4
             build_git_sha=master 
           cache-to: |
-            type=local
+            type=local,dest=/tmp/
       -
         name: list existing images
         run: |
@@ -49,7 +49,7 @@ jobs:
         with:
           context: models/achlys
           cache-from: |
-            type=local
+            type=local,src=/tmp/
           push: true
           tags: linusseelinger/model-achlys:latest
 
