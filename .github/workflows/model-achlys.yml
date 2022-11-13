@@ -26,6 +26,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build achlys-ubuntu
+        id: build1
         uses: docker/build-push-action@v3
         with:
           context: https://raw.githubusercontent.com/aurora-multiphysics/achlys/master/docker/achlys-ubuntu/moose-stable/Dockerfile
@@ -43,6 +44,12 @@ jobs:
         run: |
           docker image ls
       
+      - name: Access build output from above
+        run: |
+          echo "imageid: ${{ steps.build1.outputs.imageid }}"
+          echo "digest: ${{ steps.build1.outputs.digest }}"
+          echo "metadata: ${{ steps.build1.outputs.metadata }}"
+        
       - 
         name: Build and push
         uses: docker/build-push-action@v3
@@ -50,6 +57,8 @@ jobs:
           context: models/achlys
           cache-from: |
             type=local,src=/tmp/
+          build-contexts: |
+            achlys-ubuntu=docker-image://${{ steps.build1.outputs.imageid }}
           push: true
           tags: linusseelinger/model-achlys:latest
 
