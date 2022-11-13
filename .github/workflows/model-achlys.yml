@@ -31,7 +31,7 @@ jobs:
           context: https://raw.githubusercontent.com/aurora-multiphysics/achlys/master/docker/achlys-ubuntu/moose-stable/Dockerfile
           push: false
           tags: achlys-ubuntu
-          build-args: 
+          build-args: |
             compile_cores=4
             build_git_sha=master 
       -
