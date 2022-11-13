@@ -33,7 +33,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: models/achlys/
+          context: .
           push: true
           tags: linusseelinger/model-achlys:latest
 
