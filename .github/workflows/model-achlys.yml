@@ -59,7 +59,9 @@ jobs:
             type=local,src=/tmp/
           build-contexts: |
             achlys-ubuntu=docker-image://achlys-ubuntu@${{ steps.build1.outputs.digest }}
-          push: true
+          push: false
+          outputs: |
+            type=docker          
           tags: linusseelinger/model-achlys:latest
 
   test:
