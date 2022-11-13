@@ -58,7 +58,7 @@ jobs:
           cache-from: |
             type=local,src=/tmp/
           build-contexts: |
-            achlys-ubuntu=docker-image://${{ steps.build1.outputs.imageid }}
+            achlys-ubuntu=docker-image://achlys-ubuntu@${{ steps.build1.outputs.digest }}
           push: true
           tags: linusseelinger/model-achlys:latest
 
