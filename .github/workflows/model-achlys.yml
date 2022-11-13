@@ -36,6 +36,8 @@ jobs:
           build-args: |
             compile_cores=4
             build_git_sha=master 
+          cache-to: |
+            type=local
       -
         name: list existing images
         run: |
@@ -46,6 +48,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: models/achlys
+          cache-from: |
+            type=local
           push: true
           tags: linusseelinger/model-achlys:latest
 
