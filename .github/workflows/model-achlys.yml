@@ -33,7 +33,7 @@ jobs:
           build-args: |
             compile_cores=4
             build_git_sha=master 
-          tags: achlys-ubuntu
+          tags: linusseelinger/achlys-ubuntu
       - 
         name: Build and push
         uses: docker/build-push-action@v3
