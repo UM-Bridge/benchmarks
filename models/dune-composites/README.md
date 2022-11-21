@@ -41,6 +41,10 @@ Mount directory | Purpose
 ---|---
 None |
 
+## Source code
+
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/models/dune-composites)
+
 ## Description
 In the simulation the composite strength of a corner part with a wrinkle is modeled. The analysis assumes standard anisotropic 3D linear elasticity.
 

@@ -44,6 +44,10 @@ Mount directory | Purpose
 ---|---
 /output | VTK output for visualization
 
+## Source code
+
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/models/exahype-tsunami)
+
 ## Description
 
 The underlying PDE model can be written in first-order hyperbolic form as
