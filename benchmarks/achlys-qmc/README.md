@@ -49,12 +49,12 @@ Mount directory | Purpose
 None |
 
 ## Description
-1. The prior distributions of input parameters $\theta = \{E1, E2, E3, n1, n2\}$ are all uniform:
-    - E1: $\mathcal U(0.7, 1.0)$
-    - E2: $\mathcal U(0.9, 1.3)$
-    - E3: $\mathcal U(1.1, 1.75)$
-    - n1: $\mathcal U(5 \cdot 10^{-4}, 5 \cdot 10^{-3})$
-    - n2: $\mathcal U(10^{-4}, 10^{-3})$
+1. The prior distributions of input parameters $\theta = E_1, E_2, E_3, n_1, n_2$ are all uniform:
+    - $E_1 \sim \mathcal U(0.7, 1.0)$
+    - $E_2 \sim \mathcal U(0.9, 1.3)$
+    - $E_3 \sim \mathcal U(1.1, 1.75)$
+    - $n_1 \sim \mathcal U(5 \cdot 10^{-4}, 5 \cdot 10^{-3})$
+    - $n_2 \sim \mathcal U(10^{-4}, 10^{-3})$
 
 2. The following parameter to data map is assumed:
     - $d = \mathcal F(\theta) + \varepsilon$ with $\varepsilon \sim \mathcal N(0, \sigma^2)$. 
