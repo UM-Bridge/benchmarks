@@ -1,4 +1,4 @@
-# Tritium Diffusion Emulator
+# Tritium Diffusion Posterior
 
 ## Overview
 In this benchmark, we use [Achlys](https://github.com/aurora-multiphysics/achlys) to model the macroscopic transport of tritium through fusion reactor materials using the Foster-McNabb equations. Achlys is built on top of the  [MOOSE Finite Element Framework](https://mooseframework.inl.gov/). The aim of this benchmark is to compute the (unnormalised) posterior density of the input parameters given the experimental data of Ogorodnikova et al. (2003).
