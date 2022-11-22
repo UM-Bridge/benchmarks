@@ -42,6 +42,10 @@ Mount directory | Purpose
 ---|---
 None |
 
+## Source code
+
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/analytic-funnel)
+
 ## Description
 
 First, define a helper function

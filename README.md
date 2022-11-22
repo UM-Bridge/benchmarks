@@ -22,7 +22,7 @@ Python | ✓ | ✓
 R | ✓ | ✗
 MUQ | ✓ | ✓
 PyMC (4.x) | ✓ | ✗
-QMCPy | ✓ (QMCPy's develop branch) | ✗
+QMCPy | ✓ | ✗
 Sparse Grids MATLAB Kit | planned | ✗
 
 
