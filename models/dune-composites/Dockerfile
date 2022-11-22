@@ -2,7 +2,7 @@ FROM mpioperator/openmpi-builder
 #TODO: Separate builder and runtime images
 
 RUN apt update && \
-    DEBIAN_FRONTEND="noninteractive" apt install -y build-essential git cmake pkg-config libsuitesparse-dev libarpack2-dev libarpack++2-dev
+    DEBIAN_FRONTEND="noninteractive" apt install -y build-essential git cmake pkg-config libsuitesparse-dev libarpack2-dev libarpack++2-dev openmpi-bin
 
 # Create directory and change working directory
 RUN mkdir -p /dune
