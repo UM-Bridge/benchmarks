@@ -22,3 +22,11 @@ RUN git clone https://gitlab.dune-project.org/core/dune-common.git && \
 COPY release.opts release.opts
 
 RUN ./dune-common/bin/dunecontrol --opts=release.opts --builddir=$PWD/build all
+
+WORKDIR /dune/build/dune-composites/src
+
+RUN apt install -y python3-pip && pip3 install umbridge
+
+COPY server.py server.py
+
+CMD python3 server.py
