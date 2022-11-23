@@ -21,7 +21,7 @@ class DuneCompModel(umbridge.Model):
         os.system(f"mpirun --allow-run-as-root -np {mpiranks} ./ExampleScaling -stackingSequence {stackSeq}")
 
         # Read results CSV file, write rows to output
-        output = [1]
+        output = [[1]]
 
         print(f"output: {output}")
 
