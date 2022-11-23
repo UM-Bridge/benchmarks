@@ -25,6 +25,8 @@ RUN ./dune-common/bin/dunecontrol --opts=release.opts --builddir=$PWD/build all
 
 WORKDIR /dune/build/dune-composites/src
 
+ENV OMP_NUM_THREADS=1
+
 RUN apt install -y python3-pip && pip3 install umbridge
 
 COPY server.py server.py
