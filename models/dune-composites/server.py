@@ -15,7 +15,7 @@ class DuneCompModel(umbridge.Model):
 
     def __call__(self, parameters, config):
 
-        mpiranks = int(os.getenv("MPI_RANKS",2))
+        mpiranks = config.get("ranks",2)
         stackSeq = config.get("stack","example2.csv")
 
         os.system(f"mpirun --allow-run-as-root -np {mpiranks} ./ExampleScaling -stackingSequence {stackSeq}")

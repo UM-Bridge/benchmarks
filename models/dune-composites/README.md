@@ -34,7 +34,8 @@ ApplyHessian | False
 
 Config | Type | Default | Description
 ---|---|---|---
-None | | |
+ranks | int | 2 | Number of MPI ranks (i.e. parallel processes) to be used
+stack | string | "example2.csv" | Path to the stacking sequence to be run
 
 ## Mount directories
 Mount directory | Purpose
