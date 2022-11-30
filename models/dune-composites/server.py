@@ -18,14 +18,13 @@ class DuneCompModel(umbridge.Model):
         mpiranks = config.get("ranks",2)
         stackSeq = config.get("stack","example2.csv")
 
-        os.system(f"mpirun --allow-run-as-root -np {mpiranks} ./ExampleScaling -stackingSequence {stackSeq}")
+        #os.system(f"mpirun --allow-run-as-root -np {mpiranks} ./ExampleScaling -stackingSequence {stackSeq}", stdout=PIPE, stderr=PIPE)
+        import subprocess
+        output = subprocess.check_output(f"mpirun --allow-run-as-root -np {mpiranks} ./ExampleScaling -stackingSequence {stackSeq}", shell=True)
 
-        # Read results CSV file, write rows to output
-        output = [[1]]
+        print(output.decode("utf-8"))
 
-        print(f"output: {output}")
-
-        return output
+        return [[1]]
 
     def supports_evaluate(self):
         return True
