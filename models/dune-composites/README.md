@@ -10,7 +10,7 @@ This model implements the 3D anisotropic linear elasticity equations for a compo
 
 ## Run
 ```
-docker run -it -p 4242:4242 annereinarz/model-dunecomp:latest
+docker run -it -p 4242:4242 linusseelinger/model-dune-composites:latest
 ```
 
 ## Properties
