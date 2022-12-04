@@ -8,7 +8,7 @@ Software setup
 The following tutorials assume working installations of:
 
 * Python
-* Docker (available from `docker.com <https://www.docker.com/>`)
+* Docker (available from `docker.com <https://www.docker.com/>`_)
 
 However, most steps can be performed using any other programming language with UM-Bridge support.
 
