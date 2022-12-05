@@ -1,6 +1,7 @@
 import umbridge
 import numpy as np
 from scipy.stats import multivariate_normal
+import sys
 
 # Inspired by https://github.com/chi-feng/mcmc-demo
 
@@ -20,6 +21,8 @@ class GaussianMixture(umbridge.Model):
         dens2 = multivariate_normal.pdf(parameters[0], [1.5, 1.5], 0.8)
         dens3 = multivariate_normal.pdf(parameters[0], [-2, 2], 0.5)
 
+        if dens1 + dens2 + dens3 == 0: # log(0) not defined, so return minimal float value
+            return [[ sys.float_info.min ]]
         return [[ np.log(dens1 + dens2 + dens3) ]]
 
     def supports_evaluate(self):
@@ -36,6 +39,9 @@ class GaussianMixture(umbridge.Model):
         dens1 = multivariate_normal.pdf(parameters[0], [-1.5, -1.5], 0.8)
         dens2 = multivariate_normal.pdf(parameters[0], [1.5, 1.5], 0.8)
         dens3 = multivariate_normal.pdf(parameters[0], [-2, 2], 0.5)
+
+        if dens1 + dens2 + dens3 == 0: # Return zero in log(0) case above
+            return [0]
 
         return [- vec[0] / (dens1 + dens2 + dens3)
                          * (dens1 * (parameters[0][0] - -1.5) / 0.8
