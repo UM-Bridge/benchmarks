@@ -131,19 +131,27 @@ After requesting a model evaluation from the client and passing the config optio
 3: Solving UQ problems
 ========================
 
-We now solve an actual UQ problem.
-
 
 Uncertainty propagation
 ------------------------
 
+We have already looked at uncertainty propagation in passing. Such benchmark problems are essentially equivalent to forward models; however, their documentation specifies a distribution of input parameters, and the goal is to determine (properties of) the resulting distribution of model outputs.
 
+For example, the already mentioned Euler-Bernoulli beam propagation benchmark defines a uniform distribution in three dimesions to sample from. Start the model server now::
 
+    docker run -it -p 4243:4243 linusseelinger/benchmark-muq-beam-propagation:latest
+
+The QMCPy client is already set up to solve the UQ problem defined in the benchmark's documentation. Simply run it via::
+
+    python3 qmcpy-client.py http://localhost:4243
+
+Have a closer look at ``qmcpy-client.py``. Try and change the distribution to a different one, e.g. a normal distribution with similar variance. Refer to QMCPy's documentation for details.
 
 Bayesian inverse problems
 ------------------------
 
 All Bayesian inference benchmarks in the library provide a model named ``posterior`` that maps a model parameter to the log of a Bayesian posterior.
+In contrast to propagation benchmarks, the task is to find (properties of) the posterior distribution while only accessing the posterior, and thereby the model, a finite amount of times.
 Spin up such a benchmark problem::
 
     docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-gaussian-mixture
@@ -156,10 +164,11 @@ The UM-Bridge repository contains a PyMC example client, which you can run as fo
 
     python3 pymc-client.py http://localhost:4243
 
-This client could connect to your own model, assuming it provides a model ``posterior`` and has a single 1D output vector (namely the log of the posterior).
-The example makes use of PyMC's NUTS sampler to draw samples from the posterior distribution. While this sampler is very efficient, it assumes
-access to the posterior's gradient. Your model therefore has to provide a gradient implementation for the example to run. Alternatively, you could
-switch PyMC to use a different sampler. Refer to the PyMC documentation for more information.
+The example uses PyMC's Markov chain Monte Carlo (MCMC) support in order to generate samples from the posterior distribution, only making a finite number of calls to the posterior model. MCMC will explore the parameter space, tending to reject low-posterior samples and accept high-posterior ones. The resulting chain has the posterior distribution as its stationary distribution. Samples from the chain are therefore (correlated) samples from the desired posterior distribution and they may be used to estimate properies of the posterior; the more samples you take, the better the approximation.
+
+This client could also connect to your own model, assuming it provides a model ``posterior`` and has a single 1D output vector (namely the log of the posterior).
+The example makes use of PyMC's NUTS sampler to draw samples from the posterior distribution, which is a particular MCMC variant. While this sampler is very efficient, it assumes access to the posterior's gradient. Your model therefore has to provide a gradient implementation for the example to run. Alternatively, you could
+switch PyMC to use a different sampler. Refer to PyMC's documentation for details.
 
 
 4: Build custom model containers
