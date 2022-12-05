@@ -15,10 +15,67 @@ However, most steps can be performed using any other programming language with U
 1: First steps
 ========================
 
+Minimal model
+------------------------
+
+First, install the Python module for UM-Bridge support through PyPI::
+
+    pip install umbridge
+
+You find a minimal UM-Bridge model server written in Python at `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main/models/testmodel-python/>`_. Download this example server (by git cloning the repository, or just downloading the file itself). Launch it on your machine via::
+
+    python minimal-server.py
+
+The model server is now up and running, waiting to be called by any UM-Bridge client. In particular, it provides a model called "forward" that takes a single 1D vector as input, multiplies it by two, and returns it.
+
+
+Requesting a model evaluation
+------------------------
+
+For now, the server is just idle and waiting. Next, we are going to connect to the model server in order to request a model evaluation.
+
+A basic UM-Bridge client written in Python is ``umbridge-client.py`` from the `UM-Bridge repository <https://www.github.com/UM-Bridge/umbridge/tree/main/clients/python/>`_. Launch it on your machine via::
+
+    python umbridge-client.py http://localhost:4242
+
+``localhost`` in the URL points client to the model running on the same machine. This will lead to an error, indicating that the client is passing an input of wrong dimension to the server.
+
+Take a closer look at the contents of ``umbridge-client.py``. You find an explanation of the Python interface in the clients section of this documentation page. Change the input parameter to the dimension the model expects, for example ``param = [[17.4]]``. Running the client again will now yield the expected output from the server, namely ``[[34.8]]``.
+
+Try and request model evaluations for different input parameters; the output should change accordingly.
+
+Note that the client in fact requests the model evaluation twice, the second time passing in a configuration. This model-specific configuration is ignored by the minimal server example, but will become relevant later.
+
+
+Changing the model
+------------------------
+
+Now take a closer look at ``minimal-server.py``. Refer to the Models section of the documentation for an explanation of how UM-Bridge models are defined in Python. Play around with the minimal model. For example, you could replace the multiplication by a more interesting operation, or change the model to have a different input and output dimension. Call the modified model from your client to make sure the changes take effect as you intend.
+
+
+Switching out clients
+------------------------
+
+Since UM-Bridge is language agnostic, any UM-Bridge client can connect to your minimal model. The syntax is largely the same for any supported language. If you like, follow the instructions in the clients documentation to call your model from a client in a different language, e.g. C++ or R.
+
+Further, we can make use of one of the UM-Bridge integrations for UQ frameworks. For example, install QMCPy from PyPI::
+
+    pip install qmcpy
+
+You can then run the QMCPy example client from the `UM-Bridge repository <https://www.github.com/UM-Bridge/umbridge/tree/main/clients/python/>`_::
+
+    python3 qmcpy-client.py http://localhost:4242
+
+It will connect to the running model server as before, and perform a forward UQ solve via Quasi-Monte Carlo. Simply put, it will apply the model to (cleverly chosen) samples from a distribution specified in the client, and output information about the resulting distribution of model outputs. We will take a closer look at UQ frameworks supporting UM-Bridge later.
+
+
+2: Model containers
+========================
+
 Running a pre-defined model container
 ------------------------
 
-We begin by running an existing model. The UM-Bridge benchmark library provides a number of ready-to-run models and UQ benchmark problems. Have a look at the tsunami model; it is part of this documentation site.
+The UM-Bridge benchmark library provides a number of ready-to-run models and UQ benchmark problems. Have a look at the tsunami model; it is part of this documentation site.
 
 Each model in the library is provided as a publicly available Docker image. The Docker image ships not only the model server itself, but also all dependencies and data files it needs. No model-specific setup is required.
 
@@ -28,45 +85,41 @@ As the tsunami model's documentation indicates, it is enough to run the followin
 
 The model server is now up and running inside a container, waiting to be called by any UM-Bridge client.
 
+Note that only one model server may be running at a given port. So, if you see an error indicating port 4242 is already in use, shut down the existing model server first.
+
 Refer to the tsunami model's documentation again to see what models the model server provides (there may be multiple), and what their properties are. In this case it is a model called ``forward``. This particular model takes a single 2D vector as input, defined to be the location of the tsunami source. It then solves a hyperbolic partial differential equation (PDE) to compute the tsunami propagation. Finally, it returns a single 4D vector containing the main tsunami wave's arrival time and maximum water height at two different locations. This model does not provide any derivatives.
+
 
 Requesting a model evaluation
 ------------------------
 
-For now, the server is just idle and waiting. Next, we are going to connect to the model server in order to request a model evaluation.
-
-Python's UM-Bridge module is available through PyPI::
-
-    pip install umbridge
-
-A basic UM-Bridge client written in Python is ``umbridge-client.py`` from the `UM-Bridge repository <https://www.github.com/UM-Bridge/umbridge/tree/main/clients/python/>`_. Download this example client (by git cloning the repository, or just downloading the file itself). Launch it on your machine via::
-
-    python umbridge-client.py http://localhost:4242
-
-``localhost`` in the URL points client to the model running on the same machine. In the model's terminal, you will now see the log output of the model computation. Finally, the client will receive the model output and print it to terminal.
-
-Take a closer look at the contents of ``umbridge-client.py``. You find an explanation of the Python interface in the clients section of this documentation page. Try and request model evaluations for different input parameters; the output should change accordingly.
+As before, you can use the minimal Python client to connect to the model (or any other UM-Bridge client).
 
 Apart from input parameters, the client may also choose different configuration options. These are model specific and listed in the respective model's documentation page. For example, the tsunami model allows you to select a finer discretization level by passing ``{"level": 1}`` as configuration. Again, the client documentation gives an example. Be aware that level 2 may take quite long to run.
+
 
 Switching out models
 ------------------------
 
-You can use the exact same client as before on any other UM-Bridge model, regardless of model specifics like choice of programming language, build systems, etc. Stop the tsunami model (e.g. via Ctrl + C in its terminal). Instead, run a simple beam model::
+You can use the exact same client as before on any other UM-Bridge model, regardless of model specifics like choice of programming language, build systems, etc. Stop the tsunami model (e.g. via Ctrl + C in its terminal). Instead, run a simple beam benchmark problem::
 
     docker run -it -p 4243:4243 linusseelinger/benchmark-muq-beam-propagation:latest
 
 This Euler-Bernoulli beam has different input and output dimensions than the tsunami. Running the client again will yield an according error::
 
-    python umbridge-client.py http://localhost:4242
+    python umbridge-client.py http://localhost:4243
 
-Change the input parameter dimension in ``umbridge-client.py`` to match the new model (e.g. ``param = [[0.001]*31]``), and you should receive its output.
+Change the input parameter dimension in ``umbridge-client.py`` to match the new model (e.g. ``param = [[1.02,1.04,1.03]]``), and you should receive its output.
+
+In contrast to the more costly tsunami model, the beam model is fast enough to quickly solve a forward UQ problem on it via QMCPy:
+
+    python3 qmcpy-client.py http://localhost:4243
 
 
 Accessing model output files
 ------------------------
 
-Some models may output files in addition to the response the client receives; this is particularly helpful for model debugging. According to its documentation, the tsunami model above will write VTK output to the ``/output`` directory if we pass ``{"vtk_output": True}`` as config option.
+Some models may output files in addition to the response the client receives; this is particularly helpful for model debugging. According to its documentation, the tsunami model will write VTK output to the ``/output`` directory if we pass ``{"vtk_output": True}`` as config option.
 
 When launching the model, you can map this directory inside the container to ``~/tsunami_output`` on your machine::
 
@@ -74,38 +127,47 @@ When launching the model, you can map this directory inside the container to ``~
 
 After requesting a model evaluation from the client and passing the config option, you can view the output files per time step in your home directory under ``~/tsunami_output`` using paraview or any other VTK compatible visualization tool.
 
-Switching out clients
-------------------------
-
-We have seen above that the same client can connect to any model. In reverse, any client can connect to a model as well. The syntax is largely the same for any supported language. If you like, follow the instructions in the clients documentation to call a model from a different client integration, e.g. C++ or R.
-
-
-2: Custom models
-========================
-
-You find a minimal UM-Bridge model written in Python at `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main/models/testmodel-python/>`_. Launch it on your machine via::
-
-    python minimal-server.py
-
-You can now connect to this model as before. It takes a single 1D vector as input, multiplies it by two, and returns it. Refer to the Models section of the documentation for an explanation of how UM-Bridge models are defined in Python. Play around with the minimal model. For example, you could replace the multiplication by a more interesting operation, or change the model to have a different number of inputs and outputs. Call the modified model from your client to make sure the changes take effect as you intend.
 
 3: Solving UQ problems
 ========================
 
 We now solve an actual UQ problem.
 
-TODO
 
-* simple monte carlo via scipy/numpy random generator?
-* QMCPy example on beam propagation ----> best after Aleksei's talk?
+Uncertainty propagation
+------------------------
 
-4: Build custom container
+
+
+
+Bayesian inverse problems
+------------------------
+
+All Bayesian inference benchmarks in the library provide a model named ``posterior`` that maps a model parameter to the log of a Bayesian posterior.
+Spin up such a benchmark problem::
+
+    docker run -it -p 4243:4243 linusseelinger/benchmark-analytic-gaussian-mixture
+
+PyMC is a popular package with support for Bayesian inference. It is available via PyPI::
+
+    pip install pymc
+
+The UM-Bridge repository contains a PyMC example client, which you can run as follows::
+
+    python3 pymc-client.py http://localhost:4243
+
+This client could connect to your own model, assuming it provides a model ``posterior`` and has a single 1D output vector (namely the log of the posterior).
+The example makes use of PyMC's NUTS sampler to draw samples from the posterior distribution. While this sampler is very efficient, it assumes
+access to the posterior's gradient. Your model therefore has to provide a gradient implementation for the example to run. Alternatively, you could
+switch PyMC to use a different sampler. Refer to the PyMC documentation for more information.
+
+
+4: Build custom model containers
 ========================
 
 TODO
 
 * Explanation of Dockerfile structure
 * Start from existing Dockerfile
-* Adapt to custom model
+* Adapt to custom model (modified minimal model from above)
 * How to construct dockerfile by testing container: docker run ... bash
-
