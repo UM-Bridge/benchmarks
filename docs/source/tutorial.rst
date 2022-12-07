@@ -40,7 +40,7 @@ A basic UM-Bridge client written in Python is ``umbridge-client.py`` from the `U
 
 ``localhost`` in the URL points client to the model running on the same machine. This will lead to an error, indicating that the client is passing an input of wrong dimension to the server.
 
-Take a closer look at the contents of ``umbridge-client.py``. You find an explanation of the Python interface in the clients section of this documentation page. Change the input parameter to the dimension the model expects, for example ``param = [[17.4]]``. Running the client again will now yield the expected output from the server, namely ``[[34.8]]``.
+Take a closer look at the contents of ``umbridge-client.py``. You find an explanation of the Python interface in the `clients section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html>`_. Change the input parameter to the dimension the model expects, for example ``param = [[17.4]]``. Running the client again will now yield the expected output from the server, namely ``[[34.8]]``.
 
 Try and request model evaluations for different input parameters; the output should change accordingly.
 
@@ -50,23 +50,23 @@ Note that the client in fact requests the model evaluation twice, the second tim
 Changing the model
 ------------------------
 
-Now take a closer look at ``minimal-server.py``. Refer to the Models section of the documentation for an explanation of how UM-Bridge models are defined in Python. Play around with the minimal model. For example, you could replace the multiplication by a more interesting operation, or change the model to have a different input and output dimension. Call the modified model from your client to make sure the changes take effect as you intend.
+Now take a closer look at ``minimal-server.py``. Refer to the `models section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/models.html>`_ for an explanation of how UM-Bridge models are defined in Python. Play around with the minimal model. For example, you could replace the multiplication by a more interesting operation, or change the model to have a different input and output dimension. Each time, restart the model server and call the modified model from your client to make sure changes take effect as you intend.
 
 
 Switching out clients
 ------------------------
 
-Since UM-Bridge is language agnostic, any UM-Bridge client can connect to your minimal model. The syntax is largely the same for any supported language. If you like, follow the instructions in the clients documentation to call your model from a client in a different language, e.g. C++ or R.
+Since UM-Bridge is language agnostic, any UM-Bridge client can connect to your minimal model. The syntax is largely the same for any supported language. If you like, follow the instructions in the `clients section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html>`_ to call your model from a client in a different language, e.g. C++ or R.
 
-Further, we can make use of one of the UM-Bridge integrations for UQ frameworks. For example, install QMCPy from PyPI::
+Further, we can use one of the UM-Bridge integrations for specific UQ frameworks. These allow UM-Bridge models to be used seamlessly in each framework by fully embedding UM-Bridge clients (or servers) in the respective architecture. For example, install QMCPy from PyPI::
 
     pip install qmcpy
 
 You can then run the QMCPy example client from the `UM-Bridge repository <https://www.github.com/UM-Bridge/umbridge/tree/main/clients/python/>`_::
 
-    python3 qmcpy-client.py http://localhost:4242
+    python qmcpy-client.py http://localhost:4242
 
-It will connect to the running model server as before, and perform a forward UQ solve via Quasi-Monte Carlo. Simply put, it will apply the model to (cleverly chosen) samples from a distribution specified in the client, and output information about the resulting distribution of model outputs. We will take a closer look at UQ frameworks supporting UM-Bridge later.
+It will connect to the running model server as before, and perform a forward UQ solve via Quasi-Monte Carlo. Simply put, it will apply the model to (cleverly chosen) samples from a distribution specified in the client, and output information about the resulting distribution of model outputs. Due to tight integration, this code looks like any other basic QMCPy example; however, it can immediately connect to any (arbitrarily complex) UM-Bridge model. We will take a closer look at UQ frameworks supporting UM-Bridge later.
 
 
 2: Model containers
@@ -111,7 +111,7 @@ This Euler-Bernoulli beam has different input and output dimensions than the tsu
 
 Change the input parameter dimension in ``umbridge-client.py`` to match the new model (e.g. ``param = [[1.02,1.04,1.03]]``), and you should receive its output.
 
-In contrast to the more costly tsunami model, the beam model is fast enough to quickly solve a forward UQ problem on it via QMCPy:
+In contrast to the more costly tsunami model, the beam model is fast enough to quickly solve a forward UQ problem on it via QMCPy::
 
     python3 qmcpy-client.py http://localhost:4243
 
@@ -141,11 +141,11 @@ For example, the already mentioned Euler-Bernoulli beam propagation benchmark de
 
     docker run -it -p 4243:4243 linusseelinger/benchmark-muq-beam-propagation:latest
 
-The QMCPy client is already set up to solve the UQ problem defined in the benchmark's documentation. Simply run it via::
+The QMCPy client is already set up to solve the UQ problem defined in the beam benchmark's documentation. Simply run it via::
 
     python3 qmcpy-client.py http://localhost:4243
 
-Have a closer look at ``qmcpy-client.py``. Try and change the distribution to a different one, e.g. a normal distribution with similar variance. Refer to QMCPy's documentation for details.
+Have a closer look at ``qmcpy-client.py``. Try and change the distribution to a different one, e.g. a normal distribution with similar variance. Refer to `QMCPy's documentation <https://qmcpy.readthedocs.io/en/latest/>`_ for details.
 
 Bayesian inverse problems
 ------------------------
@@ -168,7 +168,7 @@ The example uses PyMC's Markov chain Monte Carlo (MCMC) support in order to gene
 
 This client could also connect to your own model, assuming it provides a model ``posterior`` and has a single 1D output vector (namely the log of the posterior).
 The example makes use of PyMC's NUTS sampler to draw samples from the posterior distribution, which is a particular MCMC variant. While this sampler is very efficient, it assumes access to the posterior's gradient. Your model therefore has to provide a gradient implementation for the example to run. Alternatively, you could
-switch PyMC to use a different sampler. Refer to PyMC's documentation for details.
+switch PyMC to use a different sampler. Refer to `PyMC's documentation <https://www.pymc.io/>`_ for details.
 
 
 4: Build custom model containers
