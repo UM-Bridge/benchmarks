@@ -48,6 +48,10 @@ Mount directory | Purpose
 ---|---
 None |
 
+## Source code
+
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/abm-attack-fraction)
+
 ## Description
 
 The benchmark is fitting to an attack fraction of 40\% with a standard deviation of 10\%.
