@@ -49,7 +49,7 @@ None |
 ## Description
 In the simulation the composite strength of a corner part with a wrinkle is modeled. The analysis assumes standard anisotropic 3D linear elasticity.
 
-# References
+## References
 - Anne Reinarz, Tim Dodwell, Tim Fletcher, Linus Seelinger, Richard Butler, Robert Scheichl, *Dune-composites – A new framework for high-performance finite element modelling of laminates*, Composite Structures, 2018.
 
 - Anhad Sandhu and Anne Reinarz and Tim J. Dodwell, *A Bayesian framework for assessing the strength distribution of composite structures with random defects*, Composite Structures, 2018.

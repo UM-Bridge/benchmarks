@@ -49,7 +49,7 @@ Achlys models macroscopic tritium transport processes through fusion reactor mat
 
 The setup used in this particular benchmark models the experimental work of [Ogorodnikova et al. (2003)](https://www.sciencedirect.com/science/article/abs/pii/S0022311502013752)
 
-# Benchmark
+## Benchmark
 1. The model is evaluated with QMC samples in the following input space:
     - E1: $\mathcal U(0.7, 1.0)$
     - E2: $\mathcal U(0.9, 1.3)$
@@ -59,7 +59,7 @@ The setup used in this particular benchmark models the experimental work of [Ogo
 
 2. An emulator of the input-to-output map is constructed using a functional GP. The input to the emulator is the five-dimensional parameter space described above, while the output is the corresponding tritium desorption curve, including the predictive uncertainty.
 
-# References
+## References
 - Rémi Delaporte-Mathurin, Etienne A. Hodille, Jonathan Mougenot, Yann Charles, Christian Grisolia, *Finite element analysis of hydrogen retention in ITER plasma facing components using FESTIM*, Nuclear Materials and Energy, Volume 21, 2019
 
 - O.V Ogorodnikova, J Roth, M Mayer, *Deuterium retention in tungsten in dependence of the surface conditions*, Journal of Nuclear Materials, Volumes 313–316, 2003
