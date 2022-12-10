@@ -241,7 +241,7 @@ In order to write your own Dockerfile let's start from a minimal example.::
 
     RUN pip3 install umbridge numpy scipy
 
-    CMD python3 /server/server.py`
+    CMD python3 /server/server.py
 
 Add a file called Dockerfile to your directory. Note that the filename has no extension and is capitalised.
 
@@ -271,7 +271,7 @@ Install your application. Install umbridge with::
     
 Run the server with::
 
-    CMD python3 /server/server.py`.
+    CMD python3 /server/server.py.
 
 
 Building and Running
@@ -281,13 +281,13 @@ Once you have your Dockerfile you will want to build and run the container. To b
 
     docker build -t my-model
     
-The Dockerfile can also be explicitly set using the `-f` option. At this stage you may need to go back and modify your Dockerfile because something has gone wrong during the build process.
+The Dockerfile can also be explicitly set using the -f option. At this stage you may need to go back and modify your Dockerfile because something has gone wrong during the build process.
 
 Once the container is built you can run you model with::
 
     docker run -it -p 4243:4243 my-model
     
-Note that the ports through which your model are specified with the `-p` option.
+Note that the ports through which your model communicates are specified with the -p option.
 
 It can be useful to check which images currently exist on your computer with::
 
@@ -299,7 +299,10 @@ Docker images can take up a lot of space and add up quickly. Use `docker image p
 (Optional) Uploading to dockerhub
 ------------------------
 
-Optionally you may want to upload your Dockerfile to dockerhub. This will allow you to build and run by specifying only the name, e.g. `linusseelinger/benchmark-muq-beam-propagation:latest`.
+Optionally you may want to upload your Dockerfile to dockerhub. This will allow you to build and run by specifying only the name, e.g. ::
+
+    linusseelinger/benchmark-muq-beam-propagation:latest
+
 To push to dockerhub you first need an account. You can set one up at `dockerhub <https://hub.docker.com>`_. Then you can log in on the command line by running::
 
     docker login
@@ -308,5 +311,5 @@ Once you are logged in you can push your image to docker hub using::
 
     docker push my-account/my-model
     
-where my-account is your login and `my-model` is the name of the image you want to push.
+where my-account is your login and `my-account/my-model` is the name of the image you want to push.
 
