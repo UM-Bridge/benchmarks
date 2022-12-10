@@ -231,7 +231,7 @@ Comments can be added to a Dockerfile by prepending a `#` character.
 Writing your own Dockerfile
 ------------------------
 
-In order to write your own Dockerfile let's start from a minimal example.::
+In order to write your own Dockerfile let's start from the following minimal example.::
 
     FROM ubuntu:latest
 
@@ -242,6 +242,8 @@ In order to write your own Dockerfile let's start from a minimal example.::
     RUN pip3 install umbridge numpy scipy
 
     CMD python3 /server/server.py
+    
+This minimal example assumes a model server is available. Use the model server that you have built in the first part of the tutorial.
 
 Add a file called Dockerfile to your directory. Note that the filename has no extension and is capitalised.
 
