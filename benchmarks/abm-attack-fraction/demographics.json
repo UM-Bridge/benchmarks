@@ -1,0 +1,28 @@
+{
+   "Defaults": {
+      "IndividualAttributes": {
+         "AcquisitionHeterogeneityVariance": 0.5
+      },
+      "IndividualProperties": [],
+      "NodeAttributes": {}
+   },
+   "Metadata": {
+      "Author": "idm_job_ipapphpc01@internal.idm.ctr",
+      "DateCreated": "11/06/2022",
+      "IdReference": "Example_Covariance_Sims",
+      "NodeCount": 1,
+      "Tool": "emod-api"
+   },
+   "Nodes": [
+      {
+         "IndividualAttributes": {},
+         "NodeAttributes": {
+            "FacilityName": "CATAN:001",
+            "InitialPopulation": 100000,
+            "Latitude": 0.0,
+            "Longitude": 0.0
+         },
+         "NodeID": 1
+      }
+   ]
+}
