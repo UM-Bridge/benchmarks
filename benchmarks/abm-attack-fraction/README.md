@@ -10,7 +10,7 @@ no waning immunity.
 
 ## Run
 ```
-docker run -it -p 4243:4243 krosenf/benchmark-abm:attack-fraction
+docker run -it -p 4243:4243 linusseelinger/benchmark-abm-attack-fraction:latest
 ```
 
 ## Properties
