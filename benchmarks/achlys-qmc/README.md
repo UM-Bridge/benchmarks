@@ -63,6 +63,6 @@ None |
 
 3. The log-posterior is returned as the sum of the log-prior density and the log-likelihood.
 
-# References
+## References
 
 - O.V Ogorodnikova, J Roth, M Mayer, *Deuterium retention in tungsten in dependence of the surface conditions*, Journal of Nuclear Materials, Volumes 313–316, 2003
