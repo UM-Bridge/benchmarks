@@ -21,6 +21,7 @@ Getting started
    :maxdepth: 1
 
    /quickstart
+   /tutorial
    /umbridge/contributing
    /umbridge/index
 

@@ -41,12 +41,16 @@ Mount directory | Purpose
 ---|---
 None |
 
+## Source code
+
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/models/achlys)
+
 ## Description
 Achlys models macroscopic tritium transport processes through fusion reactor materials as described in the [Achlys documentation](https://aurora-multiphysics.github.io/achlys/module/introduction.html) and in [Delaporte-Mathurin et al (2019)](https://www.sciencedirect.com/science/article/pii/S2352179119300547).
 
 The setup used in this particular benchmark models the experimental work of [Ogorodnikova et al. (2003)](https://www.sciencedirect.com/science/article/abs/pii/S0022311502013752)
 
-# References
+## References
 - Rémi Delaporte-Mathurin, Etienne A. Hodille, Jonathan Mougenot, Yann Charles, Christian Grisolia, *Finite element analysis of hydrogen retention in ITER plasma facing components using FESTIM*, Nuclear Materials and Energy, Volume 21, 2019
 
 - O.V Ogorodnikova, J Roth, M Mayer, *Deuterium retention in tungsten in dependence of the surface conditions*, Journal of Nuclear Materials, Volumes 313–316, 2003

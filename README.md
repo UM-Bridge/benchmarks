@@ -22,8 +22,9 @@ Python | ✓ | ✓
 R | ✓ | ✗
 MUQ | ✓ | ✓
 PyMC (4.x) | ✓ | ✗
-QMCPy | WIP | ✗
+QMCPy | ✓ | ✗
 Sparse Grids MATLAB Kit | planned | ✗
+tinyDA | ✓ | ✗
 
 
 This repository hosts stand-alone reference problems for benchmarking of UQ algorithms.

@@ -40,6 +40,10 @@ Mount directory | Purpose
 ---|---
 None |
 
+## Source code
+
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/models/muq-beam)
+
 ## Description
 
 Let $u(x)$ denote the vertical deflection of the beam and let $f(x)$ denote the vertical force acting on the beam at point $x$ (positive for upwards, negative for downwards).  We assume that the displacement can be well approximated using Euler-Bernoulli beam theory and thus satisfies the PDE

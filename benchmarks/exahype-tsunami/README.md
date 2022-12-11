@@ -64,6 +64,10 @@ Mount directory | Purpose
 ---|---
 /output | VTK output for visualization
 
+## Source code
+
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/exahype-tsunami)
+
 ## Description
 
 The likelihood of a given set of parameters given the simulation results is computed using weighted average of the maximal wave height and the time at which it is reached.

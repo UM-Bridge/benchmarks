@@ -44,6 +44,10 @@ Mount directory | Purpose
 ---|---
 None |
 
+## Source code
+
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/analytic-banana)
+
 ## Description
 
 We begin with a normally distributed random variable $Z \sim \mathcal{N}(\begin{pmatrix} 0 \\ 4 \end{pmatrix}, scale \begin{pmatrix} 1.0 & 0.5\\ 0.5 & 1.0 \end{pmatrix})$, and denote its PDF by $f_Z$.

@@ -1,0 +1,4 @@
+MAKE_FLAGS="-DCMAKE_CXX_FLAGS='-Wall -Werror=return-type -O3 -std=c++17 -ftemplate-backtrace-limit=0 -fno-var-tracking-assignments'
+            -DCMAKE_BUILD_TYPE=Release"
+
+MAKE_FLAGS="-j2"
