@@ -47,7 +47,7 @@ Mount directory | Purpose
 ---|---
 None |
 
-## Source Code
+## Source code
 [Model sources](https://github.com/aurora-multiphysics/achlys)
 
 ## Description
