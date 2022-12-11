@@ -8,7 +8,6 @@ In this benchmark, we use [Achlys](https://github.com/aurora-multiphysics/achlys
 - [Anne Reinarz](mailto:anne.k.reinarz@durham.ac.uk)
 
 ## Run
-
 ```
 docker run -it -p 4243:4243 linusseelinger/benchmark-achlys:latest
 ```
@@ -47,6 +46,9 @@ None | | |
 Mount directory | Purpose
 ---|---
 None |
+
+## Source Code
+[Model sources](https://github.com/aurora-multiphysics/achlys)
 
 ## Description
 1. The prior distributions of input parameters $\theta = E_1, E_2, E_3, n_1, n_2$ are all uniform:
