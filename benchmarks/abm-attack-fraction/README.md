@@ -20,7 +20,7 @@ Model | Description
 forward | Forward model
 posterior | Posterior density
 
-### posterior
+### forward
 Mapping | Dimensions | Description
 ---|---|---
 input | [3] | [ $R_0$, variance of $R_0$, correlation between acquisition and transmission ]
