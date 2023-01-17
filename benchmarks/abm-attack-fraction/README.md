@@ -2,8 +2,8 @@
 
 ## Overview
 
-In this benchmark we run [EMOD](https://docs.idmod.org/projects/emod-generic/en/latest/index.html), an agent based disease transmission model, looking at how $R_0$  and the correlation between individuals acquisition and transmission correlation can affect the ultimate attack fraction. There is 
-no waning immunity.
+In this benchmark we run [EMOD](https://docs.idmod.org/projects/emod-generic/en/latest/index.html), a stochastic agent based disease transmission model, to look at how the reproductive number, [$R_0$](https://en.wikipedia.org/wiki/Basic_reproduction_number), and the correlation between an individual's acquisition and transmission correlation can affect the ultimate attack fraction. It turns out that this correlation can greatly affect that size of the outbreak for a fixed reproductive number. 
+
 
 ## Authors
 - [Katherine Rosenfeld](mailto:katherine.rosenfeld@gatesfoundation.org)
@@ -53,5 +53,14 @@ None |
 [Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/abm-attack-fraction)
 
 ## Description
+
+Our simulation consists of 100,000 individuals who are susceptible to a disease that is introduced into the population with a probabilistic rate of 1 infections per day for the first 5 days. This disease has an incubation period that follows a Gaussian distribution with mean 3 days and standard deviation of 0.8 days. The infectious period $P$ is assumed to also follow a Gaussian distribution with a mean of 8 days and a standard deviation of 0.8. The infectivity of the disease ($I_t$; how likely it is for an infectious individual to infect another) is assumed to follow a log-normal distribution and is determined by the simulation's $R_0$ and its variance:
+$$ \mu_{I_t} = \log\left(\frac{{R_0}}{\mu_{P}}\right) - 0.5\sigma_{I_t}^2 $$
+where 
+$$ \sigma_{I_t} = \log\left(\frac{\sigma_{R_0}^2}{2R_0^2} + 0.5\right). $$
+
+Furthermore, the likelihood of an individual to acquire and then transmit the disease is correlated. There is no waning immunity.
+
+The simulation terminates when there are no longer any infected individuals (minimum run time of 50 days) and assesses the final attack fraction in the population (the fraction of people who were infected over the course of the disease outbreak).
 
 The benchmark is fitting to an attack fraction of 40\% with a standard deviation of 10\%.
