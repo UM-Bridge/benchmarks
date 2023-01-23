@@ -50,8 +50,13 @@ Achlys models macroscopic tritium transport processes through fusion reactor mat
 
 Particularly, we solve the following equations:
 
-$$\frac{\partial C_m}{\partial t} = \nabla \cdot \left( D \nabla C \right) - \sum_i \frac{\partial C_{t,i}}{\partial t} + \dot{S}_{\mathrm{ext}}$$
-$$\frac{\partial C_{t,i}}{\partial t} = \nu_m C_m (n_i - C_{t,i}) - \nu_i C_{t,i}$$
+
+```math
+ \frac{\partial C_m}{\partial t} = \nabla \cdot \left( D \nabla C \right) - \sum_i \frac{\partial C_{t,i}}{\partial t} + \dot{S}_{\mathrm{ext}}
+```
+```math
+\frac{\partial C_{t,i}}{\partial t} = \nu_m C_m (n_i - C_{t,i}) - \nu_i C_{t,i}
+```
 where $C_m$ is the concentration of mobile particles and $C_{t,i}$ is the concentration of particles at the $i$th trap type.
 
 The flux of tritium is then assumed to be proportional to the tritium creation rate at additional extrinsic traps:
