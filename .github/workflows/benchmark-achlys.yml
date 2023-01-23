@@ -28,7 +28,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: benchmarks/achlys-qmc/
+          context: benchmarks/achlys/
           push: true
           tags: linusseelinger/benchmark-achlys:latest
 
