@@ -29,7 +29,7 @@ output | [1] | Log posterior density
 Mapping | Dimensions | Description
 ---|---|---
 input | [5] | E1, E2, E3: The detrapping energy of the traps. n1, n2: The density of the intrinsic traps.
-output | [500] | Volumetric flux of tritium across the boundary as a function of time.
+output | [500] | Flux of tritium across the boundary as a function of time in atomic fraction.
 
 Feature | Supported
 ---|---
