@@ -35,12 +35,12 @@ class L2Sea(umbridge.Model):
 
         # System call, cd into working directory and call model binary
         print(config)
-        os.system('cd /NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415 && mv SBDF.aux SBDF.nml && ../../bin/L2-Sea')
-
-        os.system('mv /NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/CPU000/ /output')
+        return_value = os.system('cd /NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415 && mv SBDF.aux SBDF.nml && ../../bin/L2-Sea')
+        if return_value != 0:
+            return [[0,0,0,0,0]]
 
         # Read second line of output file, split and return last 5 elements as output
-        with open('/output/objective.out', 'r') as f:
+        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/CPU000/objective.out', 'r') as f:
             f.readline() # Skip first line
             line = f.readline() # Read second line
             line_split = line.split()[-5:] # Split and keep last 5 elements
