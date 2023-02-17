@@ -61,9 +61,9 @@ $ \mu_{I_t} = \log\left(\frac{{R_0}}{\mu_{P}}\right) - 0.5\sigma_{I_t}^2 $
 where 
 $ \sigma_{I_t} = \log\left(\frac{\sigma_{R_0}^2}{2R_0^2} + 0.5\right). $
 
-One of the challenges associated with this benchmark is that it is stochastic.  Even for the same parameters the total number of infections will differ between simulations. Furthermore, it is not guaranteed that there will alway be an outbreak: sometimes, by chance, there are not enough initial infections to generate a large outbreak.  You can reduce this challenge by increasing the number of initial infections via the `daily_import_pressures` configuration parameter (e.g., from 1 infections per day to 10 infections per day for the first 5 days).
+One of the challenges associated with this benchmark is that it is stochastic.  Even for the same parameters the total number of infections will differ between simulations. Furthermore, it is not guaranteed that there will always be an outbreak: sometimes, by chance, there are not enough initial infections to generate a large outbreak.  You can reduce this challenge by increasing the number of initial infections via the `daily_import_pressures` configuration parameter (e.g., from 1 infections per day to 10 infections per day for the first 5 days).
 
-Furthermore, the likelihood of an individual to acquire and then transmit the disease is correlated. There is no waning immunity. The benchmark is fitting to an attack fraction of 0.40 with a standard deviation of 0.025. There are bounds on $R_0$ > 0; the variance of $R_0$ > 0, and the correlation between acquisition and transmission must lie between 0 and 1 (inclusive).
+Furthermore, the likelihood of an individual to acquire and then transmit the disease is correlated. There is no waning immunity. The benchmark is fitting to an attack fraction of 0.40 with a standard deviation of 0.025. There are bounds on $R_0$ > 0; the variance of $R_0$ > 0; and the correlation between acquisition and transmission must lie between 0 and 1 (inclusive).
 
 The simulation terminates when there are no longer any infected individuals (minimum run time of 50 days) and assesses the final attack fraction in the population (the fraction of people who were infected over the course of the disease outbreak).
 
