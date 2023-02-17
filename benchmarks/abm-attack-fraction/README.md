@@ -6,8 +6,8 @@ In this benchmark we run [EMOD](https://docs.idmod.org/projects/emod-generic/en/
 
 
 ## Authors
-- [Katherine Rosenfeld](mailto:katherine.rosenfeld@gatesfoundation.org)
-- [Kurt Frey]
+- [Katherine Rosenfeld](mailto:krosenf@gmail.com)
+- Kurt Frey
 
 ## Run
 ```
