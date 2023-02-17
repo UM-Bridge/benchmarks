@@ -15,7 +15,7 @@ class DuneCompModel(umbridge.Model):
 
     def __call__(self, parameters, config):
 
-        mpiranks = config.get("ranks",2)
+        mpiranks = config.get("ranks",4)
         stackSeq = config.get("stack","example2.csv")
 
         #os.system(f"mpirun --allow-run-as-root -np {mpiranks} ./ExampleScaling -stackingSequence {stackSeq}", stdout=PIPE, stderr=PIPE)
@@ -24,7 +24,7 @@ class DuneCompModel(umbridge.Model):
 
         print(output.decode("utf-8"))
 
-        return [[1]]
+        return [[output.decode("utf-8")]]
 
     def supports_evaluate(self):
         return True

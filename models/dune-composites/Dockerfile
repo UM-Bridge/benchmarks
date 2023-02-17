@@ -17,7 +17,7 @@ RUN git clone https://gitlab.dune-project.org/core/dune-common.git && \
     git clone https://gitlab.dune-project.org/core/dune-istl.git && \
     git clone https://gitlab.dune-project.org/staging/dune-functions.git && \
     git clone https://gitlab.dune-project.org/pdelab/dune-pdelab.git && \
-    git clone https://gitlab.dune-project.org/anne.reinarz/dune-composites.git
+    git clone --branch=gcpscaling https://gitlab.dune-project.org/anne.reinarz/dune-composites.git
 
 COPY release.opts release.opts
 

@@ -10,7 +10,7 @@ In this benchmark we run [EMOD](https://docs.idmod.org/projects/emod-generic/en/
 
 ## Run
 ```
-docker run -it -p 4243:4243 krosenf/benchmark-abm:attack-fraction
+docker run -it -p 4243:4243 linusseelinger/benchmark-abm-attack-fraction:latest
 ```
 
 ## Properties
@@ -20,7 +20,7 @@ Model | Description
 forward | Forward model
 posterior | Posterior density
 
-### posterior
+### forward
 Mapping | Dimensions | Description
 ---|---|---
 input | [3] | [ $R_0$, variance of $R_0$, correlation between acquisition and transmission ]
@@ -64,3 +64,4 @@ Furthermore, the likelihood of an individual to acquire and then transmit the di
 The simulation terminates when there are no longer any infected individuals (minimum run time of 50 days) and assesses the final attack fraction in the population (the fraction of people who were infected over the course of the disease outbreak).
 
 The benchmark is fitting to an attack fraction of 40\% with a standard deviation of 10\%.
+

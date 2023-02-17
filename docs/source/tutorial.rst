@@ -174,9 +174,144 @@ switch PyMC to use a different sampler. Refer to `PyMC's documentation <https://
 4: Build custom model containers
 ========================
 
-TODO
+The easiest way to build your own UM-Bridge model is to create a custom docker container for you model. Docker allows you to package applications, their dependencies, configuration files and/or data to run on Linux, Windows or MacOS systems. They can only communicate with each other through certain channels, we will see more on this later.
+In order to create such a docker container you write a set of instructions for building your application. This set of instructions is called a Dockerfile.
 
-* Explanation of Dockerfile structure
-* Start from existing Dockerfile
-* Adapt to custom model (modified minimal model from above)
-* How to construct dockerfile by testing container: docker run ... bash
+Dockerfile structure
+------------------------
+Writing a Dockerfile is very similar to writing a bash script to build your application. The main advantage is that the Dockerfile will be operating system independant. The main difference is that docker uses certain keywords at the start of each line to denote what type of command you are using.
+
+Before writing our own Dockerfile let's have a look at the Dockerfiles for the two applications we have used in previous steps of the tutorial. The beam propagation benchmark does not have a lot of dependencies. It's Dockerfile can be found `here <https://github.com/UM-Bridge/benchmarks/tree/main/models/muq-beam>`_ .
+
+In addition to the Dockerfile itself the folder contains python files for the applicaton (BeamModel.py and GenerateObservations.py), additional data (ProblemDefinition.h5) and a README. 
+We are mainly interested in the Dockerfile itself so let's open it and walk through the components one by one.
+
+On the first line we have::
+    
+    FROM mparno/muq:latest
+    
+Here FROM is a keyword we use to define a base image for our application. In this case the model is built on top of the MUQ docker image. The last part `:latest` specifies which version of the container to use.
+
+Next we have::
+
+    COPY . /server
+
+Here COPY is a keyword that specifies we need to copy the server in to the Docker container.
+
+Then we set::
+
+    USER root
+
+The USER keyword can be used to specify which user should be running commands. By default this is root.
+
+Now we need to install any dependencies our application has. In this applications all dependencies can be install using apt and we run::
+
+    RUN apt update && apt install -y python3-aiohttp python3-requests python3-numpy python3-h5py
+    
+The RUN keyword specifies that the corresponding lines should be executed.
+
+Now we switch user with `USER muq-user` and set the working directory with::
+
+    WORKDIR /server
+    
+The WORKDIR keyword sets the directory from which all subsequent commands are run. Paths will begin in this directory. If the WORKDIR is not set then `/` is used.
+
+Finally, we run the actual model with::
+
+    CMD python3 BeamModel.py
+    
+The CMD keyword is also used to execute commands, however, it differs from RUN in that the command is run once container is live. The setup and installation of your application should take place when building the container (use RUN) and the actual model runs should take place once the container is running (use CMD or call this from the umbridge server).
+
+You can also have a look at the Dockerfile for the ExaHyPE tsunami model, which you can find here: `here <https://github.com/UM-Bridge/benchmarks/tree/main/models/exahype-tsunami>`_. This application has more dependencies, and as such a considerably longer Dockerfile, but follows the same steps to install those dependencies one by one. In addition to the keywords described above, this Dockerfile sets environment variables by the `ENV` keyword.
+
+You may notice that this model builds on a base image called `mpioperator/openmpi-builder`. This base image allows you to run MPI commands across docker containers. You can find additional information on this base image `here <https://github.com/kubeflow/mpi-operator>`_.
+
+Comments can be added to a Dockerfile by prepending a `#` character.
+
+Writing your own Dockerfile
+------------------------
+
+In order to write your own Dockerfile let's start from the following minimal example.::
+
+    FROM ubuntu:latest
+
+    COPY . /server
+
+    RUN apt update && apt install -y python3-pip
+
+    RUN pip3 install umbridge numpy scipy
+
+    CMD python3 /server/server.py
+    
+This minimal example assumes a model server is available. Use the model server that you have built in the first part of the tutorial.
+
+Add a file called Dockerfile to your directory. Note that the filename has no extension and is capitalised.
+
+Your Dockerfile should start by building on a base image. As a very basic starting point use ubuntu as your base image::
+
+    FROM ubuntu:latest
+    
+Alternatively use any other existing image you want to build on.
+
+Next copy the server. Install any standard dependencies your application has::
+
+    RUN apt update && apt install -y python3-pip [your-dependencies]
+    
+Note:
+
+* python3-pip is needed to install umbridge
+
+* Always remember to run apt update.
+
+* Specify the `-y` option to apt to ensure that apt does not wait for user input.
+
+If you have additional dependencies, add these either by cloning a git repository and installing, or by using the COPY keyword to copy files into your container. 
+
+Install your application. Install umbridge with::
+    
+    RUN pip3 install umbridge numpy scipy
+    
+Run the server with::
+
+    CMD python3 /server/server.py.
+
+
+Building and Running
+------------------------
+
+Once you have your Dockerfile you will want to build and run the container. To build the container in your current directory run::
+
+    docker build -t my-model
+    
+The Dockerfile can also be explicitly set using the -f option. At this stage you may need to go back and modify your Dockerfile because something has gone wrong during the build process.
+
+Once the container is built you can run you model with::
+
+    docker run -it -p 4243:4243 my-model
+    
+Note that the ports through which your model communicates are specified with the -p option.
+
+It can be useful to check which images currently exist on your computer with::
+
+    docker image ls
+
+Docker images can take up a lot of space and add up quickly. Use `docker image prune` to delete dangling images or `docker image rm` to delete specific images.
+
+
+(Optional) Uploading to dockerhub
+------------------------
+
+Optionally you may want to upload your Dockerfile to dockerhub. This will allow you to build and run by specifying only the name, e.g. ::
+
+    linusseelinger/benchmark-muq-beam-propagation:latest
+
+To push to dockerhub you first need an account. You can set one up at `dockerhub <https://hub.docker.com>`_. Then you can log in on the command line by running::
+
+    docker login
+    
+Once you are logged in you can push your image to docker hub using::
+
+    docker push my-account/my-model
+    
+where my-account is your login and `my-account/my-model` is the name of the image you want to push.
+
