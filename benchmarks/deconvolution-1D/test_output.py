@@ -12,13 +12,13 @@ print('Setting up testproblem')
 data = np.load("data_square.npz")
 TP = cuqi.testproblem.Deconvolution1D(
     dim=128,
-    kernel="gauss",
-    kernel_param=10,
+    PSF="gauss",
+    PSF_param=5,
     phantom=data["exact"], # Phantom was "pc".
-    data=data["data"], # data was None (i.e. generated from exact phantom).
-    noise_std=0.05,
+    noise_std=0.01,
     noise_type="gaussian"
 )
+TP.likelihood.data = data["data"] # Set data from file
 parameters = TP.exactSolution # Extract test parameters to evaluate on
 
 # Parse command line arguments
@@ -91,10 +91,10 @@ assert output_LMRF == pytest.approx(TP.posterior.logpdf(parameters))
 assert np.allclose(output_exactSolution, TP.exactSolution)
 
 print('Regression testing against known norm values of output')
-assert np.linalg.norm(output_Gaussian) == pytest.approx(527.3167297418795)
-assert np.linalg.norm(output_GMRF) == pytest.approx(275.11317646030136)
-assert np.linalg.norm(output_CMRF) == pytest.approx(623.5524285890178)
-assert np.linalg.norm(output_LMRF) == pytest.approx(500.2274783053115)
+assert np.linalg.norm(output_Gaussian) == pytest.approx(322.41863494564063)
+assert np.linalg.norm(output_GMRF) == pytest.approx(480.0112712565403)
+assert np.linalg.norm(output_CMRF) == pytest.approx(828.4505233852567)
+assert np.linalg.norm(output_LMRF) == pytest.approx(705.1255731015503)
 assert np.linalg.norm(output_exactSolution) == pytest.approx(4.242640687119285)
 
 print('All tests passed')

@@ -3,15 +3,11 @@
 ## Overview
 This benchmark is based on a [1D Deconvolution test problem](https://cuqi-dtu.github.io/CUQIpy/api/_autosummary/cuqi.testproblem/cuqi.testproblem.Deconvolution1D.html) from the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/). It defines a posterior distribution for a 1D deconvolution problem, with a Gaussian likelihood and four different choices of prior distributions with configurable parameters.
 
-Data plot
+Plot of data and exact solution
 
 ![Data](data.png "Data")
 
-Exact solution plot
-
-![Exact](exact.png "Exact")
-
-Credibility interval plot of posterior samples with LMRF prior using $\delta=0.01$.
+Credibility interval plots of posterior samples using different priors
 
 ![Samples](samples.png "Credibility interval of samples")
 
@@ -105,14 +101,12 @@ delta = 0.01
 prior = "LMRF"
 
 # Load data, define problem and sample posterior
-data = np.load("data_square.npz") # Data exists in repository for this benchmark
 TP = cuqi.testproblem.Deconvolution1D(
     dim=128,
     PSF="gauss",
-    PSF_param=10,
-    phantom=data["exact"]
-    data=data["data"], # data was None (i.e. generated from exact phantom).
-    noise_std=0.05,
+    PSF_param=5,
+    phantom="square",
+    noise_std=0.01,
     noise_type="gaussian"
 )
 if prior == "Gaussian":
