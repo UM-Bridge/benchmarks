@@ -3,7 +3,7 @@ import numpy as np
 import cuqi
 
 
-class Deconvolution1D(umbridge.Model):
+class Deconvolution1D_UM(umbridge.Model):
     """Base benchmark for all 1D deconvolution problems"""
 
     dim = 128  # Dimension of the 1D signal
@@ -27,8 +27,8 @@ class Deconvolution1D(umbridge.Model):
         # Set up test problem
         TP = cuqi.testproblem.Deconvolution1D(
             dim=self.dim,
-            kernel="gauss",
-            kernel_param=10,
+            PSF="gauss",
+            PSF_param=10,
             phantom="square",
             data=data["data"], # data was None (i.e. generated from exact phantom).
             noise_std=0.05,
@@ -71,7 +71,7 @@ class Deconvolution1D(umbridge.Model):
         return posterior
 
 
-class Deconvolution1D_Gaussian(Deconvolution1D):
+class Deconvolution1D_Gaussian(Deconvolution1D_UM):
     """Deconvolution 1D with Gaussian prior"""
 
     def __init__(self):
@@ -79,7 +79,7 @@ class Deconvolution1D_Gaussian(Deconvolution1D):
         self.prior = cuqi.distribution.Gaussian(np.zeros(self.dim), lambda delta: delta, name="x")
 
 
-class Deconvolution1D_GMRF(Deconvolution1D):
+class Deconvolution1D_GMRF(Deconvolution1D_UM):
     """Deconvolution 1D with Gaussian Markov Random Field (GMRF) prior"""
 
     def __init__(self):
@@ -87,7 +87,7 @@ class Deconvolution1D_GMRF(Deconvolution1D):
         self.prior = cuqi.distribution.GMRF(np.zeros(self.dim), lambda delta: 1 / delta, name="x")
 
 
-class Deconvolution1D_LMRF(Deconvolution1D):
+class Deconvolution1D_LMRF(Deconvolution1D_UM):
     """Deconvolution 1D with Laplace Markov Random Field (LMRF) prior"""
 
     def __init__(self):
@@ -98,7 +98,7 @@ class Deconvolution1D_LMRF(Deconvolution1D):
         return False
 
 
-class Deconvolution1D_CMRF(Deconvolution1D):
+class Deconvolution1D_CMRF(Deconvolution1D_UM):
     """Deconvolution 1D with Cauchy Markov Random Field (CMRF) prior"""
 
     def __init__(self):

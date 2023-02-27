@@ -7,7 +7,11 @@ Data plot
 
 ![Data](data.png "Data")
 
-Credibility interval plot of posterior samples with LMRF prior:
+Exact solution plot
+
+![Exact](exact.png "Exact")
+
+Credibility interval plot of posterior samples with LMRF prior using $\delta=0.01$.
 
 ![Samples](samples.png "Credibility interval of samples")
 
@@ -45,7 +49,7 @@ None |
 
 ## Source code
 
-[Model sources here.](https://github.com/CUQI-DTU/CUQIpy/blob/main/cuqi/testproblem/_testproblem.py#L144)
+[Sources here.](https://github.com/CUQI-DTU/CUQIpy/blob/main/cuqi/testproblem/_testproblem.py#L144)
 
 ## Description
 
@@ -72,7 +76,7 @@ $$
 \mathbf{b} \mid \mathbf{x} \sim \mathcal{N}(\mathbf{A}\mathbf{x}, \sigma^2\mathbf{I}_m),
 $$
 
-where $\mathbf{I}_m$ is the $m\times m$ identity matrix and $\sigma=0.05$ is the noise standard deviation.
+where $\mathbf{I}_m$ is the $m\times m$ identity matrix and $\sigma=0.05$ defines the noise level.
 
 The prior can be configured by choosing of the following assumptions about $\mathbf{x}$:
 
@@ -90,7 +94,7 @@ The choice of prior is specified by providing the name to the HTTP model. In thi
 
 In addition to the HTTP models for the posterior, there is also an HTTP model for the exact solution to the problem. This model is called `Deconvolution1D_ExactSolution` and returns exact phantom used to generate the synthetic data when called.
 
-In CUQIpy the benchmark is defined and solved as follows:
+In CUQIpy the benchmark is defined and sampled as follows:
 
 ```python
 import numpy as np
@@ -104,9 +108,9 @@ prior = "LMRF"
 data = np.load("data_square.npz") # Data exists in repository for this benchmark
 TP = cuqi.testproblem.Deconvolution1D(
     dim=128,
-    kernel="gauss",
-    kernel_param=10,
-    phantom=data["exact"], # Phantom was "pc".
+    PSF="gauss",
+    PSF_param=10,
+    phantom=data["exact"]
     data=data["data"], # data was None (i.e. generated from exact phantom).
     noise_std=0.05,
     noise_type="gaussian"
