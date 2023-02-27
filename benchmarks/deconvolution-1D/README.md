@@ -20,23 +20,101 @@ Credibility interval plots of posterior samples using different priors
 ```
 docker run -it -p 4243:4243 linusseelinger/benchmark-deconvolution-1D
 ```
+
 ## Properties
 
+Model | Description
+---|---
+Deconvolution1D_Gaussian | Posterior distribution with Gaussian prior
+Deconvolution1D_GMRF | Posterior distribution with Gaussian Markov Random Field prior
+Deconvolution1D_LMRF | Posterior distribution with Laplacian Markov Random Field prior
+Deconvolution1D_CMRF | Posterior distribution with Cauchy Markov Random Field prior
+Deconvolution1D_ExactSolution | Exact solution to the deconvolution problem
+
+### Deconvolution1D_Gaussian
 Mapping | Dimensions | Description
 ---|---|---
 input | [128] | Signal $\mathbf{x}$
-output | [1] | Log PDF $\pi(\mathbf{b}\mid\mathbf{x})$
+output | [1] | Log PDF $\pi(\mathbf{b}\mid\mathbf{x})$ of posterior with Gaussian prior
 
 Feature | Supported
 ---|---
 Evaluate | True
-Gradient | True (in most cases)
+Gradient | True
 ApplyJacobian | False
 ApplyHessian | False
 
 Config | Type | Default | Description
 ---|---|---|---
 delta | double | 0.01 | The prior parameter $\delta$ (see below).
+
+### Deconvolution1D_GMRF
+Mapping | Dimensions | Description
+---|---|---
+input | [128] | Signal $\mathbf{x}$
+output | [1] | Log PDF $\pi(\mathbf{b}\mid\mathbf{x})$ of posterior with Gaussian Markov Random Field prior
+
+Feature | Supported
+---|---
+Evaluate | True
+Gradient | True
+ApplyJacobian | False
+ApplyHessian | False
+
+Config | Type | Default | Description
+---|---|---|---
+delta | double | 0.01 | The prior parameter $\delta$ (see below).
+
+### Deconvolution1D_LMRF
+Mapping | Dimensions | Description
+---|---|---
+input | [128] | Signal $\mathbf{x}$
+output | [1] | Log PDF $\pi(\mathbf{b}\mid\mathbf{x})$ of posterior Laplacian Markov Random Field prior
+
+Feature | Supported
+---|---
+Evaluate | True
+Gradient | False
+ApplyJacobian | False
+ApplyHessian | False
+
+Config | Type | Default | Description
+---|---|---|---
+delta | double | 0.01 | The prior parameter $\delta$ (see below).
+
+### Deconvolution1D_CMRF
+Mapping | Dimensions | Description
+---|---|---
+input | [128] | Signal $\mathbf{x}$
+output | [1] | Log PDF $\pi(\mathbf{b}\mid\mathbf{x})$ of posterior with Cauchy Markov Random Field prior
+
+Feature | Supported
+---|---
+Evaluate | True
+Gradient | True
+ApplyJacobian | False
+ApplyHessian | False
+
+Config | Type | Default | Description
+---|---|---|---
+delta | double | 0.01 | The prior parameter $\delta$ (see below).
+
+### Deconvolution1D_ExactSolution
+Mapping | Dimensions | Description
+---|---|---
+input | [0] | No input to be provided. 
+output | [128] | Returns the exact solution $\mathbf{x}$ for the deconvolution problem.
+
+Feature | Supported
+---|---
+Evaluate | True
+Gradient | False
+ApplyJacobian | False
+ApplyHessian | False
+
+Config | Type | Default | Description
+---|---|---|---
+None | | |
 
 ## Mount directories
 Mount directory | Purpose
