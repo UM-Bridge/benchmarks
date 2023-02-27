@@ -38,9 +38,14 @@ Config | Type | Default | Description
 ---|---|---|---
 delta | double | 0.01 | The prior parameter $\delta$ (see below).
 
+## Mount directories
 Mount directory | Purpose
 ---|---
 None |
+
+## Source code
+
+[Model sources here.](https://github.com/CUQI-DTU/CUQIpy/blob/main/cuqi/testproblem/_testproblem.py#L144)
 
 ## Description
 
