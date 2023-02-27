@@ -53,7 +53,7 @@ class Deconvolution1D_UM(umbridge.Model):
 
     def gradient(self, out_wrt, in_wrt, parameters, sens, config):
         posterior = self._configure_posterior(config)
-        output = posterior.gradient(np.asarray(parameters[0]))
+        output = posterior.gradient(np.asarray(sens[0]))
         return [output.tolist()]
 
     def supports_evaluate(self):
