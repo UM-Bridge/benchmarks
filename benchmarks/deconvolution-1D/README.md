@@ -150,7 +150,7 @@ $$
 \mathbf{b} \mid \mathbf{x} \sim \mathcal{N}(\mathbf{A}\mathbf{x}, \sigma^2\mathbf{I}_m),
 $$
 
-where $\mathbf{I}_m$ is the $m\times m$ identity matrix and $\sigma=0.05$ defines the noise level.
+where $\mathbf{I}_m$ is the $m\times m$ identity matrix and $\sigma=0.01$ defines the noise level.
 
 The prior can be configured by choosing of the following assumptions about $\mathbf{x}$:
 
