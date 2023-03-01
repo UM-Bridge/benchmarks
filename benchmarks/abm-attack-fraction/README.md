@@ -36,7 +36,7 @@ output | [1] | Log posterior density
 Feature | Supported
 ---|---
 Evaluate | True
-Gradient | False
+Gradient | True (via finite difference)
 ApplyJacobian | False
 ApplyHessian | False
 
@@ -44,6 +44,8 @@ Config | Type | Default | Description
 ---|---|---|---
 refresh_seed | (bool, int)| True | Change random seed for each model call
 daily_import_pressures | double | 1.0 | Number of average importations per day for the first 5 days of the simulation
+log_level | string | ERROR | level of logging by the model
+epsilon | list | [0.001, 0.001, 0.001] | increment used by scipy.optimize.approx_fprime to estimate the gradient
 
 ## Mount directories
 Mount directory | Purpose

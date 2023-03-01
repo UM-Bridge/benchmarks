@@ -8,7 +8,7 @@ import umbridge
 import json
 from copy import deepcopy
 import scipy.stats
-
+from scipy.optimize import approx_fprime
 
 class EMODForwardModel(umbridge.Model):
     '''
@@ -48,6 +48,7 @@ class EMODForwardModel(umbridge.Model):
         # extract config
         refresh_seed = config.get('refresh_seed', True)
         daily_import_pressures = config.get('daily_import_pressures', 1.0)
+        log_level = config.get('log_level','ERROR')
 
         # unpack parameters
         self.run_number += 1
@@ -73,12 +74,12 @@ class EMODForwardModel(umbridge.Model):
         inf_ln_sig     = np.sqrt(np.log(inf_ln_var/inf_ln_mean/inf_ln_mean+1.0))
         inf_ln_mu      = np.log(inf_ln_mean) - 0.5*inf_ln_sig*inf_ln_sig
         if refresh_seed:
-            config_dict['parameters']['Run_Number'] = int(model_id)
+            config_dict['parameters']['Run_Number'] = int(model_id) % 65535
         config_dict['parameters']['Base_Infectivity_Log_Normal_Mu'] = inf_ln_mu
         config_dict['parameters']['Base_Infectivity_Log_Normal_Sigma'] = inf_ln_sig
         config_dict['parameters']['Acquisition_Transmission_Correlation'] = Acquisition_Transmission_Correlation
         config_dict['parameters']['Infectious_Period_Gaussian_Mean'] = inf_prd_mean
-        
+        config_dict['parameters'][ 'logLevel_default'] = log_level
         # update campaign file
         campaign_dict['Events'][0]['Event_Coordinator_Config']['Intervention_Config']['Daily_Import_Pressures'] = [daily_import_pressures]
 
@@ -100,11 +101,13 @@ class EMODForwardModel(umbridge.Model):
 
         # attack fraction = 1 - susceptible population
         model_output = 1 - inset_chart['Channels']['Susceptible Population']['Data'][-1]
-        print(model_output)
 
         self._cleanup()
 
         return [[model_output]]
+
+    def supports_evaluate(self):
+        return True    
 
     def _cleanup(self):
         '''
@@ -118,8 +121,6 @@ class EMODForwardModel(umbridge.Model):
         cmd = f"rm -rf {directory}"
         os.system(cmd)        
 
-    def supports_evaluate(self):
-        return True    
 
 
 class EMODBenchmarkModel(umbridge.Model):
@@ -135,8 +136,9 @@ class EMODBenchmarkModel(umbridge.Model):
         return self.model.get_output_sizes(config)
 
     def __call__(self, parameters, config):
-
+        # returns attack fraction of the model ([0,1]), -0 for out of bounds
         model_output = self.model(parameters, config)[0]
+
         # enforce boundary
         if model_output[0] < 0:
             return [[-1e60]]
@@ -153,4 +155,13 @@ class EMODBenchmarkModel(umbridge.Model):
     def supports_evaluate(self):
         return True    
 
+    def gradient(self, out_wrt, in_wrt, parameters, sens, config):
+        epsilon = config.get('epsilon', [0.001, 0.001, 0.001])
+        grad = sens[0]*approx_fprime(parameters[0], lambda x: self([x], config)[0], epsilon=epsilon)
+        return grad.tolist()
+
+    def supports_gradient(self):
+        return True            
+
 umbridge.serve_models([EMODForwardModel(), EMODBenchmarkModel()], 4243)        
+# umbridge.serve_models([EMODBenchmarkModel()], 4243)        
