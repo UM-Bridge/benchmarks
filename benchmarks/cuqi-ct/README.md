@@ -1,4 +1,4 @@
-# Deconvolution1D
+# Computed Tomography using CUQIpy
 
 ## Overview
 This benchmark focuses on image reconstruction in X-ray computed tomography (CT). In CT, X-ray are passed through an object of interest and projection images are recorded at all orientations. Materials of different density absorp X-rays by different amounts quantified by the linear attenuation coefficients. A linear forward model describes how the 2D linear attenuation image of an object results in a measured set of projections, typically known as a sinogram. The benchmark   uses the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/) to specify the linear forward model, based on a matrix constructed with the library [AIR Tools II](https://github.com/jakobsj/AIRToolsII). It defines a posterior distribution for a 2D X-ray CT image reconstruction problem problem, with a Gaussian noise distribution ie likelihood and four different choices of 2D prior distributions with configurable parameters.
