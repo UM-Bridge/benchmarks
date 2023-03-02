@@ -110,12 +110,16 @@ A.range_geometry = rg
 # %% Create the CUQI data structure from vectorized image and geometry
 imC = CUQIarray(imall,geometry=dg)
 imC.plot()
+plt.title('True image')
 plt.colorbar()
+mysavefig('true_image.png')
 
 # %%  Demonstrate creation of sinogram with CUQI 
 sinoC = A(imC)
 sinoC.plot()
+plt.title('Noise-free CT sinogram data')
 plt.colorbar()
+mysavefig('noisefree_data.png')
 
 # %%  Backprojection possible as adjoint.
 bp = A.adjoint(sinoC)
@@ -140,16 +144,16 @@ y_data.geometry = rg
 
 # %%  Display data, clean data, and noise
 y_data.plot()
+plt.title('Noisy CT sinogram data')
 plt.colorbar()
+mysavefig('noisy_data.png')
 
-# %%
-
-sinoC.plot()
-plt.colorbar()
 
 #%%
 (y_data-sinoC).plot()
+plt.title('Noise')
 plt.colorbar()
+mysavefig('noise.png')
 
 
 

@@ -11,7 +11,8 @@ pp |  00
 
 Prior                      | Posterior mean             |  Posterior std
 :-------------------------:|:-------------------------:|:-------------------------:
-LaplaceDiff  | ![LaplaceDiff_mean](LaplaceDiff_mean.png)  |  ![LaplaceDiff_mean](LaplaceDiff_std.png)
+Gaussian  | ![Gaussian_mean](Gaussian_mean.png)  |  ![Gaussian_std](Gaussian_std.png)
+LaplaceDiff  | ![LaplaceDiff_mean](LaplaceDiff_mean.png)  |  ![LaplaceDiff_std](LaplaceDiff_std.png)
 
 Plot of data and exact solution
 
