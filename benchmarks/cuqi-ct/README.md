@@ -3,13 +3,13 @@
 ## Overview
 This benchmark focuses on image reconstruction in X-ray computed tomography (CT). In CT, X-ray are passed through an object of interest and projection images are recorded at all orientations. Materials of different density absorp X-rays by different amounts quantified by the linear attenuation coefficients. A linear forward model describes how the 2D linear attenuation image of an object results in a measured set of projections, typically known as a sinogram. The benchmark   uses the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/) to specify the linear forward model, based on a matrix constructed with the library [AIR Tools II](https://github.com/jakobsj/AIRToolsII). It defines a posterior distribution for a 2D X-ray CT image reconstruction problem problem, with a Gaussian noise distribution ie likelihood and four different choices of 2D prior distributions with configurable parameters.
 
-Plot of exact solution, noise-free data, noisy data and noise
+**Plot of exact solution, noise-free data, noisy data and noise:**
 
-pp |  00 
 ---|---
 ![true_image](figs/true_image.png) | ![noisefree_data](figs/noisefree_data.png)
 ![noisy_data](figs/noisy_data.png) | ![noise](figs/noise.png)
 
+**Mean and standard deviation plots for posterior samples using different priors:**
 
 Prior                      | Posterior mean             |  Posterior std
 ---|---|---
@@ -18,13 +18,6 @@ GMRF  | ![GMRF_mean](figs/GMRF_mean.png)  |  ![GMRF_std](figs/GMRF_std.png)
 LaplaceDiff  | ![LaplaceDiff_mean](figs/LaplaceDiff_mean.png)  |  ![LaplaceDiff_std](figs/LaplaceDiff_std.png)
 #CauchyDiff  | ![CauchyDiff_mean](figs/CauchyDiff_mean.png)  |  ![CauchyDiff_std](figs/CauchyDiff_std.png)
 
-
-
-#![Data](data.png "Data")
-
-Credibility interval plots of posterior samples using different priors
-
-![Samples](samples.png "Credibility interval of samples")
 
 ## Authors
 - [Jakob S. Jørgensen](mailto:jakj@dtu.dk)
