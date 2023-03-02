@@ -5,8 +5,10 @@ This benchmark focuses on image reconstruction in X-ray computed tomography (CT)
 
 **Plot of exact solution, noise-free data, noisy data and noise:**
 
+True image | Noise-free data
 ---|---
 ![true_image](figs/true_image.png) | ![noisefree_data](figs/noisefree_data.png)
+Noisy data | Noise
 ![noisy_data](figs/noisy_data.png) | ![noise](figs/noise.png)
 
 **Mean and standard deviation plots for posterior samples using different priors:**
