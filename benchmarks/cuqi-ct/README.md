@@ -3,6 +3,8 @@
 ## Overview
 This benchmark is based on a [1D Deconvolution test problem](https://cuqi-dtu.github.io/CUQIpy/api/_autosummary/cuqi.testproblem/cuqi.testproblem.Deconvolution1D.html) from the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/). It defines a posterior distribution for a 1D deconvolution problem, with a Gaussian likelihood and four different choices of prior distributions with configurable parameters.
 
+Plot of exact solution, noise-free data, noisy data and noise
+
 pp |  00 
 :-------------------------:|:-------------------------:|
 ![true_image](true_image.png) | ![noisefree_data](noisefree_data.png)
@@ -12,9 +14,11 @@ pp |  00
 Prior                      | Posterior mean             |  Posterior std
 :-------------------------:|:-------------------------:|:-------------------------:
 Gaussian  | ![Gaussian_mean](Gaussian_mean.png)  |  ![Gaussian_std](Gaussian_std.png)
+GMRF  | ![GMRF_mean](GMRF_mean.png)  |  ![GMRF_std](GMRF_std.png)
 LaplaceDiff  | ![LaplaceDiff_mean](LaplaceDiff_mean.png)  |  ![LaplaceDiff_std](LaplaceDiff_std.png)
+#CauchyDiff  | ![CauchyDiff_mean](LaplaceDiff_mean.png)  |  ![CauchyDiff_std](CauchyDiff_std.png)
 
-Plot of data and exact solution
+
 
 ![Data](data.png "Data")
 
@@ -36,16 +40,16 @@ docker run -it -p 4243:4243 linusseelinger/benchmark-deconvolution-1D
 
 Model | Description
 ---|---
-Deconvolution1D_Gaussian | Posterior distribution with Gaussian prior
-Deconvolution1D_GMRF | Posterior distribution with Gaussian Markov Random Field prior
-Deconvolution1D_LMRF | Posterior distribution with Laplacian Markov Random Field prior
-Deconvolution1D_CMRF | Posterior distribution with Cauchy Markov Random Field prior
-Deconvolution1D_ExactSolution | Exact solution to the deconvolution problem
+CT_Gaussian | Posterior distribution with Gaussian prior
+CT_GMRF | Posterior distribution with Gaussian Markov Random Field prior
+CT_LMRF | Posterior distribution with Laplacian Markov Random Field prior
+CT_CMRF | Posterior distribution with Cauchy Markov Random Field prior
+CT_ExactSolution | Exact solution to the CT problem
 
-### Deconvolution1D_Gaussian
+### CT_Gaussian
 Mapping | Dimensions | Description
 ---|---|---
-input | [128] | Signal $\mathbf{x}$
+input | [256**2] | Signal $\mathbf{x}$
 output | [1] | Log PDF $\pi(\mathbf{b}\mid\mathbf{x})$ of posterior with Gaussian prior
 
 Feature | Supported
@@ -59,10 +63,10 @@ Config | Type | Default | Description
 ---|---|---|---
 delta | double | 0.01 | The prior parameter $\delta$ (see below).
 
-### Deconvolution1D_GMRF
+### CT_GMRF
 Mapping | Dimensions | Description
 ---|---|---
-input | [128] | Signal $\mathbf{x}$
+input | [256**2] | Signal $\mathbf{x}$
 output | [1] | Log PDF $\pi(\mathbf{b}\mid\mathbf{x})$ of posterior with Gaussian Markov Random Field prior
 
 Feature | Supported
@@ -76,10 +80,10 @@ Config | Type | Default | Description
 ---|---|---|---
 delta | double | 0.01 | The prior parameter $\delta$ (see below).
 
-### Deconvolution1D_LMRF
+### CT_LMRF
 Mapping | Dimensions | Description
 ---|---|---
-input | [128] | Signal $\mathbf{x}$
+input | [256**2] | Signal $\mathbf{x}$
 output | [1] | Log PDF $\pi(\mathbf{b}\mid\mathbf{x})$ of posterior Laplacian Markov Random Field prior
 
 Feature | Supported
@@ -93,10 +97,10 @@ Config | Type | Default | Description
 ---|---|---|---
 delta | double | 0.01 | The prior parameter $\delta$ (see below).
 
-### Deconvolution1D_CMRF
+### CT_CMRF
 Mapping | Dimensions | Description
 ---|---|---
-input | [128] | Signal $\mathbf{x}$
+input | [256**2] | Signal $\mathbf{x}$
 output | [1] | Log PDF $\pi(\mathbf{b}\mid\mathbf{x})$ of posterior with Cauchy Markov Random Field prior
 
 Feature | Supported
@@ -110,11 +114,11 @@ Config | Type | Default | Description
 ---|---|---|---
 delta | double | 0.01 | The prior parameter $\delta$ (see below).
 
-### Deconvolution1D_ExactSolution
+### CT_ExactSolution
 Mapping | Dimensions | Description
 ---|---|---
 input | [0] | No input to be provided. 
-output | [128] | Returns the exact solution $\mathbf{x}$ for the deconvolution problem.
+output | [256**2] | Returns the exact solution $\mathbf{x}$ for the deconvolution problem.
 
 Feature | Supported
 ---|---
@@ -139,13 +143,13 @@ None |
 ## Description
 
 
-The 1D periodic deconvolution problem is defined by the inverse problem
+The CT problem is defined by the inverse problem
 
 $$
 \mathbf{b} = \mathbf{A}\mathbf{x} + \mathbf{e},
 $$
 
-where $\mathbf{b}$ is an $m$-dimensional random vector representing the observed data, $\mathbf{A}$ is an $m\times n$ matrix representing the convolution operator, $\mathbf{x}$ is an $n$-dimensional random vector representing the unknown signal, and $\mathbf{e}$ is an $m$-dimensional random vector representing the noise.
+where $\mathbf{b}$ is an $m$-dimensional random vector representing the observed (vectorized) CT sinogram data, $\mathbf{A}$ is an $m\times n$ matrix representing the CT projection operator or "system matrix", $\mathbf{x}$ is an $n$-dimensional random vector representing the unknown (vectorized) square image, and $\mathbf{e}$ is an $m$-dimensional random vector representing the noise.
 
 This benchmark defines a posterior distribution over $\mathbf{x}$ given $\mathbf{b}$ as
 
@@ -175,9 +179,9 @@ The prior can be configured by choosing of the following assumptions about $\mat
 
 where $\mathcal{C}$ is the Cauchy distribution and $\mathcal{L}$ is the Laplace distribution. The parameter $\delta$ is the prior parameter and is configurable (see above).
 
-The choice of prior is specified by providing the name to the HTTP model. In this case `Deconvolution1D_Gaussian`, `Deconvolution1D_GMRF`, `Deconvolution1D_CMRF`, and `Deconvolution1D_LMRF`, respectively. See [um-bridge Clients](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html) for more details.
+The choice of prior is specified by providing the name to the HTTP model. In this case `CT_Gaussian`, `CT_GMRF`, `CT_LMRF`, and `CT_CMRF`, respectively. See [um-bridge Clients](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html) for more details.
 
-In addition to the HTTP models for the posterior, there is also an HTTP model for the exact solution to the problem. This model is called `Deconvolution1D_ExactSolution` and returns exact phantom used to generate the synthetic data when called.
+In addition to the HTTP models for the posterior, there is also an HTTP model for the exact solution to the problem. This model is called `CT_ExactSolution` and returns exact phantom used to generate the synthetic data when called.
 
 In CUQIpy the benchmark is defined and sampled as follows:
 
