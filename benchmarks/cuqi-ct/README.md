@@ -3,10 +3,9 @@
 ## Overview
 This benchmark is based on a [1D Deconvolution test problem](https://cuqi-dtu.github.io/CUQIpy/api/_autosummary/cuqi.testproblem/cuqi.testproblem.Deconvolution1D.html) from the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/). It defines a posterior distribution for a 1D deconvolution problem, with a Gaussian likelihood and four different choices of prior distributions with configurable parameters.
 
-![true_image](true_image.png)
-![noisefree_data](noisefree_data.png)
-![noisy_data](noisy_data.png)
-![noise](noise.png)
+:-------------------------:|:-------------------------:|
+![true_image](true_image.png) | ![noisefree_data](noisefree_data.png)
+![noisy_data](noisy_data.png) | ![noise](noise.png)
 
 
 Prior                      | Posterior mean             |  Posterior std
