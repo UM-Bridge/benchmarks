@@ -126,7 +126,8 @@ class CT_GMRF(CT_UM):
     def __init__(self):
         super().__init__(self.__class__.__name__)
         self.prior = GMRF(np.zeros(self.dim), 
-                          lambda delta: 1 / delta, 
+                          lambda delta: 1 / delta,
+                          physical_dim=2,
                           geometry=self.likelihood.geometry,
                           name="x")
 
@@ -138,6 +139,7 @@ class CT_LMRF(CT_UM):
         super().__init__(self.__class__.__name__)
         self.prior = Laplace_diff(np.zeros(self.dim), 
                                   lambda delta: delta, 
+                                  physical_dim=2,
                                   geometry=self.likelihood.geometry,
                                   name="x")
 
@@ -152,6 +154,7 @@ class CT_CMRF(CT_UM):
         super().__init__(self.__class__.__name__)
         self.prior = Cauchy_diff(np.zeros(self.dim), 
                                  lambda delta: delta, 
+                                 physical_dim=2,
                                  geometry=self.likelihood.geometry,
                                  name="x")
 
