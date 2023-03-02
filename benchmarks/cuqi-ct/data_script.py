@@ -160,14 +160,24 @@ mysavefig('noise.png')
 
 #%%  Run for Gaussian prior
 
+x = Gaussian(mean=np.zeros(A.domain_dim), 
+                           cov=0.01,
+                           geometry=A.domain_geometry)
+
 BP = BayesianProblem(y, x).set_data(y=y_data)
 print(BP)
 
 samples = BP.sample_posterior(1000)
 
-samples.plot_ci(exact=imC)
+# %%
+
+samples.plot_mean(), plt.colorbar()
+mysavefig('Gaussian_mean.png')
 
 
+#%%
+samples.plot_std(), plt.colorbar()
+mysavefig('Gaussian_std.png')
 
 
 # %% Run for GMRF prior
@@ -184,7 +194,16 @@ print(BP)
 
 samples = BP.sample_posterior(1000)
 
-samples.plot_ci(exact=imC)
+
+# %%
+
+samples.plot_mean(), plt.colorbar()
+mysavefig('GMRF_mean.png')
+
+
+#%%
+samples.plot_std(), plt.colorbar()
+mysavefig('GMRF_std.png')
 
 
 
@@ -230,7 +249,15 @@ print(BP)
 
 samples = BP.sample_posterior(500)
 
-samples.plot_ci(exact=imC)
+# %%
+samples.plot_mean(), plt.colorbar()
+mysavefig('CauchyDiff_mean.png')
+
+
+#%%
+samples.plot_std(), plt.colorbar()
+mysavefig('CauchyDiff_std.png')
+
 
 
 

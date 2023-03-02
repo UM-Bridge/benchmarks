@@ -16,7 +16,7 @@ Prior                      | Posterior mean             |  Posterior std
 Gaussian  | ![Gaussian_mean](Gaussian_mean.png)  |  ![Gaussian_std](Gaussian_std.png)
 GMRF  | ![GMRF_mean](GMRF_mean.png)  |  ![GMRF_std](GMRF_std.png)
 LaplaceDiff  | ![LaplaceDiff_mean](LaplaceDiff_mean.png)  |  ![LaplaceDiff_std](LaplaceDiff_std.png)
-#CauchyDiff  | ![CauchyDiff_mean](LaplaceDiff_mean.png)  |  ![CauchyDiff_std](CauchyDiff_std.png)
+#CauchyDiff  | ![CauchyDiff_mean](CauchyDiff_mean.png)  |  ![CauchyDiff_std](CauchyDiff_std.png)
 
 
 
