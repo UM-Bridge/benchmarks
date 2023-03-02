@@ -3,6 +3,9 @@
 ## Overview
 This benchmark is based on a [1D Deconvolution test problem](https://cuqi-dtu.github.io/CUQIpy/api/_autosummary/cuqi.testproblem/cuqi.testproblem.Deconvolution1D.html) from the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/). It defines a posterior distribution for a 1D deconvolution problem, with a Gaussian likelihood and four different choices of prior distributions with configurable parameters.
 
+![LaplaceDiff_mean](LaplaceDiff_mean.png)
+![LaplaceDiff_mean](LaplaceDiff_std.png)
+
 Plot of data and exact solution
 
 ![Data](data.png "Data")
@@ -12,8 +15,8 @@ Credibility interval plots of posterior samples using different priors
 ![Samples](samples.png "Credibility interval of samples")
 
 ## Authors
-- [Nicolai A. B. Riis](mailto:nabr@dtu.dk)
 - [Jakob S. Jørgensen](mailto:jakj@dtu.dk)
+- [Nicolai A. B. Riis](mailto:nabr@dtu.dk)
 - [Amal M. Alghamdi](mailto:amaal@dtu.dk)
 
 ## Run
