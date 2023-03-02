@@ -7,20 +7,20 @@ Plot of exact solution, noise-free data, noisy data and noise
 
 pp |  00 
 :-------------------------:|:-------------------------:|
-![true_image](true_image.png) | ![noisefree_data](noisefree_data.png)
-![noisy_data](noisy_data.png) | ![noise](noise.png)
+![true_image](figs/true_image.png) | ![noisefree_data](figs/noisefree_data.png)
+![noisy_data](figs/noisy_data.png) | ![noise](figs/noise.png)
 
 
 Prior                      | Posterior mean             |  Posterior std
 :-------------------------:|:-------------------------:|:-------------------------:
-Gaussian  | ![Gaussian_mean](Gaussian_mean.png)  |  ![Gaussian_std](Gaussian_std.png)
-GMRF  | ![GMRF_mean](GMRF_mean.png)  |  ![GMRF_std](GMRF_std.png)
-LaplaceDiff  | ![LaplaceDiff_mean](LaplaceDiff_mean.png)  |  ![LaplaceDiff_std](LaplaceDiff_std.png)
-#CauchyDiff  | ![CauchyDiff_mean](CauchyDiff_mean.png)  |  ![CauchyDiff_std](CauchyDiff_std.png)
+Gaussian  | ![Gaussian_mean](figs/Gaussian_mean.png)  |  ![Gaussian_std](figs/Gaussian_std.png)
+GMRF  | ![GMRF_mean](figs/GMRF_mean.png)  |  ![GMRF_std](figs/GMRF_std.png)
+LaplaceDiff  | ![LaplaceDiff_mean](figs/LaplaceDiff_mean.png)  |  ![LaplaceDiff_std](figs/LaplaceDiff_std.png)
+#CauchyDiff  | ![CauchyDiff_mean](figs/CauchyDiff_mean.png)  |  ![CauchyDiff_std](figs/CauchyDiff_std.png)
 
 
 
-![Data](data.png "Data")
+#![Data](data.png "Data")
 
 Credibility interval plots of posterior samples using different priors
 
