@@ -146,7 +146,7 @@ BP.prior = cuqi.distribution.Laplace_diff(np.zeros(256**2), 0.1,
                                           geometry=BP.likelihood.geometry)
 assert output_LMRF == pytest.approx(BP.posterior.logpdf(parameters))
 
-assert np.allclose(output_exactSolution, BP.exactSolution)
+assert np.allclose(output_exactSolution, parameters)
 
 print('Regression testing against known norm values of output')
 assert np.linalg.norm(output_Gaussian) == pytest.approx(-346295.2714778)
