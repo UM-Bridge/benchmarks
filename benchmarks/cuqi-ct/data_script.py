@@ -142,6 +142,9 @@ np.random.seed = 0
 y_data = y(x=imC).sample()
 y_data.geometry = rg
 
+#%% Save data code (uncomment to overwrite data file)
+#np.savez("data_ct.npz", y_data=y_data, exact=imC)
+
 # %%  Display data, clean data, and noise
 y_data.plot()
 plt.title('Noisy CT sinogram data')
@@ -166,6 +169,8 @@ x = Gaussian(mean=np.zeros(A.domain_dim),
 
 BP = BayesianProblem(y, x).set_data(y=y_data)
 print(BP)
+
+#%%
 
 samples = BP.sample_posterior(1000)
 
@@ -192,6 +197,7 @@ y = Gaussian(A@x, s**2)
 BP = BayesianProblem(y, x).set_data(y=y_data)
 print(BP)
 
+# %%
 samples = BP.sample_posterior(1000)
 
 
@@ -221,6 +227,7 @@ BP = BayesianProblem(y, x).set_data(y=y_data)
 
 print(BP)
 
+#%%
 samples = BP.sample_posterior(1000)
 
 #%% 
@@ -247,7 +254,8 @@ y = Gaussian(A @ x, s**2)
 BP = BayesianProblem(y, x).set_data(y=y_data)
 print(BP)
 
-samples = BP.sample_posterior(500)
+#%%
+samples = BP.sample_posterior(1000)
 
 # %%
 samples.plot_mean(), plt.colorbar()
@@ -259,57 +267,3 @@ samples.plot_std(), plt.colorbar()
 mysavefig('CauchyDiff_std.png')
 
 
-
-
-#%%
-
-np.random.seed = 0
-
-TP = cuqi.testproblem.Deconvolution1D(
-    dim=128,
-    PSF="gauss",
-    PSF_param=5,
-    phantom="square",
-    noise_std=0.01,
-    noise_type="gaussian",
-)
-
-# Save data code (uncomment to overwrite data file)
-#np.savez("data_square.npz", data=TP.data, exact=TP.exactSolution)
-
-# %% Plot data
-
-TP.data.plot()
-plt.title("Data")
-
-# %% Plot exact solution
-
-TP.exactSolution.plot()
-plt.title("Exact solution")
-
-# %% Plot posterior samples for Gaussian
-
-TP.prior = cuqi.distribution.Gaussian(np.zeros(128), 0.01, name="x")
-samples = TP.UQ()
-plt.title("Gaussian with delta=0.01")
-
-# %% Plot posterior samples for GMRF
-
-TP.prior = cuqi.distribution.GMRF(np.zeros(128), 1/0.01, name="x")
-samples = TP.UQ()
-plt.title("GMRF with delta=0.01")
-
-# %% plot posterior samples for LMRF
-
-TP.prior = cuqi.distribution.Laplace_diff(np.zeros(128), 0.01, name="x")
-samples = TP.UQ()
-plt.title("LMRF with delta=0.01")
-
-# %% Plot posterior samples for CMRF
-
-TP.prior = cuqi.distribution.Cauchy_diff(np.zeros(128), 0.01, name="x")
-samples = TP.UQ()
-plt.title("CMRF with delta=0.01")
-
-
-# %%

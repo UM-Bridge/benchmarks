@@ -15,7 +15,7 @@ class CT_UM(umbridge.Model):
     """Base benchmark for all 2D CT problems"""
 
     dim = 256**2  # Dimension of the 2D signal:  256 x 256
-    default_delta = 0.01  # Default value for delta
+    default_delta = 0.01  # Default value for delta for all but LMRF
 
     def __init__(self, name):
         """Initialize the model
@@ -134,6 +134,8 @@ class CT_GMRF(CT_UM):
 
 class CT_LMRF(CT_UM):
     """CT with 2D Laplace Markov Random Field (LMRF) prior"""
+
+    default_delta = 0.1  # Default value for delta for LMRF
 
     def __init__(self):
         super().__init__(self.__class__.__name__)

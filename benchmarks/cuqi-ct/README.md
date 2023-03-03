@@ -15,10 +15,10 @@ Noisy data | Noise
 
 Prior                      | Posterior mean             |  Posterior std
 ---|---|---
-Gaussian  | ![Gaussian_mean](figs/Gaussian_mean.png)  |  ![Gaussian_std](figs/Gaussian_std.png)
-GMRF  | ![GMRF_mean](figs/GMRF_mean.png)  |  ![GMRF_std](figs/GMRF_std.png)
-LaplaceDiff  | ![LaplaceDiff_mean](figs/LaplaceDiff_mean.png)  |  ![LaplaceDiff_std](figs/LaplaceDiff_std.png)
-#CauchyDiff  | ![CauchyDiff_mean](figs/CauchyDiff_mean.png)  |  ![CauchyDiff_std](figs/CauchyDiff_std.png)
+Gaussian $\delta=0.01$ | ![Gaussian_mean](figs/Gaussian_mean.png)  |  ![Gaussian_std](figs/Gaussian_std.png)
+GMRF $\delta=0.01$ | ![GMRF_mean](figs/GMRF_mean.png)  |  ![GMRF_std](figs/GMRF_std.png)
+LMRF $\delta=0.1$ | ![LaplaceDiff_mean](figs/LaplaceDiff_mean.png)  |  ![LaplaceDiff_std](figs/LaplaceDiff_std.png)
+CMRF $\delta=0.01$ | ![CauchyDiff_mean](figs/CauchyDiff_mean.png)  |  ![CauchyDiff_std](figs/CauchyDiff_std.png)
 
 
 ## Authors
@@ -133,7 +133,7 @@ None |
 
 ## Source code
 
-[Sources here.](https://github.com/CUQI-DTU/CUQIpy/blob/main/cuqi/testproblem/_testproblem.py#L144)
+The benchmark is set up in the file server.py as well as data_script.py in the same folder as this readme. The benchmark uses [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/).
 
 ## Description
 
@@ -186,32 +186,6 @@ The choice of prior is specified by providing the name to the HTTP model. In thi
 
 In addition to the HTTP models for the posterior, there is also an HTTP model for the exact solution to the problem. This model is called `CT_ExactSolution` and returns exact phantom used to generate the synthetic data when called.
 
-In CUQIpy the benchmark is defined and sampled as follows:
+Using [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/) the CT benchmark is defined using the file data_script.py and server.py provided here.
 
-```python
-import numpy as np
-import cuqi
 
-# Parameters
-delta = 0.01
-prior = "LMRF"
-
-# Load data, define problem and sample posterior
-TP = cuqi.testproblem.Deconvolution1D(
-    dim=128,
-    PSF="gauss",
-    PSF_param=5,
-    phantom="square",
-    noise_std=0.01,
-    noise_type="gaussian"
-)
-if prior == "Gaussian":
-    TP.prior = cuqi.distribution.Gaussian(np.zeros(128), delta)
-elif prior == "GMRF":
-    TP.prior = cuqi.distribution.GMRF(np.zeros(128), 1/delta)
-elif prior == "CMRF":
-    TP.prior = cuqi.distribution.Cauchy_diff(np.zeros(128), delta)
-elif prior == "LMRF":
-    TP.prior = cuqi.distribution.Laplace_diff(np.zeros(128), delta)
-TP.sample_posterior(2000).plot_ci(exact=TP.exactSolution)
-```
