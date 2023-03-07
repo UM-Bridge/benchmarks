@@ -64,7 +64,7 @@ where $C_m$ is the concentration of mobile particles, $C_{t,i}$ is the concentra
 
 Additionally, the evolution of the extrinsic trap density $n_3$ is modelled as
 ```math
-\frac{dN_{3}}{dt} = (1 - r) \phi \left[ \left(1-\frac{N_3}{n_{3a,max}}\right)\eta_a f(x) + \left(1-\frac{N_3}{n_{3b,max}}\right)\eta_b\theta(x) \right]
+\frac{dn_{3}}{dt} = (1 - r) \phi \left[ \left(1-\frac{n_3}{n_{3a,max}}\right)\eta_a f(x) + \left(1-\frac{n_3}{n_{3b,max}}\right)\eta_b\theta(x) \right]
 ```
 This takes into account additional trapping sites that are created as the material is damaged during implantation.
 
