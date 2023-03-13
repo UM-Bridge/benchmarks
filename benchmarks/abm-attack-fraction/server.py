@@ -163,5 +163,5 @@ class EMODBenchmarkModel(umbridge.Model):
     def supports_gradient(self):
         return True            
 
-umbridge.serve_models([EMODForwardModel(), EMODBenchmarkModel()], 4243)        
+umbridge.serve_models([EMODForwardModel(), EMODBenchmarkModel()], 4242)        
 # umbridge.serve_models([EMODBenchmarkModel()], 4243)        
