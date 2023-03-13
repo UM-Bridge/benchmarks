@@ -41,7 +41,7 @@ class Benchmark(umbridge.Model):
         # compute the prior log-density of the parameters.
         log_prior = self.prior.logpdf(parameters).sum()
 
-        # evaluate the model and rescale the output from volumetric to atomic fraction.
+        # evaluate the model and rescale the output from atomic fraction to counts.
         pfc_flux = np.array(self.model(parameters)).flatten()
         desorption_rate = 6.3e28*pfc_flux
 
