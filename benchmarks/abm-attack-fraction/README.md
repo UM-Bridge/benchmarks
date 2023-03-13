@@ -11,7 +11,7 @@ In this benchmark we run [EMOD](https://docs.idmod.org/projects/emod-generic/en/
 
 ## Run
 ```
-docker run -it -p 4243:4243 linusseelinger/benchmark-abm-attack-fraction:latest
+docker run -it -p 4242:4242 linusseelinger/benchmark-abm-attack-fraction:latest
 ```
 
 ## Properties
