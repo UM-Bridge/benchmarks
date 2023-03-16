@@ -110,4 +110,11 @@ assert np.allclose(output_exactSolution, data_dic_large_noise['x_exact'])
 assert np.allclose(output_kl_expansion_coefficient2function, domain_geometry_large_noise.par2fun(parameters))
 assert np.allclose(output_kl_expansion_function2coefficient, domain_geometry_large_noise.fun2par(output_kl_expansion_coefficient2function))
 
+print('Regression testing against known norm values of output')
+assert np.linalg.norm(output_large_noise) == pytest.approx(2633.046253156651)
+assert np.linalg.norm(output_small_noise) == pytest.approx(9521027.712660033)
+assert np.linalg.norm(output_exactSolution) == pytest.approx(0.5128234916846627)
+assert np.linalg.norm(output_kl_expansion_coefficient2function) == pytest.approx(0.44245082047274725)
+assert np.linalg.norm(output_kl_expansion_function2coefficient) == pytest.approx(5.4277193878610905)
+
 print('All tests passed')
