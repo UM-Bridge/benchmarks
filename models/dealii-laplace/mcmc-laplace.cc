@@ -726,7 +726,7 @@ namespace Sampler
  * models, as described in the original code and the accompanying
  * paper.
  */
-class Laplace : public umbridge::Model {
+class LaplaceForward : public umbridge::Model {
 public:
   Laplace(const std::string& dataset_name)
    : Model("forward"),
@@ -776,6 +776,6 @@ int main()
   const unsigned int random_seed  = (testing ? 1U : std::random_device()());
   const std::string  dataset_name = Utilities::to_string(random_seed, 10);
 
-  Laplace model(dataset_name);
-  umbridge::serveModels({&model}, "0.0.0.0", 4242);
+  LaplaceForward forward_model(dataset_name);
+  umbridge::serveModels({&forward_model}, "0.0.0.0", 4242);
 }
