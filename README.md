@@ -12,6 +12,8 @@ The key idea of UM-Bridge is to now provide this mathematical "interface" as an 
 * Containarization of models, making collaboration easier due to portability of models and separation of concerns between fields (specifically model and statistics experts).
 * Unified, portable, fully reproducible and black-box benchmark problems defined software.
 
+## Language support
+
 This table shows what languages and frameworks UM-Bridge currently provides integrations for. Note that "server" refers to the model side, while "client" is the uncertainty quantification / statistics / optimization side. We are happy to actively support the development of new integrations.
 
 Language / framework | Client support | Server support
@@ -26,6 +28,13 @@ QMCPy | ✓ | ✗
 Sparse Grids MATLAB Kit | planned | ✗
 tinyDA | ✓ | ✗
 
+## Citation
+
+```
+@article{UMBridge, doi = {10.21105/joss.04748}, url = {https://doi.org/10.21105/joss.04748}, year = {2023}, publisher = {The Open Journal}, volume = {8}, number = {83}, pages = {4748}, author = {Linus Seelinger and Vivian Cheng-Seelinger and Andrew Davis and Matthew Parno and Anne Reinarz}, title = {UM-Bridge: Uncertainty quantification and modeling bridge}, journal = {Journal of Open Source Software} }
+```
+
+## Resources
 
 This repository hosts stand-alone reference problems for benchmarking of UQ algorithms.
 
