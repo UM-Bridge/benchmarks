@@ -56,10 +56,10 @@ class Deconvolution1D_UM(umbridge.Model):
         # Compute gradient of logpdf. Since logpdf is R^n -> R,
         # the gradient is a vector of length n.
         # In CUQIpy the gradient method returns the Jacobian action
-        # sens.T * J(parameters), but since the Jacobian (in this case)
-        # is independent of the parameters they area not passed to the
+        # parameters.T * J(sens), but since the Jacobian (in this case)
+        # is independent of the sens they area not passed to the
         # gradient method. 
-        output = posterior.gradient(np.asarray(sens[0]))
+        output = posterior.gradient(np.asarray(parameters[0]))
         return [output.tolist()]
 
     def supports_evaluate(self):
