@@ -27,7 +27,7 @@ One way to access the model is from Python. First install UM-Bridge support in P
 
 Now, you can call the model by running the Python example ``umbridge-client.py`` from the `UM-Bridge repository <https://www.github.com/UM-Bridge/umbridge/tree/main/clients/python/>`_::
 
-    python3 umbridge-client.py http://localhost:4242``
+    python3 umbridge-client.py http://localhost:4242
 
 This example triggers two runs of the model. The second one activates the model's VTK output. You can access the resulting files in the folder we mounted above in your home directory, and view them using a suitable tool like ParaView.
 

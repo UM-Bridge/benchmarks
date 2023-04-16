@@ -52,15 +52,21 @@ Particularly, we solve the following equations:
 
 
 ```math
- \frac{\partial C_m}{\partial t} = \nabla \cdot \left( D \nabla C \right) - \sum_i \frac{\partial C_{t,i}}{\partial t} + \dot{S}_{\mathrm{ext}}
+\frac{\partial C_{m}}{\partial t} = \nabla  \cdot \left( D \left(T \right) \nabla  C_{m} \right) - \sum \frac{\partial C_{t,i}}{\partial t} + S_{ext}
 ```
 ```math
-\frac{\partial C_{t,i}}{\partial t} = \nu_m C_m (n_i - C_{t,i}) - \nu_i C_{t,i}
+\frac{\partial C_{t,i}}{\partial t} = \nu_m \left(T\right) C_m \left(n_i - C_{t,i} \right) - \nu_i\left(T\right) C_{t,i} 
 ```
-where $C_m$ is the concentration of mobile particles and $C_{t,i}$ is the concentration of particles at the $i$th trap type.
+```math
+\rho_m C_p \frac{\partial T}{\partial t} = \nabla \cdot \left(k \nabla T \right)
+```
+where $C_m$ is the concentration of mobile particles, $C_{t,i}$ is the concentration of particles at the $i$th trap type and $T$ is the temperature.
 
-The flux of tritium is then assumed to be proportional to the tritium creation rate at additional extrinsic traps:
-$$\frac{dN_{3}}{dt} = (1 - r) \phi \left[ \left(1-\frac{N_3}{n_{3a,max}}\right)\eta_a f(x) + \left(1-\frac{N_3}{n_{3b,max}}\right)\eta_b\theta(x) \right]$$
+Additionally, the evolution of the extrinsic trap density $n_3$ is modelled as
+```math
+\frac{dn_{3}}{dt} = (1 - r) \phi \left[ \left(1-\frac{n_3}{n_{3a,max}}\right)\eta_a f(x) + \left(1-\frac{n_3}{n_{3b,max}}\right)\eta_b\theta(x) \right]
+```
+This takes into account additional trapping sites that are created as the material is damaged during implantation.
 
 Please see [Hodille et al. (2015)](https://www.sciencedirect.com/science/article/pii/S0022311515300660) for more details.
 
