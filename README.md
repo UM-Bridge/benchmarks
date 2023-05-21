@@ -14,19 +14,24 @@ The key idea of UM-Bridge is to now provide this mathematical "interface" as an 
 
 ## Languages and frameworks
 
-This table shows what languages and frameworks UM-Bridge currently provides integrations for. Note that "server" refers to the model side, while "client" is the uncertainty quantification / statistics / optimization side. We are happy to actively support the development of new integrations.
+These tables shows what languages and frameworks UM-Bridge currently provides integrations for. Note that "server" refers to the model side, while "client" is the uncertainty quantification / statistics / optimization side. We are happy to actively support the development of new integrations.
 
-Language / framework | Client support | Server support
+Language | Client support | Server support
 ---|---|---
 C++ | ✓ | ✓
-MATLAB | planned | ✗
+MATLAB | ✓ | ✗
 Python | ✓ | ✓
 R | ✓ | ✗
+
+Framework | Client support | Server support
+---|---|---
+emcee | ✓ | ✗
 MUQ | ✓ | ✓
-PyMC (4.x) | ✓ | ✗
+PyMC | ✓ | ✗
 QMCPy | ✓ | ✗
-Sparse Grids MATLAB Kit | planned | ✗
+Sparse Grids MATLAB Kit | ✓ | ✗
 tinyDA | ✓ | ✗
+TT Toolbox | ✓ | ✗
 
 ## Citation
 
