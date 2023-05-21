@@ -18,7 +18,7 @@ Credibility interval plots of posterior samples using different priors
 
 ## Run
 ```
-docker run -it -p 4243:4243 linusseelinger/benchmark-deconvolution-1D:latest
+docker run -it -p 4243:4243 linusseelinger/benchmark-deconvolution-1d:latest
 ```
 
 ## Properties

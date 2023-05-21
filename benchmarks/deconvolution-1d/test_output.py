@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Script to regression test the output of the deconvolution-1D benchmark. """
+""" Script to regression test the output of the deconvolution-1d benchmark. """
 
 import argparse
 import umbridge
