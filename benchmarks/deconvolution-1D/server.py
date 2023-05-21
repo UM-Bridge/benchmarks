@@ -58,9 +58,9 @@ class Deconvolution1D_UM(umbridge.Model):
         # In CUQIpy the gradient method returns the Jacobian action
         # parameters.T * J(sens), but since the Jacobian (in this case)
         # is independent of the sens they area not passed to the
-        # gradient method. 
-        output = posterior.gradient(np.asarray(parameters[0]))
-        return [output.tolist()]
+        # gradient method.
+        output = posterior.gradient(np.asarray(parameters[0])) * sens
+        return output.tolist()
 
     def supports_evaluate(self):
         return True
