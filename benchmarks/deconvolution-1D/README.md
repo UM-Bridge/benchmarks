@@ -18,7 +18,7 @@ Credibility interval plots of posterior samples using different priors
 
 ## Run
 ```
-docker run -it -p 4243:4243 linusseelinger/benchmark-deconvolution-1D
+docker run -it -p 4243:4243 linusseelinger/benchmark-deconvolution-1D:latest
 ```
 
 ## Properties
@@ -102,7 +102,7 @@ delta | double | 0.01 | The prior parameter $\delta$ (see below).
 ### Deconvolution1D_ExactSolution
 Mapping | Dimensions | Description
 ---|---|---
-input | [0] | No input to be provided. 
+input | [0] | No input to be provided.
 output | [128] | Returns the exact solution $\mathbf{x}$ for the deconvolution problem.
 
 Feature | Supported
@@ -142,7 +142,7 @@ $$
 \pi(\mathbf{x}\mid \mathbf{b}) \propto \pi(\mathbf{b}\mid \mathbf{x})\pi(\mathbf{x}),
 $$
 
-where $\pi(\mathbf{b}|\mathbf{x})$ is a likelihood function and $\pi(\mathbf{x})$ is a prior distribution. 
+where $\pi(\mathbf{b}|\mathbf{x})$ is a likelihood function and $\pi(\mathbf{x})$ is a prior distribution.
 
 The noise is assumed to be Gaussian with a known noise level, and so the likelihood is defined via
 

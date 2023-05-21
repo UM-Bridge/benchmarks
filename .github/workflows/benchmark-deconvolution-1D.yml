@@ -1,0 +1,61 @@
+name: benchmark-deconvolution-1D
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: benchmarks/deconvolution-1D/
+          push: true
+          tags: linusseelinger/benchmark-deconvolution-1D:latest
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+
+    services:
+      model:
+        image: linusseelinger/benchmark-deconvolution-1D:latest
+        ports:
+        - 4243:4243
+
+    steps:
+       -
+        name: Validate protocol
+        run: |
+          docker run --network=host -e model_host=http://localhost:4243 linusseelinger/testing-protocol-conformity-current:latest
+       -
+        name: Checkout
+        uses: actions/checkout@v2
+       -
+        name: Dependencies
+        run: |
+          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-pip && pip3 install pytest numpy cuqipy umbridge
+       -
+        name: Validate output
+        run: |
+          cd benchmarks/deconvolution-1D/ && \
+          python3 test_output.py http://localhost:4243
