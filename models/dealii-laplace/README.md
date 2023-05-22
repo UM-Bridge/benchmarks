@@ -39,12 +39,30 @@ docker run -it -p 4242:4242 linusseelinger/model-laplace:latest
 Model | Description
 ---|---
 forward | Forward evaluation of the Laplace equation
+posterior | Posterior density
 
 ### forward
 Mapping | Dimensions | Description
 ---|---|---
 input | [64] | A set of 64 parameters corresponding to an 8x8 grid of stiffness values of a membrane
 output | [169] | A set of 169 displacement values corresponding to the displacement of the membrane at a grid of 13x13 points
+
+Feature | Supported
+---|---
+Evaluate | True
+Gradient | False
+ApplyJacobian | False
+ApplyHessian | False
+
+Config | Type | Default | Description
+---|---|---|---
+None | | |
+
+### posterior
+Mapping | Dimensions | Description
+---|---|---
+input | [64] | A set of 64 parameters corresponding to an 8x8 grid of stiffness values of a membrane
+output | [1] | The posterior of the input parameters
 
 Feature | Supported
 ---|---
