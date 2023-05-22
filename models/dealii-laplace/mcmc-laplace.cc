@@ -728,7 +728,7 @@ namespace Sampler
  */
 class LaplaceForward : public umbridge::Model {
 public:
-  Laplace(const std::string& dataset_name)
+  LaplaceForward(const std::string& dataset_name)
    : Model("forward"),
      laplace_problem(
       /* global_refinements = */ 5,
@@ -736,11 +736,11 @@ public:
       dataset_name)
   {}
 
-  std::vector<size_t> GetInputSizes(const json& config_json) const override {
+  std::vector<size_t> GetInputSizes([[maybe_unused]] const json& config_json) const override {
     return {64};
   }
 
-  std::vector<size_t> GetOutputSizes(const json& config_json) const override {
+  std::vector<size_t> GetOutputSizes([[maybe_unused]] const json& config_json) const override {
     return {169};
   }
 
@@ -761,117 +761,12 @@ private:
   ForwardSimulator::PoissonSolver<2> laplace_problem;
 };
 
-
-// The following namespaces define the statistical properties of the Bayesian
-// inverse problem. The first is about the definition of the measurement
-// statistics (the "likelihood"), which we here assume to be a normal
-// distribution $N(\mu,\sigma I)$ with mean value $\mu$ given by the
-// actual measurement vector (passed as an argument to the constructor
-// of the `Gaussian` class and standard deviation $\sigma$.
-//
-// For reasons of numerical accuracy, it is useful to not return the
-// actual likelihood, but its logarithm. This is because these
-// values can be very small, occasionally on the order of $e^{-100}$,
-// for which it becomes very difficult to compute accurate
-// values.
-namespace LogLikelihood
-{
-  class Interface
-  {
-  public:
-    virtual double log_likelihood(const Vector<double> &x) const = 0;
-
-    virtual ~Interface() = default;
-  };
-
-
-  class Gaussian : public Interface
-  {
-  public:
-    Gaussian(const Vector<double> &mu, const double sigma);
-
-    virtual double log_likelihood(const Vector<double> &x) const override;
-
-  private:
-    const Vector<double> mu;
-    const double         sigma;
-  };
-
-  Gaussian::Gaussian(const Vector<double> &mu, const double sigma)
-    : mu(mu)
-    , sigma(sigma)
-  {}
-
-
-  double Gaussian::log_likelihood(const Vector<double> &x) const
-  {
-    Vector<double> x_minus_mu = x;
-    x_minus_mu -= mu;
-
-    return -x_minus_mu.norm_sqr() / (2 * sigma * sigma);
-  }
-} // namespace LogLikelihood
-
-
-// Next up is the "prior" imposed on the coefficients. We assume
-// that the logarithms of the entries of the coefficient vector
-// are all distributed as a Gaussian with given mean and standard
-// deviation. If the logarithms of the coefficients are normally
-// distributed, then this implies in particular that the coefficients
-// can only be positive, which is a useful property to ensure the
-// well-posedness of the forward problem.
-//
-// For the same reasons as for the likelihood above, the interface
-// for the prior asks for returning the *logarithm* of the prior,
-// instead of the prior probability itself.
-namespace LogPrior
-{
-  class Interface
-  {
-  public:
-    virtual double log_prior(const Vector<double> &x) const = 0;
-
-    virtual ~Interface() = default;
-  };
-
-
-  class LogGaussian : public Interface
-  {
-  public:
-    LogGaussian(const double mu, const double sigma);
-
-    virtual double log_prior(const Vector<double> &x) const override;
-
-  private:
-    const double mu;
-    const double sigma;
-  };
-
-  LogGaussian::LogGaussian(const double mu, const double sigma)
-    : mu(mu)
-    , sigma(sigma)
-  {}
-
-
-  double LogGaussian::log_prior(const Vector<double> &x) const
-  {
-    double log_of_product = 0;
-
-    for (const auto &el : x)
-      log_of_product +=
-        -(std::log(el) - mu) * (std::log(el) - mu) / (2 * sigma * sigma);
-
-    return log_of_product;
-  }
-} // namespace LogPrior
-
-
 /**
  * A model that computes the posterior probability of the Laplace problem.
  */
-class LaplacePosterior : public umbridge::Model {  
+class LaplacePosterior : public umbridge::Model {
 public:
-  Laplace(const std::string& dataset_name)
+  LaplacePosterior(const std::string& dataset_name)
    : Model("posterior"),
      laplace_problem(
       /* global_refinements = */ 5,
@@ -879,11 +774,11 @@ public:
       dataset_name)
   {}
 
-  std::vector<size_t> GetInputSizes(const json& config_json) const override {
+  std::vector<size_t> GetInputSizes([[maybe_unused]] const json& config_json) const override {
     return {64};
   }
 
-  std::vector<size_t> GetOutputSizes(const json& config_json) const override {
+  std::vector<size_t> GetOutputSizes([[maybe_unused]] const json& config_json) const override {
     return {1};
   }
 
@@ -978,13 +873,13 @@ public:
           0.2096362321365551,  0.1806705953553887,
           0.1067965550010013                         });
 
-    const LogLikelihood::Gaussian        log_likelihood(exact_solution, 0.05);
-    const LogPrior::LogGaussian          log_prior(0, 2);
+    const LogLikelihood::Gaussian        likelihood(exact_solution, 0.05);
+    const LogPrior::LogGaussian          prior(0, 2);
 
     const double log_posterior =
       (likelihood.log_likelihood(solution) +
        prior.log_prior(dealii_input));
-    
+
     std::vector<std::vector<double>> outputs;
     outputs.push_back(std::vector<double>(1, log_posterior));
     return outputs;
@@ -1013,8 +908,6 @@ int main()
   const std::string  dataset_name = Utilities::to_string(random_seed, 10);
 
   LaplaceForward forward_model(dataset_name);
-  umbridge::serveModels({&forward_model}, "0.0.0.0", 4242);
-
   LaplacePosterior posterior_model(dataset_name);
-  umbridge::serveModels({&posterior_model}, "0.0.0.0", 4242);
+  umbridge::serveModels({&forward_model, &posterior_model}, "0.0.0.0", 4242);
 }
