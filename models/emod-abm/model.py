@@ -31,7 +31,7 @@ class EMODForwardModel(umbridge.Model):
         '''
         Args:
             parameters (list): [[R0], [R0 variance], [Acquisition Correlation]]
-            config (dict): {refresh_seed:True, daily_import_pressures:1.0}
+            config (dict): {refresh_seed:True, daily_import_pressures:1.0, log_level: 'ERROR'}
 
         Returns:
             list: [[dict of 'New Infections', 'Infected', 'Infectious Population', 'Susceptible Population', 'Symptomatic Population', 'Recovered Population', and 'Exposed Population']]            
@@ -91,9 +91,7 @@ class EMODForwardModel(umbridge.Model):
         # read in result
         inset_chart = json.load(open(os.path.join(f"output_{model_id:0d}", 'InsetChart.json'), 'r'))
 
-        # # attack fraction = 1 - susceptible population
-        # model_output = 1 - inset_chart['Channels']['Susceptible Population']['Data'][-1]
-
+        # remove extra files
         self._cleanup()
 
         return [[{c:inset_chart['Channels'][c] for c in ['New Infections', 'Infected', 'Infectious Population', 'Susceptible Population', 'Symptomatic Population', 'Recovered Population', 'Exposed Population']}]]
