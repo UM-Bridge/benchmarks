@@ -2,9 +2,16 @@
 ## Overview
 
 This model implements the benchmark described in [this
-preprint](https://arxiv.org/abs/2102.07263). In it, the 64 inputs
-correspond to an 8x8 grid of stiffness values of a membrane, which
-deforms under a (known) form, and the 169 outputs correspond to the
+preprint](https://arxiv.org/abs/2102.07263), currently accepted for publication
+in SIAM Review. This benchmark implements an inverse problem where one tries
+to infer the stiffness properties of a membrane -- that is, the coefficient
+`a(x)` in the equation `-div [ a(x) grad u(x) ] = f(x)` -- from measurements
+of the displacement `u(x)`.
+
+In the concrete case considered by the benchmark, the 64 inputs
+correspond to an 8x8 grid of stiffness values of the membrane (i.e., the
+coefficient `a(x)` is discretized on an 8x8 grid of piecewise constant
+values). The membrane deforms under a (known) form, and the 169 outputs correspond to the
 values of the resulting deformation at a 13x13 grid of points.
 
 The complete benchmark compares these 169 outputs with actual
@@ -32,12 +39,30 @@ docker run -it -p 4242:4242 linusseelinger/model-laplace:latest
 Model | Description
 ---|---
 forward | Forward evaluation of the Laplace equation
+posterior | Posterior density
 
 ### forward
 Mapping | Dimensions | Description
 ---|---|---
 input | [64] | A set of 64 parameters corresponding to an 8x8 grid of stiffness values of a membrane
 output | [169] | A set of 169 displacement values corresponding to the displacement of the membrane at a grid of 13x13 points
+
+Feature | Supported
+---|---
+Evaluate | True
+Gradient | False
+ApplyJacobian | False
+ApplyHessian | False
+
+Config | Type | Default | Description
+---|---|---|---
+None | | |
+
+### posterior
+Mapping | Dimensions | Description
+---|---|---
+input | [64] | A set of 64 parameters corresponding to an 8x8 grid of stiffness values of a membrane
+output | [1] | The posterior of the input parameters
 
 Feature | Supported
 ---|---

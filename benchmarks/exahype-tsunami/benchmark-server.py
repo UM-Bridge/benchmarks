@@ -34,6 +34,11 @@ class Benchmark(umbridge.Model):
         data[2] /= 60.0
         model_output[0] /= 60.0
         model_output[2] /= 60.0
+        
+        data[1] *= 1000.0
+        data[3] *= 1000.0
+        model_output[1] *= 1000.0
+        model_output[3] *= 1000.0
 
         likelihood_cov_matrix_diag = [likelihood_std_dev_time[level]**2, likelihood_std_dev_height[level]**2] * 2
 
