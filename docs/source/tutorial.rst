@@ -281,7 +281,7 @@ Building and Running
 
 Once you have your Dockerfile you will want to build and run the container. To build the container in your current directory run::
 
-    docker build -t my-model
+    docker build -t my-model .
     
 The Dockerfile can also be explicitly set using the -f option. At this stage you may need to go back and modify your Dockerfile because something has gone wrong during the build process.
 
