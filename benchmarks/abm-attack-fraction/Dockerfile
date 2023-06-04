@@ -1,7 +1,6 @@
-FROM krosenf/emod_base:v2.21.0_Ubuntu22
+from linusseelinger/model-emod-abm
 WORKDIR /experiment
-RUN pip install numpy umbridge scipy
-# add the template files
+RUN pip install scipy
 COPY . /experiment
 CMD python3 /experiment/server.py
 
