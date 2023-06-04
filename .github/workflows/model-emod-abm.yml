@@ -1,4 +1,4 @@
-name: benchmark-abm-attack-fraction
+name: model-emod-abm
 
 on:
   push:
@@ -28,9 +28,9 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: benchmarks/abm-attack-fraction/
+          context: models/emod-abm/
           push: true
-          tags: linusseelinger/benchmark-abm-attack-fraction:latest
+          tags: linusseelinger/model-emod-abm:latest
 
   test:
     runs-on: ubuntu-latest
@@ -38,7 +38,7 @@ jobs:
 
     services:
       model:
-        image: linusseelinger/benchmark-abm-attack-fraction:latest
+        image: linusseelinger/model-emod-abm:latest
         ports:
         - 4242:4242
 
