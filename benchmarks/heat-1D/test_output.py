@@ -38,7 +38,6 @@ y_large_noise = cuqi.distribution.Gaussian(model_large_noise(x_large_noise), sig
 posterior_large_noise = cuqi.distribution.JointDistribution(
     x_large_noise, y_large_noise)(y_large_noise=data_dic_large_noise['data'])
 
-
 # B. Parse command line arguments
 parser = argparse.ArgumentParser(description='Model output test.')
 parser.add_argument('url', metavar='url', type=str,
@@ -61,7 +60,7 @@ um_kl_expansion_coefficient2function = umbridge.HTTPModel(
 um_kl_expansion_function2coefficient = umbridge.HTTPModel(
     args.url, "KLExpansionFunction2Coefficient")
 
-## F. Check basic model properties
+# F. Check basic model properties
 print('Checking model properties')
 assert um_model_large_noise.get_input_sizes() == [20]
 assert um_model_small_noise.get_input_sizes() == [20]
@@ -75,9 +74,7 @@ assert um_model_exactSolution.get_output_sizes() == [100]
 assert um_kl_expansion_coefficient2function.get_output_sizes() == [100] 
 assert um_kl_expansion_function2coefficient.get_output_sizes() == [20]
 
-
-
-## G. Check that the models support evaluation and gradient
+# G. Check that the models support evaluation and gradient
 print('Checking model capabilities')
 assert um_model_large_noise.supports_evaluate()
 assert um_model_small_noise.supports_evaluate()
@@ -91,8 +88,7 @@ assert not um_model_exactSolution.supports_gradient()
 assert not um_kl_expansion_coefficient2function.supports_gradient()
 assert not um_kl_expansion_function2coefficient.supports_gradient()
 
-
-## H. Evaluate models and compare with probelm set up in A
+# H. Evaluate models and compare with probelm set up in A
 print('Evaluating models')
 np.random.seed(0)
 parameters = np.random.rand(20)
@@ -102,7 +98,7 @@ output_exactSolution = um_model_exactSolution([[]])[0]
 output_kl_expansion_coefficient2function = um_kl_expansion_coefficient2function([parameters.tolist()])[0]
 output_kl_expansion_function2coefficient = um_kl_expansion_function2coefficient([output_kl_expansion_coefficient2function])[0]
 
-## Check that the output is correct
+# I. Check that the output is correct
 print('Checking model output')
 assert np.allclose(output_large_noise, posterior_large_noise.logpdf(parameters))
 assert np.allclose(output_small_noise, posterior_small_noise.logpdf(parameters))
