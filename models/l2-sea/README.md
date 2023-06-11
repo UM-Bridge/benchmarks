@@ -1,7 +1,7 @@
 # L2-Sea
 
 ## Overview
-The model provides the calm-water total resistance of a destroyer-type vessel as a function of the advancing speed (Froude number) and up to 14 design variables for the shape modification. The parent vessel under investigation is the DTMB 5415, an hull-form widley used for towing tank experiments, computational fluid dynamics studies, and shape optimization. The model is available as an open-source fortran code for the solution of potential flow equations at CNR-INM, MAO Research Group repository github.com/MAORG-CNR-INM/NATO-AVT-331-L2-Sea-Benchmark.   
+The model provides the calm-water total resistance of a destroyer-type vessel as a function of the advancing speed (Froude number) and up to 14 design variables for the shape modification. The parent vessel under investigation is the DTMB 5415, an hull-form widley used for towing tank experiments, computational fluid dynamics studies, and shape optimization. The model is available as an open-source fortran code for the solution of potential flow equations at CNR-INM, MAO Research Group repository github.com/MAORG-CNR-INM/NATO-AVT-331-L2-Sea-Benchmark.
 
 ![L2-Sea-Model](https:/github.com/UM-Bridge/benchmarks/edit/main/models/l2-sea/figs/l2-sea_example.png "DTMB 5415 view of the wave elevation pattern and pressure field on the hull surface")
 
@@ -13,7 +13,7 @@ The model provides the calm-water total resistance of a destroyer-type vessel as
 
 ## Run
 ```
-docker run -it -p 4242:4242 -v ~/l2-sea_output:/output linusseelinger/model-l2-sea 
+docker run -it -p 4242:4242 linusseelinger/model-l2-sea
 ```
 
 ## Properties
@@ -21,7 +21,12 @@ docker run -it -p 4242:4242 -v ~/l2-sea_output:/output linusseelinger/model-l2-s
 Model | Description
 ---|---
 forward | l2-sea
-optimization | l2-sea
+
+### forward
+Mapping | Dimensions | Description
+---|---|---
+input | [16] | Froude number ($0.25\leq \mathrm{Fr}\leq 0.41$) and design variables vector for the shape modification composed by $N=14$ design varibales $-1\leq x_i \leq 1$ for {i=1,\dots,N}.
+output | [5] | Total resistance in calm water ($R_\mathrm{T}$) and 4 geometrical constraints related to ...
 
 Feature | Supported
 ---|---
@@ -62,7 +67,7 @@ where $\phi$ is the velocity scalar potential, satisfying $\mathbf{u}=\nabla\phi
 %
 the frictional resistance component is estimated using a flat-plate approximation based on the local Reynolds number.
 
-The steady 2 degrees of freedom (sinkage and trim) equilibrium is achieved considering iteratively the coupling between the hydrodynamic loads and the rigid-body equation of motion. 
+The steady 2 degrees of freedom (sinkage and trim) equilibrium is achieved considering iteratively the coupling between the hydrodynamic loads and the rigid-body equation of motion.
 
 The model can exploit multiple grid discretization levels, whose details can be found in [Pellegrini et al. (2022)](https://dl.acm.org/doi/10.1145/3458817.3476150](https://www.mdpi.com/2227-7390/10/3/481).
 
@@ -95,7 +100,7 @@ The benchmark, developed within the activities of the NATO-AVT-331 Research Task
     \end{array}
 \end{eqnarray}
 %
-where $\mathbf{x}$ are the design variables, $L_{\rm pp}$ is the length between perpendiculars, $B$ is the overall beam, $T$ is the drought, and $V$ is the volume reserved for the sonar in the bow dome. Subscript ``0'' indicates parent (original) hull values. Equality and inequality constraints for the geometry deformations are taken from \cite{grigoropoulos2017mission}. 
+where $\mathbf{x}$ are the design variables, $L_{\rm pp}$ is the length between perpendiculars, $B$ is the overall beam, $T$ is the drought, and $V$ is the volume reserved for the sonar in the bow dome. Subscript ``0'' indicates parent (original) hull values. Equality and inequality constraints for the geometry deformations are taken from \cite{grigoropoulos2017mission}.
 
 The shape modifications $\tilde{\boldsymbol{\gamma}}(\boldsymbol{\xi},\mathbf{x})$ are produced directly on the Cartesian coordinates $\boldsymbol{\xi}$ of the computational body surface grid $\mathbf{g}$, as per
 
@@ -110,7 +115,7 @@ where $\mathbf{g}_0$ is the original geometry and $\boldsymbol{\gamma}$ is a sha
     \label{e:exp_gamma}
 \end{equation}
 
-with $\boldsymbol{\psi}$ a set of orthonormal functions, with $N=14$ the number of design variables ($\mathbf{x}$). It may be noted that the design variables and the associated shape modifications are organized in a hierarchical order, meaning that the first variables produce larger design modifications than the last ones \cite{serani2021hull}.   
+with $\boldsymbol{\psi}$ a set of orthonormal functions, with $N=14$ the number of design variables ($\mathbf{x}$). It may be noted that the design variables and the associated shape modifications are organized in a hierarchical order, meaning that the first variables produce larger design modifications than the last ones \cite{serani2021hull}.
 
 The multifidelity levels are defined by the computational grid size. Specifically, the benchmark is defined with seven grid (fidelity) levels with a refinement ratio of 2$^{0.25}$
 
