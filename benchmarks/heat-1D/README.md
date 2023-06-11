@@ -1,16 +1,13 @@
 # Heat1D: 1D heat Bayesian inverse problem using CUQIpy
 
 ## Overview
-This benchmark is built using the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/). It defines a posterior distribution for a 1D heat inverse problem, with a Gaussian likelihood and Karhunen–Loève (KL) parameterization of the uncertain parameters. Two posteriors are available, one with data available everywhere in the domain and with a noise level of $0.1\%$ and the other with data available only on the left half of the domain and with a noise level of $5\%$ [... add reference CUQIpy paper 2, which cases ...].
+This benchmark is built using the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/). It defines a posterior distribution for a 1D heat inverse problem, with a Gaussian likelihood and Karhunen–Loève (KL) parameterization of the uncertain parameters. Two posteriors are available, one with data available everywhere in the domain and with a noise level of $0.1\%$ and the other with data available only on the left half of the domain and with a noise level of $5\%$ [[1]](#1).
 
+Plots for the small noise case (top plot) and the large noise case (bottom plot). In both plots the panels show the following: (a) Noisy data, exact data, and exact solution (b) Samples $95\\%$ credible interval computed after mapping the KL coefficients $\mathbb{x}$ samples to the corresponding function $\mathbb{g}$ samples. (c) KL coefficients samples $95\\%$ credible interval. 
 
-Plot of data and exact solution for the two noise-level cases
+![Small noise case](./figs/fig_small_noise.png "Small noise case")
+![Large noise case](./figs/fig_large_noise.png "Large noise case")
 
-![Data](data.png "Data")
-
-Credibility interval plots of posterior samples for the two noise-level cases
-
-![Samples](samples.png "Credibility interval of samples")
 
 ## Authors
 - [Nicolai A. B. Riis](mailto:nabr@dtu.dk)
@@ -189,3 +186,8 @@ See [um-bridge Clients](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbr
 In addition to the two HTTP models for the posterior, there is also an HTTP model for the exact solution to the problem. This model is called `Heat1DExactSolution` and returns exact initial heat profile used to generate the synthetic data when called. The map from the coefficients $\mathbf{x}$ to the discretized function $\mathbf{g}$ is provided via the HTTP model `KLExpansionCoefficient2Function` and the projection of $\mathbf{g}$ on the coefficient space $\mathbf{x}$ is provided by the HTTP model `KLExpansionFunction2Coefficient`. 
 
 Using [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/) this benchmark is defined in the files `heat1D_problem.py`, `data_script.py`, and `server.py` provided here.
+
+
+## References
+<a id="1">[1]</a> 
+Alghamdi, A., Riis, N. A., Afkham, B. M., Uribe, F., Christensen, S. L., Hansen, P. C., & Jørgensen, J. S. (2023). CUQIpy--Part II: computational uncertainty quantification for PDE-based inverse problems in Python. arXiv preprint arXiv:2305.16951.
