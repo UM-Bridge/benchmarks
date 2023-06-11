@@ -135,7 +135,7 @@ class KLExpansionCoefficient2Function(umbridge.Model):
         return [N]
 
     def __call__(self, parameters, config):
-        return [self.KL_geometry.par2fun(parameters[0]).tolist()]
+        return [self.KL_geometry.par2fun(np.array(parameters[0])).tolist()]
 
     def supports_evaluate(self):
         return True
@@ -156,7 +156,7 @@ class KLExpansionFunction2Coefficient(umbridge.Model):
         return [dim]
 
     def __call__(self, parameters, config):
-        return [self.KL_geometry.fun2par(parameters[0]).tolist()]
+        return [self.KL_geometry.fun2par(np.array(parameters[0])).tolist()]
 
     def supports_evaluate(self):
         return True
