@@ -1,9 +1,9 @@
 # Heat1D: 1D heat Bayesian inverse problem using CUQIpy
 
 ## Overview
-This benchmark is built using the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/). It defines a posterior distribution for a 1D heat inverse problem, with a Gaussian likelihood and Karhunen–Loève (KL) parameterization of the uncertain parameters. Two posteriors are available, one with data available everywhere in the domain and with a noise level of $0.1\%$ and the other with data available only on the left half of the domain and with a noise level of $5\%$ [[1]](#1).
+This benchmark is built using the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/). It defines a posterior distribution for a 1D heat inverse problem, with a Gaussian likelihood and Karhunen–Loève (KL) parameterization of the uncertain parameters. Posteriors for two cases are available. In the first case, the data is available everywhere in the domain and with a noise level of $0.1\%$; and in the other case, the data is available only on the left half of the domain and with a noise level of $5\%$ [[1]](#1).
 
-Plots for the small noise case (top plot) and the large noise case (bottom plot). In both plots the panels show the following: (a) Noisy data, exact data, and exact solution (b) Samples $95\\%$ credible interval computed after mapping the KL coefficients $\mathbb{x}$ samples to the corresponding function $\mathbb{g}$ samples. (c) KL coefficients samples $95\\%$ credible interval. 
+Below are plots for the small noise case (top plot) and the large noise case (bottom plot). In both plots, the panels show the following: (a) Noisy data, exact data, and exact solution (b) Samples $95\%$ credible interval computed after mapping the KL coefficients $\mathbb{x}$ samples to the corresponding function $\mathbb{g}$ samples. (c) KL coefficients samples $95\%$ credible interval. 
 
 ![Small noise case](./figs/fig_small_noise.png "Small noise case")
 ![Large noise case](./figs/fig_large_noise.png "Large noise case")
@@ -25,16 +25,16 @@ Model | Description
 ---|---
 Heat1DSmallNoise | Posterior distribution for the small noise case
 Heat1DLargeNoise | Posterior distribution for the large noise and incomplete data case
-Heat1DExactSolution | Exact solution to the 1D heat problem
-KLExpansionCoefficient2Function | Map from the KL parameter space to the function space
-KLExpansionFunction2Coefficient | Projection from the function space to the KL parameter space
+Heat1DExactSolution | Exact solution of the 1D heat inverse problem
+KLExpansionCoefficient2Function | Map from the KL coefficients to the corresponding function
+KLExpansionFunction2Coefficient | Projection of functions onto the KL coefficients space
 
 
 ### Heat1DSmallNoise
 Mapping | Dimensions | Description
 ---|---|---
 input | [20] | KL Coefficients $\mathbf{x}$
-output | [1] | Log PDF $\pi(\mathbf{x}\mid\mathbf{b})$ of posterior for the small noise case
+output | [1] | Posterior log PDF $\pi(\mathbf{x}\mid\mathbf{b})$ of the small noise case
 
 Feature | Supported
 ---|---
@@ -51,7 +51,7 @@ None | | |
 Mapping | Dimensions | Description
 ---|---|---
 input | [20] | KL coefficients $\mathbf{x}$
-output | [1] | Log PDF $\pi(\mathbf{x}\mid\mathbf{b})$ of posterior for the large noise and incomplete data case
+output | [1] | Posterior log PDF $\pi(\mathbf{x}\mid\mathbf{b})$ of the large noise and incomplete data case
 
 Feature | Supported
 ---|---
@@ -142,7 +142,7 @@ $$
 \end{align}
 $$
 
-assuming zero source term and a constant diffusion coefficient of value 1. We discretize the system using first order finite difference method in space on a regular grid of $n$ nodes, and forward Euler in time. We denote by $\mathbf{g}$ and $\mathbf{u}$ the discretization of $\mathbf{g}$ and $\mathbf{u}$.
+assuming zero source term and a constant diffusion coefficient of value 1. We discretize the system using first order finite difference method in space on a regular grid of $n=100$ nodes, and forward Euler in time. We denote by $\mathbf{g}$ and $\mathbf{u}$ the discretization of $g$ and $u$.
 
 Furthermore, we parameterize $\mathbf{g}$ using a truncated Karhunen–Loève (KL) expansion to impose some regularity and spatial correlation and reduce the dimension of the discretized unknown parameter from $n$ to $n_\text{KL}$, where $n_\text{KL} \ll n$. For given expansion basis $\mathbf{a}_i$ for $i=1,...,n_\text{KL}$, parameterization $\mathbf{g}$ in terms of the KL expansion coefficients  $\mathbf{x}=[x_1, ..., x_{n_\text{KL}}]$  can be written as  
 
@@ -177,15 +177,15 @@ where $\mathbf{I}_m$ is the $m\times m$ identity matrix and $\sigma$ defines the
 
 Two setups of this Bayesian problem are available
 
-- `Heat1DLargeNoise`: A posterior for which the data is available everywhere in the domain and at time $\tau^\text{max}$, with a noise level of $0.1\%$
+- `Heat1DLargeNoise`: A posterior for which the data is available everywhere in the domain (on grid points) and at time $\tau^\text{max}$, with a noise level of $0.1\%$
 
-- `Heat1DSmallNoise` A posterior for which the data is available only on the left half of the domain  and at time $\tau^\text{max}$, with a noise level of $5\%$
+- `Heat1DSmallNoise` A posterior for which the data is available only on the left half of the domain (on grid points) and at time $\tau^\text{max}$, with a noise level of $5\%$
 
-See [um-bridge Clients](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html) for more details.
+See [um-bridge Clients](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html) for more details on how to use such UM-Bridge models.
 
-In addition to the two HTTP models for the posterior, there is also an HTTP model for the exact solution to the problem. This model is called `Heat1DExactSolution` and returns exact initial heat profile used to generate the synthetic data when called. The map from the coefficients $\mathbf{x}$ to the discretized function $\mathbf{g}$ is provided via the HTTP model `KLExpansionCoefficient2Function` and the projection of $\mathbf{g}$ on the coefficient space $\mathbf{x}$ is provided by the HTTP model `KLExpansionFunction2Coefficient`. 
+In addition to the two HTTP models for the posterior, there is also an HTTP model for the exact solution of the problem. This model is called `Heat1DExactSolution` and returns exact initial heat profile used to generate the synthetic data when called. The map from the coefficients $\mathbf{x}$ to the discretized function $\mathbf{g}$ is provided via the HTTP model `KLExpansionCoefficient2Function` and the projection of $\mathbf{g}$ on the coefficient space $\mathbf{x}$ is provided by the HTTP model `KLExpansionFunction2Coefficient`. 
 
-Using [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/) this benchmark is defined in the files `heat1D_problem.py`, `data_script.py`, and `server.py` provided here.
+Using [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/), this benchmark is defined in the files `heat1D_problem.py`, `data_script.py`, and `server.py` provided here.
 
 
 ## References
