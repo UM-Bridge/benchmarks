@@ -16,7 +16,7 @@ Below are plots for the small noise case (top plot) and the large noise case (bo
 
 ## Run
 ```
-docker run -it -p 4243:4243 linusseelinger/benchmark-heat-1D
+docker run -it -p 4242:4242 linusseelinger/benchmark-heat-1d
 ```
 
 ## Properties
