@@ -56,9 +56,6 @@ class Heat1D_UM(umbridge.Model):
     def supports_evaluate(self):
         return True
 
-    def supports_gradient(self):
-        return False
-
 
 class Heat1DSmallNoise(Heat1D_UM):
     """Heat 1D benchmark with small noise level"""
