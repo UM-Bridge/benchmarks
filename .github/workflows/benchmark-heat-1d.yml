@@ -46,7 +46,7 @@ jobs:
        -
         name: Validate protocol
         run: |
-          docker run --network=host -e model_host=http://localhost:4243 linusseelinger/testing-protocol-conformity-current:latest
+          docker run --network=host -e model_host=http://localhost:4242 linusseelinger/testing-protocol-conformity-current:latest
        -
         name: Checkout
         uses: actions/checkout@v2
