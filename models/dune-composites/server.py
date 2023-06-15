@@ -20,7 +20,7 @@ class DuneCompModel(umbridge.Model):
 
         #os.system(f"mpirun --allow-run-as-root -np {mpiranks} ./ExampleScaling -stackingSequence {stackSeq}", stdout=PIPE, stderr=PIPE)
         import subprocess
-        output = subprocess.check_output(f"mpirun --allow-run-as-root -np {mpiranks} ./ExampleScaling -stackingSequence {stackSeq}", shell=True)
+        output = subprocess.check_output(f"mpirun --allow-run-as-root --oversubscribe -np {mpiranks} ./ExampleScaling -stackingSequence {stackSeq}", shell=True)
 
         print(output.decode("utf-8"))
 
