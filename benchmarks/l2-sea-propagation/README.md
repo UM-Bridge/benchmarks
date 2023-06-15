@@ -1,7 +1,7 @@
-# L2-Sea model
+# L2-Sea propagation
 
 ## Overview
-The model provides the calm-water total resistance of a destroyer-type vessel as a function of the advancing speed (Froude number) and up to 14 design variables for the shape modification. The parent vessel under investigation is the DTMB 5415, an hull-form widley used for towing tank experiments, computational fluid dynamics studies, and shape optimization. The model is available as an open-source fortran code for the solution of potential flow equations at CNR-INM, MAO Research Group repository github.com/MAORG-CNR-INM/NATO-AVT-331-L2-Sea-Benchmark.
+This propagation benchmark is based on the L2-Sea model. The goal is to propagate operational uncertainties to the total resistance.
 
 ![L2-Sea-Model](https:/github.com/UM-Bridge/benchmarks/edit/main/models/l2-sea/figs/l2-sea_example.png "DTMB 5415 view of the wave elevation pattern and pressure field on the hull surface")
 
@@ -51,22 +51,11 @@ Mount directory | Purpose
 [Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/models/l2-sea)
 
 ## Description
-This model describes the calm-water resistance of a destroyer-type vessel by potential flow. Specifically, the vessel under investigation is the DTMB 5415 (at model scale), which is a widely used benchmark for towing tank experiments, CFD studies, and hull-form optimization, considering both deterministic and stochastic formulations.
 
-Potential flow solver is used to evaluate the hydrodynamic loads, based on the Laplacian equation
-%
-\begin{equation}
-    \nabla^2\phi = 0
-\end{equation}
-%
-where $\phi$ is the velocity scalar potential, satisfying $\mathbf{u}=\nabla\phi$ and $\mathbf{u}$ is the flow velocity vector. The velocity potential $\phi$ is evaluated numerically through the Dawson linearization of the potential flow equations, using the boundary element method. Finally, the total resistance is estimated as the sum of the wave and the frictional resistance: the wave resistance component is estimated by integrating the pressure distribution over the hull surface, obtained using the Bernoulli theorem
-%
-\begin{equation}
-    \frac{p}{\rho} + \frac{\left(\nabla\phi\right)^2}{2}-gz = cost;
-\end{equation}
-%
-the frictional resistance component is estimated using a flat-plate approximation based on the local Reynolds number.
 
-The steady 2 degrees of freedom (sinkage and trim) equilibrium is achieved considering iteratively the coupling between the hydrodynamic loads and the rigid-body equation of motion.
+The benchmark pertains to the evaluation of the expected value and standard deviation of the DTMB 5415 model scale total resistance in calm water, conditional to operational and geometrical uncertain parameters.
 
-The model can exploit multiple grid discretization levels, whose details can be found in [Pellegrini et al. (2022)](https://dl.acm.org/doi/10.1145/3458817.3476150](https://www.mdpi.com/2227-7390/10/3/481).
+The standard benchmark is a bi-dimensional problem considering the operational uncertainties only, the speed and the payload. The latter is associated with the hull draft. Speed is expressed by its non-dimensional counterpart, the Froude number (Fr), ranging between 0.25 and 0.41 with a triangular distribution, with the maximum at Fr=0.25 and equal to zero at Fr=0.41. For the draft, a beta distribution is defined as follows ...
+
+For UQ method scalability testing, the benchmark can be extended in dimensionality (up to 16 dimensions) by adding the geometrical uncertainties associated with the shape modification (14 design variables are available). Also for the geometrical uncertainties, a beta distribution is used.
+
