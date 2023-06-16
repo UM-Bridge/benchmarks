@@ -3,7 +3,7 @@
 ## Overview
 The model provides the calm-water total resistance of a destroyer-type vessel as a function of the advancing speed (Froude number) and up to 14 design variables for the shape modification. The parent vessel under investigation is the DTMB 5415, an hull-form widley used for towing tank experiments, computational fluid dynamics studies, and shape optimization. The model is available as an open-source fortran code for the solution of potential flow equations at CNR-INM, MAO Research Group repository github.com/MAORG-CNR-INM/NATO-AVT-331-L2-Sea-Benchmark.
 
-![L2-Sea-Model](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/l2-sea/l2-sea_example.png "DTMB 5415 view of the wave elevation pattern and pressure field on the hull surface")
+![L2-Sea-Model](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/l2-sea/l2sea_example.png "DTMB 5415 view of the wave elevation pattern and pressure field on the hull surface")
 
 ## Authors
 - [Andrea Serani](mailto:andrea.serani@cnr.it)

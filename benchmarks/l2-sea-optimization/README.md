@@ -4,7 +4,7 @@
 
 This optimization benchmark is based on the L2-Sea model. The goal is to optimize the ship hull's shape to minimize total resistance.
 
-![L2-Sea-Model](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/l2-sea/l2-sea_example.png "DTMB 5415 view of the wave elevation pattern and pressure field on the hull surface")
+![L2-Sea-Model](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/l2-sea/l2sea_example.png "DTMB 5415 view of the wave elevation pattern and pressure field on the hull surface")
 
 ## Authors
 - [Andrea Serani](mailto:andrea.serani@cnr.it)
