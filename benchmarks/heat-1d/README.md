@@ -5,8 +5,8 @@ This benchmark is built using the library [CUQIpy](https://cuqi-dtu.github.io/CU
 
 Below are plots for the small noise case (top plot) and the large noise case (bottom plot). In both plots, the panels show the following: (a) Noisy data, exact data, and exact solution (b) Samples $95\%$ credible interval computed after mapping the KL coefficients $\mathbb{x}$ samples to the corresponding function $\mathbb{g}$ samples. (c) KL coefficients samples $95\%$ credible interval. 
 
-![Small noise case](./figs/fig_small_noise.png "Small noise case")
-![Large noise case](./figs/fig_large_noise.png "Large noise case")
+![Small noise case](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/heat-1d/figs/fig_small_noise.png "Small noise case")
+![Large noise case](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/heat-1d/figs/fig_large_noise.png "Large noise case")
 
 
 ## Authors
@@ -134,6 +134,7 @@ None |
 This benchmark defines the posterior distribution of a Bayesian inverse problem governed by a 1D heat equation. The underlying inverse problem is to infer an initial temperature profile $g(\xi)$ at time $\tau=0$ on the unit interval $\xi \in [0,1]$ form measurements of temperature $u(\xi, \tau)$ at time $\tau=\tau^\text{max}$.
 
 In this example, the governing partial differential equation that can be solved to find the temperature $u(\xi, \tau)$ given the initial temperature profile $g(\xi)$ is
+
 $$
 \begin{align}
     \frac{\partial u(\xi,\tau)}{\partial t} -  \frac{\partial^2 u(\xi,\tau)}{\partial \xi^2}   & = 0, \quad \xi\in[0,1], \quad 0\le \tau \le \tau^\mathrm{max}, \\
@@ -146,9 +147,7 @@ assuming zero source term and a constant diffusion coefficient of value 1. We di
 
 Furthermore, we parameterize $\mathbf{g}$ using a truncated Karhunen–Loève (KL) expansion to impose some regularity and spatial correlation and reduce the dimension of the discretized unknown parameter from $n$ to $n_\text{KL}$, where $n_\text{KL} \ll n$. For given expansion basis $\mathbf{a}_i$ for $i=1,...,n_\text{KL}$, parameterization $\mathbf{g}$ in terms of the KL expansion coefficients  $\mathbf{x}=[x_1, ..., x_{n_\text{KL}}]$  can be written as  
 
-$$
-\mathbf g =\sum_{i=1}^{n_\text{KL}} x_i   \mathbf{a}_i.
-$$
+$$ \mathbf{g} =\sum_{i=1}^{n_\text{KL}} x_i \mathbf{a}_i. $$
 
 In the Bayesian setting, we consider  $\mathbf{x}$  an $n_\text{KL}$-dimensional random vector representing the unknown KL coefficients. And thus the corresponding $\mathbf{g}$ and $\mathbf{u}$ are random vectors as well. We define the inverse problem as 
 
