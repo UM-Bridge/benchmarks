@@ -7,18 +7,18 @@ This benchmark focuses on image reconstruction in X-ray computed tomography (CT)
 
 True image | Noise-free data
 ---|---
-![true_image](figs/true_image.png) | ![noisefree_data](figs/noisefree_data.png)
+![true_image](figs/true_image.png](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/true_image.png) | ![noisefree_data](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/noisefree_data.png)
 Noisy data | Noise
-![noisy_data](figs/noisy_data.png) | ![noise](figs/noise.png)
+![noisy_data](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/noisy_data.png) | ![noise](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/noise.png)
 
 **Mean and standard deviation plots for posterior samples using different priors:**
 
 Prior                      | Posterior mean             |  Posterior std
 ---|---|---
-Gaussian $\delta=0.01$ | ![Gaussian_mean](figs/Gaussian_mean.png)  |  ![Gaussian_std](figs/Gaussian_std.png)
-GMRF $\delta=0.01$ | ![GMRF_mean](figs/GMRF_mean.png)  |  ![GMRF_std](figs/GMRF_std.png)
-LMRF $\delta=0.1$ | ![LaplaceDiff_mean](figs/LaplaceDiff_mean.png)  |  ![LaplaceDiff_std](figs/LaplaceDiff_std.png)
-CMRF $\delta=0.01$ | ![CauchyDiff_mean](figs/CauchyDiff_mean.png)  |  ![CauchyDiff_std](figs/CauchyDiff_std.png)
+Gaussian $\delta=0.01$ | ![Gaussian_mean](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/Gaussian_mean.png)  |  ![Gaussian_std](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/Gaussian_std.png)
+GMRF $\delta=0.01$ | ![GMRF_mean](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/GMRF_mean.png)  |  ![GMRF_std](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/GMRF_std.png)
+LMRF $\delta=0.1$ | ![LaplaceDiff_mean](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/LaplaceDiff_mean.png)  |  ![LaplaceDiff_std](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/LaplaceDiff_std.png)
+CMRF $\delta=0.01$ | ![CauchyDiff_mean](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/CauchyDiff_mean.png)  |  ![CauchyDiff_std](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/CauchyDiff_std.png)
 
 
 ## Authors
