@@ -5,11 +5,11 @@ This benchmark is based on a [1D Deconvolution test problem](https://cuqi-dtu.gi
 
 Plot of data and exact solution
 
-![Data](data.png "Data")
+![Data](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/deconvolution-1d/data.png "Data")
 
 Credibility interval plots of posterior samples using different priors
 
-![Samples](samples.png "Credibility interval of samples")
+![Samples](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/deconvolution-1d/samples.png "Credibility interval of samples")
 
 ## Authors
 - [Nicolai A. B. Riis](mailto:nabr@dtu.dk)
