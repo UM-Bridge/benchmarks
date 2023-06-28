@@ -67,4 +67,4 @@ the frictional resistance component is estimated using a flat-plate approximatio
 
 The steady 2 degrees of freedom (sinkage and trim) equilibrium is achieved considering iteratively the coupling between the hydrodynamic loads and the rigid-body equation of motion.
 
-The model can exploit multiple grid discretization levels, whose details can be found in [Pellegrini et al. (2022)](https://dl.acm.org/doi/10.1145/3458817.3476150](https://www.mdpi.com/2227-7390/10/3/481).
+The model can exploit multiple grid discretization levels, whose details can be found in [Pellegrini et al. (2022)](https://www.mdpi.com/2227-7390/10/3/481).
