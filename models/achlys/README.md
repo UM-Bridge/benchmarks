@@ -51,26 +51,25 @@ Achlys models macroscopic tritium transport processes through fusion reactor mat
 Particularly, we solve the following equations:
 
 
-```math
-\frac{\partial C_{m}}{\partial t} = \nabla  \cdot \left( D \left(T \right) \nabla  C_{m} \right) - \sum \frac{\partial C_{t,i}}{\partial t} + S_{ext}
-```
-```math
-\frac{\partial C_{t,i}}{\partial t} = \nu_m \left(T\right) C_m \left(n_i - C_{t,i} \right) - \nu_i\left(T\right) C_{t,i} 
-```
-```math
-\rho_m C_p \frac{\partial T}{\partial t} = \nabla \cdot \left(k \nabla T \right)
-```
+$$
+\begin{align}
+  \frac{\partial C_{m}}{\partial t} &= \nabla  \cdot \left( D \left(T \right) \nabla  C_{m} \right) - \sum \frac{\partial C_{t,i}}{\partial t} + S_{ext} \\
+  \frac{\partial C_{t,i}}{\partial t} &= \nu_m \left(T\right) C_m \left(n_i - C_{t,i} \right) - \nu_i\left(T\right) C_{t,i} \\
+  \rho_m C_p \frac{\partial T}{\partial t} &= \nabla \cdot \left(k \nabla T \right)
+\end{align}
+$$
+
 where $C_m$ is the concentration of mobile particles, $C_{t,i}$ is the concentration of particles at the $i$th trap type and $T$ is the temperature.
 
 Additionally, the evolution of the extrinsic trap density $n_3$ is modelled as
-```math
-\frac{dn_{3}}{dt} = (1 - r) \phi \left[ \left(1-\frac{n_3}{n_{3a,max}}\right)\eta_a f(x) + \left(1-\frac{n_3}{n_{3b,max}}\right)\eta_b\theta(x) \right]
-```
+
+$$ \frac{dn_{3}}{dt} = (1 - r) \phi \left[ \left(1-\frac{n_3}{n_{3a,max}}\right)\eta_a f(x) + \left(1-\frac{n_3}{n_{3b,max}}\right)\eta_b\theta(x) \right] $$
+
 This takes into account additional trapping sites that are created as the material is damaged during implantation.
 
 Please see [Hodille et al. (2015)](https://www.sciencedirect.com/science/article/pii/S0022311515300660) for more details.
 
-The setup used in this particular benchmark models the experimental work of [Ogorodnikova et al. (2003)](https://www.sciencedirect.com/science/article/abs/pii/S0022311502013752)
+The setup used in this particular benchmark models the experimental work of [Ogorodnikova et al. (2003)](https://www.sciencedirect.com/science/article/abs/pii/S0022311502013752).
 
 ## References
 - Rémi Delaporte-Mathurin, Etienne A. Hodille, Jonathan Mougenot, Yann Charles, Christian Grisolia, *Finite element analysis of hydrogen retention in ITER plasma facing components using FESTIM*, Nuclear Materials and Energy, Volume 21, 2019
