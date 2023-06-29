@@ -7,7 +7,7 @@ This benchmark focuses on image reconstruction in X-ray computed tomography (CT)
 
 True image | Noise-free data
 ---|---
-![true_image](figs/true_image.png](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/true_image.png) | ![noisefree_data](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/noisefree_data.png)
+![true_image](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/true_image.png) | ![noisefree_data](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/noisefree_data.png)
 Noisy data | Noise
 ![noisy_data](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/noisy_data.png) | ![noise](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/cuqi-ct/figs/noise.png)
 
