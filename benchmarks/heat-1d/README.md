@@ -1,7 +1,7 @@
 # Heat1D: 1D heat Bayesian inverse problem using CUQIpy
 
 ## Overview
-This benchmark is built using the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/). It defines a posterior distribution for a 1D heat inverse problem, with a Gaussian likelihood and Karhunen–Loève (KL) parameterization of the uncertain parameters. Posteriors for two cases are available. In the first case, the data is available everywhere in the domain and with a noise level of $0.1\%$; and in the other case, the data is available only on the left half of the domain and with a noise level of $5\%$ [[1]](#1).
+This benchmark is built using the library [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/). It defines a posterior distribution for a 1D heat inverse problem, with a Gaussian likelihood and Karhunen–Loève (KL) parameterization of the uncertain parameters. Posteriors for two cases are available. In the first case, the data is available everywhere in the domain and with a noise level of $0.1\%$; and in the other case, the data is available only on the left half of the domain and with a noise level of $5\%$. For more details see [Alghamdi et al. (2023)](https://doi.org/10.48550/arXiv.2305.16951).
 
 Below are plots for the small noise case (top plot) and the large noise case (bottom plot). In both plots, the panels show the following: (a) Noisy data, exact data, and exact solution (b) Samples $95\%$ credible interval computed after mapping the KL coefficients $\mathbb{x}$ samples to the corresponding function $\mathbb{g}$ samples. (c) KL coefficients samples $95\%$ credible interval. 
 
@@ -186,7 +186,3 @@ In addition to the two HTTP models for the posterior, there is also an HTTP mode
 
 Using [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/), this benchmark is defined in the files `heat1D_problem.py`, `data_script.py`, and `server.py` provided here.
 
-
-## References
-<a id="1">[1]</a> 
-Alghamdi, A., Riis, N. A., Afkham, B. M., Uribe, F., Christensen, S. L., Hansen, P. C., & Jørgensen, J. S. (2023). CUQIpy--Part II: computational uncertainty quantification for PDE-based inverse problems in Python. arXiv preprint arXiv:2305.16951.
