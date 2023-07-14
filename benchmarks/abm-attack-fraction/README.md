@@ -47,7 +47,7 @@ None |
 
 ## Source code
 
-[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/emod-abm)
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/abm-attack-fraction)
 
 ## Description
 
