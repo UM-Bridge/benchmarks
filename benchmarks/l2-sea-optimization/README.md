@@ -51,7 +51,7 @@ Mount directory | Purpose
 
 ## Description
 
-The benchmark, developed within the activities of the NATO-AVT-331 Research Task Group on ``Goal-driven, multifidelity approaches for military vehicle system-level design'' [Beran et al. (2020)](https://arc.aiaa.org/doi/abs/10.2514/6.2020-3158), pertains to the total resistance reduction of the DTMB 5415 in calm water at fixed speed, corresponding to a Froude number (Fr) equal to 0.28. The optimization problem reads
+The benchmark, developed within the activities of the NATO-AVT-331 Research Task Group on ''Goal-driven, multifidelity approaches for military vehicle system-level design'' [Beran et al. (2020)](https://doi.org/10.2514/6.2020-3158), pertains to the total resistance reduction of the DTMB 5415 in calm water at fixed speed, corresponding to a Froude number (Fr) equal to 0.28. The optimization problem reads
 %
 \begin{eqnarray}\label{eq:5415prob}
     \begin{array}{rll}
@@ -65,7 +65,7 @@ The benchmark, developed within the activities of the NATO-AVT-331 Research Task
     \end{array}
 \end{eqnarray}
 %
-where $\mathbf{x}$ are the design variables, $L_{\rm pp}$ is the length between perpendiculars, $B$ is the overall beam, $T$ is the drought, and $V$ is the volume reserved for the sonar in the bow dome. Subscript ``0'' indicates parent (original) hull values. Equality and inequality constraints for the geometry deformations are taken from \cite{grigoropoulos2017mission}.
+where $\mathbf{x}$ are the design variables, $L_{\rm pp}$ is the length between perpendiculars, $B$ is the overall beam, $T$ is the drought, and $V$ is the volume reserved for the sonar in the bow dome. Subscript ''0'' indicates parent (original) hull values. Equality and inequality constraints for the geometry deformations are taken from \cite{grigoropoulos2017mission}.
 
 The shape modifications $\tilde{\boldsymbol{\gamma}}(\boldsymbol{\xi},\mathbf{x})$ are produced directly on the Cartesian coordinates $\boldsymbol{\xi}$ of the computational body surface grid $\mathbf{g}$, as per
 
