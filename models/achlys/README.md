@@ -46,7 +46,7 @@ None |
 [Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/models/achlys)
 
 ## Description
-Achlys models macroscopic tritium transport processes through fusion reactor materials as described in the [Achlys documentation](https://aurora-multiphysics.github.io/achlys/module/introduction.html) and in [Delaporte-Mathurin et al (2019)](https://www.sciencedirect.com/science/article/pii/S2352179119300547).
+Achlys models macroscopic tritium transport processes through fusion reactor materials as described in the [Achlys documentation](https://aurora-multiphysics.github.io/achlys/module/introduction.html) and in [Delaporte-Mathurin et al. (2019)](https://doi.org/10.1016/j.nme.2019.100709).
 
 Particularly, we solve the following equations:
 
@@ -67,13 +67,6 @@ $$ \frac{dn_{3}}{dt} = (1 - r) \phi \left[ \left(1-\frac{n_3}{n_{3a,max}}\right)
 
 This takes into account additional trapping sites that are created as the material is damaged during implantation.
 
-Please see [Hodille et al. (2015)](https://www.sciencedirect.com/science/article/pii/S0022311515300660) for more details.
+Please see [Hodille et al. (2015)](https://doi.org/10.1016/j.jnucmat.2015.06.041) for more details.
 
-The setup used in this particular benchmark models the experimental work of [Ogorodnikova et al. (2003)](https://www.sciencedirect.com/science/article/abs/pii/S0022311502013752).
-
-## References
-- Rémi Delaporte-Mathurin, Etienne A. Hodille, Jonathan Mougenot, Yann Charles, Christian Grisolia, *Finite element analysis of hydrogen retention in ITER plasma facing components using FESTIM*, Nuclear Materials and Energy, Volume 21, 2019
-
-- E.A. Hodille, X. Bonnin, R. Bisson, T. Angot, C.S. Becquart, J.M. Layet, C. Grisolia, *Macroscopic rate equation modeling of trapping/detrapping of hydrogen isotopes in tungsten materials*, Journal of Nuclear Materials, Volume 467, Part 1, 2015
-
-- O.V Ogorodnikova, J Roth, M Mayer, *Deuterium retention in tungsten in dependence of the surface conditions*, Journal of Nuclear Materials, Volumes 313–316, 2003
+The setup used in this particular benchmark models the experimental work of [Ogorodnikova et al. (2003)](https://doi.org/10.1016/S0022-3115(02)01375-2).
