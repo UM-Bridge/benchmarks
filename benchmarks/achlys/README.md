@@ -1,7 +1,7 @@
 # Tritium Diffusion Posterior
 
 ## Overview
-In this benchmark, we use [Achlys](https://github.com/aurora-multiphysics/achlys) to model the macroscopic transport of tritium through fusion reactor materials using the Foster-McNabb equations. Achlys is built on top of the  [MOOSE Finite Element Framework](https://mooseframework.inl.gov/). The aim of this benchmark is to compute the (unnormalised) posterior density of the input parameters given the experimental data of Ogorodnikova et al. (2003).
+In this benchmark, we use [Achlys](https://github.com/aurora-multiphysics/achlys) to model the macroscopic transport of tritium through fusion reactor materials using the Foster-McNabb equations. Achlys is built on top of the  [MOOSE Finite Element Framework](https://mooseframework.inl.gov/). The aim of this benchmark is to compute the (unnormalised) posterior density of the input parameters given the experimental data of [Ogorodnikova et al. (2003)](https://doi.org/10.1016/S0022-3115(02)01375-2).
 
 ## Authors
 - [Mikkel Lykkegaard](mailto:mikkel@digilab.co.uk)
@@ -64,7 +64,3 @@ None |
     Accordingly, the likelihood of the data given the input parameters is modelled as a Gaussian.
 
 3. The log-posterior is returned as the sum of the log-prior density and the log-likelihood.
-
-## References
-
-- O.V Ogorodnikova, J Roth, M Mayer, *Deuterium retention in tungsten in dependence of the surface conditions*, Journal of Nuclear Materials, Volumes 313–316, 2003
