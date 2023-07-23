@@ -1,7 +1,7 @@
 # Tsunami
 
 ## Overview
-In this benchmark we model the propagation of the 2011 Tohoku tsunami by solving the shallow water equations. For the numerical solution of the PDE, we apply an ADER-DG method implemented in the [ExaHyPE framework](https://www.sciencedirect.com/science/article/pii/S001046552030076X). The aim is to obtain the parameters describing the initial displacements from the data of two available buoys located near the Japanese coast.
+In this benchmark we model the propagation of the 2011 Tohoku tsunami by solving the shallow water equations. For the numerical solution of the PDE, we apply an ADER-DG method implemented in the [ExaHyPE framework](https://doi.org/10.1016/j.cpc.2020.107251). The aim is to obtain the parameters describing the initial displacements from the data of two available buoys located near the Japanese coast.
 
 ![Tsunami-Model](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/docs/source/images/tohoku_full.png "Level Hierarchy for Tohoku Tsunami Model")
 
@@ -89,5 +89,5 @@ This benchmark creates a sequence of three models:
     - full bathymetry data
 
 - The bathymetry data has been obtained from [GEBCO](https://www.gebco.net/)
-- More details: [Reference Paper](https://dl.acm.org/doi/10.1145/3458817.3476150)
+- More details: [Reference Paper](https://doi.org/10.1145/3458817.3476150)
 

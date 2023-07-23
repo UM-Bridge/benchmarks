@@ -1,7 +1,7 @@
 # Boundary condition inversion in a three-dimensional 𝑝-Poisson nonlinear PDE
 
 ## Overview
-This is an implementation of the 3D nonlinear Bayesian inverse problem described in Section 5.2 of [[Kim et al., 2021]](https://arxiv.org/pdf/2112.00713.pdf).  The inverse problem estimates a two dimensional flux boundary condition on the bottom of a three dimensional domain with nonlinear p-Poisson PDE.  Observations of the PDE solution at the top of the domain are used.
+This is an implementation of the 3D nonlinear Bayesian inverse problem described in Section 5.2 of [[Kim et al., 2021]](https://doi.org/10.48550/arXiv.2112.00713).  The inverse problem estimates a two dimensional flux boundary condition on the bottom of a three dimensional domain with nonlinear p-Poisson PDE.  Observations of the PDE solution at the top of the domain are used.
 
 ![Domain](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/benchmarks/p-poisson/domain.png "Domain and MAP Point")
 
@@ -66,8 +66,8 @@ $$
 where $\Omega$ is the computational domain, $u(x)$ is the solution and$g$ are prescribed Dirichlet conditions on the boundary $\Omega_D\subseteq \partial \Omega$.
 In this benchmark we set $p=3$ and $f=0$.  The domain, illustrated in the figure above, is $\Omega = [0,1]^2\times [0,0.05]$.
 
-The prior distribution on the boundary condition $m(x)$ is a Gaussian process defined through a stochastic differential equation.  See Section 5.1.2 of [[Kim et al., 2021]](https://arxiv.org/pdf/2112.00713.pdf) for specific details.
+The prior distribution on the boundary condition $m(x)$ is a Gaussian process defined through a stochastic differential equation.  See Section 5.1.2 of [[Kim et al., 2021]](https://doi.org/10.48550/arXiv.2112.00713) for specific details.
 
 The likelihood is formed from observations of $u(x)$ at 300 points $x^{i}$ drawn uniformly over the top surface of the domain.  Gaussian noise with a standard deviation of $0.005$ is assumed.
 
-The model, prior, likelihood, and posterior are implemented with the [hippylib2muq](https://hippylib.github.io/muq-hippylib/) package, which enables efficient calculation of gradients, Jacobian actions, and Hessian actions using adjoint and tangent linear techniques.   MCMC results using [MUQ](https://mituq.bitbucket.io/source/_site/index.html) with specific details of the implementation can be found in [[Kim et al., 2021]](https://arxiv.org/pdf/2112.00713.pdf).
+The model, prior, likelihood, and posterior are implemented with the [hippylib2muq](https://hippylib.github.io/muq-hippylib/) package, which enables efficient calculation of gradients, Jacobian actions, and Hessian actions using adjoint and tangent linear techniques.   MCMC results using [MUQ](https://mituq.bitbucket.io/source/_site/index.html) with specific details of the implementation can be found in [[Kim et al., 2021]](https://doi.org/10.48550/arXiv.2112.00713).

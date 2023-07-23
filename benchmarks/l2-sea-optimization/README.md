@@ -51,7 +51,7 @@ Mount directory | Purpose
 
 ## Description
 
-The benchmark, developed within the activities of the NATO-AVT-331 Research Task Group on ``Goal-driven, multifidelity approaches for military vehicle system-level design'' [Beran et al. (2020)](https://arc.aiaa.org/doi/abs/10.2514/6.2020-3158), pertains to the total resistance reduction of the DTMB 5415 in calm water at fixed speed, corresponding to a Froude number (Fr) equal to 0.28. The optimization problem reads
+The benchmark, developed within the activities of the NATO-AVT-331 Research Task Group on ''Goal-driven, multifidelity approaches for military vehicle system-level design'' [Beran et al. (2020)](https://doi.org/10.2514/6.2020-3158), pertains to the total resistance reduction of the DTMB 5415 in calm water at fixed speed, corresponding to a Froude number (Fr) equal to 0.28. The optimization problem reads
 %
 \begin{eqnarray}\label{eq:5415prob}
     \begin{array}{rll}
@@ -65,7 +65,7 @@ The benchmark, developed within the activities of the NATO-AVT-331 Research Task
     \end{array}
 \end{eqnarray}
 %
-where $\mathbf{x}$ are the design variables, $L_{\rm pp}$ is the length between perpendiculars, $B$ is the overall beam, $T$ is the drought, and $V$ is the volume reserved for the sonar in the bow dome. Subscript ``0'' indicates parent (original) hull values. Equality and inequality constraints for the geometry deformations are taken from \cite{grigoropoulos2017mission}.
+where $\mathbf{x}$ are the design variables, $L_{\rm pp}$ is the length between perpendiculars, $B$ is the overall beam, $T$ is the drought, and $V$ is the volume reserved for the sonar in the bow dome. Subscript ''0'' indicates parent (original) hull values. Equality and inequality constraints for the geometry deformations are taken from [Grigoropoulos et al. (2017)](https://www.researchgate.net/publication/316941318_Mission-based_hull_form_and_propeller_optimization_of_a_transom_stern_destroyer_for_best_performance_in_the_sea_environment).
 
 The shape modifications $\tilde{\boldsymbol{\gamma}}(\boldsymbol{\xi},\mathbf{x})$ are produced directly on the Cartesian coordinates $\boldsymbol{\xi}$ of the computational body surface grid $\mathbf{g}$, as per
 
@@ -73,13 +73,13 @@ The shape modifications $\tilde{\boldsymbol{\gamma}}(\boldsymbol{\xi},\mathbf{x}
     \mathbf{g}(\boldsymbol{\xi},\mathbf{x})=\mathbf{g}_0(\boldsymbol{\xi}) + \boldsymbol{\gamma}(\boldsymbol{\xi},\mathbf{x})
 \end{equation}
 
-where $\mathbf{g}_0$ is the original geometry and $\boldsymbol{\gamma}$ is a shape modification vector obtained by a physics-informed design-space dimensionality reduction \cite{serani2019stochastic}
+where $\mathbf{g}_0$ is the original geometry and $\boldsymbol{\gamma}$ is a shape modification vector obtained by a physics-informed design-space dimensionality reduction [Serani et al. (2019)](https://doi.org/10.2514/6.2019-2218)
 
 \begin{equation}
     {\boldsymbol{\gamma}}(\boldsymbol{\xi},\mathbf{x}) = \sum_{k=1}^N x_k \boldsymbol{\psi}_k(\boldsymbol{\xi})
     \label{e:exp_gamma}
 \end{equation}
 
-with $\boldsymbol{\psi}$ a set of orthonormal functions, with $N=14$ the number of design variables ($\mathbf{x}$). It may be noted that the design variables and the associated shape modifications are organized in a hierarchical order, meaning that the first variables produce larger design modifications than the last ones \cite{serani2021hull}.
+with $\boldsymbol{\psi}$ a set of orthonormal functions, with $N=14$ the number of design variables ($\mathbf{x}$). It may be noted that the design variables and the associated shape modifications are organized in a hierarchical order, meaning that the first variables produce larger design modifications than the last ones [Serani et al. (2021)](https://link.springer.com/article/10.1007/s00366-021-01375-x).
 
 The multifidelity levels are defined by the computational grid size. Specifically, the benchmark is defined with seven grid (fidelity) levels with a refinement ratio of 2$^{0.25}$

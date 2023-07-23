@@ -2,7 +2,7 @@
 ## Overview
 
 This model implements the benchmark described in [this
-preprint](https://arxiv.org/abs/2102.07263), currently accepted for publication
+preprint](https://doi.org/10.48550/arXiv.2102.07263), currently accepted for publication
 in SIAM Review. This benchmark implements an inverse problem where one tries
 to infer the stiffness properties of a membrane -- that is, the coefficient
 `a(x)` in the equation `-div [ a(x) grad u(x) ] = f(x)` -- from measurements
@@ -86,4 +86,4 @@ None |
 
 ## Description
 
-See [this preprint](https://arxiv.org/abs/2102.07263).
+See [this preprint](https://doi.org/10.48550/arXiv.2102.07263).
