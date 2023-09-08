@@ -7,7 +7,7 @@ from scipy.io import loadmat
 from cuqi.model import LinearModel
 from cuqi.geometry import Image2D
 from cuqi.array import CUQIarray
-from cuqi.distribution import Gaussian, GMRF, Laplace_diff, Cauchy_diff
+from cuqi.distribution import Gaussian, GMRF, LMRF, CMRF
 from cuqi.problem import BayesianProblem
 
 
@@ -139,9 +139,8 @@ class CT_LMRF(CT_UM):
 
     def __init__(self):
         super().__init__(self.__class__.__name__)
-        self.prior = Laplace_diff(np.zeros(self.dim), 
+        self.prior = LMRF(np.zeros(self.dim), 
                                   lambda delta: delta, 
-                                  physical_dim=2,
                                   geometry=self.likelihood.geometry,
                                   name="x")
 
@@ -154,9 +153,8 @@ class CT_CMRF(CT_UM):
 
     def __init__(self):
         super().__init__(self.__class__.__name__)
-        self.prior = Cauchy_diff(np.zeros(self.dim), 
+        self.prior = CMRF(np.zeros(self.dim), 
                                  lambda delta: delta, 
-                                 physical_dim=2,
                                  geometry=self.likelihood.geometry,
                                  name="x")
 
