@@ -98,7 +98,7 @@ class Deconvolution1D_LMRF(Deconvolution1D_UM):
 
     def __init__(self):
         super().__init__(self.__class__.__name__)
-        self.prior = cuqi.distribution.Laplace_diff(np.zeros(self.dim), lambda delta: delta, name="x")
+        self.prior = cuqi.distribution.LMRF(np.zeros(self.dim), lambda delta: delta, name="x")
 
     def supports_gradient(self):
         return False
@@ -109,7 +109,7 @@ class Deconvolution1D_CMRF(Deconvolution1D_UM):
 
     def __init__(self):
         super().__init__(self.__class__.__name__)
-        self.prior = cuqi.distribution.Cauchy_diff(np.zeros(self.dim), lambda delta: delta, name="x")
+        self.prior = cuqi.distribution.CMRF(np.zeros(self.dim), lambda delta: delta, name="x")
 
 
 class Deconvolution1D_ExactSolution(umbridge.Model):
