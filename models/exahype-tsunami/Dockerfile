@@ -3,7 +3,7 @@ FROM mpioperator/openmpi-builder as builder
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    apt-get install -y python3 git cmake wget curl zlib1g pkg-config libhdf5-openmpi-dev libc6-dev libnuma-dev doxygen libyaml-cpp-dev gfortran libtbb-dev libstdc++-dev
+    apt-get install -y python3 git cmake wget curl zlib1g pkg-config libhdf5-openmpi-dev libc6-dev libnuma-dev doxygen libyaml-cpp-dev gfortran libtbb-dev libstdc++-9-dev
 
 RUN cd / && mkdir dependencies && \
     cd /dependencies/ && git clone https://github.com/uphoffc/ImpalaJIT.git && \
