@@ -192,8 +192,8 @@ if prior == "Gaussian":
 elif prior == "GMRF":
     TP.prior = cuqi.distribution.GMRF(np.zeros(128), 1/delta)
 elif prior == "CMRF":
-    TP.prior = cuqi.distribution.Cauchy_diff(np.zeros(128), delta)
+    TP.prior = cuqi.distribution.CMRF(np.zeros(128), delta)
 elif prior == "LMRF":
-    TP.prior = cuqi.distribution.Laplace_diff(np.zeros(128), delta)
+    TP.prior = cuqi.distribution.LMRF(np.zeros(128), delta)
 TP.sample_posterior(2000).plot_ci(exact=TP.exactSolution)
 ```
