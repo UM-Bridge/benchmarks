@@ -12,7 +12,7 @@ from scipy.io import loadmat
 from cuqi.model import LinearModel
 from cuqi.geometry import Image2D
 from cuqi.array import CUQIarray
-from cuqi.distribution import Gaussian, GMRF, Laplace_diff, Cauchy_diff
+from cuqi.distribution import Gaussian, GMRF, LMRF, CMRF
 from cuqi.problem import BayesianProblem
 
 
@@ -136,14 +136,12 @@ BP.prior = cuqi.distribution.GMRF(np.zeros(256**2), 1/(0.01),
                                   geometry=BP.likelihood.geometry)
 assert output_GMRF == pytest.approx(BP.posterior.logpdf(parameters))
 
-BP.prior = cuqi.distribution.Cauchy_diff(np.zeros(256**2), 0.01,
-                                         physical_dim=2,
-                                         geometry=BP.likelihood.geometry)
+BP.prior = cuqi.distribution.CMRF(np.zeros(256**2), 0.01,
+                                  geometry=BP.likelihood.geometry)
 assert output_CMRF == pytest.approx(BP.posterior.logpdf(parameters))
 
-BP.prior = cuqi.distribution.Laplace_diff(np.zeros(256**2), 0.1,
-                                          physical_dim=2,
-                                          geometry=BP.likelihood.geometry)
+BP.prior = cuqi.distribution.LMRF(np.zeros(256**2), 0.1,
+                                  geometry=BP.likelihood.geometry)
 assert output_LMRF == pytest.approx(BP.posterior.logpdf(parameters))
 
 assert np.allclose(output_exactSolution, parameters)

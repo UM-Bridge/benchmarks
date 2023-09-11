@@ -82,10 +82,10 @@ assert output_Gaussian == pytest.approx(TP.posterior.logpdf(parameters))
 TP.prior = cuqi.distribution.GMRF(np.zeros(128), 1/(0.01))
 assert output_GMRF == pytest.approx(TP.posterior.logpdf(parameters))
 
-TP.prior = cuqi.distribution.Cauchy_diff(np.zeros(128), 0.01)
+TP.prior = cuqi.distribution.CMRF(np.zeros(128), 0.01)
 assert output_CMRF == pytest.approx(TP.posterior.logpdf(parameters))
 
-TP.prior = cuqi.distribution.Laplace_diff(np.zeros(128), 0.01)
+TP.prior = cuqi.distribution.LMRF(np.zeros(128), 0.01)
 assert output_LMRF == pytest.approx(TP.posterior.logpdf(parameters))
 
 assert np.allclose(output_exactSolution, TP.exactSolution)
