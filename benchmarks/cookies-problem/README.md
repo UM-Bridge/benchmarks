@@ -1,0 +1,103 @@
+# The cookies model
+
+## Overview
+**This benchmark should probably rather be a model but I will prepare the text as a benchmark for the time being** 
+
+This benchmark implements the so-called 'cookies problem' or 'cookies in the oven problem' [1,2,3], i.e., a simplified thermal equation in which the conductivity coefficient is uncertain in 8 circular subdomains ('the cookies'), whereas it is known (and constant) in the remaining of the domain ('the oven'). The PDE is solved by an isogeometric solver with maximum continuity splines, whose degree can be set by the user. See below for full description **ask max**
+
+
+## Authors
+- [Massimiliano Martinelli](mailto:martinelli@imati.cnr.it)
+- [Lorenzo Tamellini](mailto:tamellini@imati.cnr.it)
+
+## Run
+```
+docker run -it -p 4242:4242 linusseelinger/<name-of-image>
+```
+
+## Properties
+
+Model   | Description
+---     | ---
+forward | forward evaluation of the cookies model
+
+### forward
+
+**check with max whether check on input values are made**
+
+Mapping | Dimensions | Description
+---     |---         |---
+input   | [8]        | The values of the conductivity coefficient in the 8 cookies, in the range [-0.99 -0.2] 
+output  | [1]        | The integral of the solution over the central subdomain (see definition of $\Psi$ below)
+
+Feature       | Supported
+---           |---
+Evaluate      | True
+Gradient      | False
+ApplyJacobian | False
+ApplyHessian  | False
+
+Config        | Type    | Default | Description
+---           |---      |---      |---
+NumThreads    | integer | 10      | **ask max**
+BasisDegree   | integer | 4       | Default degree of spline basis
+Fidelity      | integer | 2       | Controls the number of mesh elements **ask max**
+
+
+## Mount directories
+Mount directory | Purpose
+---             |---
+None            | 
+
+## Source code
+
+[Model sources here **fixme**.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem)
+
+## Description
+
+![cookies-problem](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/l2-sea/l2sea_example.png "geometry of the cookies problem")
+
+The model implements the version of the cookies problem in [1], see also e.g. [2,3] for slightly different versions. With reference to the computational domain $$D=[0,1]^2$$ in the figure above, the cookies model consists in the thermal diffusion problem below, where $$\mathbf{y}$$ are the uncertain parameters discussed in the following and $$\mathrm{x}$$ are physical coordinates 
+
+$$-\mathrm{div}\Big[ a(\mathbf{x},\mathbf{y}) \nabla u(\mathbf{x},\mathbf{y}) \Big] = f(\mathrm{x}), \quad \mathbf{x}\in D$$
+
+with homogeneous Dirichlet boundary conditions and forcing term defined as
+
+$$f(\mathrm{x}) = \begin{cases} 
+100 &\text{if } \,  \mathrm{x} \in F \\
+0 &\text{otherwise} 
+\end{cases}$$
+
+where $$F$$ is the square $$[0.4, 0.6]^2$$. The 8 subdomains with uncertain diffusion coefficient (the cookies) are circles with radius 0.13 and the following center coordinates **check order with max**
+
+cookie | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   |
+--     | --  | --  | --  | --  | --  | --  | --  | --  |
+x      | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 |
+y      | 0.2 | 0.5 | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 |
+
+The uncertain diffusion coefficient is defined as
+$$a = 1 + \sum_{i=1}^8 y_n \chi_n(\mathrm{x})$$
+where $$y_n \in [-0.99, -0.2]$$ and $$\chi_n(\mathrm{x}) = \begin{cases} 1 &\text{inside the n-th cookie} \\ 0 &\text{otherwise} \end{cases}$$
+
+
+The output of the simulation is the integral of the solution over $$F$$, i.e.
+$$\Psi = \int_F u(\mathrm{x}) d \mathrm{x}$$
+
+
+The PDE is solved with an IGA solver (see e.g. [4]) that uses as basis splines of degree $$p$$ (tunable by the user, default $$p=4$$) of maximal regularity, i.e. of continuity $$p-1$$.
+The mesh is **fix with max**
+
+
+## Bibliography
+1 Joakim Bäck, Fabio Nobile, Lorenzo Tamellini, Raul Tempone, **Stochastic spectral Galerkin and collocation methods for PDEs with random coefficients: a numerical comparison**. In *Spectral and High Order Methods for Partial Differential Equations*, Vol. 76 of Lecture Notes in Computational Science and Engineering, Springer, 2011
+2 Jonas Ballani, Lars Grasedyck, **Hierarchical Tensor Approximation of Output Quantities of Parameter-Dependent PDEs**. *SIAM/ASA Journal of Uncertainty Quantification*, 2015
+3 Daniel Kressner, Christine Tobler, **Krylov subspace methods for linear systems with tensor product structure**. *SIAM journal on matrix analysis and applications*, 2010
+4 Lourenco Beirao Da Veiga, Annalisa Buffa, Giancarlo Sangalli, Rafael Vazquez, **Mathematical analysis of variational isogeometric methods}**. *Acta Numerica*, 2014
+
+
+
+
+
+
+
+
