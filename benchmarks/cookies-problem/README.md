@@ -3,7 +3,7 @@
 ## Overview
 **This benchmark should probably rather be a model but I will prepare the text as a benchmark for the time being** 
 
-This benchmark implements the so-called 'cookies problem' or 'cookies in the oven problem' [1,2,3], i.e., a simplified thermal equation in which the conductivity coefficient is uncertain in 8 circular subdomains ('the cookies'), whereas it is known (and constant) in the remaining of the domain ('the oven'). The PDE is solved by an isogeometric solver with maximum continuity splines, whose degree can be set by the user. See below for full description **ask max**
+This benchmark implements the so-called 'cookies problem' or 'cookies in the oven problem' [1,2,3], i.e., a simplified thermal equation in which the conductivity coefficient is uncertain in 8 circular subdomains ('the cookies'), whereas it is known (and constant) in the remaining of the domain ('the oven'). The PDE is solved by an isogeometric solver with maximum continuity splines, whose degree can be set by the user. See below for full description. 
 
 
 ## Authors
@@ -21,14 +21,14 @@ Model   | Description
 ---     | ---
 forward | forward evaluation of the cookies model
 
-### forward
+### Forward
 
 **check with max whether check on input values are made**
 
 Mapping | Dimensions | Description
 ---     |---         |---
-input   | [8]        | The values of the conductivity coefficient in the 8 cookies, in the range [-0.99 -0.2] 
-output  | [1]        | The integral of the solution over the central subdomain (see definition of $\Psi$ below)
+input   | [8]        | The values of the conductivity coefficient in the 8 cookies, in the range [-0.99 -0.2] (software does not check that inputs are within the bound) 
+output  | [1]        | The integral of the solution over the central subdomain (see definition of $$\Psi$$ below)
 
 Feature       | Supported
 ---           |---
@@ -39,9 +39,9 @@ ApplyHessian  | False
 
 Config        | Type    | Default | Description
 ---           |---      |---      |---
-NumThreads    | integer | 10      | **ask max**
-BasisDegree   | integer | 4       | Default degree of spline basis
-Fidelity      | integer | 2       | Controls the number of mesh elements **ask max**
+NumThreads    | integer | 10      | number of physical cores to be used by the solver
+BasisDegree   | integer | 4       | Default degree of spline basis (must be a positive integer)
+Fidelity      | integer | 2       | Controls the number of mesh elements (must be a positive integer, see below for details)
 
 
 ## Mount directories
@@ -68,12 +68,12 @@ $$f(\mathrm{x}) = \begin{cases}
 0 &\text{otherwise} 
 \end{cases}$$
 
-where $$F$$ is the square $$[0.4, 0.6]^2$$. The 8 subdomains with uncertain diffusion coefficient (the cookies) are circles with radius 0.13 and the following center coordinates **check order with max**
+where $$F$$ is the square $$[0.4, 0.6]^2$$. The 8 subdomains with uncertain diffusion coefficient (the cookies) are circles with radius 0.13 and the following center coordinates:
 
 cookie | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   |
 --     | --  | --  | --  | --  | --  | --  | --  | --  |
-x      | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 |
-y      | 0.2 | 0.5 | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 | 0.2 |
+x      | 0.2 | 0.5 | 0.8 | 0.2 | 0.8 | 0.2 | 0.5 | 0.8 |
+y      | 0.2 | 0.5 | 0.2 | 0.5 | 0.5 | 0.8 | 0.8 | 0.8 |
 
 The uncertain diffusion coefficient is defined as
 $$a = 1 + \sum_{i=1}^8 y_n \chi_n(\mathrm{x})$$
@@ -84,8 +84,11 @@ The output of the simulation is the integral of the solution over $$F$$, i.e.
 $$\Psi = \int_F u(\mathrm{x}) d \mathrm{x}$$
 
 
-The PDE is solved with an IGA solver (see e.g. [4]) that uses as basis splines of degree $$p$$ (tunable by the user, default $$p=4$$) of maximal regularity, i.e. of continuity $$p-1$$.
-The mesh is **fix with max**
+The PDE is solved with an IGA solver (see e.g. [4]) that uses as basis splines of degree $$p$$ (tunable by the user, default $$p=4$$) of maximal regularity, i.e. of continuity $$p-1$$. The computational mesh is an $$N\times N$$ quadrilateral mesh (cartesian product of knot lines) with square elements, with $$N=100 \times \mathrm{Fidelity}$$. The implementation is done using the C++ library IGATools [5], available at [gitlab.com/max.martinelli/igatools](gitlab.com/max.martinelli/igatools).  
+
+
+
+
 
 
 ## Bibliography
@@ -93,9 +96,7 @@ The mesh is **fix with max**
 2 Jonas Ballani, Lars Grasedyck, **Hierarchical Tensor Approximation of Output Quantities of Parameter-Dependent PDEs**. *SIAM/ASA Journal of Uncertainty Quantification*, 2015
 3 Daniel Kressner, Christine Tobler, **Low-rank tensor Krylov subspace methods for parametrized linear systems**. *SIAM journal on matrix analysis and applications*, 2011
 4 Lourenco Beirao Da Veiga, Annalisa Buffa, Giancarlo Sangalli, Rafael Vazquez, **Mathematical analysis of variational isogeometric methods}**. *Acta Numerica*, 2014
-
-
-
+5 Miguel Sebastian Pauletti, Massimiliano Martinelli, Nicola Cavallini, Pablo Antolín, **IGATools: An isogeometric analysis library**. *SIAM journal on scientific computing*, 2015
 
 
 
