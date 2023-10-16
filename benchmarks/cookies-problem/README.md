@@ -73,7 +73,7 @@ where $$F$$ is the square $$[0.4, 0.6]^2$$. The 8 subdomains with uncertain diff
 cookie | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   |
 --     | --  | --  | --  | --  | --  | --  | --  | --  |
 x      | 0.2 | 0.5 | 0.8 | 0.2 | 0.8 | 0.2 | 0.5 | 0.8 |
-y      | 0.2 | 0.5 | 0.2 | 0.5 | 0.5 | 0.8 | 0.8 | 0.8 |
+y      | 0.2 | 0.2 | 0.2 | 0.5 | 0.5 | 0.8 | 0.8 | 0.8 |
 
 The uncertain diffusion coefficient is defined as
 $$a = 1 + \sum_{i=1}^8 y_n \chi_n(\mathrm{x})$$
