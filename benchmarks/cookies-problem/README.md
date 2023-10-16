@@ -91,7 +91,7 @@ The mesh is **fix with max**
 ## Bibliography
 1 Joakim Bäck, Fabio Nobile, Lorenzo Tamellini, Raul Tempone, **Stochastic spectral Galerkin and collocation methods for PDEs with random coefficients: a numerical comparison**. In *Spectral and High Order Methods for Partial Differential Equations*, Vol. 76 of Lecture Notes in Computational Science and Engineering, Springer, 2011
 2 Jonas Ballani, Lars Grasedyck, **Hierarchical Tensor Approximation of Output Quantities of Parameter-Dependent PDEs**. *SIAM/ASA Journal of Uncertainty Quantification*, 2015
-3 Daniel Kressner, Christine Tobler, **Krylov subspace methods for linear systems with tensor product structure**. *SIAM journal on matrix analysis and applications*, 2010
+3 Daniel Kressner, Christine Tobler, **Low-rank tensor Krylov subspace methods for parametrized linear systems**. *SIAM journal on matrix analysis and applications*, 2011
 4 Lourenco Beirao Da Veiga, Annalisa Buffa, Giancarlo Sangalli, Rafael Vazquez, **Mathematical analysis of variational isogeometric methods}**. *Acta Numerica*, 2014
 
 
