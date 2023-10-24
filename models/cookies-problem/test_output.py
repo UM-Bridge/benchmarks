@@ -2,9 +2,9 @@
 
 # run this script as python3 umbridge-client.py http://localhost:4242
 
-
 import argparse
 import umbridge
+import pytest
 
 parser = argparse.ArgumentParser(description='Minimal HTTP model demo.')
 parser.add_argument('url', metavar='url', type=str,
@@ -29,5 +29,9 @@ print(param)
 
 # Simple model evaluation
 #print(model(param))
-print(model(param,{"NumThreads": 10, "BasisDegree": 4, "Fidelity": 2}))
+#print(model(param,{"NumThreads": 10, "BasisDegree": 4, "Fidelity": 2}))
+output = model(param,{"NumThreads": 10, "BasisDegree": 4, "Fidelity": 2})
+
+print(output)
+assert pytest.approx(output[0][0]) == 0.06932827462480169, "Output not as expected"
 
