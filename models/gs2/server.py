@@ -6,7 +6,6 @@ from pyrokinetics import Pyro
 import numpy as np
 from datetime import datetime
 from fileinput import FileInput
-import shlex
 
 
 
@@ -22,10 +21,6 @@ class GS2Model(umbridge.Model):
 
     def __call__(self, parameters, config):
         input_file = "fast.in" # Select input file
-        dt = str(datetime.now()) # Creates timestamp unique to each run
-        dt = dt.split(" ")[0] + "_" + dt.split(" ")[1].replace(":", "-")
-        os.system(f"cd ~/gs2dock; mkdir {dt} && cp {input_file} ~/gs2-batch.sh {dt}") # Copy input file and SLURM script into the run folder
-        os.chdir(f"/home/mghw54/gs2dock/{dt}")
         os.system("mkdir restart") # GS2 needs this folder otherwise will fail
         with FileInput(files=input_file, inplace=True) as file:
             checkpoint = 0
@@ -39,10 +34,10 @@ class GS2Model(umbridge.Model):
                 print(line.rstrip()) # FileInput redirects stdout to file
         
         # Run the model 
-        os.system(f"sbatch -W gs2-batch.sh {dt} {input_file}")
+        mpirank = config.get("ranks", 32)
+        os.system(f"mpirun -np {mpirank} /usr/gs2/bin/gs2 {input_file}")
         
         # Read results using Pyrokinetics package and print output
-        os.chdir(f"/nobackup/mghw54/gs2runs/{dt}")
         gs2_input = input_file
         pyro = Pyro(gk_file=gs2_input, gk_code="GS2")
         pyro.load_gk_output()
@@ -59,4 +54,4 @@ class GS2Model(umbridge.Model):
 
 model = GS2Model()
 
-umbridge.serve_models([model], 4243)
+umbridge.serve_models([model], 4242)

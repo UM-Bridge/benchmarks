@@ -21,7 +21,7 @@ forward | Plasma simulation
 ### forward
 Mapping | Dimensions | Description
 ---|---|---
-input | [2] | [\texttt{tprim}: normalised inverse temperature gradient, \texttt{vnewk}: normalised species-species collisionality frequency]. Both are set for electrons only. 
+input | [2] | [`tprim`: normalised inverse temperature gradient, `vnewk`: normalised species-species collisionality frequency]. Both are set for electrons only. 
 output | [3] | [Electron heat flux, electric field growth rate, electric field mode frequency]
 
 Feature | Supported
