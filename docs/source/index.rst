@@ -5,12 +5,19 @@
 
 UM-Bridge documentation
 ======================================
-
-.. image:: logos/UM-bridge.png
-  :width: 400
-  :alt: UM-Bridge Logo
+.. image:: logos/UM-Bridge_map.png
+  :width: 700
+  :alt: UM-Bridge map
 
 .. include:: ../markdown/main.md
+   :parser: myst_parser.sphinx_
+
+.. image:: logos/UQ-Model-UM.png
+   :width: 400
+   :align: center
+   :alt: UQ-Model idea
+
+.. include:: ../markdown/main2.md
    :parser: myst_parser.sphinx_
 
 Getting started
