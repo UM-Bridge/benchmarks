@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM mpioperator/openmpi
 LABEL maintainer="william.hornsby@ukaea.uk"
 LABEL version="1.0"
 LABEL description="This is Docker Image for running GS2 with GNU compilers on \
