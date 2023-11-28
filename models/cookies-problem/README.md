@@ -15,10 +15,10 @@ docker run -it -p 4242:4242 linusseelinger/<name-of-image>
 
 ## Properties
 
-Model   | Description
----     | ---
-forward | forward evaluation of the cookies model
-benchmark | model setting for the forward UQ model [**ok link to benchmark? in case, fixme**](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/l2-sea-propagation)
+Model     | Description
+---       | ---
+forward   | forward evaluation of the cookies model
+benchmark | model setting for the forward UQ model [**ok this row and link to benchmark?**](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem)
 
 ### Forward
 
@@ -36,7 +36,7 @@ Gradient      | False
 ApplyJacobian | False
 ApplyHessian  | False
 
-Config        | Type    | Default | Description
+Config        | Type    | Default **ok this column?** | Description
 ---           |---      |---      |---
 NumThreads    | integer | 10      | number of physical cores to be used by the solver
 BasisDegree   | integer | 4       | Default degree of spline basis (must be a positive integer)
@@ -50,11 +50,11 @@ None            |
 
 ## Source code
 
-[Model sources here **fixme**.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem)
+[Model sources here **fixme**.](https://github.com/UM-Bridge/benchmarks/tree/main/models/cookies-problem)
 
 ## Description
 
-![cookies-problem](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/l2-sea/l2sea_example.png "geometry of the cookies problem")
+![cookies-problem](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/cookies-problem/cookies_domain.png "geometry of the cookies problem")
 
 The model implements the version of the cookies problem in \[1\], see also e.g. \[2,3\] for slightly different versions. With reference to the computational domain $$D=[0,1]^2$$ in the figure above, the cookies model consists in the thermal diffusion problem below, where $$\mathbf{y}$$ are the uncertain parameters discussed in the following and $$\mathrm{x}$$ are physical coordinates 
 
