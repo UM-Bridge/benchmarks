@@ -50,7 +50,7 @@ None            |
 
 ## Source code
 
-[Model sources here **fixme**.](https://github.com/UM-Bridge/benchmarks/tree/main/models/cookies-problem)
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/models/cookies-problem)
 
 ## Description
 
