@@ -18,10 +18,10 @@ clear
 
 % specify model port
 uri = 'http://0.0.0.0:4242';
-model = HTTPModel(uri,'forward');
+model = HTTPModel(uri,'benchmark');
 
-% config cookie solver
-config = struct('NumThreads',4,'BasisDegree',3,'Fidelity',1);
+% config cookie solver with num threades
+config = struct('NumThreads',4);
 
 
 % wrap model in an @-function too
@@ -36,7 +36,7 @@ N = 8;
 knots = @(n) knots_CC(n,-0.99,-0.2);
 lev2knots = @lev2knots_doubling;
 idxset_rule = @(i) sum(i-1);
-idxset_level_max = 2; % <--- controls max size of sparse grid
+idxset_level_max = 5; % <--- controls max size of sparse grid
 
 
 % With the choice above, the sparse grids will be nested. To recycle evaluations from one grid 
@@ -60,6 +60,10 @@ for w = 0:idxset_level_max
     % reduce sparse grid
     Sr = reduce_sparse_grid(S);
     
+    % save it to file
+    % grid_filename = strcat('sparse_grid_w=',num2str(w),'.txt');
+    % export_sparse_grid_to_file(Sr,grid_filename,'with_weights');
+    
     % eval Psi on each point of sparse grid. Recycle available evaluations whenever possible
     Psi_evals = evaluate_on_sparse_grid(Psi_fun,S,Sr,Psi_evals_old,S_old,Sr_old);
     
@@ -74,8 +78,17 @@ for w = 0:idxset_level_max
     
 end
 
+
+% save values to file
+% save('cookies-benchmark-output.txt','nb_pts','Psi_EV','-ascii', '-double')
+
 %% plot convergence
 
 figure
 semilogx(nb_pts,Psi_EV,'-ok','LineWidth',2,'MarkerFaceColor','k')
+
+
+
+
+
 
