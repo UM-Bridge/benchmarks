@@ -1,9 +1,7 @@
 # The cookies model
 
 ## Overview
-**This benchmark should probably rather be a model but I will prepare the text as a benchmark for the time being** 
-
-This benchmark implements the so-called 'cookies problem' or 'cookies in the oven problem' [1,2,3], i.e., a simplified thermal equation in which the conductivity coefficient is uncertain in 8 circular subdomains ('the cookies'), whereas it is known (and constant) in the remaining of the domain ('the oven'). The PDE is solved by an isogeometric solver with maximum continuity splines, whose degree can be set by the user. See below for full description. 
+This model implements the so-called 'cookies problem' or 'cookies in the oven problem' \[1,2,3\], i.e., a simplified thermal equation in which the conductivity coefficient is uncertain in 8 circular subdomains ('the cookies'), whereas it is known (and constant) in the remaining of the domain ('the oven'). The PDE is solved by an isogeometric solver with maximum continuity splines, whose degree can be set by the user. See below for full description. 
 
 
 ## Authors
@@ -20,14 +18,15 @@ docker run -it -p 4242:4242 linusseelinger/<name-of-image>
 Model   | Description
 ---     | ---
 forward | forward evaluation of the cookies model
+benchmark | model setting for the forward UQ model [**ok link to benchmark? in case, fixme**](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/l2-sea-propagation)
 
 ### Forward
 
-**check with max whether check on input values are made**
+**check with linus whether config values must be given a default (See table below, I think we are confusing default with benchmark value) and if there should be a check on y(i)>-1, see also table below.**
 
 Mapping | Dimensions | Description
 ---     |---         |---
-input   | [8]        | The values of the conductivity coefficient in the 8 cookies, in the range [-0.99 -0.2] (software does not check that inputs are within the bound) 
+input   | [8]        | The values of the conductivity coefficient in the 8 cookies, in the range \[-0.99 -0.2\] (software does not check that inputs are within the bound)  **do I just say here that it must be y(i)>-1?**
 output  | [1]        | The integral of the solution over the central subdomain (see definition of $$\Psi$$ below)
 
 Feature       | Supported
@@ -57,7 +56,7 @@ None            |
 
 ![cookies-problem](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/l2-sea/l2sea_example.png "geometry of the cookies problem")
 
-The model implements the version of the cookies problem in [1], see also e.g. [2,3] for slightly different versions. With reference to the computational domain $$D=[0,1]^2$$ in the figure above, the cookies model consists in the thermal diffusion problem below, where $$\mathbf{y}$$ are the uncertain parameters discussed in the following and $$\mathrm{x}$$ are physical coordinates 
+The model implements the version of the cookies problem in \[1\], see also e.g. \[2,3\] for slightly different versions. With reference to the computational domain $$D=[0,1]^2$$ in the figure above, the cookies model consists in the thermal diffusion problem below, where $$\mathbf{y}$$ are the uncertain parameters discussed in the following and $$\mathrm{x}$$ are physical coordinates 
 
 $$-\mathrm{div}\Big[ a(\mathbf{x},\mathbf{y}) \nabla u(\mathbf{x},\mathbf{y}) \Big] = f(\mathrm{x}), \quad \mathbf{x}\in D$$
 
@@ -84,7 +83,7 @@ The output of the simulation is the integral of the solution over $$F$$, i.e.
 $$\Psi = \int_F u(\mathrm{x}) d \mathrm{x}$$
 
 
-The PDE is solved with an IGA solver (see e.g. [4]) that uses as basis splines of degree $$p$$ (tunable by the user, default $$p=4$$) of maximal regularity, i.e. of continuity $$p-1$$. The computational mesh is an $$N\times N$$ quadrilateral mesh (cartesian product of knot lines) with square elements, with $$N=100 \times \mathrm{Fidelity}$$. The implementation is done using the C++ library IGATools [5], available at [gitlab.com/max.martinelli/igatools](gitlab.com/max.martinelli/igatools).  
+The PDE is solved with an IGA solver (see e.g. \[4\]) that uses as basis splines of degree $$p$$ (tunable by the user, default $$p=4$$) of maximal regularity, i.e. of continuity $$p-1$$. The computational mesh is an $$N\times N$$ quadrilateral mesh (cartesian product of knot lines) with square elements, with $$N=100 \times \mathrm{Fidelity}$$. The implementation is done using the C++ library IGATools \[5\], available at [gitlab.com/max.martinelli/igatools](gitlab.com/max.martinelli/igatools).  
 
 
 
