@@ -84,7 +84,7 @@ and $$\chi_n(\mathrm{x}) = \begin{cases} 1 &\text{inside the n-th cookie} \\ 0 &
 The output of the simulation is the integral of the solution over $$F$$, i.e. $$\Psi = \int_F u(\mathrm{x}) d \mathrm{x}$$
 
 
-The PDE is solved with an IGA solver (see e.g. \[4\]) that uses as basis splines of degree $$p$$ (tunable by the user, default $$p=4$$) of maximal regularity, i.e. of continuity $$p-1$$. The computational mesh is an $$N\times N$$ quadrilateral mesh (cartesian product of knot lines) with square elements, with $$N=100 \times \mathrm{Fidelity}$$. The implementation is done using the C++ library IGATools \[5\], available at [gitlab.com/max.martinelli/igatools](gitlab.com/max.martinelli/igatools).  
+The PDE is solved with an IGA solver (see e.g. \[4\]) that uses as basis splines of degree $$p$$ (tunable by the user, default $$p=4$$ **not default**) of maximal regularity, i.e. of continuity $$p-1$$. The computational mesh is an $$N\times N$$ quadrilateral mesh (cartesian product of knot lines) with square elements, with $$N=100 \times \mathrm{Fidelity}$$. The implementation is done using the C++ library IGATools \[5\], available at [gitlab.com/max.martinelli/igatools](gitlab.com/max.martinelli/igatools).  
 
 
 
