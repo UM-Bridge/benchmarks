@@ -54,7 +54,6 @@ RUN make -j8 && \
 
 WORKDIR /
 
-
 COPY umbridge-server.py /
 
 CMD python3 umbridge-server.py
