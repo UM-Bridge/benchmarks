@@ -28,9 +28,9 @@ Install the Python module for UM-Bridge support::
 What is an UM-Bridge model?
 ------------------------
 
-A model in UM-Bridge is simply a mathematical function :math:`F: \\mathbb{R}^n \\rightarrow \\mathbb{R}^m`, which can be anything from simple arithmetic all the way to a complex numerical simulation. For example, `F` might be taking the source location of a tsunami to water elevation predictions.
+In many UQ algorithms, a model is simply a mathematical function :math:`F: \mathbb{R}^n \rightarrow \mathbb{R}^m`, which can be anything from simple arithmetic all the way to a complex numerical simulation. For example, :math:`F` might be taking the source location of a tsunami to water elevation predictions.
 
-An UM-Bridge server offers such models to clients, which may range from simple test scripts to advanced UQ packages. A client may request a model evaluation by passing an input vector `\\theta`, and the server will return the model outcome `F(\\theta)`. In addition, some models also provide derivatives of :math:`F`. Since UM-Bridge uses network communication behind the scenes, client and server are independent programs and may for example be written in different programming languages.
+An UM-Bridge server offers such models to clients, which may range from simple test scripts to advanced UQ packages. A client may request a model evaluation by passing an input vector :math:`\theta`, and the server will return the model outcome :math:`F(\theta)`. In addition, some models also provide derivatives of :math:`F`. Since UM-Bridge uses network communication behind the scenes, client and server are independent programs and may for example be written in different programming languages.
 
 Interacting with a model
 ------------------------
@@ -38,23 +38,24 @@ Interacting with a model
 Let us now request a model evaluation from a Python script. You can copy and run the following code:
 
     import umbridge
-
+    
     model = umbridge.HTTPModel("http://testmodel.linusseelinger.de", "forward")
-
+    
     print(model([[11.0]]))
 
-Here we point UM-Bridge to a model named `forward` running on a remote server by giving the server's address. We then pass the parameter `[[11.0]]` to the model, and receive an output. Behind the scenes, UM-Bridge will send that parameter to the server and receive its reply.
+Here we point UM-Bridge to a model named ``forward`` running on a remote server by giving the server's address. We then pass the parameter ``[[11.0]]`` to the model, and receive an output. Behind the scenes, UM-Bridge will send that parameter to the server and receive its reply.
 
 * Try passing in a few other values and guess what operation the server performs!
-* Following the example in the `clients section of the documentation <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html>`_, try and retrieve the model's input dimensions via `get_input_sizes()`.
-* Check what features it supports via `supports_evaluate()`, `supports_apply_jacobian()`, `supports_gradient()` or `supports_apply_hessian()`.
+* Following the example in the `clients section of the documentation <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html>`_, try and retrieve the model's input dimensions via ``get_input_sizes()``.
+* Optional: Check what features it supports via ``supports_evaluate()``, ``supports_apply_jacobian()``, ``supports_gradient()`` or ``supports_apply_hessian()``.
 
 Going multilingual
 ------------------------
 
 Since UM-Bridge is using network communication behind the scenes, any UM-Bridge client can connect to any model - regardless of language, dependencies etc.! The syntax is largely the same for any supported language. You find examples in the `clients section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html>`_.
 
-* Call your model from another language of your choice!
+* Optional: Call your model from another language of your choice!
+
 Running a model on your own system
 ------------------------
 
@@ -62,14 +63,14 @@ Instead of connecting to a remote server, you can of course run models on your o
 
     python minimal-server.py
 
-This model server is now running on your own computer, waiting to be called by any UM-Bridge client. The same code from above can connect to this model as well: Just replace the address by `http://localhost:4242`.
+This model server is now running on your own computer, waiting to be called by any UM-Bridge client. The same code from above can connect to this model as well: Just replace the address by ``http://localhost:4242``.
 
-* Interact with your local model as before. Does the model seem familiar?
+* Interact with your local model from a client as before. Does the model seem familiar?
 
 Basic uncertainty quantification
 ------------------------
 
-In addition to generic language integrations, we provide a number of framework integrations. They seamlessly embed UM-Bridge models in the respective UQ package. Let's try QMCPy, which implements Quasi-Monte Carlo methods for uncertainty propagation::
+In addition to generic language integrations, we provide a number of UQ package integrations. They seamlessly embed UM-Bridge models in the respective UQ package. Let's try QMCPy, which implements Quasi-Monte Carlo methods for uncertainty propagation::
 
     pip install qmcpy
 
@@ -77,11 +78,12 @@ Run the QMCPy example client from the `UM-Bridge repository <https://www.github.
 
     python qmcpy-client.py http://localhost:4242
 
-It will connect to your model `F` as before, and perform uncertainty propagation: For a given uncertain parameter `\\theta` of some distribution, it will compute the mean `\\mathbb{E}[F(\\theta)]`.
+It will connect to your model :math:`F` as before, and perform uncertainty propagation: For a given uncertain parameter :math:`\theta` of some distribution, it will compute the mean :math:`\mathbb{E}[F(\theta)]`.
 
 Simply put, it will draw (cleverly chosen) Quasi-Monte Carlo samples from the distribution specified in the client, apply the model to each and output statistics of the results. Due to tight integration, this code looks like any other basic QMCPy example; however, it can immediately connect to any (arbitrarily complex) UM-Bridge model.
 
-* Look at `qmcpy-client.py` and find out what distribution it is sampling from. Does the `Solution` output match your expectation?
+* Look at ``qmcpy-client.py`` and find out what distribution it is sampling from. Does the ``Solution`` output match your expectation?
+* Optional: Write you own Monte Carlo sampler: Draw random samples :math:`\{\theta_1, \ldots, \theta_N\}` from the same distribution QMCPy is using, apply the model to each, and print out the resulting mean :math:`\frac{1}{N} \sum_{i=1}^N \theta_i`. Does it match QMCPy's output?
 
 2: Running containerized simulation models
 ========================
@@ -105,8 +107,8 @@ Note that only one model server may be running at a given port. So, if you see a
 
 Refer to the tsunami model's documentation again to see what models the model server provides (there may be multiple), and what their properties are. In this case it is a model called ``forward``. This particular model takes a single 2D vector as input, defined to be the location of the tsunami source. It then solves a hyperbolic partial differential equation (PDE) to compute the tsunami propagation. Finally, it returns a single 4D vector containing the main tsunami wave's arrival time and maximum water height at two different locations. This model does not provide any derivatives.
 
-* Request a model evaluation as before. `[[100.0, 60.0]]` might be a good value.
-* Apart from input parameters, the client may also choose different configuration options. These are model specific and listed in the respective model's documentation page. For example, the tsunami model allows you to select a finer discretization level by passing ``{"level": 1}`` as configuration. Follow the client documentation to request an evaluation from level 1 and compare to level 0. Be aware that level 2 may take very long to run on a laptop...
+* Request a model evaluation as before. ``[[100.0, 60.0]]`` might be a good value.
+* Optional: Apart from input parameters, the client may also choose different configuration options. These are model specific and listed in the respective model's documentation page. For example, the tsunami model allows you to select a finer discretization level by passing ``{"level": 1}`` as configuration. Follow the client documentation to request an evaluation from level 1 and compare to level 0. Be aware that level 2 may take very long to run on a laptop...
 
 Accessing model output files
 ------------------------
@@ -117,7 +119,7 @@ When launching the model, you can map this directory inside the container to ``~
 
     docker run -it -p 4242:4242 -v ~/tsunami_output:/output linusseelinger/model-exahype-tsunami
 
-* Request a model evaluation and pass ``{"vtk_output": True}`` as config. Then view the output files in your home directory under ``~/tsunami_output`` using ParaView or any other VTK visualization tool.
+* Optional: Request a model evaluation and pass ``{"vtk_output": True}`` as config. Then view the output files in your home directory under ``~/tsunami_output`` using ParaView or any other VTK visualization tool.
 
 3: Solving UQ problems
 ========================
@@ -136,7 +138,7 @@ The QMCPy client is already set up to solve the UQ problem defined in the beam b
     python3 qmcpy-client.py http://localhost:4243
 
 * Compare your solution to the plot in the beam problem's documentation. Does the mean value make sense?
-* Have a closer look at ``qmcpy-client.py``. Try and change the distribution to a different one, e.g. change the bounds of the uniform distribution or use a normal distribution with similar variance. Refer to `QMCPy's documentation <https://qmcpy.readthedocs.io/en/latest/>`_ for details.
+* Optional: Have a closer look at ``qmcpy-client.py``. Try and change the distribution to a different one, e.g. change the bounds of the uniform distribution or use a normal distribution with similar variance. Refer to `QMCPy's documentation <https://qmcpy.readthedocs.io/en/latest/>`_ for details.
 
 Bayesian inverse problems
 ------------------------
@@ -157,16 +159,18 @@ The UM-Bridge repository contains a PyMC example client, which you can run as fo
 
 The example uses PyMC's Markov chain Monte Carlo (MCMC) support in order to generate samples from the posterior distribution, only making a finite number of calls to the posterior model. MCMC will explore the parameter space, tending to reject low-posterior samples and accept high-posterior ones. The resulting chain has the posterior distribution as its stationary distribution. Samples from the chain are therefore (correlated) samples from the desired posterior distribution and they may be used to estimate properies of the posterior; the more samples you take, the better the approximation.
 
-This client could also connect to your own model, assuming it provides a model ``posterior`` and has a single 1D output vector (namely the log of a distribution).
+This client could also connect to your own model, assuming it provides a model ``posterior`` and has a single 1D output vector (namely the log of a probability density).
 The example makes use of PyMC's NUTS sampler to draw samples from the posterior distribution, which is a particular MCMC variant. While this sampler is very efficient, it assumes access to the posterior's gradient. Your model therefore has to provide a gradient implementation for the example to run. Alternatively, you could
 switch PyMC to use a different sampler. Refer to `PyMC's documentation <https://www.pymc.io/>`_ for details.
-
 
 4: Writing your own model
 ========================
 
-Take a closer look at ``minimal-server.py``. Refer to the `models section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/models.html>`_ for an explanation of how UM-Bridge models are defined in Python. Play around with the minimal model. For example, you could replace the multiplication by a more interesting operation, or change the model to have a different input or output dimension. Each time, restart the model server and call the modified model from your client to make sure changes take effect as you intend.
+Take a closer look at ``minimal-server.py``. Refer to the `models section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/models.html>`_ for an explanation of how UM-Bridge models are defined in Python.
 
+* Play around with the minimal model. For example, you could replace the multiplication by a more interesting operation, or change the model to have a different input or output dimension. Each time, restart the model server and call the modified model from your client to make sure changes take effect as you intend.
+* Optional: Apply QMCPy to propagate a distribution through your new model.
+* Optional: Define your own log density, for example the log of a normal distribution. Apply PyMC to sample from it.
 
 5: Build custom model containers
 ========================
@@ -312,3 +316,35 @@ Once you are logged in you can push your image to docker hub using::
     
 where my-account is your login and `my-account/my-model` is the name of the image you want to push.
 
+6: Scaling up on clusters
+========================
+
+Cluster setup
+------------------------
+
+UM-Bridge provides general-purpose setups for scaling up UQ applications on clusters, supporting both cloud and supercomputers. They launch a (potentially very large) number of instances of an arbitrary UM-Bridge model on the cluster, and include a load balancer that distributes incoming evaluation requests across the instances. Any UM-Bridge client may then connect to the cluster just like to a local model. However, a client may now make multiple concurrent requests! For example, a thread parallel UQ code running on a laptop can offload costly model evaluations to a cluster of thousands of processor cores.
+
+The `kubernetes section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/kubernetes.html>`_ documents how to deploy the UM-Bridge kubernetes setup on a kubernetes cluster, and the `Google Kubernetes Engine seciton <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/gke.html>`_ shows how to obtain such a cluster on Google Cloud.
+
+Connecting to the cluster
+------------------------
+
+In the following, we assume that a kubernetes cluster running the L2-Sea propagation benchmark is available. During workshops, we provide a cluster for participants to use.
+
+Note: The L2-Sea model is quite costly at its highest fidelity. You can control the model's fidelity by passing a value between 1 and 7, where ``{"fidelity": 7}`` is the fastest.
+
+* Point your basic UM-Bridge client from the beginning of the tutorial to the cluster address and interact with the remote model. You find valid input ranges in the model's documentation.
+* Optional: Run two separate instances of your client at the same time. Watch their run time, for example using the ``time`` command. Then run the `L2-Sea propagation benchmark <https://um-bridge-benchmarks.readthedocs.io/en/docs/forward-benchmarks/l2-sea-propagation.html>`_ on your own system and repeat the procedure. Do you observe a time difference between concurrent model evaluations on the cluster vs. your single local model?
+
+Parallelized UQ
+------------------------
+
+QMCPy supports thread parallelism, and is therefore - by itself - limited to a single machine. However, we can easily apply QMCPy to an UM-Bridge model running on a remote cluster.
+
+You find a QMCPy client set up for the L2-Sea model at `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main/tutorial>`_. It is set to a suitable distribution to sample from and it wraps the model, fixing the last 14 parameters to zero (we don't need ship design parameters here, and only vary Froude number and draft).
+
+Modify the client to run in parallel: The ``UMBridgeWrapper`` takes an argument ``parallel``. Set it to an appropriate number, e.g. ``parallel=10``.
+
+Run the client and point it to the cluster's address.
+
+* Try different values for ``parallel``. Does run time scale as expected?
