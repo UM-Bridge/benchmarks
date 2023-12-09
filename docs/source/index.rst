@@ -6,10 +6,6 @@
 UM-Bridge documentation
 ======================================
 
-.. image:: logos/UM-bridge.png
-  :width: 400
-  :alt: UM-Bridge Logo
-
 .. include:: ../markdown/main.md
    :parser: myst_parser.sphinx_
 

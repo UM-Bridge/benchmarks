@@ -1,12 +1,12 @@
 ![UM-bridge_map](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UM-bridge_map.png "UQ-Model-UM")
 
-**UM-Bridge** (the **U**Q and **M**odel **Bridge**) provides a unified interface for numerical models that is accessible from virtually any programming language or framework. It is primarily intended for `coupling advanced models (e.g. simulations of complex physical processes) to advanced statistics or optimization methods for UQ`.
+**UM-Bridge** (the **U**Q and **M**odel **Bridge**) provides a unified interface for numerical models that is accessible from virtually any programming language or framework. It is primarily intended for coupling advanced models (e.g. simulations of complex physical processes) to advanced statistics or optimization methods for UQ.
 
 Many uncertainty quantification (UQ) and optimization methods treat a model as an abstract function and only interact with the model through operations such as *simple model evaluation*, *gradient evaluation* or *Jacobian action*.
 
 ![UQ-Model-UM](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UQ-Model-UM.png "UQ-Model-UM")
 
-The key idea of UM-Bridge is to `provide the mathematical "interface" as an abstract interface in software` as well. By using **HTTP** behind the scenes, a high degree of flexibility is achieved, allowing for:
+The key idea of UM-Bridge is to provide the mathematical "interface" as an abstract interface in software as well. By using **HTTP** behind the scenes, a high degree of flexibility is achieved, allowing for:
 
 * **Coupling** of codes written in arbitrary languages and frameworks
 * **Accelerating** development of advanced software stacks
@@ -23,15 +23,17 @@ model = umbridge.HTTPModel(url, "forward")
 print(model([[100]]))
 ```
 
-This simple 1D test model shifts the input parameter by multiplying it by two.
+This passes an input to a simple 1D test model running on a remote server and prints the model's output.
+
+See [quickstart guide](https://um-bridge-benchmarks.readthedocs.io/en/docs/quickstart.html) and [tutorial](https://um-bridge-benchmarks.readthedocs.io/en/docs/tutorial.html) for more information!
 
 ## Languages and frameworks
 
 These tables show what languages and frameworks UM-Bridge currently provides integrations for.
 
-Note that "server" refers to the model side, while "client" is the UQ / statistics / optimization side. We are happy to actively support the development of new integrations.
+"Server" refers to the model side, while "client" is the UQ / statistics / optimization side. We are happy to actively support the development of new integrations.
 
-Language | Client &harr; UQ | Server &harr; model
+Language | Client (UQ) | Server (model)
 ---|---|---
 C++ | ✓ | ✓
 MATLAB | ✓ | ✗
@@ -39,7 +41,7 @@ Python | ✓ | ✓
 R | ✓ | ✗
 Julia | ✓ | ✗
 
-Framework | Client &harr; UQ | Server &harr; model
+Framework | Client (UQ) | Server (model)
 ---|---|---
 emcee | ✓ | ✗
 MUQ | ✓ | ✓
