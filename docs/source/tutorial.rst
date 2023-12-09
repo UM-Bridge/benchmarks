@@ -168,8 +168,8 @@ switch PyMC to use a different sampler. Refer to `PyMC's documentation <https://
 
 Take a closer look at ``minimal-server.py``. Refer to the `models section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/models.html>`_ for an explanation of how UM-Bridge models are defined in Python.
 
-* Play around with the minimal model. For example, you could replace the multiplication by a more interesting operation, or change the model to have a different input or output dimension. Each time, restart the model server and call the modified model from your client to make sure changes take effect as you intend.
-* Optional: Apply QMCPy to propagate a distribution through your new model.
+* Change the model to :math:`F(x) = 4x`. Restart ``minimal-server.py`` and apply your own client or QMCPy as before. Does the output match your expectation?
+* Optional: Replace the multiplication by a more interesting operation, or change the model to have a different input or output dimension.
 * Optional: Define your own log density, for example the log of a normal distribution. Apply PyMC to sample from it.
 
 5: Build custom model containers
