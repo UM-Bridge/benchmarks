@@ -1,29 +1,45 @@
-UM-Bridge (the UQ and Model Bridge) provides a unified interface for numerical models that is accessible from virtually any programming language or framework. It is primarily intended for coupling advanced models (e.g. simulations of complex physical processes) to advanced statistics or optimization methods.
+![UM-bridge_map](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UM-bridge_map.png "UQ-Model-UM")
 
-In many statistics / uncertainty quantification or optimization methods, the model only appears as a function mapping vectors onto vectors with some of the following:
-* Simple evaluation,
-* Gradient evaluation,
-* Jacobian action,
-* Hessian action.
+**UM-Bridge** (the **U**Q and **M**odel **Bridge**) provides a unified interface for numerical models that is accessible from virtually any programming language or framework. It is primarily intended for `coupling advanced models (e.g. simulations of complex physical processes) to advanced statistics or optimization methods for UQ`.
 
-The key idea of UM-Bridge is to now provide this mathematical "interface" as an abstract interface in software as well. By using HTTP behind the scenes, a high degree of flexibility is achieved, allowing for:
+Many uncertainty quantification (UQ) and optimization methods treat a model as an abstract function and only interact with the model through operations such as *simple model evaluation*, *gradient evaluation* or *Jacobian action*.
 
-* Coupling of codes written in arbitrary languages and frameworks, accelerating development of advanced software stacks combining the state-of-the art of modelling with statistics / optimization.
-* Containarization of models, making collaboration easier due to portability of models and separation of concerns between fields (specifically model and statistics experts).
-* Unified, portable, fully reproducible and black-box benchmark problems defined software.
+![UQ-Model-UM](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UQ-Model-UM.png "UQ-Model-UM")
+
+The key idea of UM-Bridge is to `provide the mathematical "interface" as an abstract interface in software` as well. By using **HTTP** behind the scenes, a high degree of flexibility is achieved, allowing for:
+
+* **Coupling** of codes written in arbitrary languages and frameworks
+* **Accelerating** development of advanced software stacks
+* **Containarization** of models &rarr; easier collaboration and &rarr; access to container-based compute resourcs in the cloud (e.g., GCP, AWS)
+* **Portability** across operating systems
+* **Fully reproducible** models and benchmarks.
+
+To get started the following minimal Python code will give you a first impression:
+
+```
+import umbridge
+url = "http://testmodel.linusseelinger.de"
+model = umbridge.HTTPModel(url, "forward")
+print(model([[100]]))
+```
+
+This simple 1D test model shifts the input parameter by multiplying it by two.
 
 ## Languages and frameworks
 
-These tables shows what languages and frameworks UM-Bridge currently provides integrations for. Note that "server" refers to the model side, while "client" is the uncertainty quantification / statistics / optimization side. We are happy to actively support the development of new integrations.
+These tables show what languages and frameworks UM-Bridge currently provides integrations for.
 
-Language | Client support | Server support
+Note that "server" refers to the model side, while "client" is the UQ / statistics / optimization side. We are happy to actively support the development of new integrations.
+
+Language | Client &harr; UQ | Server &harr; model
 ---|---|---
 C++ | ✓ | ✓
 MATLAB | ✓ | ✗
 Python | ✓ | ✓
 R | ✓ | ✗
+Julia | ✓ | ✗
 
-Framework | Client support | Server support
+Framework | Client &harr; UQ | Server &harr; model
 ---|---|---
 emcee | ✓ | ✗
 MUQ | ✓ | ✓
