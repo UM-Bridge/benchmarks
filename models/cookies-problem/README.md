@@ -10,7 +10,7 @@ This model implements the so-called 'cookies problem' or 'cookies in the oven pr
 
 ## Run
 ```
-docker run -it -p 4242:4242 linusseelinger/<name-of-image>
+docker run -it -p 4242:4242 linusseelinger/cookies-problem
 ```
 
 ## Properties
@@ -18,15 +18,13 @@ docker run -it -p 4242:4242 linusseelinger/<name-of-image>
 Model     | Description
 ---       | ---
 forward   | forward evaluation of the cookies model
-benchmark | model setting for the forward UQ model [**ok this row and link to benchmark?**](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem/README.md)
+benchmark | model setting for the forward UQ model [(see benchmark page)](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem/README.md)
 
 ### Forward
 
-**check with linus whether config values must be given a default (See table below, I think we are confusing default with benchmark value) and if there should be a check on y(i)>-1, see also table below.**
-
 Mapping | Dimensions | Description
 ---     |---         |---
-input   | [8]        | The values of the conductivity coefficient in the 8 cookies, in the range \[-0.99 -0.2\] (software does not check that inputs are within the bound)  **do I just say here that it must be y(i)>-1?**
+input   | [8]        | These values modify the conductivity coefficient in the 8 cookies, each of them must be greater than -1 (software does not check that input values are valid)  
 output  | [1]        | The integral of the solution over the central subdomain (see definition of $$\Psi$$ below)
 
 Feature       | Supported
@@ -36,9 +34,9 @@ Gradient      | False
 ApplyJacobian | False
 ApplyHessian  | False
 
-Config        | Type    | Default **ok this column?** | Description
+Config        | Type    | Default | Description
 ---           |---      |---      |---
-NumThreads    | integer | 10      | number of physical cores to be used by the solver
+NumThreads    | integer | 1       | number of physical cores to be used by the solver
 BasisDegree   | integer | 4       | Default degree of spline basis (must be a positive integer)
 Fidelity      | integer | 2       | Controls the number of mesh elements (must be a positive integer, see below for details)
 
@@ -76,15 +74,15 @@ y      | 0.2 | 0.2 | 0.2 | 0.5 | 0.5 | 0.8 | 0.8 | 0.8 |
 
 The uncertain diffusion coefficient is defined as
 
-$$a = 1 + \sum_{i=1}^8 y_n \chi_n(\mathrm{x})$$
-where $$y_n \in [-0.99, -0.2]$$ **do I specify this here or do I just say yn>-1?**
-and $$\chi_n(\mathrm{x}) = \begin{cases} 1 &\text{inside the n-th cookie} \\ 0 &\text{otherwise} \end{cases}$$
+$$a = 1 + \sum_{i=1}^8 y_n \chi_n(\mathrm{x})$$ 
+
+where $$y_n>-1$$ and $$\chi_n(\mathrm{x}) = \begin{cases} 1 &\text{inside the n-th cookie} \\ 0 &\text{otherwise} \end{cases}$$
 
 
 The output of the simulation is the integral of the solution over $$F$$, i.e. $$\Psi = \int_F u(\mathrm{x}) d \mathrm{x}$$
 
 
-The PDE is solved with an IGA solver (see e.g. \[4\]) that uses as basis splines of degree $$p$$ (tunable by the user, default $$p=4$$ **not default**) of maximal regularity, i.e. of continuity $$p-1$$. The computational mesh is an $$N\times N$$ quadrilateral mesh (cartesian product of knot lines) with square elements, with $$N=100 \times \mathrm{Fidelity}$$. The implementation is done using the C++ library IGATools \[5\], available at [gitlab.com/max.martinelli/igatools](gitlab.com/max.martinelli/igatools).  
+The PDE is solved with an IGA solver (see e.g. \[4\]) that uses as basis splines of degree $$p$$ (tunable by the user, default $$p=4$$) of maximal regularity, i.e. of continuity $$p-1$$. The computational mesh is an $$N\times N$$ quadrilateral mesh (cartesian product of knot lines) with square elements, with $$N=100 \times \mathrm{Fidelity}$$. The implementation is done using the C++ library IGATools \[5\], available at [gitlab.com/max.martinelli/igatools](gitlab.com/max.martinelli/igatools).  
 
 
 

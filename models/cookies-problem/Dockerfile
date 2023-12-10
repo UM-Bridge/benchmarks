@@ -57,6 +57,3 @@ WORKDIR /
 COPY umbridge-server.py /
 
 CMD python3 umbridge-server.py
-
-
-

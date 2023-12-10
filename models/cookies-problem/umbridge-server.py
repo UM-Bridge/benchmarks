@@ -15,9 +15,9 @@ class TestModel(umbridge.Model):
     def __call__(self, parameters, config):
         arguments = " ".join([str(x) for x in parameters[0]]);
 
-        num_threads = str(config.get("NumThreads"));
-        basis_degree = str(config.get("BasisDegree"));
-        fidelity = str(config.get("Fidelity"));
+        num_threads = str(config.get("NumThreads",1));
+        basis_degree = str(config.get("BasisDegree",4));
+        fidelity = str(config.get("Fidelity",2));
 
         arguments = arguments + " " + basis_degree + " " + fidelity
 
@@ -51,7 +51,7 @@ class TestBenchmark(umbridge.Model):
     def __call__(self, parameters, config):
         arguments = " ".join([str(x) for x in parameters[0]]);
 
-        num_threads = str(config.get("NumThreads"));
+        num_threads = str(config.get("NumThreads",1));
         basis_degree = str(4);
         fidelity = str(2);
 
