@@ -50,6 +50,7 @@ QMCPy | ✓ | ✗
 Sparse Grids MATLAB Kit | ✓ | ✗
 tinyDA | ✓ | ✗
 TT Toolbox | ✓ | ✗
+UQPy | ✓ | ✗
 
 ## Citation
 
