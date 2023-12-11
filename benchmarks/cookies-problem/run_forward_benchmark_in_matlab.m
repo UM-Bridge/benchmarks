@@ -16,8 +16,12 @@ clear
 % addpath(genpath('~/GIT_projects/Github/umbridge/matlab/'))
 
 
-% 3) to regenerate the files with the results (sparse grids in .txt and .mat, results in .txt and .mat), set the flag below to true
+% 3) to save results on file (sparse grids in .txt / .mat, results in .txt / .mat), set the flag below to true
 saving_stuff = true;
+
+
+% 4) to plot results, set the flag below to true
+plotting = true;
 
 
 %% setup model 
@@ -39,7 +43,8 @@ Psi_fun = @(y) model.evaluate(y',config);
 
 %% create sparse grid
 
-% setup sparse grid ingredients. We will build increasingly large grids using a for loop
+% setup sparse grid ingredients. Instead of building the final grid in one go, we build it gradaully using a for
+% loop that creates a sequence of nested grids
 
 N = 8;
 knots = @(n) knots_CC(n,-0.99,-0.2);
@@ -48,8 +53,7 @@ idxset_rule = @(i) sum(i-1);
 idxset_level_max = 1; % <--- controls max size of sparse grid
 
 
-% With the choice above, the sparse grids will be nested. To recycle evaluations from one grid 
-% to the next, we need some containers
+% To recycle evaluations from one grid to the next, we need some containers
 
 S_old         = []; % the previous sparse grid in extended format
 Sr_old        = []; % the previous sparse grid in reduced format
@@ -84,8 +88,6 @@ for w = 0:idxset_level_max
         grid_filename_mat = grid_filename(1:end-4); % i.e., remove .txt
         save(grid_filename_mat,'S','Sr','Psi_evals')
     end
-
-    
     
     % compute expected value and append the new value to previous container. Same for nb_pts
     Psi_EV(end+1) = quadrature_on_sparse_grid(Psi_evals,Sr);    %#ok<SAGROW>
@@ -105,4 +107,17 @@ if saving_stuff
     save('cookies-benchmark-output.txt','nb_pts','Psi_EV','-ascii', '-double')
     % save also on .mat
     save('cookies-benchmark-output','nb_pts','Psi_EV')
+end
+
+
+if plotting
+    % in principle, only nb-pts and Psi_EV are needed, so if you have them on file already you can just load results 
+    % load('cookies-benchmark-output')
+    figure
+    semilogx(nb_pts,Psi_EV,'-ok','LineWidth',2,'MarkerFaceColor','k','DisplayName','sparse grid approx. of $\mathbf{E}[\Psi]$')
+    grid on
+    xlabel('sparse grids points')
+    ylabel('$\mathbf{E}[\Psi]$','interpreter','latex','rotation',0)
+    legend show
+    set(legend,'interpreter','latex','location','northwest','fontsize',14)
 end
