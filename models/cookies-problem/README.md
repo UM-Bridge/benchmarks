@@ -17,8 +17,8 @@ docker run -it -p 4242:4242 linusseelinger/cookies-problem
 
 Model     | Description
 ---       | ---
-forward   | forward evaluation of the cookies model
-benchmark | model setting for the forward UQ model [(see benchmark page)](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem/README.md)
+forward   | forward evaluation of the cookies model, all config options can be modified by the user (see below)
+benchmark | sets the config options for the forward UQ benchmark [(see benchmark page)](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem/README.md)
 
 ### Forward
 
