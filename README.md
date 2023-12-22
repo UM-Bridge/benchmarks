@@ -43,6 +43,7 @@ Julia | ✓ | ✗
 
 Framework | Client (UQ) | Server (model)
 ---|---|---
+CUQIpy | ✓ | ✓
 emcee | ✓ | ✗
 MUQ | ✓ | ✓
 PyMC | ✓ | ✗
