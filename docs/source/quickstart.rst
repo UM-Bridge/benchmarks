@@ -5,9 +5,15 @@ Quickstart Guide
 Installation
 ==============
 
+.. image:: logos/UQ-Model-UM.png
+   :width: 400
+   :align: center
+   :alt: UQ-Model idea
+
+
 The benchmarks do not need to be installed. Each model and benchmark in this library is provided as a Docker image hosted on dockerhub and can be run with a single command, which you can find on the respective model's or benchmark's documentation page.
 
-Running such a container requires Docker (available for all major operating systems at www.docker.com).
+Running such a container requires Docker (available for all major operating systems at `www.docker.com <https://www.docker.com>`_).
 
 Running a first model
 ========================
