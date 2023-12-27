@@ -53,6 +53,19 @@ tinyDA | ✓ | ✗
 TT Toolbox | ✓ | ✗
 UQPy | ✓ | ✗
 
+## Opinions
+
+<figure style="display: flex; align-items: center;">
+  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/mikkel_lykkegaard_picture.png" alt="Person Image" style="width:100px;height:100px;margin-right:10px;border-radius:50%;">
+  <figcaption>
+  
+> *I love Uncertainty Quantification. But I don't love fiddling around with complex numerical solver routines. UM-Bridge takes the pain away from doing UQ with complex models.*
+
+> Dr Mikkel Bue Lykkegaard - Data Science Lead, digiLab
+
+  </figcaption>
+</figure>
+
 ## Citation
 
 Please cite: Seelinger et al., (2023). UM-Bridge: Uncertainty quantification and modeling bridge. Journal of Open Source Software, 8(83), 4748, [url](https://doi.org/10.21105/joss.04748).
