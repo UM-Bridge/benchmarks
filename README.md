@@ -46,6 +46,7 @@ Framework | Client (UQ) | Server (model)
 CUQIpy | ✓ | ✓
 emcee | ✓ | ✗
 MUQ | ✓ | ✓
+PyApprox | ✓ | ✗
 PyMC | ✓ | ✗
 QMCPy | ✓ | ✗
 Sparse Grids MATLAB Kit | ✓ | ✗
