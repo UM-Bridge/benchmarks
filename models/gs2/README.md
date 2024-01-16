@@ -7,9 +7,9 @@ This model uses [GS2](https://gyrokinetics.gitlab.io/gs2/index.html) to study pl
 - [Chung Ming Loi](mailto:chung.m.loi@durham.ac.uk)
 
 
-## Run (To be changed)
+## Run
 ```
-docker run -it -p 4242:4242 linusseelinger/model-achlys:latest
+docker run -it -p 4242:4242 linusseelinger/model-gs2:latest
 ```
 
 ## Properties
