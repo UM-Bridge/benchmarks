@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # run this script as python3 umbridge-client.py http://localhost:4242
 
 import argparse
@@ -35,24 +33,29 @@ assert pytest.approx(output[0][4]) == -1.72240210, "Output not as expected"
 #another test, this time for the benchmark UQ version
 model = umbridge.HTTPModel(args.url,"benchmark_UQ")
 
+#test get method
+output = model.get_input_sizes()
+print(output)
+assert pytest.approx(output[0]) == 2, "get_input_sizes() returns wrong value"
+
 param = [[0.28,-6.16]]
-output = model(param, {"fidelity": 7, "sinkoff":'y', "trimoff":'y'})
+output = model(param, {"fidelity": 7})
 print(output)
 assert pytest.approx(output[0][0]) == 48.9337769, "Output not as expected"
-assert pytest.approx(output[0][1]) == -1.00000000, "Output not as expected"
-assert pytest.approx(output[0][2]) == -1.00000000, "Output not as expected"
-assert pytest.approx(output[0][3]) == -0.107635260, "Output not as expected"
-assert pytest.approx(output[0][4]) == -1.72240210, "Output not as expected"
 
 #another test, this time for the benchmark OPT version
 model = umbridge.HTTPModel(args.url,"benchmark_OPT")
 
+#test get method
+output = model.get_input_sizes()
+print(output)
+assert pytest.approx(output[0]) == 14, "get_input_sizes() returns wrong value"
+
 param = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-output = model(param, {"fidelity": 7, "sinkoff":'y', "trimoff":'y'})
+output = model(param, {"fidelity": 7})
 print(output)
 assert pytest.approx(output[0][0]) == 48.9337769, "Output not as expected"
 assert pytest.approx(output[0][1]) == -1.00000000, "Output not as expected"
 assert pytest.approx(output[0][2]) == -1.00000000, "Output not as expected"
 assert pytest.approx(output[0][3]) == -0.107635260, "Output not as expected"
 assert pytest.approx(output[0][4]) == -1.72240210, "Output not as expected"
-
