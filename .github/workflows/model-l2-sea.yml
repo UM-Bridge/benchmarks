@@ -47,3 +47,15 @@ jobs:
         name: Validate
         run: |
           docker run --network=host -e model_host=http://localhost:4242 -e input_value=1.0 linusseelinger/testing-protocol-conformity-current:latest
+       -
+        name: Checkout
+        uses: actions/checkout@v2
+       -
+        name: Dependencies
+        run: |
+          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-pip && pip3 install pytest umbridge
+       -
+        name: Validate output
+        run: |
+          cd models/l2-sea/ && \
+          python3 test_output.py http://localhost:4242
