@@ -20,13 +20,13 @@ docker run -it -p 4242:4242 linusseelinger/model-l2-sea
 
 Model | Description
 ---|---
-forward | l2-sea
+benchmark_UQ | l2-sea
 
 ### forward
 Mapping | Dimensions | Description
 ---|---|---
-input | [16] | The first input is the Froude number (from 0.25 to 0.41); the second is the draft (from -6.776 to -5.544); the other 14 are the $x$ design variables for the shape modification with $-1\leq x_i \leq 1$ for $i=1,\dots,14$\\.
-output | [5] | The first output is the model scale total resistance ($R_\mathrm{T}$) in Newton, whereas the other four are geometrical constraints (negative to be satisfied), related to the beam, draft, and sonar dome dimensions.
+input | [2] | The first input is the Froude number (from 0.25 to 0.41); the second is the draft (from -6.776 to -5.544)\\.
+output | [1] | The output is the model scale total resistance ($R_\mathrm{T}$) in Newton.
 
 Feature | Supported
 ---|---
