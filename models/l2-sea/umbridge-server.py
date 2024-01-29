@@ -82,8 +82,8 @@ class L2Sea_benchmarkUQ(umbridge.Model):
 
         nml['MAIN_PARAMETERS']['igrid'] = config.get("fidelity", 7)
         nml['FREE_WARP']['fr'] = parameters[0][0]
-        nml['FREE_WARP']['sinkoff'] = config.get("sinkoff", 'y')
-        nml['FREE_WARP']['trimoff'] = config.get("trimoff", 'y')
+        nml['FREE_WARP']['sinkoff'] = 'y' #config.get("sinkoff", 'y')
+        nml['FREE_WARP']['trimoff'] = 'y' #config.get("trimoff", 'y')
         nml['PANCA_PARAMETERS']['ztrasla'] = parameters[0][1]
 
         nml.write('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/SBDF.aux')
@@ -134,8 +134,8 @@ class L2Sea_benchmarkOPT(umbridge.Model):
 
         nml['MAIN_PARAMETERS']['igrid'] = config.get("fidelity", 7)
         nml['FREE_WARP']['fr'] = 0.28 #parameters[0][0]
-        nml['FREE_WARP']['sinkoff'] = config.get("sinkoff", 'y')
-        nml['FREE_WARP']['trimoff'] = config.get("trimoff", 'y')
+        nml['FREE_WARP']['sinkoff'] = 'y' #config.get("sinkoff", 'y')
+        nml['FREE_WARP']['trimoff'] = 'y' #config.get("trimoff", 'y')
         nml['PANCA_PARAMETERS']['ztrasla'] = -6.16 #parameters[0][1]
 
         nml.write('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/SBDF.aux')
