@@ -1,4 +1,4 @@
-![UM-bridge_map](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UM-bridge_map.png "UQ-Model-UM")
+![lorenzo_tamellini_picture](https://github.com/UM-Bridge/benchmarks/assets/134061260/406eccb8-550f-4410-9e83-1269ed294f32)![UM-bridge_map](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UM-bridge_map.png "UQ-Model-UM")
 
 **UM-Bridge** (the **U**Q and **M**odel **Bridge**) provides a unified interface for numerical models that is accessible from virtually any programming language or framework. It is primarily intended for coupling advanced models (e.g. simulations of complex physical processes) to advanced statistics or optimization methods for UQ.
 
@@ -79,6 +79,22 @@ to the elegance of the UM-Bridge implementation. Next, we plan to use UM-Bridge 
 geological uncertainty on CO2 storage.*
 
 > Dave Ponting - Lead Software Developer, OpenGoSim
+
+  </figcaption>
+</figure>
+
+<figure style="display: flex; align-items: center;">
+  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/lorenzo_tamellini_picture.png" alt="Person Image" style="width:100px;height:100px;margin-right:10px;border-radius:50%;">
+  <figcaption>
+  
+> *The UQ software that I develop is in Matlab, which is great for prototyping
+and distribution but
+a bit troublesome when it comes to working with engineers since most of
+them develop their simulators in other languages.
+UM-Bridge takes that problem away so I was more than happy to contribute to
+the project!*
+
+> Dr Lorenzo Tamellini - Researcher at CNR-IMATI Pavia
 
   </figcaption>
 </figure>
