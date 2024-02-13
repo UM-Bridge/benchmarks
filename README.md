@@ -67,6 +67,38 @@ UQPy | ✓ | ✗
   </figcaption>
 </figure>
 
+<figure style="display: flex; align-items: center;">
+  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/OpenGoSim_logo.png" alt="Person Image" style="width:100px;height:100px;margin-right:10px;border-radius:50%;">
+  <figcaption>
+  
+> *OpenGoSim develops and supports Pflotran-OGS, an open-source reservoir
+simulator aimed at carbon dioxide and hydrogen storage. \
+We build on UM-Bridge in order to couple the flow simulation to applications from fields like
+geomechanics and geochemistry, which proved reasonably straightforward due
+to the elegance of the UM-Bridge implementation. Next, we plan to use UM-Bridge with Pflotran-OGS in order to investigate the long-term effects of
+geological uncertainty on CO2 storage.*
+
+> Dave Ponting - Lead Software Developer, OpenGoSim
+
+  </figcaption>
+</figure>
+
+<figure style="display: flex; align-items: center;">
+  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/lorenzo_tamellini_picture.png" alt="Person Image" style="width:100px;height:100px;margin-right:10px;border-radius:50%;">
+  <figcaption>
+  
+> *The UQ software that I develop is in Matlab, which is great for prototyping
+and distribution but
+a bit troublesome when it comes to working with engineers since most of
+them develop their simulators in other languages.
+UM-Bridge takes that problem away so I was more than happy to contribute to
+the project!*
+
+> Dr Lorenzo Tamellini - Researcher at CNR-IMATI Pavia
+
+  </figcaption>
+</figure>
+
 ## Citation
 
 Please cite: Seelinger et al., (2023). UM-Bridge: Uncertainty quantification and modeling bridge. Journal of Open Source Software, 8(83), 4748, [url](https://doi.org/10.21105/joss.04748).
