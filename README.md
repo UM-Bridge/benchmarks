@@ -6,7 +6,7 @@ UM-Bridge accelerates development from method research to applications and from 
 
 * **seamlessly link** numerical models to UQ codes across languages and frameworks,
 * **break down complexity** of advanced applications into manageable components,
-* **share** your models with collaborators,
+* **share** your containerized models with collaborators,
 * **benchmark** your algorithms on a community-driven library of benchmark problems, and
 * **scale** your applications from laptop to supercomputer with minimal effort.
 
