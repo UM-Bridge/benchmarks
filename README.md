@@ -1,37 +1,32 @@
 ![UM-bridge_map](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UM-bridge_map.png "UQ-Model-UM")
 
-**UM-Bridge** (the **U**Q and **M**odel **Bridge**) provides a unified interface for numerical models that is accessible from virtually any programming language or framework. It is primarily intended for coupling advanced models (e.g. simulations of complex physical processes) to advanced statistics or optimization methods for UQ.
+**UM-Bridge** is a universal interface that makes any numerical model accessible from any programming language or higher-level software. UM-Bridge only assumes that a model returns an output vector for a given input, and possibly offers derivatives and configuration options. While its primary focus is linking advanced uncertainty quantification (UQ) tools to complex simulations, UM-Bridge is also suitable for other fields like optimization or machine learning on numerical models.
 
-Many uncertainty quantification (UQ) and optimization methods treat a model as an abstract function and only interact with the model through operations such as *simple model evaluation*, *gradient evaluation* or *Jacobian action*.
+UM-Bridge accelerates development from method research to applications and from prototype to supercomputer, enabling you to:
+
+* **seamlessly link** numerical models to UQ codes across languages and frameworks,
+* **break down complexity** of advanced applications into manageable components,
+* **share** your models with collaborators,
+* **benchmark** your algorithms on a community-driven library of benchmark problems, and
+* **scale** your applications from laptop to supercomputer with minimal effort.
 
 ![UQ-Model-UM](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UQ-Model-UM.png "UQ-Model-UM")
 
-The key idea of UM-Bridge is to provide the mathematical "interface" as an abstract interface in software as well. By using **HTTP** behind the scenes, a high degree of flexibility is achieved, allowing for:
-
-* **Coupling** of codes written in arbitrary languages and frameworks
-* **Accelerating** development of advanced software stacks
-* **Containarization** of models &rarr; easier collaboration and &rarr; access to container-based compute resourcs in the cloud (e.g., GCP, AWS)
-* **Portability** across operating systems
-* **Fully reproducible** models and benchmarks.
-
-To get started the following minimal Python code will give you a first impression:
+Try out this Python example! It passes an input to a simple 1D test model running on a remote server and prints the model's output.
 
 ```
 import umbridge
-url = "http://testmodel.linusseelinger.de"
-model = umbridge.HTTPModel(url, "forward")
-print(model([[100]]))
+
+model = umbridge.HTTPModel("http://testmodel.linusseelinger.de", "forward")
+print(model([[100.0]]))
 ```
 
-This passes an input to a simple 1D test model running on a remote server and prints the model's output.
+Interested? Continue with [quickstart](https://um-bridge-benchmarks.readthedocs.io/en/docs/quickstart.html) or [tutorial](https://um-bridge-benchmarks.readthedocs.io/en/docs/tutorial.html) for a guided tour. See [clients](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html) for how to interact with a model from any supported language or UQ package, and [models](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/models.html) for how to add UM-Bridge support to your own model code.
 
-See [quickstart guide](https://um-bridge-benchmarks.readthedocs.io/en/docs/quickstart.html) and [tutorial](https://um-bridge-benchmarks.readthedocs.io/en/docs/tutorial.html) for more information!
+We'd like to hear about your application, so [join our slack channel](https://join.slack.com/t/um-bridge/shared_invite/zt-1da1ebkly-8s0YQdZUIYkJ1vws6edsAQ)!
 
-## Languages and frameworks
 
-These tables show what languages and frameworks UM-Bridge currently provides integrations for.
-
-"Server" refers to the model side, while "client" is the UQ / statistics / optimization side. We are happy to actively support the development of new integrations.
+## Supported languages and frameworks
 
 Language | Client (UQ) | Server (model)
 ---|---|---
@@ -54,10 +49,12 @@ tinyDA | ✓ | ✗
 TT Toolbox | ✓ | ✗
 UQPy | ✓ | ✗
 
+We are happy to actively support the development of new integrations!
+
 ## Opinions
 
 <figure style="display: flex; align-items: center;">
-  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/mikkel_lykkegaard_picture.png" alt="Person Image" style="width:100px;height:100px;margin-right:10px;border-radius:50%;">
+  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/mikkel_lykkegaard_picture.png" alt="Person Image" style="width:100px;height:auto;margin-right:10px;border-radius:15%;">
   <figcaption>
   
 > *I love Uncertainty Quantification. But I don't love fiddling around with complex numerical solver routines. UM-Bridge takes the pain away from doing UQ with complex models.*
@@ -68,7 +65,7 @@ UQPy | ✓ | ✗
 </figure>
 
 <figure style="display: flex; align-items: center;">
-  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/OpenGoSim_logo.png" alt="Person Image" style="width:100px;height:100px;margin-right:10px;border-radius:50%;">
+  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/OpenGoSim_logo.png" alt="Person Image" style="width:100px;height:auto;margin-right:10px;border-radius:15%;">
   <figcaption>
   
 > *OpenGoSim develops and supports Pflotran-OGS, an open-source reservoir
@@ -84,7 +81,7 @@ geological uncertainty on CO2 storage.*
 </figure>
 
 <figure style="display: flex; align-items: center;">
-  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/lorenzo_tamellini_picture.png" alt="Person Image" style="width:100px;height:100px;margin-right:10px;border-radius:50%;">
+  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/lorenzo_tamellini_picture.png" alt="Person Image" style="width:100px;height:auto;margin-right:10px;border-radius:15%;">
   <figcaption>
   
 > *The UQ software that I develop is in Matlab, which is great for prototyping
@@ -114,5 +111,3 @@ This repository hosts stand-alone reference problems for benchmarking of UQ algo
 The documentation for the project and for the benchmark problems within is at: [Documentation](https://um-bridge-benchmarks.readthedocs.io/en/docs/).
 
 The project source code is [hosted on GitHub](https://github.com/UM-Bridge).
-
-Join the project [slack channel](https://join.slack.com/t/um-bridge/shared_invite/zt-1da1ebkly-8s0YQdZUIYkJ1vws6edsAQ).
