@@ -1,14 +1,14 @@
 ![UM-bridge_map](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UM-bridge_map.png "UQ-Model-UM")
 
-**UM-Bridge** is a universal interface that makes any numerical model accessible from any programming language or higher-level software. UM-Bridge only assumes that a model returns an output vector for a given input, and possibly offers derivatives and configuration options. While its primary focus is linking advanced uncertainty quantification (UQ) tools to complex simulations, UM-Bridge is also suitable for other fields like optimization or machine learning on numerical models.
+**UM-Bridge** is a universal interface that makes any numerical model accessible from any programming language or higher-level software, with a main focus on uncertainty quantification (UQ). It accelerates development from method research to applications and from prototype to supercomputer, enabling you to:
 
-UM-Bridge accelerates development from method research to applications and from prototype to supercomputer, enabling you to:
-
-* **seamlessly link** numerical models to UQ codes across languages and frameworks,
+* **seamlessly link** numerical models to UQ across languages and frameworks,
 * **break down complexity** of advanced applications into manageable components,
 * **share** your containerized models with collaborators,
-* **benchmark** your algorithms on a community-driven library of benchmark problems, and
-* **scale** your applications from laptop to supercomputer with minimal effort.
+* **benchmark** your algorithms on a community-driven benchmark library, and
+* **scale** your applications from laptop to **supercomputer or cloud** with minimal effort.
+
+UM-Bridge only assumes that a model returns an output vector for a given input, and possibly offers derivatives and configuration options. That makes UM-Bridge suitable for fields like **UQ, optimization or machine learning**.
 
 ![UQ-Model-UM](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UQ-Model-UM.png "UQ-Model-UM")
 
@@ -22,6 +22,8 @@ print(model([[100.0]]))
 ```
 
 Interested? Continue with [quickstart](https://um-bridge-benchmarks.readthedocs.io/en/docs/quickstart.html) or [tutorial](https://um-bridge-benchmarks.readthedocs.io/en/docs/tutorial.html) for a guided tour. See [clients](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html) for how to interact with a model from any supported language or UQ package, and [models](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/models.html) for how to add UM-Bridge support to your own model code.
+
+In addition, UM-Bridge comes with a community-driven **library of UQ benchmark** problems, which you find listed on the left.
 
 We'd like to hear about your application, so [join our slack channel](https://join.slack.com/t/um-bridge/shared_invite/zt-1da1ebkly-8s0YQdZUIYkJ1vws6edsAQ)!
 
