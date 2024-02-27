@@ -2,31 +2,34 @@ FROM mpioperator/openmpi
 LABEL maintainer="william.hornsby@ukaea.uk"
 LABEL version="1.0"
 LABEL description="This is Docker Image for running GS2 with GNU compilers on \
-Ubuntu 20.04. This uses MPICH instead of OpenMPI to avoid issues with running \
-as root."
+Debian. This uses OpenMPI."
 
 # Disable Prompt During Packages Installation
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update \ 
-	&& apt install -y \
-	gfortran \
-	g++ \
-	make \
-	wget \
-	git \
-	vim \
-	cmake \
-	rsync \
-	curl \
-	python3 \
-	python3.8-venv \
-	python3-pip \
-	mpich \
-	libnetcdf-dev \
-	libnetcdff-dev \
-	libfftw3-dev \
-        python-is-python3
+        && apt install -y \
+        gfortran \
+        g++ \
+        make \
+        wget \
+        git \
+        vim \
+        cmake \
+        rsync \
+        curl \
+        python3 \
+        python3-venv \
+        python3-pip \
+        libnetcdf-dev \
+        libnetcdff-dev \
+        netcdf-bin \
+        libfftw3-dev \
+        libfftw3-mpi-dev \
+        python-is-python3 \
+        openmpi-bin \
+        openmpi-doc \
+        libopenmpi-dev
 
 RUN echo 'alias python=python3' >> $HOME/.bashrc
 RUN echo 'alias pip=pip3' >> $HOME/.bashrc
