@@ -42,7 +42,7 @@ trimoff | character | 'y' | Enabling hydrodynamics coupling with the rigid-body 
 ## Mount directories
 Mount directory | Purpose
 ---|---
-/output | \texttt{ASCII} files for visualization of pressure distribution along the hull \texttt{pre\textit{XXXX}.plt} and free-surface \texttt{intfr\textit{XXXX}.plt} formatted for Tecplot and Paraview, where \texttt{\textit{XXXX}} is the Froude number.
+/output | ASCII files for visualization of pressure distribution along the hull `preXXXX.plt` and free-surface `intfrXXXX.plt` formatted for Tecplot and Paraview, where `XXXX` is the Froude number.
 
 ## Source code
 
