@@ -1,7 +1,7 @@
 # The cookies model
 
 ## Overview
-This model implements the so-called 'cookies problem' or 'cookies in the oven problem' [see for reference [Bäck et al.,2011](https://doi.org/10.1007/978-3-642-15337-2_3) , [Ballani et al.,2015](https://doi.org/10.1137/140960980) , [Kressner et al., 2011](https://doi.org/10.1137/100799010) ], i.e., a simplified thermal equation in which the conductivity coefficient is uncertain in 8 circular subdomains ('the cookies'), whereas it is known (and constant) in the remaining of the domain ('the oven'). The PDE is solved by an isogeometric solver with maximum continuity splines, whose degree can be set by the user. See below for full description. 
+This model implements the so-called 'cookies problem' or 'cookies in the oven problem' (see for reference [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3), [[Ballani et al.,2015]](https://doi.org/10.1137/140960980), [[Kressner et al., 2011]](https://doi.org/10.1137/100799010)), i.e., a simplified thermal equation in which the conductivity coefficient is uncertain in 8 circular subdomains ('the cookies'), whereas it is known (and constant) in the remaining of the domain ('the oven'). The PDE is solved by an isogeometric solver with maximum continuity splines, whose degree can be set by the user. See below for full description. 
 
 
 ## Authors
@@ -54,7 +54,7 @@ None            |
 
 ![cookies-problem](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/cookies-problem/cookies_domain.png "geometry of the cookies problem")
 
-The model implements the version of the cookies problem in [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3), see also e.g. [ [Ballani et al.,2015](https://doi.org/10.1137/140960980) , [Kressner et al., 2011](https://doi.org/10.1137/100799010) ] for slightly different versions. With reference to the computational domain $D=[0,1]^2$ in the figure above, the cookies model consists in the thermal diffusion problem below, where $\mathbf{y}$ are the uncertain parameters discussed in the following and $\mathrm{x}$ are physical coordinates 
+The model implements the version of the cookies problem in [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3), see also e.g. [[Ballani et al.,2015]](https://doi.org/10.1137/140960980), [[Kressner et al., 2011]](https://doi.org/10.1137/100799010) for slightly different versions. With reference to the computational domain $D=[0,1]^2$ in the figure above, the cookies model consists in the thermal diffusion problem below, where $\mathbf{y}$ are the uncertain parameters discussed in the following and $\mathrm{x}$ are physical coordinates 
 
 $$-\mathrm{div}\Big[ a(\mathbf{x},\mathbf{y}) \nabla u(\mathbf{x},\mathbf{y}) \Big] = f(\mathrm{x}), \quad \mathbf{x}\in D$$
 
@@ -84,4 +84,4 @@ $$\chi_n(\mathrm{x}) = \begin{cases} 1 &\text{inside the n-th cookie} \\ 0 &\tex
 The output of the simulation is the integral of the solution over $F$, i.e. $\Psi = \int_F u(\mathrm{x}) d \mathrm{x}$
 
 
-The PDE is solved with an IGA solver (see e.g. [ [Da Vaiga et al., 2014](https://doi.org/10.1017/S096249291400004X) ]) that uses as basis splines of degree $p$ (tunable by the user, default $p=4$) of maximal regularity, i.e. of continuity $p-1$. The computational mesh is an $N\times N$ quadrilateral mesh (cartesian product of knot lines) with square elements, with $N=100 \times \mathrm{Fidelity}$. The implementation is done using the C++ library IGATools [ [Pauletti et al., 2015](https://doi.org/10.1137/140955252) ], available at [gitlab.com/max.martinelli/igatools](gitlab.com/max.martinelli/igatools).
+The PDE is solved with an IGA solver (see e.g. [[Da Vaiga et al., 2014]](https://doi.org/10.1017/S096249291400004X)) that uses as basis splines of degree $p$ (tunable by the user, default $p=4$) of maximal regularity, i.e. of continuity $p-1$. The computational mesh is an $N\times N$ quadrilateral mesh (cartesian product of knot lines) with square elements, with $N=100 \times \mathrm{Fidelity}$. The implementation is done using the C++ library IGATools [[Pauletti et al., 2015]](https://doi.org/10.1137/140955252), available at [gitlab.com/max.martinelli/igatools](gitlab.com/max.martinelli/igatools).
