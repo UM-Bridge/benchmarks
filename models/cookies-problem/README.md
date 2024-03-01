@@ -1,6 +1,6 @@
 # The cookies model
 
-## Overview https://doi.org/10.1007/978-3-642-15337-2_3
+## Overview
 This model implements the so-called 'cookies problem' or 'cookies in the oven problem' [see for reference [Bäck et al.,2011](https://doi.org/10.1007/978-3-642-15337-2_3) , [Ballani et al.,2015](https://doi.org/10.1137/140960980) , [Kressner et al., 2011](https://doi.org/10.1137/100799010) ], i.e., a simplified thermal equation in which the conductivity coefficient is uncertain in 8 circular subdomains ('the cookies'), whereas it is known (and constant) in the remaining of the domain ('the oven'). The PDE is solved by an isogeometric solver with maximum continuity splines, whose degree can be set by the user. See below for full description. 
 
 
