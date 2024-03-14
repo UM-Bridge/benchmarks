@@ -164,5 +164,4 @@ model = L2Sea_model()
 benchmark_UQ = L2Sea_benchmarkUQ()
 benchmark_OPT = L2Sea_benchmarkOPT()
 
-umbridge.serve_models([model,benchmark_UQ,benchmark_OPT], 4242)
-                                                                   
+umbridge.serve_models([model,benchmark_UQ,benchmark_OPT], int(os.environ.get("PORT", 4242)))
