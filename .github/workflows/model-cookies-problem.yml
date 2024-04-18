@@ -58,7 +58,7 @@ jobs:
         name: Dependencies
         run: |
           sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-pip && pip3 install pytest umbridge
-       -
+      -
         name: Validate output
         run: |
           cd models/cookies-problem/ && \
