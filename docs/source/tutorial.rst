@@ -83,7 +83,7 @@ It will connect to your model :math:`F` as before, and perform uncertainty propa
 Simply put, it will draw (cleverly chosen) Quasi-Monte Carlo samples from the distribution specified in the client, apply the model to each and output statistics of the results. Due to tight integration, this code looks like any other basic QMCPy example; however, it can immediately connect to any (arbitrarily complex) UM-Bridge model.
 
 * Look at ``qmcpy-client.py`` and find out what distribution it is sampling from. Does the ``Solution`` output match your expectation?
-* Optional: Write you own Monte Carlo sampler: Draw random samples :math:`\{\theta_1, \ldots, \theta_N\}` from the same distribution QMCPy is using, apply the model to each, and print out the resulting mean :math:`\frac{1}{N} \sum_{i=1}^N \theta_i`. Does it match QMCPy's output?
+* Optional: Write you own Monte Carlo sampler: Draw random samples :math:`\{\theta_1, \ldots, \theta_N\}` from the same distribution QMCPy is using, apply the model to each, and print out the resulting mean :math:`\frac{1}{N} \sum_{i=1}^N f(\theta_i)`. Does it match QMCPy's output?
 
 2: Running containerized simulation models
 ========================

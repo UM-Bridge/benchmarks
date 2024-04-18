@@ -36,7 +36,7 @@ C++ | ✓ | ✓
 MATLAB | ✓ | ✗
 Python | ✓ | ✓
 R | ✓ | ✗
-Julia | ✓ | ✗
+Julia | ✓ | ✓
 
 Framework | Client (UQ) | Server (model)
 ---|---|---
