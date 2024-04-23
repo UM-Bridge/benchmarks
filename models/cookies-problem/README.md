@@ -74,7 +74,7 @@ y      | 0.2 | 0.2 | 0.2 | 0.5 | 0.5 | 0.8 | 0.8 | 0.8 |
 
 The uncertain diffusion coefficient is defined as
 
-$$a = 1 + \sum_{i=1}^8 y_n \chi_n(\mathrm{x})$$ 
+$$a = 1 + \sum_{n=1}^8 y_n \chi_n(\mathrm{x})$$ 
 
 where $$y_n>-1$$ and $$\chi_n(\mathrm{x}) = \begin{cases} 1 &\text{inside the n-th cookie} \\ 0 &\text{otherwise} \end{cases}$$
 
@@ -82,7 +82,7 @@ where $$y_n>-1$$ and $$\chi_n(\mathrm{x}) = \begin{cases} 1 &\text{inside the n-
 The output of the simulation is the integral of the solution over $$F$$, i.e. $$\Psi = \int_F u(\mathrm{x}) d \mathrm{x}$$
 
 
-The PDE is solved with an IGA solver (see e.g. \[4\]) that uses as basis splines of degree $$p$$ (tunable by the user, default $$p=4$$) of maximal regularity, i.e. of continuity $$p-1$$. The computational mesh is an $$N\times N$$ quadrilateral mesh (cartesian product of knot lines) with square elements, with $$N=100 \times \mathrm{Fidelity}$$. The implementation is done using the C++ library IGATools \[5\], available at [gitlab.com/max.martinelli/igatools](gitlab.com/max.martinelli/igatools).  
+The PDE is solved with an IGA solver (see e.g. \[4\]) that uses as basis splines of degree $$p$$ (tunable by the user, default $$p=4$$) of maximal regularity, i.e. of continuity $$p-1$$. The computational mesh is an $$N\times N$$ quadrilateral mesh (cartesian product of knot lines) with $$N=100 \times \mathrm{Fidelity}$$. The implementation is done using the C++ library IGATools \[5\], available at [gitlab.com/max.martinelli/igatools](gitlab.com/max.martinelli/igatools).  
 
 
 
