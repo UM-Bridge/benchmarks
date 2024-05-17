@@ -34,8 +34,8 @@ class GS2Model(umbridge.Model):
                 print(line.rstrip()) # FileInput redirects stdout to file
         
         # Run the model 
-        mpirank = config.get("ranks", 32)
-        os.system(f"mpirun -np {mpirank} /usr/gs2/bin/gs2 {input_file}")
+        mpirank = config.get("ranks", 4)
+        os.system(f"mpirun -n {mpirank} /usr/gs2/bin/gs2 {input_file}")
         
         # Read results using Pyrokinetics package and print output
         gs2_input = input_file
