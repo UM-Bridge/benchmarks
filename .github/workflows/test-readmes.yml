@@ -20,4 +20,5 @@ jobs:
        -
         name: Validate
         run: |
+          . venv/bin/activate && \
           cd docs && python3 test_benchmark_readmes.py
