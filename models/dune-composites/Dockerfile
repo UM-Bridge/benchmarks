@@ -27,8 +27,11 @@ WORKDIR /dune/build/dune-composites/src
 
 ENV OMP_NUM_THREADS=1
 
-RUN apt install -y python3-pip && pip3 install umbridge
+RUN apt install -y python3-pip python3-venv && \
+    python3 -m venv venv && \
+    . venv/bin/activate && \
+    pip install umbridge
 
 COPY server.py server.py
 
-CMD python3 server.py
+CMD . venv/bin/activate && python3 server.py
