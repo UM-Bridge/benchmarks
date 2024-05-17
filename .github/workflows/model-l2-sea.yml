@@ -53,9 +53,12 @@ jobs:
        -
         name: Dependencies
         run: |
-          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-pip && pip3 install pytest umbridge
+          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-pip python3-venv && \
+          python3 -m venv venv && . venv/bin/activate && \
+          pip3 install pytest umbridge
        -
         name: Validate output
         run: |
+          . venv/bin/activate && \
           cd models/l2-sea/ && \
           python3 test_output.py http://localhost:4242
