@@ -1,4 +1,4 @@
-FROM linusseelinger/achlys-ubuntu
+FROM achlys-ubuntu
 
 RUN apt update && apt install -y inotify-tools && \
     rm -rf /var/lib/apt/lists/*
