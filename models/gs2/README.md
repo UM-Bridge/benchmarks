@@ -33,7 +33,7 @@ ApplyHessian | False
 
 Config | Type | Default | Description
 ---|---|---|---
-None | | |
+ranks |int |4 |MPI ranks to run the model
 
 ## Mount directories
 Mount directory | Purpose
