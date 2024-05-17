@@ -3,9 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-UM-Bridge documentation
-======================================
-
 .. include:: ../markdown/main.md
    :parser: myst_parser.sphinx_
 
@@ -14,19 +11,28 @@ Getting started
 
 .. toctree::
    :glob:
-   :maxdepth: 1
-
+   :maxdepth: 2
+   
    /quickstart
    /tutorial
    /umbridge/contributing
+
+Documentation
+---------------------
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   
    /umbridge/index
+
 
 Propagation Benchmarks
 -----------------------
 
 .. toctree::
    :glob:
-   :maxdepth: 1
+   :maxdepth: 2
 
    /forward-benchmarks/index
 
@@ -35,7 +41,7 @@ Inference Benchmarks
 
 .. toctree::
    :glob:
-   :maxdepth: 1
+   :maxdepth: 2
 
    /inverse-benchmarks/index
 
@@ -45,19 +51,11 @@ Models
 
 .. toctree::
    :glob:
-   :maxdepth: 1
+   :maxdepth: 2
 
    /models/index
 
-About
+
+Search
 --------------------
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   /about
-
-
-
 * :ref:`search`

@@ -15,6 +15,10 @@ cp ../.readthedocs.yaml docs_output
 # Create index files
 cp ../benchmarks/README.md docs_output/markdown/forward-benchmarks.md
 cat > docs_output/source/forward-benchmarks/index.rst << EOF
+================
+Propagation benchmarks
+================
+
 .. include:: ../markdown/forward-benchmarks.md
    :parser: myst_parser.sphinx_
 
@@ -27,6 +31,10 @@ EOF
 
 cp ../benchmarks/README.md docs_output/markdown/inverse-benchmarks.md
 cat > docs_output/source/inverse-benchmarks/index.rst << EOF
+================
+Inverse benchmarks
+================
+
 .. include:: ../markdown/inverse-benchmarks.md
    :parser: myst_parser.sphinx_
 
@@ -39,6 +47,11 @@ EOF
 
 cp ../models/README.md docs_output/markdown/models.md
 cat > docs_output/source/models/index.rst << EOF
+================
+Models
+================
+
+
 .. include:: ../markdown/models.md
    :parser: myst_parser.sphinx_
 

@@ -1,4 +1,6 @@
-![UM-bridge_map](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UM-bridge_map.png "UQ-Model-UM")
+# UM-Bridge
+
+![UM-bridge_map](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/docs/source/images/UM-bridge_map.png "UQ-Model-UM")
 
 **UM-Bridge** is a universal interface that makes any numerical model accessible from any programming language or higher-level software, with a main focus on uncertainty quantification (UQ). It accelerates development from method research to applications and from prototype to supercomputer, enabling you to:
 
@@ -10,7 +12,7 @@
 
 UM-Bridge only assumes that a model returns an output vector for a given input, and possibly offers derivatives and configuration options. That makes UM-Bridge suitable for fields like **UQ, optimization or machine learning**.
 
-![UQ-Model-UM](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/UQ-Model-UM.png "UQ-Model-UM")
+![UQ-Model-UM](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/docs/source/images/UQ-Model-UM.png "UQ-Model-UM")
 
 Try out this Python example! It passes an input to a simple 1D test model running on a remote server and prints the model's output.
 
@@ -56,7 +58,7 @@ We are happy to actively support the development of new integrations!
 ## Opinions
 
 <figure style="display: flex; align-items: center;">
-  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/mikkel_lykkegaard_picture.png" alt="Person Image" style="width:100px;height:auto;margin-right:10px;border-radius:15%;">
+  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/docs/source/images/mikkel_lykkegaard_picture.png" alt="Person Image" style="width:100px;height:auto;margin-right:10px;border-radius:15%;">
   <figcaption>
   
 > *I love Uncertainty Quantification. But I don't love fiddling around with complex numerical solver routines. UM-Bridge takes the pain away from doing UQ with complex models.*
@@ -67,7 +69,7 @@ We are happy to actively support the development of new integrations!
 </figure>
 
 <figure style="display: flex; align-items: center;">
-  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/OpenGoSim_logo.png" alt="Person Image" style="width:100px;height:auto;margin-right:10px;border-radius:15%;">
+  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/docs/source/images/OpenGoSim_logo.png" alt="Person Image" style="width:100px;height:auto;margin-right:10px;border-radius:15%;">
   <figcaption>
   
 > *OpenGoSim develops and supports Pflotran-OGS, an open-source reservoir
@@ -83,7 +85,7 @@ geological uncertainty on CO2 storage.*
 </figure>
 
 <figure style="display: flex; align-items: center;">
-  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/lorenzo_tamellini_picture.png" alt="Person Image" style="width:100px;height:auto;margin-right:10px;border-radius:15%;">
+  <img src="https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/docs/source/images/lorenzo_tamellini_picture.png" alt="Person Image" style="width:100px;height:auto;margin-right:10px;border-radius:15%;">
   <figcaption>
   
 > *The UQ software that I develop is in Matlab, which is great for prototyping
