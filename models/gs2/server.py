@@ -3,7 +3,6 @@ import json
 import os
 import csv
 from pyrokinetics import Pyro
-import numpy as np
 from datetime import datetime
 from fileinput import FileInput
 
@@ -21,7 +20,7 @@ class GS2Model(umbridge.Model):
 
     def __call__(self, parameters, config):
         input_file = "fast.in" # Select input file
-        os.system("mkdir restart") # GS2 needs this folder otherwise will fail
+        os.system("mkdir -p restart") # GS2 needs this folder otherwise will fail
         with FileInput(files=input_file, inplace=True) as file:
             checkpoint = 0
             for line in file:
