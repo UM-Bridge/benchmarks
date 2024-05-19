@@ -1,12 +1,9 @@
 FROM linusseelinger/achlys-ubuntu
 
-RUN apt update && apt install -y inotify-tools && \
+RUN apt update && apt install -y inotify-tools python3-pip python3-venv && \
+    python3 -m venv venv && . venv/bin/activate && \
+    pip3 install umbridge && \
     rm -rf /var/lib/apt/lists/*
-
-RUN apt install -y python3-pip python3-virtualenv && \
-    python3 -m venv venv && \
-    . venv/bin/activate && \
-    pip install umbridge
 
 COPY server.py /server.py
 
