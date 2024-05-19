@@ -2,14 +2,14 @@ FROM ubuntu:mantic
 
 RUN apt update
 RUN DEBIAN_FRONTEND=noninteractive apt install -y bash python3-pip pbzip2 wget clang-17 git cmake curl zip pkg-config gfortran lld libomp5-17 libomp-17-dev
-RUN pip3 install --break-system-packages umbridge 
+RUN pip3 install --break-system-packages umbridge
 
 
 RUN wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \ | gpg --dearmor | tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
 RUN echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | tee /etc/apt/sources.list.d/oneAPI.list
 
 RUN apt update
-RUN apt install -y intel-basekit 
+RUN apt install -y intel-basekit
 # RUN . /opt/intel/oneapi/setvars.sh
 
 RUN git clone https://gitlab.com/max.martinelli/igatools.git && \
@@ -20,7 +20,7 @@ RUN git clone https://gitlab.com/max.martinelli/igatools.git && \
   cd vcpkg && ./bootstrap-vcpkg.sh
 
 #  git checkout a335daa3bf480cb6e57e2ea8522e3817e841a66d && \
-  
+
 
 WORKDIR /build_igatools
 RUN . /opt/intel/oneapi/setvars.sh && cd /build_igatools && \
@@ -47,10 +47,10 @@ RUN . /opt/intel/oneapi/setvars.sh && cd /build_igatools && \
   -DCMAKE_CXX_COMPILER=clang++-17 \
   -DBUILD_SHARED_LIBS=ON
 
-RUN make -j8 && \
+RUN make -j4 && \
   make setup_tests && \
   cd tests/ && \
-  make poisson_lorenzo.release 
+  make poisson_lorenzo.release
 
 WORKDIR /
 
