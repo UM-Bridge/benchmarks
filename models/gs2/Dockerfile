@@ -36,9 +36,6 @@ RUN echo 'alias pip=pip3' >> $HOME/.bashrc
 
 RUN echo 'export GK_SYSTEM=gnu_ubuntu' >> $HOME/.bashrc
 
-RUN python -m venv venv && . venv/bin/activate && \
-    pip install ford netCDF4==1.6.2 umbridge pyrokinetics 
-
 RUN git clone https://whornsby@bitbucket.org/gyrokinetics/gs2.git /usr/gs2
 
 WORKDIR /usr/gs2
@@ -53,6 +50,9 @@ RUN make -IMakefiles depend
 
 RUN make -IMakefiles gs2
 #RUN make -IMakefiles tests
+
+RUN python -m venv venv && . venv/bin/activate && \
+    pip install ford netCDF4==1.6.2 umbridge pyrokinetics 
 
 COPY server.py fast.in .
 
