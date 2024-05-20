@@ -34,7 +34,7 @@ class GS2Model(umbridge.Model):
         
         # Run the model 
         mpirank = config.get("ranks", 4)
-        os.system(f"mpirun -n {mpirank} /usr/gs2/bin/gs2 {input_file}")
+        os.system(f"mpirun --allow-run-as-root -n {mpirank} /usr/gs2/bin/gs2 {input_file}") # --allow-run-as-root to suppress OMPI error, not reccomended when running outside of docker!
         
         # Read results using Pyrokinetics package and print output
         gs2_input = input_file
