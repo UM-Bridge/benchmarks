@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 set -eu -o pipefail
 
 mkdir docs_output
@@ -19,7 +19,7 @@ cat > docs_output/source/forward-benchmarks/index.rst << EOF
 Propagation benchmarks
 ================
 
-.. include:: ../markdown/forward-benchmarks.md
+.. include:: ../../markdown/forward-benchmarks.md
    :parser: myst_parser.sphinx_
 
 For more details on the benchmarks see their individual documentation:
@@ -35,7 +35,7 @@ cat > docs_output/source/inverse-benchmarks/index.rst << EOF
 Inverse benchmarks
 ================
 
-.. include:: ../markdown/inverse-benchmarks.md
+.. include:: ../../markdown/inverse-benchmarks.md
    :parser: myst_parser.sphinx_
 
 For more details on the benchmarks see their individual documentation:
@@ -52,7 +52,7 @@ Models
 ================
 
 
-.. include:: ../markdown/models.md
+.. include:: ../../markdown/models.md
    :parser: myst_parser.sphinx_
 
 For more details on the models see their individual documentation:
