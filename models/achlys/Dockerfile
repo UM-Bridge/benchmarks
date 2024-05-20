@@ -1,8 +1,8 @@
-FROM linusseelinger/achlys-ubuntu
+FROM sdixonukaea/achlys-ubuntu:latest
 
 RUN apt update && apt install -y inotify-tools python3-pip python3-venv && \
     python3 -m venv venv && . venv/bin/activate && \
-    pip3 install umbridge && \
+    pip3 install umbridge numpy scipy pandas && \
     rm -rf /var/lib/apt/lists/*
 
 COPY server.py /server.py
