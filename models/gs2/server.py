@@ -1,10 +1,6 @@
 import umbridge
-import json
 import os
-import csv
 from pyrokinetics import Pyro
-from datetime import datetime
-from fileinput import FileInput
 
 
 
@@ -20,25 +16,26 @@ class GS2Model(umbridge.Model):
 
     def __call__(self, parameters, config):
         input_file = "fast.in" # Select input file
+        pyro = Pyro(gk_file=input_file, gk_code="GS2")
         os.system("mkdir -p restart") # GS2 needs this folder otherwise will fail
-        with FileInput(files=input_file, inplace=True) as file:
-            checkpoint = 0
-            for line in file:
-                if "&species_parameters_3" in line:
-                    checkpoint += 1
-                if "tprim" in line and checkpoint == 1:
-                    line = f"    tprim = {parameters[0][0]}"
-                if "vnewk" in line and checkpoint == 1:
-                    line = f"    vnewk = {parameters[0][1]}"
-                print(line.rstrip()) # FileInput redirects stdout to file
+        if True: # Added to make it fast! Remove for production runs!
+            pyro.gs2_input["knobs"]["nstep"] = 50
+            pyro.gs2_input["theta_grid_parameters"]["ntheta"] = 10
+            pyro.gs2_input["theta_grid_parameters"]["nperiod"] = 2
+            pyro.gs2_input["le_grids_knobs"]["ngauss"] = 5
+            pyro.gs2_input["le_grids_knobs"]["negrid"] = 2
+
+        pyro.gs2_input["species_parameters_3"]["tprim"] = float(parameters[0][0])
+        pyro.gs2_input["species_parameters_3"]["vnewk"] = float(parameters[0][1])
+        pyro.gk_input.data = pyro.gs2_input
+        pyro.gk_input.write(input_file)
         
         # Run the model 
         mpirank = config.get("ranks", 4)
         os.system(f"mpirun --allow-run-as-root -n {mpirank} /usr/gs2/bin/gs2 {input_file}") # --allow-run-as-root to suppress OMPI error, not reccomended when running outside of docker!
         
-        # Read results using Pyrokinetics package and print output
-        gs2_input = input_file
-        pyro = Pyro(gk_file=gs2_input, gk_code="GS2")
+        # Read results and print output
+        pyro = Pyro(gk_file=input_file, gk_code="GS2")
         pyro.load_gk_output()
         data = pyro.gk_output
         print(data)
