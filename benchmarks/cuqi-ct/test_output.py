@@ -132,7 +132,6 @@ BP.prior = cuqi.distribution.Gaussian(np.zeros(256**2), 0.01,
 assert output_Gaussian == pytest.approx(BP.posterior.logpdf(parameters))
 
 BP.prior = cuqi.distribution.GMRF(np.zeros(256**2), 1/(0.01),
-                                  physical_dim=2,
                                   geometry=BP.likelihood.geometry)
 assert output_GMRF == pytest.approx(BP.posterior.logpdf(parameters))
 

@@ -127,7 +127,6 @@ class CT_GMRF(CT_UM):
         super().__init__(self.__class__.__name__)
         self.prior = GMRF(np.zeros(self.dim), 
                           lambda delta: 1 / delta,
-                          physical_dim=2,
                           geometry=self.likelihood.geometry,
                           name="x")
 
