@@ -112,8 +112,8 @@ for f in $(find ../../umbridge/ -name 'README.md'); do
     NAME=`echo $f | xargs dirname | xargs basename`
     [ "$NAME" != "umbridge"  ] || continue
     cp $f docs_output/source/umbridge/$NAME.md
-    [ "$NAME" != "clients" ] || continue
-    [ "$NAME" != "servers" ] || continue
+    [ "$NAME" == "clients" ] || continue
+    [ "$NAME" == "servers" ] || continue
     # Append to toctree
     cat >> docs_output/source/umbridge/index.rst << EOF
    $NAME
