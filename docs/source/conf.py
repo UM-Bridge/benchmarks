@@ -50,8 +50,7 @@ html_sidebars = { '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 
 html_theme_options = {
     "check_switcher" : False,
     "navbar_end": ["navbar-icon-links"],
-    "pygments_style": "tango",
-    "pygments_light_style": "tango"
+    "pygment_light_style": "github-light-high-contrast"
 }
 html_context = {
    "default_mode": "light"
