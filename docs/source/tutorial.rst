@@ -23,17 +23,17 @@ Install the Python module for UM-Bridge support::
     pip install umbridge
 
 1: Interacting with an UM-Bridge model
-========================
+=============================================
 
 What is an UM-Bridge model?
-------------------------
+-------------------------------
 
 In many UQ algorithms, a model is simply a mathematical function :math:`F: \mathbb{R}^n \rightarrow \mathbb{R}^m`, which can be anything from simple arithmetic all the way to a complex numerical simulation. For example, :math:`F` might be taking the source location of a tsunami to water elevation predictions.
 
 An UM-Bridge server offers such models to clients, which may range from simple test scripts to advanced UQ packages. A client may request a model evaluation by passing an input vector :math:`\theta`, and the server will return the model outcome :math:`F(\theta)`. In addition, some models also provide derivatives of :math:`F`. Since UM-Bridge uses network communication behind the scenes, client and server are independent programs and may for example be written in different programming languages.
 
 Interacting with a model
-------------------------
+--------------------------
 
 Let us now request a model evaluation from a Python script. You can copy and run the following code:
 
@@ -57,7 +57,7 @@ Since UM-Bridge is using network communication behind the scenes, any UM-Bridge 
 * Optional: Call your model from another language of your choice!
 
 Running a model on your own system
-------------------------
+-------------------------------------
 
 Instead of connecting to a remote server, you can of course run models on your own computer. You find a minimal UM-Bridge model server written in Python at `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main/models/testmodel-python/>`_. Download this example server (by git cloning the repository, or just downloading the file itself). Launch it on your machine via::
 
@@ -68,7 +68,7 @@ This model server is now running on your own computer, waiting to be called by a
 * Interact with your local model from a client as before. Does the model seem familiar?
 
 Basic uncertainty quantification
-------------------------
+----------------------------------
 
 In addition to generic language integrations, we provide a number of UQ package integrations. They seamlessly embed UM-Bridge models in the respective UQ package. Let's try QMCPy, which implements Quasi-Monte Carlo methods for uncertainty propagation::
 
@@ -86,12 +86,12 @@ Simply put, it will draw (cleverly chosen) Quasi-Monte Carlo samples from the di
 * Optional: Write you own Monte Carlo sampler: Draw random samples :math:`\{\theta_1, \ldots, \theta_N\}` from the same distribution QMCPy is using, apply the model to each, and print out the resulting mean :math:`\frac{1}{N} \sum_{i=1}^N f(\theta_i)`. Does it match QMCPy's output?
 
 2: Running containerized simulation models
-========================
+============================================
 
 The model we have worked with so far was intentionally simple. Let's instead run a tsunami on your computer!
 
 Running a pre-defined model container
-------------------------
+--------------------------------------
 
 The UM-Bridge benchmark library provides a number of ready-to-run models and UQ benchmark problems. Have a look at the tsunami model; it is part of this documentation site.
 
@@ -111,7 +111,7 @@ Refer to the tsunami model's documentation again to see what models the model se
 * Optional: Apart from input parameters, the client may also choose different configuration options. These are model specific and listed in the respective model's documentation page. For example, the tsunami model allows you to select a finer discretization level by passing ``{"level": 1}`` as configuration. Follow the client documentation to request an evaluation from level 1 and compare to level 0. Be aware that level 2 may take very long to run on a laptop...
 
 Accessing model output files
-------------------------
+---------------------------------
 
 Some models may output files in addition to the response the client receives; this is particularly helpful for model debugging. According to its documentation, the tsunami model will write VTK output to the ``/output`` directory if we pass ``{"vtk_output": True}`` as config option.
 
@@ -141,7 +141,7 @@ The QMCPy client is already set up to solve the UQ problem defined in the beam b
 * Optional: Have a closer look at ``qmcpy-client.py``. Try and change the distribution to a different one, e.g. change the bounds of the uniform distribution or use a normal distribution with similar variance. Refer to `QMCPy's documentation <https://qmcpy.readthedocs.io/en/latest/>`_ for details.
 
 Bayesian inverse problems
-------------------------
+------------------------------
 
 All Bayesian inference benchmarks in the library provide a model named ``posterior`` that maps a model parameter to the log of a Bayesian posterior.
 The task is to find (properties of) the posterior distribution while only accessing the posterior, and thereby the model, a finite amount of times.
@@ -164,7 +164,7 @@ The example makes use of PyMC's NUTS sampler to draw samples from the posterior 
 switch PyMC to use a different sampler. Refer to `PyMC's documentation <https://www.pymc.io/>`_ for details.
 
 4: Writing your own model
-========================
+============================
 
 Take a closer look at ``minimal-server.py``. Refer to the `models section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/models.html>`_ for an explanation of how UM-Bridge models are defined in Python.
 
@@ -173,7 +173,7 @@ Take a closer look at ``minimal-server.py``. Refer to the `models section <https
 * Optional: Define your own log density, for example the log of a normal distribution. Apply PyMC to sample from it.
 
 5: Build custom model containers
-========================
+==================================
 
 The easiest way to build your own UM-Bridge model is to create a custom docker container for you model. Docker allows you to package applications, their dependencies, configuration files and/or data to run on Linux, Windows or MacOS systems. They can only communicate with each other through certain channels, we will see more on this later.
 In order to create such a docker container you write a set of instructions for building your application. This set of instructions is called a Dockerfile.
@@ -230,7 +230,7 @@ You may notice that this model builds on a base image called `mpioperator/openmp
 Comments can be added to a Dockerfile by prepending a `#` character.
 
 Writing your own Dockerfile
-------------------------
+-------------------------------
 
 In order to write your own Dockerfile let's start from the following minimal example.::
 
@@ -300,7 +300,7 @@ Docker images can take up a lot of space and add up quickly. Use `docker image p
 
 
 (Optional) Uploading to dockerhub
-------------------------
+------------------------------------
 
 Optionally you may want to upload your Dockerfile to dockerhub. This will allow you to build and run by specifying only the name, e.g. ::
 
@@ -317,7 +317,7 @@ Once you are logged in you can push your image to docker hub using::
 where my-account is your login and `my-account/my-model` is the name of the image you want to push.
 
 6: Scaling up on clusters
-========================
+===========================
 
 Cluster setup
 ------------------------
@@ -327,7 +327,7 @@ UM-Bridge provides general-purpose setups for scaling up UQ applications on clus
 The `kubernetes section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/kubernetes.html>`_ documents how to deploy the UM-Bridge kubernetes setup on a kubernetes cluster, and the `Google Kubernetes Engine seciton <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/gke.html>`_ shows how to obtain such a cluster on Google Cloud.
 
 Connecting to the cluster
-------------------------
+---------------------------
 
 In the following, we assume that a kubernetes cluster running the L2-Sea propagation benchmark is available. During workshops, we provide a cluster for participants to use.
 

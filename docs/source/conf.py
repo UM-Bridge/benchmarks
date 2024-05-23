@@ -49,11 +49,14 @@ html_theme = 'pydata_sphinx_theme'
 html_sidebars = { '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'] }
 html_theme_options = {
     "check_switcher" : False,
-    "navbar_end": ["navbar-icon-links"]
+    "navbar_end": ["navbar-icon-links"],
+    "pygments_style": "tango",
+    "pygments_light_style": "tango"
 }
 html_context = {
    "default_mode": "light"
 }
+html_logo = "logos/UM-bridge.eps"
 
 
 # Add any paths that contain custom static files (such as style sheets) here,
