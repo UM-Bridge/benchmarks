@@ -47,9 +47,9 @@ EOF
 
 cp ../models/README.md docs_output/markdown/models.md
 cat > docs_output/source/models/index.rst << EOF
-================
-Models
-================
+=================
+Benchmark models
+=================
 
 
 .. include:: ../../markdown/models.md
