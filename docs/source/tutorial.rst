@@ -13,7 +13,7 @@ Requirements
 You will need working installations of:
 
 * Python
-* Docker (available from `docker.com <https://www.docker.com/>`_)
+* Docker (available from `docker.com <https://www.docker.com/>`__)
 
 Preparation
 ------------------------
@@ -23,17 +23,17 @@ Install the Python module for UM-Bridge support::
     pip install umbridge
 
 1: Interacting with an UM-Bridge model
-========================
+=============================================
 
 What is an UM-Bridge model?
-------------------------
+-------------------------------
 
 In many UQ algorithms, a model is simply a mathematical function :math:`F: \mathbb{R}^n \rightarrow \mathbb{R}^m`, which can be anything from simple arithmetic all the way to a complex numerical simulation. For example, :math:`F` might be taking the source location of a tsunami to water elevation predictions.
 
 An UM-Bridge server offers such models to clients, which may range from simple test scripts to advanced UQ packages. A client may request a model evaluation by passing an input vector :math:`\theta`, and the server will return the model outcome :math:`F(\theta)`. In addition, some models also provide derivatives of :math:`F`. Since UM-Bridge uses network communication behind the scenes, client and server are independent programs and may for example be written in different programming languages.
 
 Interacting with a model
-------------------------
+--------------------------
 
 Let us now request a model evaluation from a Python script. You can copy and run the following code:
 
@@ -46,20 +46,20 @@ Let us now request a model evaluation from a Python script. You can copy and run
 Here we point UM-Bridge to a model named ``forward`` running on a remote server by giving the server's address. We then pass the parameter ``[[11.0]]`` to the model, and receive an output. Behind the scenes, UM-Bridge will send that parameter to the server and receive its reply.
 
 * Try passing in a few other values and guess what operation the server performs!
-* Following the example in the `clients section of the documentation <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html>`_, try and retrieve the model's input dimensions via ``get_input_sizes()``.
+* Following the example in the `clients section of the documentation <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html>`__, try and retrieve the model's input dimensions via ``get_input_sizes()``.
 * Optional: Check what features it supports via ``supports_evaluate()``, ``supports_apply_jacobian()``, ``supports_gradient()`` or ``supports_apply_hessian()``.
 
 Going multilingual
 ------------------------
 
-Since UM-Bridge is using network communication behind the scenes, any UM-Bridge client can connect to any model - regardless of language, dependencies etc.! The syntax is largely the same for any supported language. You find examples in the `clients section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html>`_.
+Since UM-Bridge is using network communication behind the scenes, any UM-Bridge client can connect to any model - regardless of language, dependencies etc.! The syntax is largely the same for any supported language. You find examples in the `clients section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html>`__.
 
 * Optional: Call your model from another language of your choice!
 
 Running a model on your own system
-------------------------
+-------------------------------------
 
-Instead of connecting to a remote server, you can of course run models on your own computer. You find a minimal UM-Bridge model server written in Python at `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main/models/testmodel-python/>`_. Download this example server (by git cloning the repository, or just downloading the file itself). Launch it on your machine via::
+Instead of connecting to a remote server, you can of course run models on your own computer. You find a minimal UM-Bridge model server written in Python at `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main/models/testmodel-python/>`__. Download this example server (by git cloning the repository, or just downloading the file itself). Launch it on your machine via::
 
     python minimal-server.py
 
@@ -68,13 +68,13 @@ This model server is now running on your own computer, waiting to be called by a
 * Interact with your local model from a client as before. Does the model seem familiar?
 
 Basic uncertainty quantification
-------------------------
+----------------------------------
 
 In addition to generic language integrations, we provide a number of UQ package integrations. They seamlessly embed UM-Bridge models in the respective UQ package. Let's try QMCPy, which implements Quasi-Monte Carlo methods for uncertainty propagation::
 
     pip install qmcpy
 
-Run the QMCPy example client from the `UM-Bridge repository <https://www.github.com/UM-Bridge/umbridge/tree/main/clients/python/>`_::
+Run the QMCPy example client from the `UM-Bridge repository <https://www.github.com/UM-Bridge/umbridge/tree/main/clients/python/>`__::
 
     python qmcpy-client.py http://localhost:4242
 
@@ -86,12 +86,12 @@ Simply put, it will draw (cleverly chosen) Quasi-Monte Carlo samples from the di
 * Optional: Write you own Monte Carlo sampler: Draw random samples :math:`\{\theta_1, \ldots, \theta_N\}` from the same distribution QMCPy is using, apply the model to each, and print out the resulting mean :math:`\frac{1}{N} \sum_{i=1}^N f(\theta_i)`. Does it match QMCPy's output?
 
 2: Running containerized simulation models
-========================
+============================================
 
 The model we have worked with so far was intentionally simple. Let's instead run a tsunami on your computer!
 
 Running a pre-defined model container
-------------------------
+--------------------------------------
 
 The UM-Bridge benchmark library provides a number of ready-to-run models and UQ benchmark problems. Have a look at the tsunami model; it is part of this documentation site.
 
@@ -111,7 +111,7 @@ Refer to the tsunami model's documentation again to see what models the model se
 * Optional: Apart from input parameters, the client may also choose different configuration options. These are model specific and listed in the respective model's documentation page. For example, the tsunami model allows you to select a finer discretization level by passing ``{"level": 1}`` as configuration. Follow the client documentation to request an evaluation from level 1 and compare to level 0. Be aware that level 2 may take very long to run on a laptop...
 
 Accessing model output files
-------------------------
+---------------------------------
 
 Some models may output files in addition to the response the client receives; this is particularly helpful for model debugging. According to its documentation, the tsunami model will write VTK output to the ``/output`` directory if we pass ``{"vtk_output": True}`` as config option.
 
@@ -129,7 +129,7 @@ Uncertainty propagation
 
 We have already looked at uncertainty propagation in passing. Propagation benchmark problems are essentially equivalent to forward models; however, their documentation specifies a distribution of input parameters, and the goal is to determine (properties of) the resulting distribution of model outputs.
 
-For example, the already mentioned Euler-Bernoulli beam propagation benchmark `documented here <https://um-bridge-benchmarks.readthedocs.io/en/docs/forward-benchmarks/muq-beam-propagation.html>`_ defines a uniform distribution in three dimesions to sample from. Start the model server now::
+For example, the already mentioned Euler-Bernoulli beam propagation benchmark `documented here <https://um-bridge-benchmarks.readthedocs.io/en/docs/forward-benchmarks/muq-beam-propagation.html>`__ defines a uniform distribution in three dimesions to sample from. Start the model server now::
 
     docker run -it -p 4243:4243 linusseelinger/benchmark-muq-beam-propagation:latest
 
@@ -141,7 +141,7 @@ The QMCPy client is already set up to solve the UQ problem defined in the beam b
 * Optional: Have a closer look at ``qmcpy-client.py``. Try and change the distribution to a different one, e.g. change the bounds of the uniform distribution or use a normal distribution with similar variance. Refer to `QMCPy's documentation <https://qmcpy.readthedocs.io/en/latest/>`_ for details.
 
 Bayesian inverse problems
-------------------------
+------------------------------
 
 All Bayesian inference benchmarks in the library provide a model named ``posterior`` that maps a model parameter to the log of a Bayesian posterior.
 The task is to find (properties of) the posterior distribution while only accessing the posterior, and thereby the model, a finite amount of times.
@@ -164,16 +164,16 @@ The example makes use of PyMC's NUTS sampler to draw samples from the posterior 
 switch PyMC to use a different sampler. Refer to `PyMC's documentation <https://www.pymc.io/>`_ for details.
 
 4: Writing your own model
-========================
+============================
 
-Take a closer look at ``minimal-server.py``. Refer to the `models section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/models.html>`_ for an explanation of how UM-Bridge models are defined in Python.
+Take a closer look at ``minimal-server.py``. Refer to the `models section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/models.html>`__ for an explanation of how UM-Bridge models are defined in Python.
 
 * Change the model to :math:`F(x) = 4x`. Restart ``minimal-server.py`` and apply your own client or QMCPy as before. Does the output match your expectation?
 * Optional: Replace the multiplication by a more interesting operation, or change the model to have a different input or output dimension.
 * Optional: Define your own log density, for example the log of a normal distribution. Apply PyMC to sample from it.
 
 5: Build custom model containers
-========================
+==================================
 
 The easiest way to build your own UM-Bridge model is to create a custom docker container for you model. Docker allows you to package applications, their dependencies, configuration files and/or data to run on Linux, Windows or MacOS systems. They can only communicate with each other through certain channels, we will see more on this later.
 In order to create such a docker container you write a set of instructions for building your application. This set of instructions is called a Dockerfile.
@@ -182,7 +182,7 @@ Dockerfile structure
 ------------------------
 Writing a Dockerfile is very similar to writing a bash script to build your application. The main advantage is that the Dockerfile will be operating system independant. The main difference is that docker uses certain keywords at the start of each line to denote what type of command you are using.
 
-Before writing our own Dockerfile let's have a look at the Dockerfiles for the two applications we have used in previous steps of the tutorial. The beam propagation benchmark does not have a lot of dependencies. It's Dockerfile can be found `here <https://github.com/UM-Bridge/benchmarks/tree/main/models/muq-beam>`_ .
+Before writing our own Dockerfile let's have a look at the Dockerfiles for the two applications we have used in previous steps of the tutorial. The beam propagation benchmark does not have a lot of dependencies. It's Dockerfile can be found `here <https://github.com/UM-Bridge/benchmarks/tree/main/models/muq-beam>`__ .
 
 In addition to the Dockerfile itself the folder contains python files for the applicaton (BeamModel.py and GenerateObservations.py), additional data (ProblemDefinition.h5) and a README. 
 We are mainly interested in the Dockerfile itself so let's open it and walk through the components one by one.
@@ -223,14 +223,14 @@ Finally, we run the actual model with::
     
 The CMD keyword is also used to execute commands, however, it differs from RUN in that the command is run once container is live. The setup and installation of your application should take place when building the container (use RUN) and the actual model runs should take place once the container is running (use CMD or call this from the umbridge server).
 
-You can also have a look at the Dockerfile for the ExaHyPE tsunami model, which you can find here: `here <https://github.com/UM-Bridge/benchmarks/tree/main/models/exahype-tsunami>`_. This application has more dependencies, and as such a considerably longer Dockerfile, but follows the same steps to install those dependencies one by one. In addition to the keywords described above, this Dockerfile sets environment variables by the `ENV` keyword.
+You can also have a look at the Dockerfile for the ExaHyPE tsunami model, which you can find here: `here <https://github.com/UM-Bridge/benchmarks/tree/main/models/exahype-tsunami>`__. This application has more dependencies, and as such a considerably longer Dockerfile, but follows the same steps to install those dependencies one by one. In addition to the keywords described above, this Dockerfile sets environment variables by the `ENV` keyword.
 
-You may notice that this model builds on a base image called `mpioperator/openmpi-builder`. This base image allows you to run MPI commands across docker containers. You can find additional information on this base image `here <https://github.com/kubeflow/mpi-operator>`_.
+You may notice that this model builds on a base image called `mpioperator/openmpi-builder`. This base image allows you to run MPI commands across docker containers. You can find additional information on this base image `here <https://github.com/kubeflow/mpi-operator>`__.
 
 Comments can be added to a Dockerfile by prepending a `#` character.
 
 Writing your own Dockerfile
-------------------------
+-------------------------------
 
 In order to write your own Dockerfile let's start from the following minimal example.::
 
@@ -300,13 +300,13 @@ Docker images can take up a lot of space and add up quickly. Use `docker image p
 
 
 (Optional) Uploading to dockerhub
-------------------------
+------------------------------------
 
 Optionally you may want to upload your Dockerfile to dockerhub. This will allow you to build and run by specifying only the name, e.g. ::
 
     linusseelinger/benchmark-muq-beam-propagation:latest
 
-To push to dockerhub you first need an account. You can set one up at `dockerhub <https://hub.docker.com>`_. Then you can log in on the command line by running::
+To push to dockerhub you first need an account. You can set one up at `dockerhub <https://hub.docker.com>`__. Then you can log in on the command line by running:
 
     docker login
     
@@ -317,17 +317,17 @@ Once you are logged in you can push your image to docker hub using::
 where my-account is your login and `my-account/my-model` is the name of the image you want to push.
 
 6: Scaling up on clusters
-========================
+===========================
 
 Cluster setup
 ------------------------
 
 UM-Bridge provides general-purpose setups for scaling up UQ applications on clusters, supporting both cloud and supercomputers. They launch a (potentially very large) number of instances of an arbitrary UM-Bridge model on the cluster, and include a load balancer that distributes incoming evaluation requests across the instances. Any UM-Bridge client may then connect to the cluster just like to a local model. However, a client may now make multiple concurrent requests! For example, a thread parallel UQ code running on a laptop can offload costly model evaluations to a cluster of thousands of processor cores.
 
-The `kubernetes section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/kubernetes.html>`_ documents how to deploy the UM-Bridge kubernetes setup on a kubernetes cluster, and the `Google Kubernetes Engine seciton <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/gke.html>`_ shows how to obtain such a cluster on Google Cloud.
+The `kubernetes section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/kubernetes.html>`__ documents how to deploy the UM-Bridge kubernetes setup on a kubernetes cluster, and the `Google Kubernetes Engine section <https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/gke.html>`__ shows how to obtain such a cluster on Google Cloud.
 
 Connecting to the cluster
-------------------------
+---------------------------
 
 In the following, we assume that a kubernetes cluster running the L2-Sea propagation benchmark is available. During workshops, we provide a cluster for participants to use.
 
@@ -341,7 +341,7 @@ Parallelized UQ
 
 QMCPy supports thread parallelism, and is therefore - by itself - limited to a single machine. However, we can easily apply QMCPy to an UM-Bridge model running on a remote cluster.
 
-You find a QMCPy client set up for the L2-Sea model at `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main/tutorial>`_. It is set to a suitable distribution to sample from and it wraps the model, fixing the last 14 parameters to zero (we don't need ship design parameters here, and only vary Froude number and draft).
+You find a QMCPy client set up for the L2-Sea model at `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main/tutorial>`__. It is set to a suitable distribution to sample from and it wraps the model, fixing the last 14 parameters to zero (we don't need ship design parameters here, and only vary Froude number and draft).
 
 Modify the client to run in parallel: The ``UMBridgeWrapper`` takes an argument ``parallel``. Set it to an appropriate number, e.g. ``parallel=10``.
 

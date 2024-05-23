@@ -1,9 +1,9 @@
-================
+=================
 Quickstart Guide
-================
+=================
 
 Installation
-==============
+===============
 
 .. image:: logos/UQ-Model-UM.png
    :width: 400
@@ -16,7 +16,7 @@ The benchmarks do not need to be installed. Each model and benchmark in this lib
 Running such a container requires Docker (available for all major operating systems at `www.docker.com <https://www.docker.com>`_).
 
 Running a first model
-========================
+===========================
 
 We begin by starting the tsunami model from the benchmark library. To make it more interesting, we also mount the output directory specified in the model's documentation to a folder in our home directory. This will allow us later to conveniently access output files from the model::
 
@@ -25,7 +25,7 @@ We begin by starting the tsunami model from the benchmark library. To make it mo
 Now the model is running, ready to be called by a client.
 
 Calling the model from Python
-========================
+==================================
 
 One way to access the model is from Python. First install UM-Bridge support in Python via pip::
 
