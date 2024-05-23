@@ -11,7 +11,6 @@ mkdir docs_output/source/models
 mkdir docs_output/source/umbridge
 cp ../README.md docs_output/markdown/main.md
 cp ../.readthedocs.yaml docs_output
-cp -r _static/ docs_output/
 
 # Create index files
 cp ../benchmarks/README.md docs_output/markdown/forward-benchmarks.md
