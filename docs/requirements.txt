@@ -1,2 +1,2 @@
 myst-parser
-cloud_sptheme
+pydata-sphinx-theme
