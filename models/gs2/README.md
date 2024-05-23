@@ -42,7 +42,7 @@ None |
 
 ## Source code
 
-[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/gs2/models/gs2)
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/models/gs2)
 
 ## Description
 GS2 is developed to study low frequency turbulence in magnetised plasma. In this benchmark, it solves the gyrokinetic Vlasov-Maxwell system of equations that are widely adopted to describe the turbulent component of the electromagnetic fields and particle distribution functions of the species present in a plasma. The problem is five-dimensional and takes the form 
