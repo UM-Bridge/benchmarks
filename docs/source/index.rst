@@ -22,7 +22,7 @@ Documentation
 
 .. toctree::
    :glob:
-   :maxdepth: 1
+   :maxdepth: 2
    
    /umbridge/index
 
