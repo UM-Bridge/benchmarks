@@ -65,10 +65,8 @@ EOF
 cat > docs_output/source/umbridge/index.rst << EOF
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
-   clients
-   servers
 EOF
 
 # Loop over all forward benchmarks
