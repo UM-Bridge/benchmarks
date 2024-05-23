@@ -49,7 +49,6 @@ html_theme = 'pydata_sphinx_theme'
 html_sidebars = { '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'] }
 html_theme_options = {
     "check_switcher" : False,
-    "navbar_end": ["navbar-icon-links"],
     "pygment_light_style": "github-light-high-contrast"
 }
 html_context = {

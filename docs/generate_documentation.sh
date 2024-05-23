@@ -104,6 +104,21 @@ for f in $(find ../models/ -name 'README.md'); do
 EOF
 done
 
+
+cat > docs_output/source/umbridge/index.rst << EOF
+
+=============================
+Documentation
+=============================
+
+Gathers documentation on setting up UM-Bridge models, clients and running using HPC systems or cloud platforms.
+
+.. toctree::
+   :maxdepth: 3
+
+EOF
+
+
 # Loop over UM-Bridge Documentation
 cp ../../umbridge/CONTRIBUTING.md docs_output/source/umbridge/contributing.md
 for f in $(find ../../umbridge/ -name 'README.md'); do
