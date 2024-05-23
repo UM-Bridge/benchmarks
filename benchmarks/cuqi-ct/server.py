@@ -44,16 +44,21 @@ class CT_UM(umbridge.Model):
 
         Amat = dx*Amat
 
+        # Create Image2D geometries of image and sinogram spaces
+        dg = Image2D(( N,N))
+        rg = Image2D((nv,N))
+
+        # Define forward and adjoint operators (working on images)
+        def forward(x):
+            y = Amat @ x.ravel()
+            return y.reshape((nv, N))
+
+        def adjoint(y):
+            x = Amat.T @ y.ravel()
+            return x.reshape((N, N))
+
         # Create the CUQIpy linear model
-        A = LinearModel(Amat)
-
-        # Create the visual_only Image2D geometries of image and sinogram spaces
-        dg = Image2D(( N,N), visual_only=True)
-        rg = Image2D((nv,N), visual_only=True)
-
-        # Equip linear operator with geometries
-        A.domain_geometry = dg
-        A.range_geometry = rg
+        A = LinearModel(forward=forward, adjoint=adjoint, range_geometry=rg, domain_geometry=dg)
 
         # Create the CUQI data structure from vectorized image and geometry
         imC = CUQIarray(data["exact"], geometry=dg)
@@ -127,7 +132,6 @@ class CT_GMRF(CT_UM):
         super().__init__(self.__class__.__name__)
         self.prior = GMRF(np.zeros(self.dim), 
                           lambda delta: 1 / delta,
-                          physical_dim=2,
                           geometry=self.likelihood.geometry,
                           name="x")
 

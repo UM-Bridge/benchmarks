@@ -41,12 +41,21 @@ dx = width/N
 
 Amat = dx*Amat
 
-# Create the CUQIpy linear model
-A = LinearModel(Amat)
+# Create Image2D geometries of image and sinogram spaces
+dg = Image2D(( N,N))
+rg = Image2D((nv,N))
 
-# Create the visual_only Image2D geometries of image and sinogram spaces
-dg = Image2D(( N,N), visual_only=True)
-rg = Image2D((nv,N), visual_only=True)
+# Define forward and adjoint operators (working on images)
+def forward(x):
+    y = Amat @ x.ravel()
+    return y.reshape((nv, N))
+
+def adjoint(y):
+    x = Amat.T @ y.ravel()
+    return x.reshape((N, N))
+
+# Create the CUQIpy linear model
+A = LinearModel(forward=forward, adjoint=adjoint, range_geometry=rg, domain_geometry=dg)
 
 # Equip linear operator with geometries
 A.domain_geometry = dg
@@ -132,7 +141,6 @@ BP.prior = cuqi.distribution.Gaussian(np.zeros(256**2), 0.01,
 assert output_Gaussian == pytest.approx(BP.posterior.logpdf(parameters))
 
 BP.prior = cuqi.distribution.GMRF(np.zeros(256**2), 1/(0.01),
-                                  physical_dim=2,
                                   geometry=BP.likelihood.geometry)
 assert output_GMRF == pytest.approx(BP.posterior.logpdf(parameters))
 
