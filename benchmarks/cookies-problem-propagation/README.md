@@ -2,7 +2,7 @@
 
 ## Overview
 
-This benchmark runs a forward uncertainty quantification problem for the [cookies model](https://github.com/UM-Bridge/benchmarks/tree/main/models/cookies-problem/README.md) using the [Sparse Grids Matlab Kit]((https://github.com/lorenzo-tamellini/sparse-grids-matlab-kit)) interface to UM-Bridge. See below for full description.
+This benchmark runs a forward uncertainty quantification problem for the [cookies model](https://github.com/UM-Bridge/benchmarks/tree/main/models/cookies-problem/README.md) using the [Sparse Grids Matlab Kit](https://github.com/lorenzo-tamellini/sparse-grids-matlab-kit) interface to UM-Bridge. See below for full description.
 
 ## Authors
 - [Massimiliano Martinelli](mailto:martinelli@imati.cnr.it)
