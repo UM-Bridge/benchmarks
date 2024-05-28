@@ -62,6 +62,7 @@ html_context = {
    "default_mode": "light"
 }
 html_logo = "logos/UM-bridge.eps"
+html_show_sourcelink = False
 
 
 # Add any paths that contain custom static files (such as style sheets) here,
