@@ -11,7 +11,7 @@ Getting started
 
 .. toctree::
    :glob:
-   :maxdepth: 2
+   :maxdepth: 1
    
    /quickstart
    /tutorial
