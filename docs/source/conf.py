@@ -48,8 +48,6 @@ exclude_patterns = []
 html_theme = 'pydata_sphinx_theme'
 html_sidebars = { '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'] }
 html_theme_options = {
-    "check_switcher" : False,
-    "pygment_light_style": "github-light-high-contrast",
     "icon_links": [
       {
         "name": "GitHub",
@@ -62,6 +60,7 @@ html_context = {
    "default_mode": "light"
 }
 html_logo = "logos/UM-bridge.eps"
+html_show_sourcelink = False
 
 
 # Add any paths that contain custom static files (such as style sheets) here,
