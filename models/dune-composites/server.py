@@ -28,7 +28,7 @@ class DuneCompModel(umbridge.Model):
 
         self.write_coeffs_to_file("RandomFieldCoefficient/coeffs.txt", parameters)
 
-        os.system(f"mpirun --allow-run-as-root -np {mpiranks} ./ExampleScaling -stackingSequence {stackSeq} >> output.txt")
+        os.system(f"mpirun --allow-run-as-root --oversubscribe -np {mpiranks} ./ExampleScaling -stackingSequence {stackSeq} >> output.txt")
         
         with open("output.txt", 'r') as file:
             output_str = file.read()
