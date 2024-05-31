@@ -9,19 +9,17 @@ class DuneCompModel(umbridge.Model):
         super().__init__("forward")
 
     def get_input_sizes(self, config):
-        return [360000]
+        return [346]
 
     def get_output_sizes(self, config):
         return [1]
 
     # Input consists of KL expansion of a wrinkle
     def write_coeffs_to_file(self,filename, data):
-        row_size = 360
         with open(filename, 'w') as file:
-            for i in range(0, len(data), row_size):
-                row = data[i:i + row_size]
-                row_str = ', '.join(f'{num:.6e}' for num in row)
-                file.write(row_str + ';\n')
+            row = data[0]
+            row_str = ', '.join(f'{num:.6e}' for num in row)
+            file.write(row_str + ';')
 
     def __call__(self, parameters, config):
 
