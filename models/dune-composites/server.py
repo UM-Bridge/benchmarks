@@ -41,5 +41,7 @@ class DuneCompModel(umbridge.Model):
     def supports_evaluate(self):
         return True
 
-model = DuneCompModel()
+
+if __name__ == "__main__":
+    umbridge.serve_models([DuneCompModel()], 4242)  
 
