@@ -22,7 +22,7 @@ Model | Description
 ---|---
 benchmark_UQ | l2-sea
 
-### forward
+### benchmark_UQ
 Mapping | Dimensions | Description
 ---|---|---
 input | [2] | The first input is the Froude number (from 0.25 to 0.41); the second is the draft (from -6.776 to -5.544)\\.
