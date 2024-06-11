@@ -63,7 +63,7 @@ class L2Sea_benchmarkUQ(umbridge.Model):
         return [2]
 
     def get_output_sizes(self, config):
-        return [5]
+        return [1]
 
     def __call__(self, parameters, config):
         # Write first (and only) parameter vector to file
@@ -92,7 +92,7 @@ class L2Sea_benchmarkUQ(umbridge.Model):
         print(config)
         return_value = os.system('cd /NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415; mv SBDF.aux SBDF.nml; ../../bin/L2-Sea')
         if return_value != 0:
-            return [[0,0,0,0,0]]
+            return [[0]]
 
 
         # Read second line of output file, split and return last 5 elements as output
@@ -102,7 +102,7 @@ class L2Sea_benchmarkUQ(umbridge.Model):
             line_split = line.split()[-5:] # Split and keep last 5 elements
             model_output = [float(i) for i in line_split] # Convert to float
 
-            return [model_output]
+            return [[model_output[0]]]
 
     def supports_evaluate(self):
         return True
