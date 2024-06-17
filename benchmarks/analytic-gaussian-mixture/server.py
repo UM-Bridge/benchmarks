@@ -23,14 +23,14 @@ class GaussianMixture(umbridge.Model):
 
         if dens1 + dens2 + dens3 == 0: # log(0) not defined, so return minimal float value
             return [[ sys.float_info.min ]]
-        return [[ np.log(dens1 + dens2 + dens3) ]]
+        return [[ float(np.log(dens1 + dens2 + dens3)) ]]
 
     def supports_evaluate(self):
         return True
 
     def gradient(self, out_wrt, in_wrt, parameters, sens, config):
-        return [self.apply_jacobian(out_wrt, in_wrt, parameters, [sens[0], 0], config)[0],
-                self.apply_jacobian(out_wrt, in_wrt, parameters, [0, sens[0]], config)[0]]
+        return [float(self.apply_jacobian(out_wrt, in_wrt, parameters, [sens[0], 0], config)[0]),
+                float(self.apply_jacobian(out_wrt, in_wrt, parameters, [0, sens[0]], config)[0])]
 
     def supports_gradient(self):
         return True
@@ -43,14 +43,14 @@ class GaussianMixture(umbridge.Model):
         if dens1 + dens2 + dens3 == 0: # Return zero in log(0) case above
             return [0]
 
-        return [- vec[0] / (dens1 + dens2 + dens3)
+        return [float(- vec[0] / (dens1 + dens2 + dens3)
                          * (dens1 * (parameters[0][0] - -1.5) / 0.8
                          + dens2 * (parameters[0][0] - 1.5) / 0.8
                          + dens3 * (parameters[0][0] - -2) / 0.5)
                 - vec[1] / (dens1 + dens2 + dens3)
                          * (dens1 * (parameters[0][1] - -1.5) / 0.8
                          + dens2 * (parameters[0][1] - 1.5) / 0.8
-                         + dens3 * (parameters[0][1] - 2) / 0.5)
+                         + dens3 * (parameters[0][1] - 2) / 0.5))
               ]
 
     def supports_apply_jacobian(self):

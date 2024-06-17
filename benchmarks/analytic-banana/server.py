@@ -25,7 +25,7 @@ class Banana(umbridge.Model):
         y = [(parameters[0][0] / a),
              (parameters[0][1] * a + a * b * (parameters[0][0]**2 + a**2))]
 
-        return [[multivariate_normal.logpdf(y, [0, 4], [[1.0*scale, 0.5*scale], [0.5*scale, 1.0*scale]])]]
+        return [[float(multivariate_normal.logpdf(y, [0, 4], [[1.0*scale, 0.5*scale], [0.5*scale, 1.0*scale]]))]]
 
     def supports_evaluate(self):
         return True
