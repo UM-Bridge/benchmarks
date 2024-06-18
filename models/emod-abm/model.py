@@ -97,7 +97,7 @@ class EMODForwardModel(umbridge.Model):
         # remove extra files
         self._cleanup()
 
-        return [[{c:inset_chart['Channels'][c] for c in ['New Infections', 'Infected', 'Infectious Population', 'Susceptible Population', 'Symptomatic Population', 'Recovered Population', 'Exposed Population']}]]
+        return [[{float(c:inset_chart['Channels'][c]) for c in ['New Infections', 'Infected', 'Infectious Population', 'Susceptible Population', 'Symptomatic Population', 'Recovered Population', 'Exposed Population']}]]
 
     def supports_evaluate(self):
         return True    
