@@ -42,7 +42,7 @@ class EMODBenchmarkModel(umbridge.Model):
 
         posterior = scipy.stats.multivariate_normal.logpdf(model_output, data, likelihood_cov_matrix_diag)
 
-        return [[posterior]]
+        return [[float(posterior)]]
 
     def supports_evaluate(self):
         return True    
