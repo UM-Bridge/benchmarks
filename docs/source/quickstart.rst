@@ -22,6 +22,8 @@ We begin by starting the tsunami model from the benchmark library. To make it mo
 
     docker run -it -p 4242:4242 -v ~/tsunami_output:/output linusseelinger/model-exahype-tsunami
 
+Replace the image name with ``model-exahype-tsunami-arm`` if you use an Arm-based machine.
+
 Now the model is running, ready to be called by a client.
 
 Calling the model from Python
