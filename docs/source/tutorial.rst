@@ -99,7 +99,7 @@ Setting up that simulation code on your system could easily take a day or two. T
 
 As the tsunami model's documentation indicates, it is enough to run the following command to download and run its Docker image::
 
-    docker run -it -p 4242:4242 linusseelinger/model-exahype-tsunami
+    docker run -it -p 4242:4242 linusseelinger/model-exahype-tsunami # use model-exahype-tsunami-arm instead if you have an Arm machine
 
 The model server is now up and running inside a container, waiting to be called by any UM-Bridge client. You can stop it by pressing Ctrl + C in its terminal.
 
@@ -117,7 +117,7 @@ Some models may output files in addition to the response the client receives; th
 
 When launching the model, you can map this directory inside the container to ``~/tsunami_output`` on your machine::
 
-    docker run -it -p 4242:4242 -v ~/tsunami_output:/output linusseelinger/model-exahype-tsunami
+    docker run -it -p 4242:4242 -v ~/tsunami_output:/output linusseelinger/model-exahype-tsunami # model-exahype-tsunami-arm for Arm machines
 
 * Optional: Request a model evaluation and pass ``{"vtk_output": True}`` as config. Then view the output files in your home directory under ``~/tsunami_output`` using ParaView or any other VTK visualization tool.
 
