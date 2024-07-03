@@ -1,7 +1,7 @@
 FROM ubuntu:mantic
 
 RUN apt update
-RUN DEBIAN_FRONTEND=noninteractive apt install -y bash python3-pip pbzip2 wget clang-17 git cmake curl zip pkg-config gfortran lld libomp5-17 libomp-17-dev
+RUN DEBIAN_FRONTEND=noninteractive apt install -y autoconf automake autoconf-archive bash python3-pip pbzip2 wget clang-17 git cmake curl zip pkg-config gfortran lld libomp5-17 libomp-17-dev
 RUN pip3 install --break-system-packages umbridge
 
 
@@ -16,9 +16,10 @@ RUN git clone https://gitlab.com/max.martinelli/igatools.git && \
   cd igatools && \
   git submodule init && \
   git submodule update && \
-  git checkout 576316cfcec2be3212cba7a95f2b2df60a3f64c2 && \
+  git checkout fc6135ca63ed9062eefedfec5fda19eb3e3f4769 && \
   cd vcpkg && ./bootstrap-vcpkg.sh
 
+#  git checkout 576316cfcec2be3212cba7a95f2b2df60a3f64c2 && \
 #  git checkout a335daa3bf480cb6e57e2ea8522e3817e841a66d && \
 
 

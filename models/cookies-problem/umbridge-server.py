@@ -25,7 +25,7 @@ class TestModel(umbridge.Model):
         os.system('. /opt/intel/oneapi/setvars.sh && export IGATOOLS_NUM_THREADS=' + num_threads + ' && /build_igatools/tests/models/poisson_lorenzo/poisson_lorenzo.release ' + arguments)
 
         # Read second line of output file
-        with open('/poisson_lorenzo_results.dat', 'r') as f:
+        with open('/poisson_results.dat', 'r') as f:
             line = f.readline() # Read first line
 
         return [[float(line)]]
@@ -61,7 +61,7 @@ class TestBenchmark(umbridge.Model):
         os.system('. /opt/intel/oneapi/setvars.sh && export IGATOOLS_NUM_THREADS=' + num_threads + ' && /build_igatools/tests/models/poisson_lorenzo/poisson_lorenzo.release ' + arguments)
 
         # Read second line of output file
-        with open('/poisson_lorenzo_results.dat', 'r') as f:
+        with open('/poisson_results.dat', 'r') as f:
             line = f.readline() # Read first line
 
         return [[float(line)]]
