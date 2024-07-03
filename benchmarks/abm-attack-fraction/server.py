@@ -36,13 +36,13 @@ class EMODBenchmarkModel(umbridge.Model):
             return [[-1e60]]
 
         # likelihood definition
-        data = [0.4]
-        likelihood_std_dev = [0.025]
-        likelihood_cov_matrix_diag = [likelihood_std_dev[0]**2]
+        data = [0.4, 175]
+        likelihood_std_dev = [0.05, 10]
+        likelihood_cov_matrix_diag = [likelihood_std_dev[0]**2, likelihood_std_dev[1]**2]
 
         posterior = scipy.stats.multivariate_normal.logpdf(model_output, data, likelihood_cov_matrix_diag)
 
-        return [[posterior]]
+        return [[float(posterior)]]
 
     def supports_evaluate(self):
         return True    

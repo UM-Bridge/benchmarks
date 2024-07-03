@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 set -eu -o pipefail
 
 mkdir docs_output
@@ -10,11 +10,16 @@ mkdir docs_output/source/inverse-benchmarks
 mkdir docs_output/source/models
 mkdir docs_output/source/umbridge
 cp ../README.md docs_output/markdown/main.md
+cp ../.readthedocs.yaml docs_output
 
 # Create index files
 cp ../benchmarks/README.md docs_output/markdown/forward-benchmarks.md
 cat > docs_output/source/forward-benchmarks/index.rst << EOF
-.. include:: ../markdown/forward-benchmarks.md
+==========================
+Propagation benchmarks
+==========================
+
+.. include:: ../../markdown/forward-benchmarks.md
    :parser: myst_parser.sphinx_
 
 For more details on the benchmarks see their individual documentation:
@@ -26,7 +31,11 @@ EOF
 
 cp ../benchmarks/README.md docs_output/markdown/inverse-benchmarks.md
 cat > docs_output/source/inverse-benchmarks/index.rst << EOF
-.. include:: ../markdown/inverse-benchmarks.md
+=======================
+Inverse benchmarks
+=======================
+
+.. include:: ../../markdown/inverse-benchmarks.md
    :parser: myst_parser.sphinx_
 
 For more details on the benchmarks see their individual documentation:
@@ -38,7 +47,12 @@ EOF
 
 cp ../models/README.md docs_output/markdown/models.md
 cat > docs_output/source/models/index.rst << EOF
-.. include:: ../markdown/models.md
+=================
+Benchmark models
+=================
+
+
+.. include:: ../../markdown/models.md
    :parser: myst_parser.sphinx_
 
 For more details on the models see their individual documentation:
@@ -51,10 +65,8 @@ EOF
 cat > docs_output/source/umbridge/index.rst << EOF
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
-   clients
-   servers
 EOF
 
 # Loop over all forward benchmarks
@@ -92,14 +104,27 @@ for f in $(find ../models/ -name 'README.md'); do
 EOF
 done
 
+
+cat > docs_output/source/umbridge/index.rst << EOF
+
+=============================
+Documentation
+=============================
+
+Gathers documentation on setting up UM-Bridge models, clients and running using HPC systems or cloud platforms.
+
+.. toctree::
+   :maxdepth: 3
+
+EOF
+
+
 # Loop over UM-Bridge Documentation
-# TODO build class documentation
 cp ../../umbridge/CONTRIBUTING.md docs_output/source/umbridge/contributing.md
 for f in $(find ../../umbridge/ -name 'README.md'); do
     NAME=`echo $f | xargs dirname | xargs basename`
     [ "$NAME" != "umbridge"  ] || continue
     cp $f docs_output/source/umbridge/$NAME.md
-    [ "$NAME" != "clients" ] || continue
     [ "$NAME" != "servers" ] || continue
     # Append to toctree
     cat >> docs_output/source/umbridge/index.rst << EOF

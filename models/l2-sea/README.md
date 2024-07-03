@@ -1,7 +1,7 @@
 # L2-Sea model
 
 ## Overview
-The model provides the calm-water total resistance of a destroyer-type vessel as a function of the advancing speed (Froude number) and up to 14 design variables for the shape modification. The parent vessel under investigation is the DTMB 5415, an hull-form widley used for towing tank experiments, computational fluid dynamics studies, and shape optimization. The model is available as an open-source fortran code for the solution of potential flow equations at [CNR-INM, MAO Research Group repository](https://github.com/MAORG-CNR-INM/NATO-AVT-331-L2-Sea-Benchmark).
+The model provides the calm-water total resistance of a destroyer-type vessel as a function of the advancing speed (Froude number), the nominal draft, and up to 14 design variables for the shape modification. The parent vessel under investigation is the DTMB 5415, an hull-form widley used for towing tank experiments, computational fluid dynamics studies, and shape optimization. The model is available as an open-source fortran code for the solution of potential flow equations at [CNR-INM, MAO Research Group repository](https://github.com/MAORG-CNR-INM/NATO-AVT-331-L2-Sea-Benchmark).
 
 ![L2-Sea-Model](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/l2-sea/l2sea_example.png "DTMB 5415 view of the wave elevation pattern and pressure field on the hull surface")
 
@@ -35,14 +35,14 @@ ApplyHessian | False
 
 Config | Type | Default | Description
 ---|---|---|---
-fidelity | integer | 1 | Fidelity level for the total resistance evaluation associated to the numerical grid discretization. Fidelity goes from 1 to 7, where 1 is highest-fidelity level (finest grid) and 7 is the lowest-fidelity level (coarsest grid).
+fidelity | integer | 7 | Fidelity level for the total resistance evaluation associated to the numerical grid discretization. Fidelity goes from 1 to 7, where 1 is highest-fidelity level (finest grid) and 7 is the lowest-fidelity level (coarsest grid).
 sinkoff | character | 'y' | Enabling hydrodynamics coupling with the rigid-body equation of motions for the ship sinkage. 'n' enables, 'y' disables.
 trimoff | character | 'y' | Enabling hydrodynamics coupling with the rigid-body equation of motions for the ship trim. 'n' enables, 'y' disables.
 
 ## Mount directories
 Mount directory | Purpose
 ---|---
-/output | \texttt{ASCII} files for visualization of pressure distribution along the hull \texttt{pre\textit{XXXX}.plt} and free-surface \texttt{intfr\textit{XXXX}.plt} formatted for Tecplot and Paraview, where \texttt{\textit{XXXX}} is the Froude number.
+/output | ASCII files for visualization of pressure distribution along the hull `preXXXX.plt` and free-surface `intfrXXXX.plt` formatted for Tecplot and Paraview, where `XXXX` is the Froude number.
 
 ## Source code
 

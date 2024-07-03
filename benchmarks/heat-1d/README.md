@@ -125,7 +125,7 @@ None |
 
 ## Source code
 
-[Sources here.](./heat1D_problem.py)
+[Sources here.](https://github.com/UM-Bridge/benchmarks/blob/main/benchmarks/heat-1d/heat1D_problem.py)
 
 ## Description
 

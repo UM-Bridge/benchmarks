@@ -1,4 +1,4 @@
-FROM mpioperator/openmpi-builder:0.3.0 as builder
+FROM chun9l/openmpi-builder:0.3.0 as builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -13,11 +13,11 @@ RUN cd / && mkdir dependencies && \
 
 RUN cd /dependencies && wget https://downloads.unidata.ucar.edu/netcdf-c/4.8.1/netcdf-c-4.8.1.tar.gz &&\
     tar -xvzf netcdf-c-4.8.1.tar.gz && cd netcdf-c-4.8.1 &&\
-    CC=mpicc CXX=mpicxx CPPFLAGS=-I/usr/include/hdf5/openmpi/ LDFLAGS=-L/usr/lib/x86_64-linux-gnu/hdf5/openmpi/ ./configure --enable-parallel &&\
+    CC=mpicc CXX=mpicxx CPPFLAGS=-I/usr/include/hdf5/openmpi/ LDFLAGS=-L/usr/lib/$(arch)-linux-gnu/hdf5/openmpi/ ./configure --enable-parallel &&\
     #CC=mpicc CXX=mpicxx ./configure -prefix=/dependencies/netcdf-c-4.8.1/lib --enable-parallel --disable-dap  &&\
     make install
 
-ENV PKG_CONFIG_PATH="/dependencies/ImpalaJIT/build/:/dependencies/netcf-c-4.8.1/lib/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig"
+ENV PKG_CONFIG_PATH="/dependencies/ImpalaJIT/build/:/dependencies/netcf-c-4.8.1/lib/lib/pkgconfig:/usr/lib/$(arch)-linux-gnu/pkgconfig"
 ENV CMAKE_PREFIX_PATH=/dependencies/netcdf-c-4.8.1/lib/
 
 RUN cd /dependencies && git clone --recursive https://github.com/TUM-I5/ASAGI.git && \
@@ -27,7 +27,7 @@ RUN cd /dependencies && git clone --recursive https://github.com/TUM-I5/ASAGI.gi
                -DTHREADSAFE=ON -DNONUMA=ON -DSHARED_LIB=1 -DCMAKE_CXX_FLAGS="-I/dependencies/netcdf-c-4.8.1/include/" ..  && \
     make -j4 && make install
 
-ENV COMPILER_LFLAGS=" -L/dependencies/ImpalaJIT/build/ -limpalajit -L/dependencies/netcdf-c-4.8.1/lib -lnetcdf  -L/usr/lib/x86_64-linux-gnu/ -L/usr/local/lib/ -lyaml-cpp -lasagi -L/dependencies/easi/build -leasi -lpthread"
+ENV COMPILER_LFLAGS=" -L/dependencies/ImpalaJIT/build/ -limpalajit -L/dependencies/netcdf-c-4.8.1/lib -lnetcdf  -L/usr/lib/$(arch)-linux-gnu/ -L/usr/local/lib/ -lyaml-cpp -lasagi -L/dependencies/easi/build -leasi -lpthread"
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/lib/:/dependencies/ImpalaJIT/build"
 
 RUN cd /dependencies/ && git clone https://github.com/SeisSol/easi.git && \
@@ -41,14 +41,14 @@ RUN cd /dependencies/ && git clone https://github.com/SeisSol/easi.git && \
 RUN cd / && git   clone https://github.com/annereinarz/ExaHyPE-Tsunami.git
 WORKDIR /ExaHyPE-Tsunami
 
-ENV COMPILER_LFLAGS="-DMPI2 -lmpi_cxx -lnuma -L/dependencies/ImpalaJIT/build/ -limpalajit -L/dependencies/netcdf-c-4.8.1/lib/lib -lnetcdf -L/usr/lib/x86_64-linux-gnu/ -lyaml-cpp -L/usr/local/lib -lasagi -L/dependencies/easi/build -leasi -lpthread -ltbb"
+ENV COMPILER_LFLAGS="-DMPI2 -lmpi_cxx -lnuma -L/dependencies/ImpalaJIT/build/ -limpalajit -L/dependencies/netcdf-c-4.8.1/lib/lib -lnetcdf -L/usr/lib/$(arch)-linux-gnu/ -lyaml-cpp -L/usr/local/lib -lasagi -L/dependencies/easi/build -leasi -lpthread -ltbb"
 ENV COMPILER_CFLAGS=" -I/dependencies/easi/include/"
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/lib:/dependencies/easi/build"
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/dependencies/netcdf-c-4.8.1/lib/lib/"
-ENV SHAREDMEM=TBB
+ENV SHAREDMEM=None
 ENV COMPILER=GNU
 #ENV TBB_INC=/usr/include/tbb
-#ENV TBB_SHLIB=/usr/lib/x86_64-linux-gnu/libtbb.so
+#ENV TBB_SHLIB=/usr/lib/$(arch)-linux-gnu/libtbb.so
 ENV EXAHYPE_CC=mpicc
 ENV EXAHYPE_FC=mpicc++
 ENV PROJECT_CFLAGS="-DUSE_ASAGI"

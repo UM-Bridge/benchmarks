@@ -23,7 +23,7 @@ forward | Linear elasticity
 ### forward
 Mapping | Dimensions | Description
 ---|---|---
-input | [346000] | Coefficients of a Karhunen Loeve expansion of a wrinkle.
+input | [346] | Coefficients of a Karhunen Loeve expansion of a wrinkle.
 output | [1] | Maximum deflection of the composite part.
 
 Feature | Supported

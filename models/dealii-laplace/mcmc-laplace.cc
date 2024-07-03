@@ -29,6 +29,7 @@
 #include "umbridge.h"
 
 #include <deal.II/base/timer.h>
+#include <deal.II/base/multithread_info.h>
 #include <deal.II/grid/tria.h>
 #include <deal.II/dofs/dof_handler.h>
 #include <deal.II/grid/grid_generator.h>
@@ -264,7 +265,7 @@ namespace ForwardSimulator
 
       VectorTools::interpolate_boundary_values(dof_handler,
                                                0,
-                                               ZeroFunction<dim>(),
+                                               Functions::ZeroFunction<dim>(),
                                                boundary_values);
     }
   }
@@ -551,7 +552,7 @@ namespace ProposalGenerator
 
     virtual
     std::pair<Vector<double>,double>
-    perturb(const Vector<double> &current_sample) const;
+    perturb(const Vector<double> &current_sample) const override;
 
   private:
     const double         log_sigma;

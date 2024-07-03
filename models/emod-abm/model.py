@@ -57,7 +57,10 @@ class EMODForwardModel(umbridge.Model):
         if (R0_VAR <= 0) or (R0 <= 0) or  \
             (Acquisition_Transmission_Correlation > 1) or \
                 (Acquisition_Transmission_Correlation < 0):
-            return [[-999]]
+            channels = ['New Infections', 'Infected', 'Infectious Population', 'Susceptible Population', 'Symptomatic Population', 'Recovered Population', 'Exposed Population']
+            values = [0, 0, 0, 1, 0, 0, 0]
+            out_of_bounds = {k:{"Data":[v]} for k,v in zip(channels, values)}
+            return [[out_of_bounds]]
 
         # update config file
         inf_prd_mean   = 8.0
@@ -94,7 +97,7 @@ class EMODForwardModel(umbridge.Model):
         # remove extra files
         self._cleanup()
 
-        return [[{c:inset_chart['Channels'][c] for c in ['New Infections', 'Infected', 'Infectious Population', 'Susceptible Population', 'Symptomatic Population', 'Recovered Population', 'Exposed Population']}]]
+        return [[{float(c):inset_chart['Channels'][c] for c in ['New Infections', 'Infected', 'Infectious Population', 'Susceptible Population', 'Symptomatic Population', 'Recovered Population', 'Exposed Population']}]]
 
     def supports_evaluate(self):
         return True    

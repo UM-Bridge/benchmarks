@@ -1,4 +1,4 @@
-# Tritium Diffusion
+# Tritium Desorption
 
 ## Overview
 We use [Achlys](https://github.com/aurora-multiphysics/achlys) to model the macroscopic transport of tritium through fusion reactor materials using the Foster-McNabb equations. Achlys is built on top of the  [MOOSE Finite Element Framework](https://mooseframework.inl.gov/).

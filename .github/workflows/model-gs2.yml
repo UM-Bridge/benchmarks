@@ -1,4 +1,4 @@
-name: model-l2-sea
+name: model-gs2
 
 on:
   push:
@@ -28,9 +28,9 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: models/l2-sea/
+          context: models/gs2/
           push: true
-          tags: linusseelinger/model-l2-sea:latest
+          tags: linusseelinger/model-gs2:latest
 
   test:
     runs-on: ubuntu-latest
@@ -38,7 +38,7 @@ jobs:
 
     services:
       model:
-        image: linusseelinger/model-l2-sea:latest
+        image: linusseelinger/model-gs2:latest
         ports:
         - 4242:4242
 
@@ -46,19 +46,4 @@ jobs:
        -
         name: Validate
         run: |
-          docker run --network=host -e model_host=http://localhost:4242 -e input_value=1.0 linusseelinger/testing-protocol-conformity-current:latest
-       -
-        name: Checkout
-        uses: actions/checkout@v2
-       -
-        name: Dependencies
-        run: |
-          sudo apt update && DEBIAN_FRONTEND="noninteractive" sudo apt install -y python3-pip python3-venv && \
-          python3 -m venv venv && . venv/bin/activate && \
-          pip3 install pytest umbridge
-       -
-        name: Validate output
-        run: |
-          . venv/bin/activate && \
-          cd models/l2-sea/ && \
-          python3 test_output.py http://localhost:4242
+          docker run --network=host -m 4g -e input_value="[4.98536245337014,0.011195269013375201]" -e model_host=http://localhost:4242 linusseelinger/testing-protocol-conformity-current:latest

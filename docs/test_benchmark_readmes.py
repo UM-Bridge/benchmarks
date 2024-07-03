@@ -1,5 +1,6 @@
 import glob
 import marko
+import re
 from argparse import ArgumentParser
 
 for filename in glob.glob('../benchmarks/*/README.md') + glob.glob('../models/*/README.md'):
@@ -22,6 +23,19 @@ for filename in glob.glob('../benchmarks/*/README.md') + glob.glob('../models/*/
         del undefined_headings[heading_text]
 
   print(f"Missing headings: {len(undefined_headings)} ({undefined_headings})")
+
+  h1_count = 0
+  errors = []
+  lines = test_file_content.splitlines()
+  for i, line in enumerate(lines):
+      if re.match(r'^# ', line):
+          h1_count += 1
+          if h1_count > 1:
+              errors.append(f"Line {i+1}: More than one H1 header found: {line.strip()}")
+
+  if errors:
+      print("\n".join(errors))
+
   assert len(undefined_headings) == 0
   print("Test passed!")
   print("")

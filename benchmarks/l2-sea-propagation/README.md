@@ -20,13 +20,13 @@ docker run -it -p 4242:4242 linusseelinger/model-l2-sea
 
 Model | Description
 ---|---
-forward | l2-sea
+benchmark_UQ | l2-sea
 
-### forward
+### benchmark_UQ
 Mapping | Dimensions | Description
 ---|---|---
-input | [16] | The first input is the Froude number (from 0.25 to 0.41); the second is the draft (from -6.776 to -5.544); the other 14 are the $x$ design variables for the shape modification with $-1\leq x_i \leq 1$ for $i=1,\dots,14$\\.
-output | [5] | The first output is the model scale total resistance ($R_\mathrm{T}$) in Newton, whereas the other four are geometrical constraints (negative to be satisfied), related to the beam, draft, and sonar dome dimensions.
+input | [2] | The first input is the Froude number (from 0.25 to 0.41); the second is the draft (from -6.776 to -5.544)\\.
+output | [1] | The output is the model scale total resistance ($R_\mathrm{T}$) in Newton.
 
 Feature | Supported
 ---|---
@@ -37,14 +37,12 @@ ApplyHessian | False
 
 Config | Type | Default | Description
 ---|---|---|---
-fidelity | integer | 1 | Fidelity level for the total resistance evaluation associated to the numerical grid discretization. Fidelity goes from 1 to 7, where 1 is highest-fidelity level (finest grid) and 7 is the lowest-fidelity level (coarsest grid).
-sinkoff | character | 'y' | Enabling hydrodynamics coupling with the rigid-body equation of motions for the ship sinkage. 'n' enables, 'y' disables.
-trimoff | character | 'y' | Enabling hydrodynamics coupling with the rigid-body equation of motions for the ship trim. 'n' enables, 'y' disables.
+fidelity | integer | 7 | Fidelity level for the total resistance evaluation associated to the numerical grid discretization. Fidelity goes from 1 to 7, where 1 is highest-fidelity level (finest grid) and 7 is the lowest-fidelity level (coarsest grid).
 
 ## Mount directories
 Mount directory | Purpose
 ---|---
-/output | \texttt{ASCII} files for visualization of pressure distribution along the hull \texttt{pre\textit{XXXX}.plt} and free-surface \texttt{intfr\textit{XXXX}.plt} formatted for Tecplot and Paraview, where \texttt{\textit{XXXX}} is the Froude number.
+/output | ASCII files for visualization of pressure distribution along the hull `preXXXX.plt` and free-surface `intfrXXXX.plt` formatted for Tecplot and Paraview, where `XXXX` is the Froude number.
 
 ## Source code
 
@@ -52,10 +50,12 @@ Mount directory | Purpose
 
 ## Description
 
+The benchmark pertains to the evaluation of the expected value of the DTMB 5415 model scale total resistance in calm water, conditional to operational uncertain parameters, related to the speed and the payload. The latter is associated with the hull draft. Speed is expressed by its non-dimensional counterpart, the Froude number (Fr) is a unimodal triangular random variable with support over $[Fr_{\text{a}}, Fr_{\text{b}}]= [0.25, 0.41]$, i.e.,
 
-The benchmark pertains to the evaluation of the expected value and standard deviation of the DTMB 5415 model scale total resistance in calm water, conditional to operational and geometrical uncertain parameters.
+$$\pi_{Fr}(t) = \frac{2}{(Fr_{\text{b}}-Fr_{\text{a}})^2} \left(Fr_{\text{b}}-t\right),$$
 
-The standard benchmark is a bi-dimensional problem considering the operational uncertainties only, the speed and the payload. The latter is associated with the hull draft. Speed is expressed by its non-dimensional counterpart, the Froude number (Fr), ranging between 0.25 and 0.41 with a triangular distribution, with the maximum at Fr=0.25 and equal to zero at Fr=0.41. For the draft, a beta distribution is defined as follows ...
+while draft is a beta random variable with support over $[T_{\text{a}},T_{\text{b}}]=[-6.776, -5.544]$
+and shape parameters $\alpha=10, \beta=10$, i.e., $D \sim Beta(D_a,D_b,\alpha,\beta)$, i.e.
 
-For UQ method scalability testing, the benchmark can be extended in dimensionality (up to 16 dimensions) by adding the geometrical uncertainties associated with the shape modification (14 design variables are available). Also for the geometrical uncertainties, a beta distribution is used.
+$$\displaystyle \pi_{T}(t)= \frac{\Gamma(\alpha+\beta+2)}{\Gamma(\alpha+1)\Gamma(\beta+1)} \times (T_{\text{b}}-T_{\text{a}})^{\alpha+\beta+1}(t-T_{\text{a}})^\alpha(T_{\text{b}}-t)^\beta.$$
 

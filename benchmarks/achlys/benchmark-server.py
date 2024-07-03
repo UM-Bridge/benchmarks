@@ -1,6 +1,6 @@
 import umbridge
 
-import numpy
+import numpy as np
 import scipy.stats as stats
 
 from scipy.interpolate import interp1d
