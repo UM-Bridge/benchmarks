@@ -36,7 +36,7 @@ print("model output (quantity of interest) for default config values = "+str(out
 assert pytest.approx(output[0][0]) == 0.0693282746248043, "Output not as expected"
 
 #test output for another config
-output = model(param,{"NumThreads": 10, "BasisDegree": 3, "Fidelity": 3})
+output = model(param,{"BasisDegree": 3, "Fidelity": 3})
 print("model output (quantity of interest) = "+str(output[0][0]))
 assert pytest.approx(output[0][0]) == 0.06934748547844366, "Output not as expected"
 
@@ -45,7 +45,7 @@ assert pytest.approx(output[0][0]) == 0.06934748547844366, "Output not as expect
 model_B = umbridge.HTTPModel(args.url, "benchmark")
 
 param = [[-0.2,-0.2,-0.3,-0.4,-0.5,-0.6,-0.7,-0.8]]
-output = model_B(param,{"NumThreads": 10})
+output = model_B(param)
 print("model output (quantity of interest) in benchmark configuration = "+str(output[0][0]))
 assert pytest.approx(output[0][0]) == 0.05725269745090122, "Output not as expected"
 
