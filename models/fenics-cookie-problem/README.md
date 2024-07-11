@@ -114,7 +114,7 @@ The output of the simulation is the integral of the solution over $F$, i.e. $\Ps
 
 ## Implementation details
 ### cookiepde.py
-A Python implementation of the elliptic and parabolic ``cookie'' PDE problem.
+We consider a Python based approximation of the solution to the elliptic and parabolic ``cookie'' PDE problem.
 Finite element approximation is performed on a quadrilateral grid implemented using FEniCS.
 The linear systems are solved using PETSc via the petsc4py interface.
 See the comments in the file for further implementation details.
