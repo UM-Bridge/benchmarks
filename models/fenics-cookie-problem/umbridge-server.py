@@ -352,7 +352,7 @@ def verifyConfig(config):
     if 'Fidelity' not in config:
         config['N'] = 400
     else:
-        config['N'] = 100 * config['Fidelity']
+        config['N'] = int(100 * config['Fidelity'])
 
     # Use Q1 approximation by default
     if 'BasisDegree' not in config:
