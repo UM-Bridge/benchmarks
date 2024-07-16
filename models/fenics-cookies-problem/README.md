@@ -78,6 +78,10 @@ Mount directory | Purpose
 ---             |---
 None            | 
 
+## Source code
+
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/models/fenics-cookies-problem)
+
 ## Description
 
 ![cookies-problem](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/cookies-problem/cookies_domain.png "geometry of the cookies problem")
