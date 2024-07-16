@@ -9,7 +9,7 @@ The basis degree is user configurable.
 All the required code is included in this repository, and it is hoped that the FEniCs code can be easily adapted by a user if required.
 
 An UM-BRIDGE server can be run using Docker with the command
-``` docker run -p 4242:4242 -itd benmkent/cookiebenchmark:latest```
+``` docker run -p 4242:4242 -itd linusseelinger/cookies-problem:latest```
 where the first port number is mapped through to ```4242``` which is exposed in the container.
 
 ## Authors
@@ -19,7 +19,7 @@ where the first port number is mapped through to ```4242``` which is exposed in 
 
 ## Run 
 ```
-docker run -p 4242:4242 -it benmkent/cookiebenchmark:latest
+docker run -p 4242:4242 -it linusseelinger/cookies-problem:latest
 ```
 The compressed size of the container is 754.5 MB.
 
@@ -139,6 +139,6 @@ Note that the solutions are almost identical to the elliptic case --- the steady
 Python script to generate QoI approximations for testing. This evaluates the quantity of interest for three different parameters at four different fidelities, with varied quadrature degree.
 Results can be piped from the console for plotting
 ```
-python3 test_output.py http://0.0.0.0:4242 >> results.txt
+python3 test_output_template.py http://0.0.0.0:4242 >> results.txt
 ```
 This does not verify results against precomputed values.
