@@ -34,10 +34,9 @@ Gradient      | False
 ApplyJacobian | False
 ApplyHessian  | False
 
-Config        | Type    | Default value   	| Can be changed in benchmark model	| Description
----           |---      |---      		|---		  			| ---	
-BasisDegree   | integer | 4       		| no					| Default degree of spline basis (must be a positive integer)
-Fidelity      | integer | 2       		| no					| Controls the number of mesh elements (must be a positive integer, see below for details)
+Config      | Type    | Default value | Description
+---         |---      |---      		| ---	
+None        |
 
 
 ## Mount directories
@@ -53,27 +52,19 @@ None            |
 
 ![cookies-problem](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/cookies-problem/cookies_domain.png "geometry of the cookies problem")
 
-The benchmark implements a forward uncertainty quantification problem for the [cookies model](https://github.com/UM-Bridge/benchmarks/tree/main/models/fenics-cookies-problem/README.md). More specifically, we assume that the uncertain parameters $y_n$ appearing in the definition of the diffusion coefficient are uniform i.i.d. random variables on the range $[-0.99, -0.2]$ and we aim at computing the expected value of the quantity of interest (i.e., output of the model) $\Psi$, which is defined as the integral of the solution over $F$.
+The benchmark implements a forward uncertainty quantification problem for the elliptic version of the [cookies model](https://github.com/UM-Bridge/benchmarks/tree/main/models/fenics-cookies-problem/README.md). More specifically, we assume that the uncertain parameters $$y_n$$ appearing in the definition of the diffusion coefficient are uniform i.i.d. random variables on the range $$[-0.99, -0.2]$$ and we aim at computing the expected value of the quantity of interest (i.e., output of the model) $$\Psi$$, which is defined as the integral of the solution over $$F$$.
 
-We consider a Python based approximation of the solution to the elliptic and parabolic ``cookie'' PDE problem.
-Finite element approximation is performed on a quadrilateral grid implemented using FEniCS.
-The linear systems are solved using PETSc via the petsc4py interface.
-The benchmark uses a mesh of $400^2$ quadrilateral elements with a degree $1$ Lagrange polynomial basis to form a so-called $Q1$ approximation.
-The structure of this benchmark is identical to the one discussed in [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3); however, raw numbers are different since in [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3) a different mesh was used.
+The benchmark configuration of the docker uses all config options set to their default values, see againg the [cookies model page](https://github.com/UM-Bridge/benchmarks/tree/main/models/fenics-cookies-problem/README.md). The structure of this benchmark thus is identical to the one discussed in [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3); however, raw numbers are different since in [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3) a different mesh was used.
 
-<!-- The PDE is solved with an IGA solver that uses as basis splines of degree $p=4$ and maximal regularity, i.e. of continuity $3$, and the mesh has $200 \times 200$ elements (i.e., the fidelity config parameter is set to $2$). The structure of this benchmark is identical to the one discussed in [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3); however, raw numbers are different since in [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3) the PDE solver employed was different (standard FEM with piecewise linear basis) and the mesh was also different. -->
+As a reference value, we provide the approximation of the expected value computed with a standard Smolyak sparse grid, based on Clenshaw--Curtis points, for levels $$w=0,1,\ldots,5$$, see e.g. [[Piazzola et al.,2024]](https://doi.org/10.1145/3630023). 
 
+Sparse grid $$w$$ | number of collocation points    | Estimate of $$\Psi$$ 
+----------------  |-------------------------------- |-------------------
+0                 | 1                               | 0.062255257529767
+1                 | 17                              | 0.064176316082952
+2                 | 145                             | 0.064206407272061
+3                 | 849                             | 0.064202639076811
+4                 | 3937                            | 0.064202350667514
+5                 | 15713                           | 0.064202367186117
 
-As a reference value, we provide the approximation of the expected value computed with a standard Smolyak sparse grid, based on Clenshaw--Curtis points, for level $w=5$, see e.g. [[Piazzola et al.,2023]](https://doi.org/10.48550/arXiv.2203.09314). The resulting sparse grid has 15713 points, and the corresponding approximation of the expected value is $0.064202367186117$.
-
-Sparse grid $w$ | Estimate of $Psi$
-----------------|-------------------
-0               |  0.062255257529767
-1               |  0.064176316082952
-2               |  0.064206407272061
-3               |  0.064202639076811
-4               |  0.064202350667514
-5               |  0.064202367186117
-
-
-The script available [here](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem/run_forward_benchmark_in_matlab.m) generates the results, using the Sparse Grids Matlab Kit [[Piazzola et al.,2023]](https://doi.org/10.48550/arXiv.2203.09314) for generating sparse grids. The Grids Matlab Kit is available on Github [here](https://github.com/lorenzo-tamellini/sparse-grids-matlab-kit) and a dedicated website with full resources including user manual is available [here](https://sites.google.com/view/sparse-grids-kit).
+The script available [here](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem/run_forward_benchmark_in_matlab.m) generates the results, using the Sparse Grids Matlab Kit [[Piazzola et al.,2024]](https://doi.org/10.1145/3630023) for generating sparse grids. The Grids Matlab Kit is available on Github [here](https://github.com/lorenzo-tamellini/sparse-grids-matlab-kit) and a dedicated website with full resources including user manual is available [here](https://sites.google.com/view/sparse-grids-kit).
