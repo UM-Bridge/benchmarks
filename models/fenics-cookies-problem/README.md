@@ -1,7 +1,7 @@
 # The Cookies model
 
 ## Overview
-This model implements the so-called 'cookies problem' or 'cookies in the oven problem' (see for reference [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3), [[Ballani et al.,2015]](https://doi.org/10.1137/140960980), [[Kressner et al., 2011]](https://doi.org/10.1137/100799010)), i.e., a simplified thermal equation in which the conductivity coefficient is uncertain in 8 circular subdomains ('the cookies'), whereas it is known (and constant) in the remaining of the domain ('the oven'). The equation can be either stationary (elliptic PDE) or time-dependent (parabolic PDE). The spatial approximation is constructed using the legacy version of [FEniCs](https://fenicsproject.org/) via the Python interface, using quadrilateral meshes (FEM degree configurable by the user); the time-advancing is XXX. See below for full description.
+This model implements the so-called 'cookies problem' or 'cookies in the oven problem' (see for reference [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3), [[Ballani et al.,2015]](https://doi.org/10.1137/140960980), [[Kressner et al., 2011]](https://doi.org/10.1137/100799010)), i.e., a simplified thermal equation in which the conductivity coefficient is uncertain in 8 circular subdomains ('the cookies'), whereas it is known (and constant) in the remaining of the domain ('the oven'). The equation can be either stationary (elliptic PDE) or time-dependent (parabolic PDE). The spatial approximation is constructed using the legacy version of [FEniCs](https://fenicsproject.org/) via the Python interface, using quadrilateral meshes (FEM degree configurable by the user); the time-advancing scheme is adaptive with local error control, specifically an implementation of the TR-AB2 scheme, see, e.g., [[Iserles, 2008]](https://doi.org/10.1017/cbo9780511995569.009). See below for full description.
 
 ## Authors
 - [Benjamin Kent](mailto:kent@imati.cnr.it)
@@ -38,13 +38,13 @@ ApplyHessian|	False
 Config          | Type      | Default      | Description
 --------------- |---------- | ----------| -------------
  N              | integer   | 400       | The number of cells in each dimension (i.e. a mesh of $N^2$ elements).
- Fidelity       | N = 100 * config['Fidelity'] | n/a | The 'fidelity' config key takes precedent over 'N' if both defined.
+ Fidelity       | integer   | 4         | If provided, the mesh will be generated with N = 100 x Fidelity.  The 'fidelity' config key takes precedent over 'N' if both defined.
 BasisDegree     | Integer   | 1         | The degree of the piecewise polynomial FE approximation
 advection       | Integer   | 0         | A flag to add an an advection field to the problem. If set to 1 an advection term with advection field (see below) is added to the PDE problem.
 quad_degree     | Integer   | 8         | The quadrature degree used to evaluate integrals in the matrix assembly.
 diffzero        | Float     | 1.0       | Defines the background diffusion field $$a_0$$ (see below)
 directsolver    | Integer   | 1         | Uses a direct LU solve for linear system. Set to 0 to use GM-RES.
-pc              | String    | "none"    | Preconditioning for the GM-RES solver, can be either "ILU" or "JACOBI"
+pc              | String    | 'none'    | Preconditioning for the GM-RES solver, can be either 'ILU' or 'JACOBI'
 tol             | Float     | 1e-4      | Relative tolerance for the GM-RES solver.
 
 ### forwardparabolic
@@ -64,7 +64,7 @@ ApplyHessian|	False
 Config          | Type      | Default      | Description
 --------------- |---------- | ----------| -------------
  N              | integer   | 400       | The number of cells in each dimension (i.e. a mesh of $N^2$ elements).
- Fidelity       | N = 100 * config['Fidelity'] | n/a | The 'fidelity' config key takes precedent over 'N' if both defined.
+ Fidelity       | integer   | 4         | If provided, the mesh will be generated with N = 100 x Fidelity.  The 'fidelity' config key takes precedent over 'N' if both defined.
 BasisDegree     | Integer   | 1         | The degree of the piecewise polynomial FE approximation
 advection       | Integer   | 0         | A flag to add an an advection field to the problem. If set to 1 an advection term with advection field (see below) is added to the PDE problem.
 quad_degree     | Integer   | 8         | The quadrature degree used to evaluate integrals in the matrix assembly.
@@ -129,4 +129,4 @@ A parabolic (time-dependent) variant of the same problem is provided, that can b
 
 $$\displaystyle \frac{\partial u(\mathbf{x},t,\mathbf{y})}{\partial t} -\mathrm{div}\Big[ a(\mathbf{x},\mathbf{y}) \nabla u(\mathbf{x},\mathbf{y}) \Big] + \mathbf{w}(\mathbf{x}) \cdot \nabla u(\mathbf{x},t,\mathbf{y}) = f(\mathrm{x}), \quad \mathbf{x}\in D, t \in (0,T]$$
 
-with $$T$$ specified by the user and initial condition $$u=0$$. Like in the elliptic case, the advection term is null by default. All config options of the elliptic variant can be used here. Concerning time-stepping, the user can choose to use either XX or YY
+with $$T$$ specified by the user and initial condition $$u=0$$. Like in the elliptic case, the advection term is null by default. All config options of the elliptic variant can be used here. Concerning time-stepping, the time-advancing scheme is adaptive with local error control, specifically an implementation of the TR-AB2 scheme, see, e.g., [[Iserles, 2008]](https://doi.org/10.1017/cbo9780511995569.009). 

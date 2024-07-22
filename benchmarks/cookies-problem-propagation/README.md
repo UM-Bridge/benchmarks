@@ -11,7 +11,7 @@ This benchmark runs a forward uncertainty quantification problem for the [cookie
 
 ## Run
 ```
-docker run -it -p 4242:4242 benmkent/cookiebenchmark
+docker run -it -p 4242:4242 linusseelinger/cookiebenchmark
 ```
 
 ## Properties
@@ -25,7 +25,7 @@ benchmark | Sets the config options for the forward UQ benchmark (see below)
 Mapping | Dimensions   | Description
 ---     |---           |---
 input   | [8]          | These values modify the conductivity coefficient in the 8 cookies. They are i.i.d. uniform random variables in the range [-0.99, -0.2] (software does not check that inputs are within the bound) 
-output  | \[1\]        | The integral of the solution over the central subdomain (see definition of $\Psi$ at [cookies model](https://github.com/UM-Bridge/benchmarks/tree/main/models/cookies-problem/README.md) for info)
+output  | \[1\]        | The integral of the solution over the central subdomain (see definition of $$\Psi$$ at [cookies model](https://github.com/UM-Bridge/benchmarks/tree/main/models/cookies-problem/README.md) for info)
 
 Feature       | Supported
 ---           |---
