@@ -395,4 +395,5 @@ cookietimebenchmark = CookieTimeBenchmark()
 cookietime = CookieTime()
 
 # Start UM-BRIDGE server
-umbridge.serve_models([cookieforward,cookiebenchmark,cookietime,cookietimebenchmark], 4242)
+# umbridge.serve_models([cookieforward,cookiebenchmark,cookietime,cookietimebenchmark], 4242)
+umbridge.serve_models([cookieforward,cookiebenchmark,cookietime], 4242)
