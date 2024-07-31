@@ -20,7 +20,7 @@ Model     | Description
 ---       | ---
 forward   | Forward evaluation of the elliptic version of the cookies model, all config options can be modified by the user (see below)
 forwardparabolic   | Forward evaluation of the parabolic version of the cookies model, all config options can be modified by the user (see below)
-benchmark | Sets the config options for the forward UQ benchmark [(see benchmark page)](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem/README.md)
+benchmark | Sets the config options for the forward UQ benchmark [(see benchmark page)](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem-propagation/README.md)
 
 ### forward
 Mapping | Dimensions	| Description
@@ -85,7 +85,7 @@ None            |
 
 ## Description
 
-![cookies-problem](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/cookies-problem/cookies_domain.png "geometry of the cookies problem")
+![cookies-problem](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/fenics-cookies-problem/cookies_domain.png "geometry of the cookies problem")
 
 In its elliptic variant, the model implements the version of the cookies problem in [[Bäck et al.,2011]](https://doi.org/10.1007/978-3-642-15337-2_3), see also e.g. [[Ballani et al.,2015]](https://doi.org/10.1137/140960980), [[Kressner et al., 2011]](https://doi.org/10.1137/100799010) for slightly different versions. With reference to the computational domain $$D=[0,1]^2$$ in the figure above, the cookies model consists in the thermal diffusion problem below, where $$\mathbf{y}$$ are the uncertain parameters discussed in the following and $$\mathrm{x}$$ are physical coordinates.  
 

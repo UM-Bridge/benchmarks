@@ -2,7 +2,7 @@
 
 ## Overview
 
-This benchmark runs a forward uncertainty quantification problem for the [cookies model](https://github.com/UM-Bridge/benchmarks/tree/main/models/cookies-problem/README.md) using the [Sparse Grids Matlab Kit](https://github.com/lorenzo-tamellini/sparse-grids-matlab-kit) interface to UM-Bridge. See below for full description.
+This benchmark runs a forward uncertainty quantification problem for the [cookies model](https://github.com/UM-Bridge/benchmarks/tree/main/models/fenics-cookies-problem/README.md) using the [Sparse Grids Matlab Kit](https://github.com/lorenzo-tamellini/sparse-grids-matlab-kit) interface to UM-Bridge. See below for full description.
 
 ## Authors
 - [Benjamin Kent](kent@imati.cnr.it)
@@ -25,7 +25,7 @@ benchmark | Sets the config options for the forward UQ benchmark (see below)
 Mapping | Dimensions   | Description
 ---     |---           |---
 input   | [8]          | These values modify the conductivity coefficient in the 8 cookies. They are i.i.d. uniform random variables in the range [-0.99, -0.2] (software does not check that inputs are within the bound) 
-output  | \[1\]        | The integral of the solution over the central subdomain (see definition of $$\Psi$$ at [cookies model](https://github.com/UM-Bridge/benchmarks/tree/main/models/cookies-problem/README.md) for info)
+output  | \[1\]        | The integral of the solution over the central subdomain (see definition of $$\Psi$$ at [cookies model](https://github.com/UM-Bridge/benchmarks/tree/main/models/fenics-cookies-problem/README.md) for info)
 
 Feature       | Supported
 ---           |---
@@ -46,11 +46,11 @@ None            |
 
 ## Source code
 
-[Benchmark sources available at this folder.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem)
+[Benchmark sources available at this folder.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem-propagation)
 
 ## Description
 
-![cookies-problem](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/cookies-problem/cookies_domain.png "geometry of the cookies problem")
+![cookies-problem](https://raw.githubusercontent.com/UM-Bridge/benchmarks/main/models/fenics-cookies-problem/cookies_domain.png "geometry of the cookies problem")
 
 The benchmark implements a forward uncertainty quantification problem for the elliptic version of the [cookies model](https://github.com/UM-Bridge/benchmarks/tree/main/models/fenics-cookies-problem/README.md). More specifically, we assume that the uncertain parameters $$y_n$$ appearing in the definition of the diffusion coefficient are uniform i.i.d. random variables on the range $$[-0.99, -0.2]$$ and we aim at computing the expected value of the quantity of interest (i.e., output of the model) $$\Psi$$, which is defined as the integral of the solution over $$F$$.
 
@@ -67,4 +67,4 @@ Sparse grid $$w$$ | number of collocation points    | Estimate of $$\Psi$$
 4                 | 3937                            | 0.064202350667514
 5                 | 15713                           | 0.064202367186117
 
-The script available [here](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem/run_forward_benchmark_in_matlab.m) generates the results, using the Sparse Grids Matlab Kit [[Piazzola et al.,2024]](https://doi.org/10.1145/3630023) for generating sparse grids. The Grids Matlab Kit is available on Github [here](https://github.com/lorenzo-tamellini/sparse-grids-matlab-kit) and a dedicated website with full resources including user manual is available [here](https://sites.google.com/view/sparse-grids-kit).
+The script available [here](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem-propagation/run_forward_benchmark_in_matlab.m) generates the results, using the Sparse Grids Matlab Kit [[Piazzola et al.,2024]](https://doi.org/10.1145/3630023) for generating sparse grids. The Grids Matlab Kit is available on Github [here](https://github.com/lorenzo-tamellini/sparse-grids-matlab-kit) and a dedicated website with full resources including user manual is available [here](https://sites.google.com/view/sparse-grids-kit).
