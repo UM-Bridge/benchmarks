@@ -249,95 +249,6 @@ class CookieTime(umbridge.Model):
         """
         return False
 
-class CookieTimeBenchmark(umbridge.Model):
-    """
-    A model for parabolic formulation of the cookie model.
-
-    Inherits from umbridge.Model.
-
-    Attributes:
-        None
-    """
-
-    def __init__(self):
-        """
-        Initializes the CookieTime object.
-
-        Args:
-            None
-
-        Returns:
-            None
-        """
-        super().__init__("benchmarkparabolic")
-
-    def get_input_sizes(self, config):
-        """
-        Returns the input sizes for the model.
-
-        Args:
-            config (dict): A dictionary containing configuration parameters.
-
-        Returns:
-            list: A list containing the input sizes.
-        """
-        return [8]
-
-    def get_output_sizes(self, config):
-        """
-        Returns the output sizes for the model.
-
-        Args:
-            config (dict): A dictionary containing configuration parameters.
-
-        Returns:
-            list: A list containing the output sizes.
-        """
-        return [1]
-    
-    def __call__(self, parameters, config):
-        """
-        Evaluates the parabolic cookie model.
-
-        Args:
-            parameters (list): A list of parameters.
-            config (dict): A dictionary containing configuration parameters.
-
-        Returns:
-            list: A list containing the computed integral.
-        """
-        # Use default config values
-        config = {}
-        config = verifyConfig(config)
-
-        # Set up discrete formulation.
-        model = CookiePDE(config['N'], config['BasisDegree'])
-        # Note that we have an additional advection term
-        model.setupProblem('cookie', parameters[0], varcoeffs=config['diffzero'], advection=config['advection'])
-        # Use the custom TR-AB2 solver. Optional solveTime function uses built in PETSC TS solver.
-        u = model.solveTimeSimple(config['letol'],config['T'])
-        # Compute QoI at finalTime T
-        integral = model.computebenchmarkqoi()
-        # model.writeSln("outputFinal")
-        return [[integral]]
-
-    def supports_evaluate(self):
-        """
-        Checks if the model supports evaluation.
-
-        Returns:
-            bool: True if the model supports evaluation, False otherwise.
-        """
-        return True
-
-    def supports_gradient(self):
-        """
-        Checks if the model supports gradient computation.
-
-        Returns:
-            bool: True if the model supports gradient computation, False otherwise.
-        """
-        return False
 
 
 def verifyConfig(config):
@@ -391,9 +302,7 @@ def verifyConfig(config):
 # Initialise UM-BRIDGE models
 cookieforward = CookieForward()
 cookiebenchmark= CookieBenchmark()
-cookietimebenchmark = CookieTimeBenchmark()
 cookietime = CookieTime()
 
 # Start UM-BRIDGE server
-# umbridge.serve_models([cookieforward,cookiebenchmark,cookietime,cookietimebenchmark], 4242)
 umbridge.serve_models([cookieforward,cookiebenchmark,cookietime], 4242)
