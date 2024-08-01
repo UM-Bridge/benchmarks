@@ -14,7 +14,8 @@ clear
 % 2) add sparse grids matlab kit and um-bridge matlab client to path
 % addpath(genpath('~/GIT_projects/Github/sparse-grids-matlab-kit/')) % this is version 23.5 Robert
 % addpath(genpath('~/GIT_projects/Github/umbridge/matlab/'))
-
+addpath(genpath('../../../sparse-grids-matlab-kit/'))
+addpath(genpath('../../../umbridge'))
 
 % 3) to save results on file (sparse grids in .txt / .mat, results in .txt / .mat), set the flag below to true
 saving_stuff = true;
@@ -31,7 +32,7 @@ uri = 'http://0.0.0.0:4242';
 model = HTTPModel(uri,'benchmark');
 
 % config cookie solver with num threades
-config = struct('NumThreads',4);
+config = struct();
 
 
 % wrap model in an @-function too
@@ -50,7 +51,7 @@ N = 8;
 knots = @(n) knots_CC(n,-0.99,-0.2);
 lev2knots = @lev2knots_doubling;
 idxset_rule = @(i) sum(i-1);
-idxset_level_max = 1; % <--- controls max size of sparse grid
+idxset_level_max = 5; % <--- controls max size of sparse grid
 
 
 % To recycle evaluations from one grid to the next, we need some containers
