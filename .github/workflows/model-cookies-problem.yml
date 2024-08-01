@@ -9,30 +9,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - 
+      -
         name: Checkout
         uses: actions/checkout@v2
 
-      - 
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
-      - 
+      -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - 
+      -
         name: Login to DockerHub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - 
+      -
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: models/cookies-problem/
+          context: models/fenics-cookies-problem/
           push: true
           tags: linusseelinger/cookies-problem:latest
 
@@ -51,7 +51,7 @@ jobs:
         name: Validate
         run: |
           docker run --network=host -e model_host=http://localhost:4242 linusseelinger/testing-protocol-conformity-current:latest
-      - 
+      -
         name: Checkout
         uses: actions/checkout@v2
       -
@@ -61,5 +61,6 @@ jobs:
       -
         name: Validate output
         run: |
-          cd models/cookies-problem/ && \
-          python3 test_output.py http://localhost:4242
+          cd models/fenics-cookies-problem/ && \
+          python3 test_output.py http://localhost:4242 && \
+          python3 test_output_parabolic.py http://localhost:4242
