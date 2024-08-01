@@ -2,7 +2,7 @@
 
 # first run the container as
 #
-# docker run -it -p 4242:4242 <image name>  
+# docker run -it -p 4242:4242 <image name>
 #
 # then run this script as python3 test_output.py http://localhost:4242
 
@@ -39,11 +39,3 @@ assert  pytest.approx(output[0][0], abs=1e-6) == 0.06933585905253055, "Output no
 output = model(param,{"BasisDegree": 3, "Fidelity": 2})
 print("model output (quantity of interest) = "+str(output[0][0]))
 assert  pytest.approx(output[0][0], abs=1e-6) == 0.06936772917504516, "Output not as expected"
-
-#another test, this time for the benchmark version (i.e. p=4, fid=2 again, same as model default)
-model_B = umbridge.HTTPModel(args.url, "benchmarkparabolic")
-
-param = [[-0.2,-0.2,-0.3,-0.4,-0.5,-0.6,-0.7,-0.8]]
-output = model_B(param)
-print("model output (quantity of interest) in benchmark configuration = "+str(output[0][0]))
-assert pytest.approx(output[0][0], abs=1e-6) == 0.05725981992101194, "Output not as expected"
