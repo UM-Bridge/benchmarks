@@ -133,7 +133,7 @@ None |
 
 ## Source code
 
-The benchmark is set up in the file server.py as well as data_script.py in the same folder as this readme. The benchmark uses [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/).
+The benchmark is set up in the file server.py as well as data_script.py in the same folder as this readme [here](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cuqi-ct). The benchmark uses [CUQIpy](https://cuqi-dtu.github.io/CUQIpy/).
 
 ## Description
 
