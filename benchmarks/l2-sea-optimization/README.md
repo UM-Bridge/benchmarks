@@ -19,7 +19,7 @@ docker run -it -p 4242:4242 linusseelinger/model-l2-sea
 
 Model | Description
 ---|---
-forward | l2-sea
+benchmark_OPT | l2-sea
 
 ### forward
 Mapping | Dimensions | Description
