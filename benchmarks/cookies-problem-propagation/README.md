@@ -46,7 +46,7 @@ None            |
 
 ## Source code
 
-[Model sources here..](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem-propagation)
+[Model sources here.](https://github.com/UM-Bridge/benchmarks/tree/main/benchmarks/cookies-problem-propagation)
 
 ## Description
 

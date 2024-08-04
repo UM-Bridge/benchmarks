@@ -19,9 +19,9 @@ docker run -it -p 4242:4242 linusseelinger/model-l2-sea
 
 Model | Description
 ---|---
-forward | l2-sea
+benchmark_OPT | l2-sea
 
-### forward
+### benchmark_OPT
 Mapping | Dimensions | Description
 ---|---|---
 input | [14] | The 14 inputs are the $x$ design variables for the shape modification with $-1\leq x_i \leq 1$  (with parent hull has $x_i = 0$) for $i=1,\dots,14$\\.
