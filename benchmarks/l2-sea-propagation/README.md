@@ -55,7 +55,7 @@ The benchmark pertains to the evaluation of the expected value of the DTMB 5415 
 $$\pi_{Fr}(t) = \frac{2}{(Fr_{\text{b}}-Fr_{\text{a}})^2} \left(Fr_{\text{b}}-t\right),$$
 
 while draft is a beta random variable with support over $[T_{\text{a}},T_{\text{b}}]=[-6.776, -5.544]$
-and shape parameters $\alpha=10, \beta=10$, i.e., $D \sim Beta(D_a,D_b,\alpha,\beta)$, i.e.
+and shape parameters $\alpha=10, \beta=10$, i.e., $T \sim Beta(T_a,T_b,\alpha,\beta)$, i.e.
 
 $$\displaystyle \pi_{T}(t)= \frac{\Gamma(\alpha+\beta+2)}{\Gamma(\alpha+1)\Gamma(\beta+1)} \times (T_{\text{b}}-T_{\text{a}})^{\alpha+\beta+1}(t-T_{\text{a}})^\alpha(T_{\text{b}}-t)^\beta.$$
 
