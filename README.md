@@ -104,16 +104,17 @@ the project!*
 
 When using UM-Bridge in scientific publications, please cite:
 
+Seelinger, Reinarz et al., (2024). Democratizing Uncertainty Quantification. Arxiv preprint, [url](https://www.sciencedirect.com/science/article/pii/S0021999124007903).
+
+```
+@article{ DemocratizingUQ, title = {Democratizing Uncertainty Quantification}, journal = {Journal of Computational Physics}, pages = {113542}, year = {2024}, issn = {0021-9991}, doi = {https://doi.org/10.1016/j.jcp.2024.113542}, url = {https://www.sciencedirect.com/science/article/pii/S0021999124007903}, author = {Linus Seelinger and Anne Reinarz and Mikkel B. Lykkegaard and Robert Akers and Amal M.A. Alghamdi and David Aristoff and Wolfgang Bangerth and Jean Bénézech and Matteo Diez and Kurt Frey and John D. Jakeman and Jakob S. Jørgensen and Ki-Tae Kim and Benjamin M. Kent and Massimiliano Martinelli and Matthew Parno and Riccardo Pellegrini and Noemi Petra and Nicolai A.B. Riis and Katherine Rosenfeld and Andrea Serani and Lorenzo Tamellini and Umberto Villa and Tim J. Dodwell and Robert Scheichl}
+}
+```
+
 Seelinger et al., (2023). UM-Bridge: Uncertainty quantification and modeling bridge. Journal of Open Source Software, 8(83), 4748, [url](https://doi.org/10.21105/joss.04748).
 
 ```
 @article{UMBridge, doi = {10.21105/joss.04748}, url = {https://doi.org/10.21105/joss.04748}, year = {2023}, publisher = {The Open Journal}, volume = {8}, number = {83}, pages = {4748}, author = {Linus Seelinger and Vivian Cheng-Seelinger and Andrew Davis and Matthew Parno and Anne Reinarz}, title = {UM-Bridge: Uncertainty quantification and modeling bridge}, journal = {Journal of Open Source Software} }
-```
-
-Seelinger et al., (2024). Democratizing Uncertainty Quantification. Arxiv preprint, [url](https://doi.org/10.48550/arXiv.2402.13768).
-
-```
-@misc{DemocratizingUQ, title={Democratizing Uncertainty Quantification}, author={Linus Seelinger and Anne Reinarz and Mikkel B. Lykkegaard and Amal M. A. Alghamdi and David Aristoff and Wolfgang Bangerth and Jean Bénézech and Matteo Diez and Kurt Frey and John D. Jakeman and Jakob S. Jørgensen and Ki-Tae Kim and Massimiliano Martinelli and Matthew Parno and Riccardo Pellegrini and Noemi Petra and Nicolai A. B. Riis and Katherine Rosenfeld and Andrea Serani and Lorenzo Tamellini and Umberto Villa and Tim J. Dodwell and Robert Scheichl}, year={2024}, eprint={2402.13768}, archivePrefix={arXiv} }
 ```
 
 ## Resources
