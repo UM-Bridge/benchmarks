@@ -1,0 +1,29 @@
+#!/bin/sh
+
+./AcousticWave_2D_Mesh ${CMAKE_SOURCE_DIR}/Data/potatoe.msh ${CMAKE_BINARY_DIR}/Data/acoustic_wave_2D_mesh
+
+./AcousticWave_Circle ${CMAKE_BINARY_DIR}/Data/acoustic_wave_circle
+
+./AcousticWave_Cylinder ${CMAKE_BINARY_DIR}/Data/acoustic_wave_cylinder
+
+./ParaxialWave_Square ${CMAKE_BINARY_DIR}/Data/paraxial_wave_Square
+
+./ParaxialWave45_Square ${CMAKE_BINARY_DIR}/Data/paraxial_wave_45_Square
+
+./Transport_Square ${CMAKE_BINARY_DIR}/Data/Transport_Square
+
+./AcousticWave_Square ${CMAKE_BINARY_DIR}/Data/acoustic_wave_square
+
+./AcousticWave_Square_PML ${CMAKE_BINARY_DIR}/Data/acoustic_wave_square_pml
+
+./GravitoAcousticWave_Square_PML ${CMAKE_BINARY_DIR}/Data/gravito_acoustic_wave_square_pml
+
+./AcousticWave_Cube ${CMAKE_BINARY_DIR}/Data/acoustic_wave_cube
+
+./ElasticWave_Plate ${CMAKE_BINARY_DIR}/Data/elastic_wave_plate
+
+./IncompressibleElasticWave_Square ${CMAKE_BINARY_DIR}/Data/incompressible_elastic_wave_Square 
+
+./NLElasticWave_Cube ${CMAKE_BINARY_DIR}/Data/nl_elastic_wave_cube
+
+./NLElasticWave_Bar ${CMAKE_BINARY_DIR}/Data/nl_elastic_wave_bar

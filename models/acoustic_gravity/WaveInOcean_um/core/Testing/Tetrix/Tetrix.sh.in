@@ -1,0 +1,3 @@
+#!/bin/sh
+
+./AcousticWave_Heart ${CMAKE_SOURCE_DIR}/Data/heart.mesh ${CMAKE_BINARY_DIR}/Data/AcousticWave_Heart/AcousticWave_Heart

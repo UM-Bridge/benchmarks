@@ -1,0 +1,11 @@
+#!/bin/sh
+
+./Rasterization ${CMAKE_SOURCE_DIR}/Data/sea_bottom_elevation.msh ${CMAKE_BINARY_DIR}/Data/sea_bottom_elevation_rasterized.mesh
+
+./Intersection ${CMAKE_SOURCE_DIR}/Data/disc.msh ${CMAKE_SOURCE_DIR}/Data/potatoe.msh ${CMAKE_BINARY_DIR}/Data/disc_and_patatoe_intersected.mesh 
+
+./Coloring ${CMAKE_SOURCE_DIR}/Data/disc.msh ${CMAKE_BINARY_DIR}/Data/colored_disc.msh
+
+./Coloring ${CMAKE_SOURCE_DIR}/Data/potatoe.msh ${CMAKE_BINARY_DIR}/Data/colored_potatoe.msh
+
+./SubDivide ${CMAKE_SOURCE_DIR}/Data/cylinder.msh ${CMAKE_BINARY_DIR}/Data/divided_cylinder.mesh
