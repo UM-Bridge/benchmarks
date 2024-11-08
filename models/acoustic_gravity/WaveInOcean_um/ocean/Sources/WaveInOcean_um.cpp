@@ -43,6 +43,8 @@ public:
     // std::this_thread::sleep_for(std::chrono::milliseconds(test_delay));
     //return {{inputs[0][0] * 2.0}};
 
+    std::vector<std::vector<double>> output;
+
     //assert(argc==3);
     // TODO: replace argv by the json config file
     //std::string FileName = argv[2]+NameSimu;
@@ -239,6 +241,7 @@ public:
     time(&start);
 
     cout << "Leap-frog iterations starts..." << std::endl;
+    int counter = 0; 
     for  (Index iStep = 0; iStep*dt < T_end; iStep++)
     {
         // Operation  K_phi
@@ -357,6 +360,7 @@ public:
         // Writing solution.
         if (iStep % OutputFreq == 0)
         {   
+            counter++; 
             // Get pressure, displacement formulation 
             Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
                 1,       //DimU
@@ -379,6 +383,8 @@ public:
                 }
             obsPoint_P << std::endl ; 
             ////////////////////////////////////
+            std::vector<double> pressure_vector =   {pressure(iObsPoint_vector[0])} ;
+            output.push_back( pressure_vector ) ;
         }
 
         // Swapping solutions.
@@ -400,8 +406,12 @@ public:
     //return pressure.getVector(0); 
 
     // convert Eigen::matrix to std::vector
-    std::vector<std::vector<double>> vec(pressure(iObsPoint_vector[0]).data(), pressure(iObsPoint_vector[0]).data() + pressure(iObsPoint_vector[0]).size());
-    return vec; 
+    
+   
+
+
+    //(pressure(iObsPoint_vector[0]).data(), pressure(iObsPoint_vector[0]).data() + pressure(iObsPoint_vector[0]).size());
+    return output; 
   }
 
   // Specify that our model supports evaluation. Jacobian support etc. may be indicated similarly.
