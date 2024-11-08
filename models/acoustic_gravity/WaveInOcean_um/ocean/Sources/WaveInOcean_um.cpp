@@ -44,6 +44,7 @@ public:
     //return {{inputs[0][0] * 2.0}};
 
     std::vector<std::vector<double>> output;
+    output[0] = {}; 
 
     //assert(argc==3);
     // TODO: replace argv by the json config file
