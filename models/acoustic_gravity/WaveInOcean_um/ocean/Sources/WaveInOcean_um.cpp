@@ -34,7 +34,7 @@ public:
   }
 
   std::vector<std::size_t> GetOutputSizes(const json& config_json) const override {
-    return {600};
+    return {50};
   }
 
   std::vector<std::vector<double>> Evaluate(const std::vector<std::vector<double>>& inputs, json config) override {
@@ -425,7 +425,7 @@ public:
     //return pressure.getVector(0); 
 
     // convert Eigen::matrix to std::vector
-    std::vector<std::vector<double>> vec(pressure.getVector(0).data(), pressure.getVector(0).data() + pressure.getVector(0).size());
+    std::vector<std::vector<double>> vec(pressure.getVector(0)(iObsPoint_vector[0]).data(), pressure.getVector(0).data() + pressure.getVector(0).size());
     return vec; 
   }
 
