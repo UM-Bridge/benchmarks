@@ -1,0 +1,3 @@
+#!/bin/sh
+
+./WaveInOcean_um /Code/ocean/Data/ /Code/ocean/Build/Data/
