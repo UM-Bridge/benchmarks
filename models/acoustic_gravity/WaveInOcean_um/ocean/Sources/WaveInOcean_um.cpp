@@ -55,7 +55,7 @@ public:
     
     Scaling<2> scaling(Lx,Lz);
     Square<Scaling<2>> fespace(FEOrderX,FEOrderZ,Nx,Nz,scaling);
-    Center[0] = Lx*inputs[0];
+    Center[0] = Lx*inputs[0][0];
     Center[1] = Lz*Center[1];
     //std::cout<<"Center at "<< Center[0] << " " << Center[1]<< endl;
     infoFile<<"Center at "<< Center[0] << " " << Center[1]<< endl;
@@ -152,8 +152,10 @@ public:
     LAL::Vector velocity;
     LAL::Allocate(velocity, 2*NDoFs);
 
-    LAL::VectorSequence pressure(2);
-    pressure.Allocate(NDoFs);
+    //LAL::VectorSequence pressure(2);
+    //pressure.Allocate(NDoFs);
+    LAL::Vector pressure;
+    LAL::Allocate(pressure, NDoFs);
     ////////////////////////////////////////
 
     ////////////////////////////////////////
@@ -377,33 +379,6 @@ public:
                 }
             obsPoint_P << std::endl ; 
             ////////////////////////////////////
-
-            /*// Write VTK files
-            if( iStep % (NVtk * OutputFreq) == 0)
-            { 
-
-            // Get velocity
-            Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
-            1,       //DimU
-            2,       //DimV
-            2,       //DimI
-            1,       //DimJ
-            Field::Identity,
-            Core::DiffOp::Gradient,
-            Core::DiffOp::Identity
-            >
-            (fespace,fespace,Field::IdentityField,-1,phi.getVector(0),0.0,velocity); 
-            LAL::Solve(massMatrixVelocity,velocity);
-
-            std::cout<< "Writing VTK" << NOutput << " " << iStep*dt << " " << T_end/OutputDeltat <<endl;
-            infoFile<< "Writing VTK " << NOutput << " " << iStep*dt << " " << T_end/OutputDeltat <<endl;
-            ParallelWriteVTK(FileName+"_Phi."+std::to_string(NOutput) + ".vtk", fespace, phi.getVector(0));
-            ParallelWriteVTK(FileName+"_P."+std::to_string(NOutput) + ".vtk", fespace, pressure.getVector(0));
-            ParallelWriteVTK(FileName+"_U."+std::to_string(NOutput) + ".vtk", fespace, velocity);
-            
-            NOutput++;
-            }
-            */
         }
 
         // Swapping solutions.
