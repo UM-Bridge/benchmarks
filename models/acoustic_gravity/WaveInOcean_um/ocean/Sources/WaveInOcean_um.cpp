@@ -43,7 +43,7 @@ public:
     // std::this_thread::sleep_for(std::chrono::milliseconds(test_delay));
     //return {{inputs[0][0] * 2.0}};
 
-    std::vector<std::vector<double>> output;
+    std::vector<std::vector<double>> output(1);
     output[0] = {}; 
 
     //assert(argc==3);
