@@ -5,7 +5,7 @@ RUN apt update && \
 
 RUN cd / && git clone https://github.com/UM-Bridge/umbridge.git
 
-RUN cd / && mkdir Code && cd Code && mkdir ocean && cd ocean && mkdir Data && cd /
+RUN cd / && mkdir Code && cd Code && mkdir ocean && cd /
 
 COPY core /Code/core 
 COPY ocean/CMakeLists.txt  /Code/ocean/CMakeLists.txt

@@ -55,7 +55,7 @@ public:
     
     Scaling<2> scaling(Lx,Lz);
     Square<Scaling<2>> fespace(FEOrderX,FEOrderZ,Nx,Nz,scaling);
-    Center[0] = Lx*Center[0];
+    Center[0] = Lx*inputs[0];
     Center[1] = Lz*Center[1];
     //std::cout<<"Center at "<< Center[0] << " " << Center[1]<< endl;
     infoFile<<"Center at "<< Center[0] << " " << Center[1]<< endl;
@@ -332,8 +332,9 @@ public:
         ////////////////////////////////////////////
 
 
+
         // Get pressure TODO: change to displacement formulation 
-        Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
+        /*Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
             1,       //DimU
             1,       //DimV
             2,       //DimI
@@ -348,12 +349,28 @@ public:
         pressure.getVector(0) += 1./dt * massMatrixRho * (phi.getVector(0) - 2*phi.getVector(1) + phi.getVector(2));
         LAL::Solve(massMatrixUnit, pressure.getVector(0));
         pressure.getVector(0) += pressure.getVector(1); 
+        */
         
 
         // Writing solution.
         if (iStep % OutputFreq == 0)
         {   
-            /////// Write file for one point 
+            // Get pressure, displacement formulation 
+            Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
+                1,       //DimU
+                1,       //DimV
+                2,       //DimI
+                1,       //DimJ
+                Field::Scalar<Field::Regularity::C0>,
+                Core::DiffOp::Gradient,
+                Core::DiffOp::Identity, 
+                Field::Identity, 
+                Field::ScalarToVector<2, Field::Regularity::C0>
+                >
+                (fespace,fespace, Rho, delta2, phi.getVector(0), 0.0, pressure.getVector(0), Field::IdentityField, scalar_to_vect_ez); 
+            LAL::Solve(massMatrixUnit, pressure.getVector(0));
+            pressure.getVector(0) += 1./(dt*dt) * (phi.getVector(0) - 2*phi.getVector(1) + phi.getVector(2));
+              /////// Write file for one point 
             obsPoint_P << std::to_string(iStep*dt) << " , "; 
             for (Index iObsPoint: iObsPoint_vector){ 
                     obsPoint_P << std::to_string(pressure.getVector(0)(iObsPoint))  << " , " ; 

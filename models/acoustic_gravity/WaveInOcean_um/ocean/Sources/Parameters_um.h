@@ -25,7 +25,7 @@ Index Nz = 10;  // number of subdivisions in the z direction
 //// Final time and output frequency
 Real T_end = 5. ; //50.0; // Final time in seconds
 Index NVtk = 100; 
-Real OutputDeltat = 0.01; // write VTK output every outputDeltat (in seconds)
+Real OutputDeltat = 0.1; // write pressure output every outputDeltat (in seconds)
 
 //// Recordings at one point
 const Index nPointX = 3;
