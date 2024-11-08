@@ -383,8 +383,8 @@ public:
                 }
             obsPoint_P << std::endl ; 
             ////////////////////////////////////
-            std::vector<double> pressure_vector =   {pressure(iObsPoint_vector[0])} ;
-            output.push_back( pressure_vector ) ;
+            //std::vector<double> pressure_vector =   {pressure(iObsPoint_vector[0])} ;
+            output[0].push_back( pressure(iObsPoint_vector[0]) ) ;
         }
 
         // Swapping solutions.
