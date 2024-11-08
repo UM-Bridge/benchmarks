@@ -369,13 +369,13 @@ public:
                 Field::Identity, 
                 Field::ScalarToVector<2, Field::Regularity::C0>
                 >
-                (fespace,fespace, Rho, delta2, phi.getVector(0), 0.0, pressure.getVector(0), Field::IdentityField, scalar_to_vect_ez); 
-            LAL::Solve(massMatrixUnit, pressure.getVector(0));
-            pressure.getVector(0) += 1./(dt*dt) * (phi.getVector(0) - 2*phi.getVector(1) + phi.getVector(2));
+                (fespace,fespace, Rho, delta2, phi.getVector(0), 0.0, pressure, Field::IdentityField, scalar_to_vect_ez); 
+            LAL::Solve(massMatrixUnit, pressure);
+            pressure += 1./(dt*dt) * (phi.getVector(0) - 2*phi.getVector(1) + phi.getVector(2));
               /////// Write file for one point 
             obsPoint_P << std::to_string(iStep*dt) << " , "; 
             for (Index iObsPoint: iObsPoint_vector){ 
-                    obsPoint_P << std::to_string(pressure.getVector(0)(iObsPoint))  << " , " ; 
+                    obsPoint_P << std::to_string(pressure(iObsPoint))  << " , " ; 
                 }
             obsPoint_P << std::endl ; 
             ////////////////////////////////////
@@ -383,7 +383,7 @@ public:
 
         // Swapping solutions.
         phi.Swap();
-        pressure.Swap();
+        //pressure.Swap();
         phi_hat.Swap();
         wx.Swap();
     }
@@ -400,7 +400,7 @@ public:
     //return pressure.getVector(0); 
 
     // convert Eigen::matrix to std::vector
-    std::vector<std::vector<double>> vec(pressure.getVector(0)(iObsPoint_vector[0]).data(), pressure.getVector(0).data() + pressure.getVector(0).size());
+    std::vector<std::vector<double>> vec(pressure(iObsPoint_vector[0]).data(), pressure(iObsPoint_vector[0]).data() + pressure(iObsPoint_vector[0]).size());
     return vec; 
   }
 
