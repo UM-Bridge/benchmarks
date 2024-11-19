@@ -12,6 +12,11 @@ std::string NameSimu = "um";
 // Take H=1500, C=1500, g=10. Then delta^2 = Ma^2/Fr^2 = gH/C^2 = 0.006
 Real delta2 = 0.006;  
 
+//// Final time and output frequency
+Real T_end = 5. ; //50.0; // Final time in seconds
+Index NVtk = 100; 
+Real OutputDeltat = 0.1; // write pressure output every outputDeltat (in seconds)
+
 // Finite element order in the x respectively the z direction 
 const Index FEOrderX = 5; 
 const Index FEOrderZ = 5; 
@@ -21,11 +26,6 @@ Real Lx = 43;// scaling in the x direction -> 64.5 km
 Real Lz = 1; // scaling in the z direction -> 1 km
 Index Nx = 43; // number of subdivisions in the x direction  
 Index Nz = 10;  // number of subdivisions in the z direction  
-
-//// Final time and output frequency
-Real T_end = 5. ; //50.0; // Final time in seconds
-Index NVtk = 100; 
-Real OutputDeltat = 0.1; // write pressure output every outputDeltat (in seconds)
 
 //// Recordings at one point
 const Index nPointX = 3;
