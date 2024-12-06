@@ -349,7 +349,7 @@ Parallelized UQ
 
 QMCPy supports thread parallelism, and is therefore - by itself - limited to a single machine. However, we can easily apply QMCPy to an UM-Bridge model running on a remote cluster.
 
-You find a QMCPy client set up for the L2-Sea model at `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main/tutorial>`__. It is set to a suitable distribution to sample from and it wraps the model, fixing the last 14 parameters to zero (we don't need ship design parameters here, and only vary Froude number and draft).
+You find a QMCPy client set up for the L2-Sea model at `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main/tutorial>`__. It is set to a suitable distribution to sample the `L2-Sea propagation benchmark <https://um-bridge-benchmarks.readthedocs.io/en/docs/forward-benchmarks/l2-sea-propagation.html>`__ (even though we use a uniform distribution here in place of the more complex one defined in the benchmark).
 
 Modify the client to run in parallel: The ``UMBridgeWrapper`` takes an argument ``parallel``. Set it to an appropriate number, e.g. ``parallel=10``.
 
