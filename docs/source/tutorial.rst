@@ -238,11 +238,13 @@ In order to write your own Dockerfile let's start from the following minimal exa
 
     COPY . /server
 
-    RUN apt update && apt install -y python3-pip
+    RUN apt update && \
+        DEBIAN_FRONTEND="noninteractive" apt install -y python3-pip python3-venv && \
+        python3 -m venv venv && . venv/bin/activate && \
+        pip install umbridge numpy scipy
 
-    RUN pip3 install umbridge numpy scipy
-
-    CMD python3 /server/server.py
+    CMD . venv/bin/activate && \
+         python3 /server/server.py
     
 This minimal example assumes a model server is available. Use the model server that you have built in the first part of the tutorial.
 
@@ -256,7 +258,8 @@ Alternatively use any other existing image you want to build on.
 
 Next copy the server. Install any standard dependencies your application has::
 
-    RUN apt update && apt install -y python3-pip [your-dependencies]
+     RUN apt update && \
+        DEBIAN_FRONTEND="noninteractive" apt install -y python3-pip python3-venv [your-dependencies]
     
 Note:
 
@@ -264,17 +267,22 @@ Note:
 
 * Always remember to run apt update.
 
-* Specify the `-y` option to apt to ensure that apt does not wait for user input.
+* To ensure that no user input is needed use  DEBIAN_FRONTEND="noninteractive" and specify the `-y` option.
 
 If you have additional dependencies, add these either by cloning a git repository and installing, or by using the COPY keyword to copy files into your container. 
 
 Install your application. Install umbridge with::
     
-    RUN pip3 install umbridge numpy scipy
-    
+        python3 -m venv venv && . venv/bin/activate && \
+        pip install umbridge numpy scipy
+Note:
+
+    * We create a virtual environment for python and activate it before running pip install.
+
 Run the server with::
 
-    CMD python3 /server/server.py.
+    CMD . venv/bin/activate && \
+         python3 /server/server.py
 
 
 Building and Running
