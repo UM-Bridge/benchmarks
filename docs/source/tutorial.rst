@@ -277,7 +277,7 @@ Install your application. Install umbridge with::
         pip install umbridge numpy scipy
 Note:
 
-    * We create a virtual environment for python and activate it before running pip install.
+* We create a virtual environment for python and activate it before running pip install.
 
 Run the server with::
 
