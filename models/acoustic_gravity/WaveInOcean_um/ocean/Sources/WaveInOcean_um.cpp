@@ -89,12 +89,20 @@ public:
     ////////////////////////////////////////
     // Time and output 
     OutputFreq = floor(OutputDeltat/dt); 
+    ////////////////////////////////////////
+
+    // create dataSpace = the vector of points where the function dataFunction is known
+    // For now dataSpace = [i for i in range(Nx)]
+    for (int i=0; i<Nx+1; i++)
+    {
+      dataSpace.push_back(i); 
+    }
   }
   
 
   // Define input and output dimensions of model (here we have a single vector of length 1 for input; same for output)
   std::vector<std::size_t> GetInputSizes(const json& config_json) const override {
-    return {3};
+    return {Nx};
   }
 
   std::vector<std::size_t> GetOutputSizes(const json& config_json) const override {
@@ -103,9 +111,7 @@ public:
 
   std::vector<std::vector<double>> Evaluate(const std::vector<std::vector<double>>& inputs, json config) override {
     // Do the actual model evaluation
-    //Center[0] = inputs[0][0];
-    _sourceCenters = inputs[0];  
-    //_sourceWidths = inputs[0][1];
+    dataFunctionSpace = inputs[0];
 
     std::vector<std::vector<double>> output(1);
     output[0] = {}; 
@@ -301,6 +307,9 @@ private:
   //FESpaceTSubdomain< Square<Scaling<2>> ,2> 
   //auto fespace_pml(); 
 
+  std::vector<Real> dataSpace; 
+  std::vector<Real> dataFunctionSpace;
+
   // In private attribute are all the element needed in the Evaluate() function
   LAL::DiagonalMatrix massMatrixPhi;
   LAL::DiagonalMatrix massMatrixPhi_Dissip, massMatrixPhi_Bndy_Dissip, massMatrix_wx;
@@ -321,25 +330,9 @@ private:
   float dt;
   int OutputFreq;
 
-  // parameters for the function f(x)
-  float spaceWidth {5}; 
-  float spaceFreq {10}; 
-
-  int _nSources = 3; 
-  // default: all sources at the center and 1 length unit (=1.5 km) long
-  std::vector<double> _sourceCenters {};  
-  std::vector<double> _sourceWidths {1,2,3} ;
-  int counter=0; 
   Real functionSpace(const RealVector &p){
     // Input: p = (x,z),  x \in [0,Lx], z \in [0,Lz]
-    Real result = 0;
-    
-    for (int i=0 ; i<_nSources ; i++)
-    { 
-      if (counter < 3) {std::cout << _sourceCenters[i] << " " << i << std::endl; }
-      counter ++; 
-      result += DoubleSigmoid(p[0], spaceFreq, _sourceCenters[i] - _sourceWidths[i]/2, _sourceWidths[i]);
-    }
+    Real result = function_interpolate(dataSpace, dataFunctionSpace, p[0]);
     return result;
    }  
 
@@ -358,14 +351,6 @@ int main(){
   } else {
     port = atoi(port_cstr);
   }
-
-  /*char const* delay_cstr = std::getenv("TEST_DELAY");
-  int test_delay = 0;
-  if ( delay_cstr != NULL ) {
-    test_delay = atoi(delay_cstr);
-  }
-  std::cout << "Evaluation delay set to " << test_delay << " ms." << std::endl;
-  */
 
   // Set up and serve model
   ExampleModel model;

@@ -8,6 +8,8 @@ namespace OndoMathX
 // First part of the VTK file name (second part is in the .cpp file)
 std::string NameSimu = "um";
 
+std::string fileSpace = "space";  // file x
+std::string fileFunctionSpace = "function"; // file f(x)
 // Adimensionned number delta = Ma/Fr
 // Take H=1500, C=1500, g=10. Then delta^2 = Ma^2/Fr^2 = gH/C^2 = 0.006
 Real delta2 = 0.006;  
