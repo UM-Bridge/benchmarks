@@ -67,24 +67,6 @@ This model server is now running on your own computer, waiting to be called by a
 
 * Interact with your local model from a client as before. Does the model seem familiar?
 
-Basic uncertainty quantification
-----------------------------------
-
-In addition to generic language integrations, we provide a number of UQ package integrations. They seamlessly embed UM-Bridge models in the respective UQ package. Let's try QMCPy, which implements Quasi-Monte Carlo methods for uncertainty propagation::
-
-    pip install qmcpy
-
-Run the QMCPy example client from the `UM-Bridge repository <https://www.github.com/UM-Bridge/umbridge/tree/main/clients/python/>`__::
-
-    python qmcpy-client.py http://localhost:4242
-
-It will connect to your model :math:`F` as before, and perform uncertainty propagation: For a given uncertain parameter :math:`\theta` of some distribution, it will compute the mean :math:`\mathbb{E}[F(\theta)]`.
-
-Simply put, it will draw (cleverly chosen) Quasi-Monte Carlo samples from the distribution specified in the client, apply the model to each and output statistics of the results. Due to tight integration, this code looks like any other basic QMCPy example; however, it can immediately connect to any (arbitrarily complex) UM-Bridge model.
-
-* Look at ``qmcpy-client.py`` and find out what distribution it is sampling from. Does the ``Solution`` output match your expectation?
-* Optional: Write you own Monte Carlo sampler: Draw random samples :math:`\{\theta_1, \ldots, \theta_N\}` from the same distribution QMCPy is using, apply the model to each, and print out the resulting mean :math:`\frac{1}{N} \sum_{i=1}^N f(\theta_i)`. Does it match QMCPy's output?
-
 2: Running containerized simulation models
 ============================================
 
@@ -124,10 +106,32 @@ When launching the model, you can map this directory inside the container to ``~
 3: Solving UQ problems
 ========================
 
-Uncertainty propagation
+Uncertainty propagation - Basic model
 ------------------------
 
-We have already looked at uncertainty propagation in passing. Propagation benchmark problems are essentially equivalent to forward models; however, their documentation specifies a distribution of input parameters, and the goal is to determine (properties of) the resulting distribution of model outputs.
+In addition to generic language integrations, we provide a number of UQ package integrations. They seamlessly embed UM-Bridge models in the respective UQ package. Let's install QMCPy, which implements Quasi-Monte Carlo methods for uncertainty propagation::
+
+    pip install qmcpy
+
+Run the basic model from earlier:
+
+    python minimal-server.py
+
+Now run the QMCPy example client from the `UM-Bridge repository <https://www.github.com/UM-Bridge/umbridge/tree/main/clients/python/>`__::
+
+    python qmcpy-client.py http://localhost:4242
+
+It will connect to your model :math:`F`, and perform uncertainty propagation: For a given uncertain parameter :math:`\theta` of some distribution, it will compute the mean :math:`\mathbb{E}[F(\theta)]`.
+
+Simply put, it will draw (cleverly chosen) Quasi-Monte Carlo samples from the distribution specified in the client, apply the model to each and output statistics of the results. Due to tight integration, this code looks like any other basic QMCPy example; however, it can immediately connect to any (arbitrarily complex) UM-Bridge model.
+
+* Look at ``qmcpy-client.py`` and find out what distribution it is sampling from. Does the ``Solution`` output match your expectation?
+* Optional: Write you own Monte Carlo sampler: Draw random samples :math:`\{\theta_1, \ldots, \theta_N\}` from the same distribution QMCPy is using, apply the model to each, and print out the resulting mean :math:`\frac{1}{N} \sum_{i=1}^N f(\theta_i)`. Does it match QMCPy's output?
+
+Uncertainty propagation - Euler-Bernoulli beam
+------------------------
+
+We now perform uncertainty propagation on a UQ benchmark from the UM-Bridge benchmark library. Propagation benchmark problems are essentially equivalent to forward models; however, their documentation specifies a distribution of input parameters, and the goal is to determine (properties of) the resulting distribution of model outputs.
 
 For example, the already mentioned Euler-Bernoulli beam propagation benchmark `documented here <https://um-bridge-benchmarks.readthedocs.io/en/docs/forward-benchmarks/muq-beam-propagation.html>`__ defines a uniform distribution in three dimesions to sample from. Start the model server now::
 
