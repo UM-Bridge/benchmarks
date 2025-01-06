@@ -38,9 +38,9 @@ Interacting with a model
 Let us now request a model evaluation from a Python script. You can copy and run the following code:
 
     import umbridge
-    
+
     model = umbridge.HTTPModel("http://testmodel.linusseelinger.de", "forward")
-    
+
     print(model([[11.0]]))
 
 Here we point UM-Bridge to a model named ``forward`` running on a remote server by giving the server's address. We then pass the parameter ``[[11.0]]`` to the model, and receive an output. Behind the scenes, UM-Bridge will send that parameter to the server and receive its reply.
@@ -188,13 +188,13 @@ Writing a Dockerfile is very similar to writing a bash script to build your appl
 
 Before writing our own Dockerfile let's have a look at the Dockerfiles for the two applications we have used in previous steps of the tutorial. The beam propagation benchmark does not have a lot of dependencies. It's Dockerfile can be found `here <https://github.com/UM-Bridge/benchmarks/tree/main/models/muq-beam>`__ .
 
-In addition to the Dockerfile itself the folder contains python files for the applicaton (BeamModel.py and GenerateObservations.py), additional data (ProblemDefinition.h5) and a README. 
+In addition to the Dockerfile itself the folder contains python files for the applicaton (BeamModel.py and GenerateObservations.py), additional data (ProblemDefinition.h5) and a README.
 We are mainly interested in the Dockerfile itself so let's open it and walk through the components one by one.
 
 On the first line we have::
-    
+
     FROM mparno/muq:latest
-    
+
 Here FROM is a keyword we use to define a base image for our application. In this case the model is built on top of the MUQ docker image. The last part `:latest` specifies which version of the container to use.
 
 Next we have::
@@ -212,19 +212,19 @@ The USER keyword can be used to specify which user should be running commands. B
 Now we need to install any dependencies our application has. In this applications all dependencies can be install using apt and we run::
 
     RUN apt update && apt install -y python3-aiohttp python3-requests python3-numpy python3-h5py
-    
+
 The RUN keyword specifies that the corresponding lines should be executed.
 
 Now we switch user with `USER muq-user` and set the working directory with::
 
     WORKDIR /server
-    
+
 The WORKDIR keyword sets the directory from which all subsequent commands are run. Paths will begin in this directory. If the WORKDIR is not set then `/` is used.
 
 Finally, we run the actual model with::
 
     CMD python3 BeamModel.py
-    
+
 The CMD keyword is also used to execute commands, however, it differs from RUN in that the command is run once container is live. The setup and installation of your application should take place when building the container (use RUN) and the actual model runs should take place once the container is running (use CMD or call this from the umbridge server).
 
 You can also have a look at the Dockerfile for the ExaHyPE tsunami model, which you can find here: `here <https://github.com/UM-Bridge/benchmarks/tree/main/models/exahype-tsunami>`__. This application has more dependencies, and as such a considerably longer Dockerfile, but follows the same steps to install those dependencies one by one. In addition to the keywords described above, this Dockerfile sets environment variables by the `ENV` keyword.
@@ -249,7 +249,7 @@ In order to write your own Dockerfile let's start from the following minimal exa
 
     CMD . venv/bin/activate && \
          python3 /server/server.py
-    
+
 This minimal example assumes a model server is available. Use the model server that you have built in the first part of the tutorial.
 
 Add a file called Dockerfile to your directory. Note that the filename has no extension and is capitalised.
@@ -257,14 +257,14 @@ Add a file called Dockerfile to your directory. Note that the filename has no ex
 Your Dockerfile should start by building on a base image. As a very basic starting point use ubuntu as your base image::
 
     FROM ubuntu:latest
-    
+
 Alternatively use any other existing image you want to build on.
 
 Next copy the server. Install any standard dependencies your application has::
 
      RUN apt update && \
         DEBIAN_FRONTEND="noninteractive" apt install -y python3-pip python3-venv [your-dependencies]
-    
+
 Note:
 
 * python3-pip is needed to install umbridge
@@ -273,10 +273,10 @@ Note:
 
 * To ensure that no user input is needed use  DEBIAN_FRONTEND="noninteractive" and specify the `-y` option.
 
-If you have additional dependencies, add these either by cloning a git repository and installing, or by using the COPY keyword to copy files into your container. 
+If you have additional dependencies, add these either by cloning a git repository and installing, or by using the COPY keyword to copy files into your container.
 
 Install your application. Install umbridge with::
-    
+
         python3 -m venv venv && . venv/bin/activate && \
         pip install umbridge numpy scipy
 Note:
@@ -295,13 +295,13 @@ Building and Running
 Once you have your Dockerfile you will want to build and run the container. To build the container in your current directory run::
 
     docker build -t my-model .
-    
+
 The Dockerfile can also be explicitly set using the -f option. At this stage you may need to go back and modify your Dockerfile because something has gone wrong during the build process.
 
 Once the container is built you can run you model with::
 
     docker run -it -p 4243:4243 my-model
-    
+
 Note that the ports through which your model communicates are specified with the -p option.
 
 It can be useful to check which images currently exist on your computer with::
@@ -321,11 +321,11 @@ Optionally you may want to upload your Dockerfile to dockerhub. This will allow 
 To push to dockerhub you first need an account. You can set one up at `dockerhub <https://hub.docker.com>`__. Then you can log in on the command line by running:
 
     docker login
-    
+
 Once you are logged in you can push your image to docker hub using::
 
     docker push my-account/my-model
-    
+
 where my-account is your login and `my-account/my-model` is the name of the image you want to push.
 
 6: Scaling up on clusters
@@ -347,6 +347,15 @@ Note: The L2-Sea model is quite costly at its highest fidelity. You can control 
 
 * Point your basic UM-Bridge client from the beginning of the tutorial to the cluster address and interact with the remote model. You find valid input ranges in the model's documentation.
 * Optional: Run two separate instances of your client at the same time. Watch their run time, for example using the ``time`` command. Then run the `L2-Sea propagation benchmark <https://um-bridge-benchmarks.readthedocs.io/en/docs/forward-benchmarks/l2-sea-propagation.html>`_ on your own system and repeat the procedure. Do you observe a time difference between concurrent model evaluations on the cluster vs. your single local model?
+
+Parallel model evaluations
+------------------------
+
+Any UM-Bridge client may perform parallel model evaluations, which the cluster will distribute across parallel model instances. You find a basic thread-parallel client in the `UM-Bridge repository <https://www.github.com/UM-Bridge/umbridge/tree/main/clients/python/>`__. Run it as below, adapting the address to your cluster::
+
+    python basic-parallel-client.py http://localhost:4242
+
+Have a closer look at the client's source code. It makes use of Python's thread pools, and each thread simply performs a model evaluation as in the sequential case.
 
 Parallelized UQ
 ------------------------
