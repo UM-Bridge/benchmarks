@@ -4,19 +4,15 @@
 
 namespace OndoMathX
 {
-
 // First part of the VTK file name (second part is in the .cpp file)
 std::string NameSimu = "um";
 
-std::string fileSpace = "space";  // file x
-std::string fileFunctionSpace = "function"; // file f(x)
 // Adimensionned number delta = Ma/Fr
 // Take H=1500, C=1500, g=10. Then delta^2 = Ma^2/Fr^2 = gH/C^2 = 0.006
 Real delta2 = 0.006;  
 
 //// Final time and output frequency
 Real T_end = 5. ; //50.0; // Final time in seconds
-Index NVtk = 100; 
 Real OutputDeltat = 0.1; // write pressure output every outputDeltat (in seconds)
 
 // Finite element order in the x respectively the z direction 
@@ -33,9 +29,8 @@ Index Nz = 10;  // number of subdivisions in the z direction
 const Index nPointX = 1;
 const Index nPointZ = 1;
 // Captors coordinates given in [0,Lx] and [0,Lz]
-Real listX[nPointX] = {30}; 
+Real listX[nPointX] = {28}; 
 Real listZ[nPointZ] = {0.9};
-
 
 // parameters for the function g(t)
 Real timeWidth = 25;
@@ -48,13 +43,14 @@ Real functionTime(Real t){
 }
 
 // parameters for the function f(x)
-Real spaceWidth = 5; 
-Real spaceFreq = 10; 
-RealVector Center = {0.5, 0.5};
-Real functionSpace(const RealVector &p){
-    // Input: p = (x,z),  x \in [0,Lx], z \in [0,Lz]
-    return DoubleSigmoid(p[0], spaceFreq, Center[0] - spaceWidth/2, spaceWidth);
-}   
+// Real spaceWidth = 5; 
+// Real spaceFreq = 10; 
+// RealVector Center = {0.5, 0.5};
+//
+//Real functionSpace(const RealVector &p){
+//    // Input: p = (x,z),  x \in [0,Lx], z \in [0,Lz]
+//    return DoubleSigmoid(p[0], spaceFreq, Center[0] - spaceWidth/2, spaceWidth);
+//}   
 
 //  Physical parameters (density, velocity)
 Real _Rho(const RealVector &p)
@@ -66,7 +62,7 @@ Real _Rho(const RealVector &p)
 Real _c(const RealVector &p)
 {   
     // Input: (x,z) in the transformed domain (= not the reference square)
-    return 1;
+    return 1.;
 }
 
 Real _Rho_cm2(const RealVector &p)

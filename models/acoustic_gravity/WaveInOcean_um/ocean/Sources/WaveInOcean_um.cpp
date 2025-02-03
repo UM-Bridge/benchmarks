@@ -26,7 +26,7 @@ public:
   ExampleModel() 
     : umbridge::Model("forward"),
     scaling(Lx, Lz), fespace(FEOrderX,FEOrderZ,Nx,Nz,scaling), 
-    phi(3), phi_hat(2), wx(2), 
+    phi(3), phi_hat(2), wx(2), pressure(2),
     Rho(_Rho), Rho_cm2(_Rho_cm2), scalar_to_vect_ez(_field_ez), 
     cst_vec_ez(ez), cst_vec_ex(ex)
   {}
@@ -57,9 +57,14 @@ public:
     CreateMass<1>(fespace, Rho_cm2, massMatrixPhi, 1.0); 
     AssembleMassBndy(surface_fespace, Field::IdentityField, massMatrixPhi, 1./delta2*_Rho({0,1,0})); 
 
-    // Matrices for the pressure
+    // Matrix for the pressure
     Field::Scalar unit_field(1.0); 
+    // Displ. formulation
+    //CreateMass<1>(fespace,unit_field,massMatrixUnit,1.0);
+    // Vel. formulation
     CreateMass<1>(fespace,unit_field,massMatrixUnit,1.0);
+    CreateMass<1>(fespace,Rho,massMatrixRho,1.0);
+
     ////////////////////////////////////////
 
     ////////////////////////////////////////
@@ -78,7 +83,8 @@ public:
     ////////////////////////////////////////
     // Vectors
     phi.Allocate(NDoFs);
-    LAL::Allocate(pressure, NDoFs);
+    pressure.Allocate(NDoFs);
+    //LAL::Allocate(pressure, NDoFs);
     LAL::Allocate(sourceVol, NDoFs); 
     ////////////////////////////////////////
 
@@ -112,6 +118,13 @@ public:
   std::vector<std::vector<double>> Evaluate(const std::vector<std::vector<double>>& inputs, json config) override {
     // Do the actual model evaluation
     dataFunctionSpace = inputs[0];
+    
+    // reset values for phi and pressure vectors
+    std::fill(phi.getVector(0).begin(), phi.getVector(0).end(), 0);
+    std::fill(phi.getVector(1).begin(), phi.getVector(1).end(), 0);
+    std::fill(phi.getVector(2).begin(), phi.getVector(2).end(), 0);
+    std::fill(pressure.getVector(0).begin(), pressure.getVector(0).end(), 0);
+    std::fill(pressure.getVector(1).begin(), pressure.getVector(1).end(), 0);
 
     std::vector<std::vector<double>> output(1);
     output[0] = {}; 
@@ -141,7 +154,6 @@ public:
     CreateMassDG(fespace_pml, Field::IdentityField, massMatrix_wx,1.0);
     //////////////////////////////////// 
 
-
     ////////// Create source here because it depends on the input
     auto bottom_fespace = fespace.getBndyFESpace(0);
     LAL::Vector sourceCoord, source;
@@ -149,7 +161,7 @@ public:
     LAL::Allocate(source, bottom_fespace.getNumDoFs());
     Field::Scalar unit_field(1.0); 
 
-    // Compute f(x) at each DoF of the seabed 
+    //Compute f(x) at each DoF of the seabed 
     LAL::SparseMatrix bottomMassMatrix;
     CreateMassBndy(bottom_fespace, unit_field, bottomMassMatrix, _Rho({0,0,0}));
     bottom_fespace.setAsFESpace();
@@ -169,11 +181,19 @@ public:
         Index dof = bottom_fespace._glob_bdny2glob_sq(i);
         sourceVol(dof) = source(i) ;
     }
+
+    // bottom_fespace.setAsFESpace();
+    // for (Index i=0;i<bottom_fespace.getNumDoFs();++i)
+    // {
+    //   Index dof = bottom_fespace._glob_bdny2glob_sq(i);
+    //   Index j = (dof %  (Nx * FEOrderX + 1) ) / FEOrderX  ; // extract the cell index
+    //   //std::cout << "global dof i:" << i << "  cell index j:" << j << endl; 
+    //   sourceVol(dof) = dataFunctionSpace[j]; // set all the local dof equal to the first dof of the cell
+    // }
     //////////////////////////////////
 
     std::cout << "Running WaveInOcean........................" << std::endl;
     
-    Index NOutput = 0; // used only for VTK
     for  (Index iStep = 0; iStep*dt < T_end; iStep++)
     {   
         // Operation  K_phi
@@ -189,7 +209,7 @@ public:
             (fespace,fespace,Rho,-dt*dt,phi.getVector(1),0.0,phi.getVector(0)); 
        
         // Add bottom source
-        phi.getVector(0) += dt * dt * sourceVol * functionTime(dt*iStep);
+        phi.getVector(0) += dt*dt * sourceVol * functionTime(dt*iStep);
          
         // PML contributions 
         // Contribution of phi_hat
@@ -220,10 +240,11 @@ public:
             Core::DiffOp::Gradient, 
             Field::ScalarToVector<2, Field::Regularity::C0> 
             >
-            (fespace_pml,subspace_pml, Rho, dt*dt, wx.getVector(1), 1.0,phi.getVector(0),
-                scalar_to_vect_ez); 
+            (fespace_pml, subspace_pml, Rho, dt*dt, wx.getVector(1), 1.0, phi.getVector(0),
+                scalar_to_vect_ez);  
 
         // Surface wx contribution for left and right boundary
+        //TODO: why is it commented out? 
         //phi.getVector(0) += -dt * dt * massMatrixBoundaryWx * wx.getVector(1);
         
         // Contribution of previous timesets for phi
@@ -231,7 +252,7 @@ public:
         phi.getVector(0) += - 1.0   * massMatrix_m  * phi.getVector(2);
 
         // Solve Phi
-        LAL::Solve(massMatrix_p,phi.getVector(0));
+        LAL::Solve(massMatrix_p, phi.getVector(0));
 
         /////// Update wx, phi_hat  ////////////
         // stores (phi^{n+1} + phi^n)/2 in phi_hat
@@ -260,32 +281,46 @@ public:
         phi_hat.getVector(0) += phi_hat.getVector(1);
         ////////////////////////////////////////////
         
+
+        // Get pressure, velocity formulation
+        Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
+            1,       //DimU
+            1,       //DimV
+            2,       //DimI
+            1,       //DimJ
+            Field::Scalar<Field::Regularity::C0>,
+            Core::DiffOp::Gradient,
+            Core::DiffOp::Identity, 
+            Field::Identity, 
+            Field::ScalarToVector<2, Field::Regularity::C0>
+            >
+            (fespace,fespace, Rho, dt * delta2, phi.getVector(0), 0.0, pressure.getVector(0), Field::IdentityField, scalar_to_vect_ez); 
+        pressure.getVector(0) += 1./dt * massMatrixRho * (phi.getVector(0) - 2*phi.getVector(1) + phi.getVector(2));
+        LAL::Solve(massMatrixUnit, pressure.getVector(0));
+        pressure.getVector(0) += pressure.getVector(1); 
+        
         // Writing solution.
         if (iStep % OutputFreq == 0)
         { 
-          // Get pressure, displacement formulation 
-          Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
-              1,       //DimU
-              1,       //DimV
-              2,       //DimI
-              1,       //DimJ
-              Field::Scalar<Field::Regularity::C0>,
-              Core::DiffOp::Gradient,
-              Core::DiffOp::Identity, 
-              Field::Identity, 
-              Field::ScalarToVector<2, Field::Regularity::C0>
-              >
-              (fespace,fespace, Rho, delta2, phi.getVector(0), 0.0, pressure, Field::IdentityField, scalar_to_vect_ez); 
-          LAL::Solve(massMatrixUnit, pressure);
-          pressure += 1./(dt*dt) * (phi.getVector(0) - 2*phi.getVector(1) + phi.getVector(2));
-          output[0].push_back( pressure(iObsPoint_vector[0]) ) ;
+          // // Get pressure, displacement formulation 
+          // Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
+          //     1,       //DimU
+          //     1,       //DimV
+          //     2,       //DimI
+          //     1,       //DimJ
+          //     Field::Scalar<Field::Regularity::C0>,
+          //     Core::DiffOp::Gradient,
+          //     Core::DiffOp::Identity, 
+          //     Field::Identity, 
+          //     Field::ScalarToVector<2, Field::Regularity::C0>
+          //     >
+          //     (fespace,fespace, Rho, delta2, phi.getVector(0), 0.0, pressure, Field::IdentityField, scalar_to_vect_ez); 
+          // LAL::Solve(massMatrixUnit, pressure);
+          // pressure = 1./(dt*dt) * (phi.getVector(0) - 2*phi.getVector(1) + phi.getVector(2));
+          output[0].push_back( pressure.getVector(0)(iObsPoint_vector[0]) ) ;
 
-          if( iStep % (NVtk * OutputFreq) == 0)
-          {
-           ParallelWriteVTK("../Data/Phi."+std::to_string(NOutput) + ".vtk", fespace, phi.getVector(0));
-           ParallelWriteVTK("../Data/P."+std::to_string(NOutput) + ".vtk", fespace, pressure);
-           NOutput++;
-          }
+
+
         }
         // Swapping solutions.
         phi.Swap();
@@ -311,14 +346,15 @@ private:
   std::vector<Real> dataFunctionSpace;
 
   // In private attribute are all the element needed in the Evaluate() function
-  LAL::DiagonalMatrix massMatrixPhi;
+  LAL::DiagonalMatrix massMatrixPhi, massMatrixRho;
   LAL::DiagonalMatrix massMatrixPhi_Dissip, massMatrixPhi_Bndy_Dissip, massMatrix_wx;
   LAL::DiagonalMatrix massMatrix_m, massMatrix_p;
   LAL::DiagonalMatrix massMatrixUnit; 
   LAL::VectorSequence phi;
+  LAL::VectorSequence pressure;
   LAL::VectorSequence phi_hat, wx; 
   LAL::Vector sourceVol;
-  LAL::Vector pressure; 
+  //LAL::Vector pressure; 
   std::vector<Index> iObsPoint_vector;
   
   Field::Scalar<Field::Regularity::C0> Rho_cm2;
