@@ -12,7 +12,7 @@ std::string NameSimu = "um";
 Real delta2 = 0.006;  
 
 //// Final time and output frequency
-Real T_end = 5. ; //50.0; // Final time in seconds
+Real T_end = 10. ; //50.0; // Final time in seconds
 Real OutputDeltat = 0.1; // write pressure output every outputDeltat (in seconds)
 
 // Finite element order in the x respectively the z direction 
