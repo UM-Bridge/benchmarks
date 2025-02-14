@@ -112,7 +112,7 @@ public:
   }
 
   std::vector<std::size_t> GetOutputSizes(const json& config_json) const override {
-    return {53};
+    return {105};
   }
 
   std::vector<std::vector<double>> Evaluate(const std::vector<std::vector<double>>& inputs, json config) override {
