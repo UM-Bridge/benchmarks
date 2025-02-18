@@ -31,7 +31,7 @@ ENV COMPILER_LFLAGS=" -L/dependencies/ImpalaJIT/build/ -limpalajit -L/dependenci
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/lib/:/dependencies/ImpalaJIT/build"
 
 RUN cd /dependencies/ && git clone https://github.com/SeisSol/easi.git && \
-    cd easi &&\
+    cd easi && git checkout 647ff0863a83c011e56c8eb6b4fc522fa355c153 &&\
     mkdir build && cd build && \
     CC=mpicc CXX=mpicxx cmake -DPKG_CONFIG_USE_CMAKE_PREFIX_PATH=TRUE -DCMAKE_PREFIX_PATH=/dependencies/ -DCMAKE_INSTALL_PREFIX=/dependencies/easi/build/ .. && \
     make -j4
