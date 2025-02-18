@@ -3,7 +3,7 @@ FROM chun9l/openmpi-builder:0.3.0 as builder
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    apt-get install -y python3 git cmake wget curl zlib1g pkg-config libhdf5-openmpi-dev libc6-dev libnuma-dev doxygen libyaml-cpp-dev gfortran libtbb-dev libstdc++-8-dev
+    apt-get install -y python3 git cmake wget curl zlib1g pkg-config libhdf5-openmpi-dev libc6-dev libnuma-dev doxygen libyaml-cpp-dev gfortran libtbb-dev libstdc++-8-dev liblua5.3-dev
 
 RUN cd / && mkdir dependencies && \
     cd /dependencies/ && git clone https://github.com/uphoffc/ImpalaJIT.git && \
@@ -31,9 +31,7 @@ ENV COMPILER_LFLAGS=" -L/dependencies/ImpalaJIT/build/ -limpalajit -L/dependenci
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/lib/:/dependencies/ImpalaJIT/build"
 
 RUN cd /dependencies/ && git clone https://github.com/SeisSol/easi.git && \
-    cd easi && git checkout 18382bf60204c67782057fc371c1e699c9bb31b0 &&\
-    sed -i "s|find_package (YAMLCPP REQUIRED yaml-cpp)|pkg_check_modules (YAMLCPP REQUIRED yaml-cpp) |g" CMakeLists.txt &&\
-    sed -i "s|find_package (OpenMP)| |g" CMakeLists.txt && \
+    cd easi &&\
     mkdir build && cd build && \
     CC=mpicc CXX=mpicxx cmake -DPKG_CONFIG_USE_CMAKE_PREFIX_PATH=TRUE -DCMAKE_PREFIX_PATH=/dependencies/ -DCMAKE_INSTALL_PREFIX=/dependencies/easi/build/ .. && \
     make -j4
@@ -41,7 +39,7 @@ RUN cd /dependencies/ && git clone https://github.com/SeisSol/easi.git && \
 RUN cd / && git   clone https://github.com/annereinarz/ExaHyPE-Tsunami.git
 WORKDIR /ExaHyPE-Tsunami
 
-ENV COMPILER_LFLAGS="-DMPI2 -lmpi_cxx -lnuma -L/dependencies/ImpalaJIT/build/ -limpalajit -L/dependencies/netcdf-c-4.8.1/lib/lib -lnetcdf -L/usr/lib/$(arch)-linux-gnu/ -lyaml-cpp -L/usr/local/lib -lasagi -L/dependencies/easi/build -leasi -lpthread -ltbb"
+ENV COMPILER_LFLAGS="-DMPI2 -lmpi_cxx -lnuma -fopenmp -lstdc++fs -llua5.3 -L/dependencies/ImpalaJIT/build/ -limpalajit -L/dependencies/netcdf-c-4.8.1/lib/lib -lnetcdf -L/usr/lib/$(arch)-linux-gnu/ -lyaml-cpp -L/usr/local/lib -lasagi -L/dependencies/easi/build -leasi -lpthread -ltbb"
 ENV COMPILER_CFLAGS=" -I/dependencies/easi/include/"
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/lib:/dependencies/easi/build"
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/dependencies/netcdf-c-4.8.1/lib/lib/"
@@ -73,12 +71,12 @@ COPY . /server
 RUN cd /server && \
     g++ -o server server.cpp -I /umbridge/lib -lpthread
 
-FROM mpioperator/openmpi
+FROM mpioperator/openmpi:0.3.0
 
-#SHELL ["/bin/bash", "-c"]
+SHELL ["/bin/bash", "-c"]
 
 RUN apt-get update && \
-    apt-get install -y python3 libyaml-cpp0.6 libtbb2 libhdf5-openmpi-103 && \
+    apt-get install -y python3 libyaml-cpp0.6 libtbb2 libhdf5-openmpi-103 liblua5.3-dev && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /server/server /server/server
