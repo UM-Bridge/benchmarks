@@ -53,16 +53,19 @@ Real functionTime(Real t){
 //}   
 
 //  Physical parameters (density, velocity)
+Real CConst = 1.; //for c=1500m/s
 Real _Rho(const RealVector &p)
 {   
     // Input: (x,z) in the transformed domain (= not the reference square)
-    return 1.;
+    //return 1.;
+    Real alpha = -  delta2 / (CConst * CConst * Lz);
+    return exp( - p[1] * alpha );
 }
 
 Real _c(const RealVector &p)
 {   
     // Input: (x,z) in the transformed domain (= not the reference square)
-    return 1.;
+    return CConst;
 }
 
 Real _Rho_cm2(const RealVector &p)
