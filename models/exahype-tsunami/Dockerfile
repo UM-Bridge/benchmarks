@@ -55,9 +55,9 @@ RUN cd /ExaHyPE-Tsunami/ApplicationExamples/SWE/ && \
     ../../Toolkit/toolkit.sh SWE_asagi_limited_l0.exahype2 && \
     ../../Toolkit/toolkit.sh SWE_asagi_limited_l1.exahype2 && \
     ../../Toolkit/toolkit.sh SWE_asagi_limited_l2.exahype2 && \
-    cd SWE_asagi_limited_l0    && make -j4 && mkdir Probes && mkdir vtk-output &&\
-    cd ../SWE_asagi_limited_l1 && make -j4 && mkdir Probes && mkdir vtk-output && \
-    cd ../SWE_asagi_limited_l2 && make -j4 && mkdir Probes && mkdir vtk-output
+    cd SWE_asagi_limited_l0    && make -j4 && mkdir Probes  &&\
+    cd ../SWE_asagi_limited_l1 && make -j4 && mkdir Probes  && \
+    cd ../SWE_asagi_limited_l2 && make -j4 && mkdir Probes
 
 # Default verbosity level... need cleaner solution
 RUN cd /ExaHyPE-Tsunami/ApplicationExamples/SWE/SWE_asagi_limited_l0 && cp exahype_debug.log-filter exahype.log-filter && \
