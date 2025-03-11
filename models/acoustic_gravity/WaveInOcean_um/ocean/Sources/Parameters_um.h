@@ -20,6 +20,7 @@ const Index FEOrderX = 5;
 const Index FEOrderZ = 5; 
 
 //std::string NameSimu="Dual" +std::to_string(FEOrderX)+"_"+std::to_string(FEOrderZ)+"_"+ std::to_string(Nx)+"_"+std::to_string(Nz);
+// domain: take 6 length units at each end to avoid reflexions  -> 12 length units not usable 
 Real Lx = 43;// scaling in the x direction -> 64.5 km
 Real Lz = 1; // scaling in the z direction -> 1 km
 Index Nx = 43; // number of subdivisions in the x direction  
