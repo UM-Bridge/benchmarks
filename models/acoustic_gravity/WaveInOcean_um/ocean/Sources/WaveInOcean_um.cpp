@@ -128,30 +128,6 @@ public:
 
     std::vector<std::vector<double>> output(1);
     output[0] = {}; 
-
-    // TODO: I don't know how to create subspace_pml in the constructor or in the Init()
-    // function, since there is no default constructor and no assignment function 
-    // for the class FESpaceTSubdomain
-    std::map<Index, Real> Dissip_map;
-    Dissip_map[0] = 0.0;
-    Dissip_map[1] = Dissip_coeff;
-    Field::Scalar<Field::Regularity::PiecewiseConstant> Dissip_Disc_Field(Dissip_map);
-    
-    auto surface_fespace = fespace.getBndyFESpace(2);
-    auto subspace_pml = fespace.getSubDomainFESpace([](RealVector xyz){
-            if ((xyz[0] > Lx-LxPml_R) || (xyz[0] < LxPml_L))
-                return true;
-            else return false;
-    });
-    auto fespace_pml = subspace_pml;  
-    subspace_pml.setAsSubSpace(); 
-    fespace_pml.setAsFESpace(); 
-
-    CreateMass<1>(subspace_pml, Rho_cm2, massMatrixPhi_Dissip, Dissip_coeff);
-    CreateMassBndy(surface_fespace, Dissip_Disc_Field, massMatrixPhi_Bndy_Dissip, 1./delta2*_Rho({0,1,0}));
-    massMatrix_p = massMatrixPhi + 0.5*dt*massMatrixPhi_Dissip + 0.5*dt*massMatrixPhi_Bndy_Dissip;
-    massMatrix_m = massMatrixPhi - 0.5*dt*massMatrixPhi_Dissip - 0.5*dt*massMatrixPhi_Bndy_Dissip;
-    CreateMassDG(fespace_pml, Field::IdentityField, massMatrix_wx,1.0);
     //////////////////////////////////// 
 
     ////////// Create source here because it depends on the input
@@ -181,15 +157,6 @@ public:
         Index dof = bottom_fespace._glob_bdny2glob_sq(i);
         sourceVol(dof) = source(i) ;
     }
-
-    // bottom_fespace.setAsFESpace();
-    // for (Index i=0;i<bottom_fespace.getNumDoFs();++i)
-    // {
-    //   Index dof = bottom_fespace._glob_bdny2glob_sq(i);
-    //   Index j = (dof %  (Nx * FEOrderX + 1) ) / FEOrderX  ; // extract the cell index
-    //   //std::cout << "global dof i:" << i << "  cell index j:" << j << endl; 
-    //   sourceVol(dof) = dataFunctionSpace[j]; // set all the local dof equal to the first dof of the cell
-    // }
     //////////////////////////////////
 
     std::cout << "Running WaveInOcean........................" << std::endl;
@@ -210,77 +177,12 @@ public:
        
         // Add bottom source
         phi.getVector(0) += dt*dt * sourceVol * functionTime(dt*iStep);
-         
-        // PML contributions 
-        // Contribution of phi_hat
-        Core::MltAdd<decltype(fespace_pml),decltype(subspace_pml),false,true,true, 
-            Core::QuadratureOpt::Default,
-            1,       //DimU
-            1,       //DimV
-            1,       //DimI
-            1,       //DimJ
-            Field::Scalar<Field::Regularity::C0>,
-            Core::DiffOp::Gradient,
-            Core::DiffOp::Gradient, 
-            Field::Vector<2>,
-            Field::Vector<2>
-            >
-            (fespace_pml, subspace_pml, Rho, -dt*dt, phi_hat.getVector(1), 1.0, phi.getVector(0),
-                cst_vec_ez, cst_vec_ez); 
-        
-        // Contribution of wx
-        Core::MltAdd<decltype(fespace_pml),decltype(subspace_pml),false,true,true, 
-            Core::QuadratureOpt::Default,
-            1,       //DimU
-            1,       //DimV
-            2,       //DimI
-            1,       //DimJ
-            Field::Scalar<Field::Regularity::C0>,
-            Core::DiffOp::Identity,
-            Core::DiffOp::Gradient, 
-            Field::ScalarToVector<2, Field::Regularity::C0> 
-            >
-            (fespace_pml, subspace_pml, Rho, dt*dt, wx.getVector(1), 1.0, phi.getVector(0),
-                scalar_to_vect_ez);  
+      
+        LAL::Solve(massMatrixPhi, phi.getVector(0));
 
-        // Surface wx contribution for left and right boundary
-        //TODO: why is it commented out? 
-        //phi.getVector(0) += -dt * dt * massMatrixBoundaryWx * wx.getVector(1);
-        
         // Contribution of previous timesets for phi
-        phi.getVector(0) +=   2.0   * massMatrixPhi * phi.getVector(1);
-        phi.getVector(0) += - 1.0   * massMatrix_m  * phi.getVector(2);
-
-        // Solve Phi
-        LAL::Solve(massMatrix_p, phi.getVector(0));
-
-        /////// Update wx, phi_hat  ////////////
-        // stores (phi^{n+1} + phi^n)/2 in phi_hat
-        fespace_pml.MltAddRestriction(0.5,phi.getVector(0),0.0,phi_hat.getVector(0)); 
-        fespace_pml.MltAddRestriction(0.5,phi.getVector(1),1.0,phi_hat.getVector(0)); 
-
-        Core::MltAdd<decltype(fespace_pml),decltype(fespace_pml),true,true,false,
-            Core::QuadratureOpt::Default, 
-            1, //DimU 
-            1, //DimV
-            1, //DimI
-            1, //DimJ
-            Field::Identity,
-            Core::DiffOp::Gradient,
-            Core::DiffOp::Identity,
-            Field::Vector<2>,
-            Field::Identity>
-            (fespace_pml, fespace_pml, Field::IdentityField, Dissip_coeff, phi_hat.getVector(0), 0.0, wx.getVector(0),
-                cst_vec_ex, Field::IdentityField); 
-        LAL::Solve(massMatrix_wx, wx.getVector(0));
-
-        wx.getVector(0) += (wx.getVector(1))*(1.0/dt - 0.5*Dissip_coeff);
-        wx.getVector(0) /= (1.0/dt + 0.5*Dissip_coeff);
-
-        phi_hat.getVector(0) *= Dissip_coeff*dt;
-        phi_hat.getVector(0) += phi_hat.getVector(1);
-        ////////////////////////////////////////////
-        
+        phi.getVector(0) +=   2.0 * phi.getVector(1);
+        phi.getVector(0) += - 1.0 * phi.getVector(2);
 
         // Get pressure, velocity formulation
         Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
@@ -302,30 +204,10 @@ public:
         // Writing solution.
         if (iStep % OutputFreq == 0)
         { 
-          // // Get pressure, displacement formulation 
-          // Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
-          //     1,       //DimU
-          //     1,       //DimV
-          //     2,       //DimI
-          //     1,       //DimJ
-          //     Field::Scalar<Field::Regularity::C0>,
-          //     Core::DiffOp::Gradient,
-          //     Core::DiffOp::Identity, 
-          //     Field::Identity, 
-          //     Field::ScalarToVector<2, Field::Regularity::C0>
-          //     >
-          //     (fespace,fespace, Rho, delta2, phi.getVector(0), 0.0, pressure, Field::IdentityField, scalar_to_vect_ez); 
-          // LAL::Solve(massMatrixUnit, pressure);
-          // pressure = 1./(dt*dt) * (phi.getVector(0) - 2*phi.getVector(1) + phi.getVector(2));
           output[0].push_back( pressure.getVector(0)(iObsPoint_vector[0]) ) ;
-
-
-
         }
         // Swapping solutions.
         phi.Swap();
-        phi_hat.Swap();
-        wx.Swap();
     } 
     return output; 
   }
