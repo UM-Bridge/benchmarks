@@ -2,7 +2,7 @@
 #include <fstream>
 #include <ctime>
 #include <string>
-
+#include <algorithm>
 #include <complex>
 
 #include "OndoMathX.h"
@@ -107,17 +107,44 @@ public:
   
 
   // Define input and output dimensions of model (here we have a single vector of length 1 for input; same for output)
-  std::vector<std::size_t> GetInputSizes(const json& config_json) const override {
-    return {Nx};
+  std::vector<std::size_t> GetInputSizes(const json& config) const override {
+    if(config.is_null() || config.empty()) {
+      return {Nx}; 
+    }
+    std::vector<int> fixedFloor = config["fixedFloor"].get<std::vector<int>>();
+    return {Nx-fixedFloor.size()};
+  
   }
 
-  std::vector<std::size_t> GetOutputSizes(const json& config_json) const override {
+  std::vector<std::size_t> GetOutputSizes(const json& config) const override {
     return {105};
   }
 
   std::vector<std::vector<double>> Evaluate(const std::vector<std::vector<double>>& inputs, json config) override {
     // Do the actual model evaluation
-    dataFunctionSpace = inputs[0];
+    if(config.is_null() || config.empty()) 
+    {
+      dataFunctionSpace = inputs[0];
+    }
+    else 
+    {
+      dataFunctionSpace = {};
+      int i_input=0;
+      std::vector<int> fixedFloor = config["fixedFloor"].get<std::vector<int>>();
+      for (Index i=0;i<inputs[0].size() + fixedFloor.size() ;++i)
+      {
+        if( std::find(fixedFloor.begin(), fixedFloor.end(), i )!=fixedFloor.end())
+        { dataFunctionSpace.push_back(0.); }
+        else 
+        {
+          dataFunctionSpace.push_back(inputs[0][i_input]);
+          i_input ++; 
+        }
+        //std::cout<< dataFunctionSpace[i] << std::endl;
+      }
+
+      
+    }
     
     // reset values for phi and pressure vectors
     std::fill(phi.getVector(0).begin(), phi.getVector(0).end(), 0);
@@ -147,7 +174,7 @@ public:
         RealVector P;
         // Get the (x,z) coordinates to evaluate the function sourceSpace
         fespace.getDoFCoordinate(dof,P);
-        sourceCoord(i) = functionSpace(P) ;
+        sourceCoord(i) = functionSpace(P);
     }
     // Get FE approximation of f(x) 
     source = bottomMassMatrix * sourceCoord;
