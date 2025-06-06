@@ -1,0 +1,145 @@
+DIMENS
+60 60 24 /
+
+external_file ccs_3df_geom_refined.grdecl
+
+-- Control zone
+EQUALS
+FIPNOGO 5 1 14 1 14 2* /
+/
+
+-- Set Porosities per layer
+EQUALS  -- <== PARAMETER TO TUNE (Obtained using the excel file provided)
+	PORO	0.21	4*	1	2	/
+	PORO	0.16	4*	3	4	/
+	PORO	0.32	4*	5	6	/
+	PORO	0.24	4*	7	8	/
+	PORO	0.36	4*	9	10	/
+	PORO	0.15	4*	11	12	/
+	PORO	0.02	4*	13	14	/
+	PORO	0.13	4*	15	16	/
+	PORO	0.17	4*	17	18	/
+	PORO	0.19	4*	19	20	/
+	PORO	0.10	4*	21	22	/
+	PORO	0.15	4*	23	24	/
+/
+
+-- Set Permeability values per layer
+EQUALS  -- <== PARAMETER TO GET FROM POROSITY USING: PERMX = 10^(15.6*poro - 0.9)
+	PERMX	212.57	4*	1	2	/
+	PERMX	42.88	4*	3	4	/
+	PERMX	11202.1 4*	5	6	/
+	PERMX	731.09	4*	7	8	/
+	PERMX	44078.8 4*	9	10	/
+	PERMX	27.61	4*	11	12	/
+	PERMX	0.31	4*	13	14	/
+	PERMX	13.30	4*	15	16	/
+	PERMX	67.10	4*	17	18	/
+	PERMX	117.60	4*	19	20	/
+	PERMX	4.69	4*	21	22	/
+	PERMX	25.52	4*	23	24	/
+/
+
+-- Copy values to other perm directions
+COPY
+PERMX PERMY /
+PERMX PERMZ /
+/
+
+-- Apply KvKh correction
+MULTIPLY
+PERMZ 0.1 /  -- <== PARAMETER TO TUNE
+/
+
+FAULTS
+ FAULTA		1	2	42	42	1	24	Y	/
+ FAULTA 	3	4	40	40	1	24	Y	/
+ FAULTA 	5	6	38	38	1	24	Y	/
+ FAULTA 	7	8	36	36	1	24	Y	/
+ FAULTA 	9	10	34	34	1	24	Y	/
+ FAULTA 	11	12	32	32	1	24	Y	/
+ FAULTA 	13	14	30	30	1	24	Y	/
+ FAULTA 	15	16	28	28	1	24	Y	/
+ FAULTA 	17	18	26	26	1	24	Y	/
+ FAULTA 	19	20	24	24	1	24	Y	/
+ FAULTA 	21	22	22	22	1	24	Y	/
+ FAULTA 	23	24	20	20	1	24	Y	/
+ FAULTA 	25	26	18	18	1	24	Y	/
+ FAULTA 	27	28	16	16	1	24	Y	/
+ FAULTA 	29	30	14	14	1	24	Y	/
+ FAULTA 	31	32	12	12	1	24	Y	/
+ FAULTA 	33	34	10	10	1	24	Y	/
+ FAULTA 	35	36	8	8	1	24	Y	/
+ FAULTA 	37	38	6	6	1	24	Y	/
+ FAULTA 	39	40	4	4	1	24	Y	/
+ FAULTA 	41	42	2	2	1	24	Y	/
+								
+ FAULTA 	42	42	1	2	1	24	X	/
+ FAULTA 	40	40	3	4	1	24	X	/
+ FAULTA 	38	38	5	6	1	24	X	/
+ FAULTA 	36	36	7	8	1	24	X	/
+ FAULTA 	34	34	9	10	1	24	X	/
+ FAULTA 	32	32	11	12	1	24	X	/
+ FAULTA 	30	30	13	14	1	24	X	/
+ FAULTA 	28	28	15	16	1	24	X	/
+ FAULTA 	26	26	17	18	1	24	X	/
+ FAULTA 	24	24	19	20	1	24	X	/
+ FAULTA 	22	22	21	22	1	24	X	/
+ FAULTA 	20	20	23	24	1	24	X	/
+ FAULTA 	18	18	25	26	1	24	X	/
+ FAULTA 	16	16	27	28	1	24	X	/
+ FAULTA 	14	14	29	30	1	24	X	/
+ FAULTA 	12	12	31	32	1	24	X	/
+ FAULTA 	10	10	33	34	1	24	X	/
+ FAULTA 	8	8	35	36	1	24	X	/
+ FAULTA 	6	6	37	38	1	24	X	/
+ FAULTA 	4	4	39	40	1	24	X	/
+ FAULTA 	2	2	41	42	1	24	X	/
+
+								
+								
+ FAULTB 	59	60	59	59	1	24	Y-	/
+ FAULTB 	57	58	55	55	1	24	Y-	/
+ FAULTB 	55	56	51	51	1	24	Y-	/
+ FAULTB 	53	54	47	47	1	24	Y-	/
+ FAULTB 	51	52	43	43	1	24	Y-	/
+ FAULTB 	49	50	39	39	1	24	Y-	/
+ FAULTB 	47	48	35	35	1	24	Y-	/
+ FAULTB 	45	46	31	31	1	24	Y-	/
+ FAULTB 	43	44	27	27	1	24	Y-	/
+ FAULTB 	41	42	23	23	1	24	Y-	/
+ FAULTB 	39	40	19	19	1	24	Y-	/
+ FAULTB 	37	38	15	15	1	24	Y-	/
+ FAULTB 	35	36	11	11	1	24	Y-	/
+ FAULTB 	33	34	7	7	1	24	Y-	/
+ FAULTB 	31	32	3	3	1	24	Y-	/
+ 								
+ FAULTB 	58	58	55	58	1	24	X	/
+ FAULTB 	56	56	51	54	1	24	X	/
+ FAULTB 	54	54	47	50	1	24	X	/
+ FAULTB 	52	52	43	46	1	24	X	/
+ FAULTB 	50	50	39	42	1	24	X	/
+ FAULTB 	48	48	35	38	1	24	X	/
+ FAULTB 	46	46	31	34	1	24	X	/
+ FAULTB 	44	44	27	30	1	24	X	/
+ FAULTB 	42	42	23	26	1	24	X	/
+ FAULTB 	40	40	19	22	1	24	X	/
+ FAULTB 	38	38	15	18	1	24	X	/
+ FAULTB 	36	36	11	14	1	24	X	/
+ FAULTB 	34	34	7	10	1	24	X	/
+ FAULTB 	32	32	3	6	1	24	X	/
+ FAULTB 	30	30	1	4	1	24	X	/
+
+
+
+/
+
+-- Control the transmissibility of the faults
+MULTFLT
+FAULTA 1.0 / -- Upper fault -- <== PARAMETER TO TUNE
+FAULTB 1.0 / -- Lower fault -- <== PARAMETER TO TUNE
+/
+
+-- Dykstra-Parsons coefficient to add some heterogeneity
+dpcf
+0.02  42 /

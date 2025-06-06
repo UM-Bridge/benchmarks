@@ -1,0 +1,161 @@
+﻿# Generic carbon starage case - Gas Water Module
+
+SIMULATION
+  SIMULATION_TYPE SUBSURFACE
+  PROCESS_MODELS
+    SUBSURFACE_FLOW Flow
+      MODE GAS_WATER
+      OPTIONS
+       RESERVOIR_DEFAULTS
+       ISOTHERMAL
+      /
+    / ! end of subsurface_flow
+  /
+END  !! end simulation block
+
+SUBSURFACE
+
+#=========================== discretization ===================================
+
+GRID
+  TYPE grdecl ccs_3df.grdecl
+END
+
+#=========================== times ============================================
+TIME
+  START_DATE 1 JAN 2025
+  FINAL_DATE 1 JAN 2225  ! 200 years simulation
+  INITIAL_TIMESTEP_SIZE 1 d
+  MAXIMUM_TIMESTEP_SIZE 30 d at 0. d
+  MAXIMUM_TIMESTEP_SIZE 1 y at 15 y
+END
+
+#=========================== output options ===================================
+
+OUTPUT
+  MASS_BALANCE_FILE
+   PERIODIC TIMESTEP 1  
+  END
+  ECLIPSE_FILE
+    PERIOD_SUM TIMESTEP 1
+    PERIOD_RST DATES 1 y
+    WRITE_DENSITY
+    OUTFILE  WCT
+    include 
+    	sensors_coarse.inc /
+  END
+  LINEREPT
+END
+
+#=========================== material properties ==============================
+
+MATERIAL_PROPERTY formation
+  ID 1
+  ROCK_COMPRESSIBILITY    4.35d-5 1/Bar
+  ROCK_REFERENCE_PRESSURE 1.0     Bar
+  CHARACTERISTIC_CURVES   ch1
+/
+
+#=========================== saturation functions =============================
+
+CHARACTERISTIC_CURVES ch1
+
+ TABLE swfn_table
+   PRESSURE_UNITS Pa
+   SWFN
+     0.2    0      3.1026
+     0.25   0.00   1.3120
+     0.3778 0.0180 0.6943
+     0.4667 0.0607 0.3378
+     0.5556 0.1438 0.1241
+     0.6444 0.2809 0.0344 
+     0.7000 0.4089 0.0034
+     0.7333 0.4855 0.0007
+     0.8222 0.7709 0.0
+     0.9111 1.0    0.0
+     1.0    1.0    0.0
+   /
+ END
+
+ TABLE sgfn_table
+  PRESSURE_UNITS Pa
+    SGFN
+     0.0     0     0
+     0.05    0     0
+     0.0889  0.001 0
+     0.1778  0.01  0
+     0.2667  0.03  0.
+     0.3556  0.05  0.
+     0.4445  0.10  0.
+     0.5333  0.20  0.
+     0.6222  0.35  0.
+     0.65    0.39  0.
+     0.7111  0.56  0.
+     0.8     1.0   0.
+    /
+ END
+/
+
+#=========================== fluid properties =================================
+
+FLUID_PROPERTY
+  PHASE LIQUID
+  DIFFUSION_COEFFICIENT 2.0d-9
+/
+FLUID_PROPERTY
+  PHASE GAS
+  DIFFUSION_COEFFICIENT 2.0d-5
+/
+BRINE 1.092 MOLAL
+
+EOS WATER
+ SURFACE_DENSITY 1000.00 kg/m^3
+END
+
+EOS GAS
+  SURFACE_DENSITY 1.87 kg/m^3
+  CO2_DATABASE co2_dbase.dat
+END
+
+#=========================== wells ==================================
+
+WELL_DATA injg
+  CIJK_D 25 27 1 6
+  DIAMETER 0.1524 m
+  WELL_TYPE GAS_INJECTOR
+  BHPL     200    Bar 
+  TARG_GM 0.1 Mt/y
+  OPEN
+  DATE 1 JAN 2040            
+  SHUT
+END
+
+#=========================== equilibration ==================================
+EQUILIBRATION
+
+  PRESSURE  100. Bar
+  DATUM_D  4000.0 m
+  WGC_D    4000.0 m
+  PCWG_WGC   0.0 Bar
+  
+  RTEMP 75.0 C
+  
+/
+
+#=========================== aquifer data ============================
+
+AQUIFER_DATA A1
+  BACKFLOW
+  DEPTH     4080.0 m
+  WIDTH     500.0 m
+  THICKNESS 100.0 m
+  PERM      100  mD  -- PARAMETER TO TUNE
+  TEMPERATURE 75 C
+  COMPRESSIBILITY 2.0E-9 1/Pa
+  POROSITY  0.2
+  VISCOSITY 1 cP
+  CONN_D 30 30 1 29 1 12 X+
+END
+
+END_SUBSURFACE
+
