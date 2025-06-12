@@ -22,7 +22,7 @@ class PFLOTRANModel(umbridge.Model):
         self.cnt = 0 # Count simulations
 
     def get_input_sizes(self, config):
-        return [12]  # 12 parameters for each layer
+        return [15]  # 12 parameters for each layer + perm + 2 faults
 
     def get_output_sizes(self, config):
         return [18]
@@ -32,6 +32,7 @@ class PFLOTRANModel(umbridge.Model):
             # Prepare the input file for PFLOTRAN based on parameters
             self.prepare_input_file(parameters[0])
             logging.info("Input file prepared successfully.")
+            os.system("cat " + self.input_file_path)
 
             # Run the PFLOTRAN simulation
             self.run_simulation()
@@ -95,8 +96,12 @@ class PFLOTRANModel(umbridge.Model):
             logging.error(f"Error running simulation: {e}")
             raise
 
-    def prepare_input_file(self, porosities):
+    def prepare_input_file(self, parameters):
         try:
+            porosities = parameters[:12]
+            permz = parameters[12]
+            faulta = parameters[13]
+            faultb = parameters[14]
             input_data = f"""DIMENS
 30 30 12 /
 
@@ -118,18 +123,11 @@ EQUALS  -- <== PARAMETER TO TUNE (Obtained using the excel file provided)
 
 -- Set Permeability values per layer
 EQUALS  -- <== PARAMETER TO GET FROM POROSITY USING: PERMX = 10^(15.6*poro - 0.9)
-	PERMX	212.57	4*	1	1	/
-	PERMX	42.88	4*	2	2	/
-	PERMX	11202.12	4*	3	3	/
-	PERMX	731.09	4*	4	4	/
-	PERMX	44078.84	4*	5	5	/
-	PERMX	27.61	4*	6	6	/
-	PERMX	0.31	4*	7	7	/
-	PERMX	13.30	4*	8	8	/
-	PERMX	67.10	4*	9	9	/
-	PERMX	117.60	4*	10	10	/
-	PERMX	4.69	4*	11	11	/
-	PERMX	25.52	4*	12	12	/
+"""
+            for i, porosity in enumerate(porosities, start=1):
+                input_data += f"    PERMX    {10**(15.6*porosity-0.9):.2f}    4*    {i}    {i}    /\n"
+
+            input_data += """
 /
 
 -- Copy values to other perm directions
@@ -140,7 +138,10 @@ PERMX PERMZ /
 
 -- Apply KvKh correction
 MULTIPLY
-PERMZ 0.1 /  -- <== PARAMETER TO TUNE
+"""
+            input_data += f"     PERMZ    {permz:.2f} /  -- <== PARAMETER TO TUNE\n"
+
+            input_data += """
 /
 
 FAULTS
@@ -244,13 +245,16 @@ FAULTS
 
 -- Control the transmissibility of the faults
 MULTFLT
-FAULTA 1.0 / -- Upper fault -- <== PARAMETER TO TUNE
-FAULTB 1.0 / -- Lower fault -- <== PARAMETER TO TUNE
+"""
+            input_data += f"FAULTA {faulta:.2f} / -- Upper fault -- <== PARAMETER TO TUNE\n"
+            input_data += f"FAULTB {faultb:.2f} / -- Lower fault -- <== PARAMETER TO TUNE\n"
+
+            input_data += """
 /
 
 -- Dykstra-Parsons coefficient to add some heterogeneity
 dpcf
-0.02  42 /
+0.0  42 /
 """
 
             with open(self.input_file_path, "w") as f:
