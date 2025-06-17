@@ -31,24 +31,11 @@ public:
     cst_vec_ez(ez), cst_vec_ex(ex)
   {}
 
-  void Init()
-  {
+  void Init() {
     Index NDoFs = fespace.getNumDoFs();
 
     ////////// Get boundary spaces
     auto surface_fespace = fespace.getBndyFESpace(2);
-
-    for (Index i = 0; i < nPointX; i++){ 
-        for (Index j = 0; j < nPointZ; j++){
-            RealVector q{listX[i]/Lx, listZ[j]/Lz};
-            Index iObsPoint = findGlobLocIndex(q, fespace);
-            // If iObsPoint the given point is really in the domain and we store it
-            if(iObsPoint < fespace.getNumDoFs())
-            {   
-                iObsPoint_vector.push_back(iObsPoint);
-            }
-        }
-    }
 
     ///////////  Construct the matrices
     // The mass matrices are defined with weighted integration, the weight can be a scalar field or a constant 
@@ -104,25 +91,28 @@ public:
       dataSpace.push_back(i); 
     }
   }
-  
 
-  // Define input and output dimensions of model (here we have a single vector of length 1 for input; same for output)
+
+
   std::vector<std::size_t> GetInputSizes(const json& config) const override {
-    if(config.is_null() || config.empty()) {
+    //if(config.is_null() || config.empty()) {
+    if(config["fixedFloor"].is_null() || config["fixedFloor"].empty()) {
       return {Nx}; 
     }
     std::vector<int> fixedFloor = config["fixedFloor"].get<std::vector<int>>();
     return {Nx-fixedFloor.size()};
-  
   }
 
   std::vector<std::size_t> GetOutputSizes(const json& config) const override {
-    return {105};
+    std::vector<std::vector<double>> captorCoordinates = config["captors"].get<std::vector<std::vector<double>>>();
+    return {105*captorCoordinates.size()};
   }
 
   std::vector<std::vector<double>> Evaluate(const std::vector<std::vector<double>>& inputs, json config) override {
     // Do the actual model evaluation
-    if(config.is_null() || config.empty()) 
+
+    // Get the seabed source from the config file 
+    if(config["fixedFloor"].is_null() || config["fixedFloor"].empty())
     {
       dataFunctionSpace = inputs[0];
     }
@@ -142,10 +132,25 @@ public:
         }
         //std::cout<< dataFunctionSpace[i] << std::endl;
       }
-
-      
     }
-    
+
+    // Get the captors location from the config file
+    assert(! config["captors"].is_null() && ! config["captors"].empty());
+
+    std::vector<Index> iObsPoint_vector;
+    std::vector<std::vector<double>> captorCoordinates = config["captors"].get<std::vector<std::vector<double>>>();
+    for (const std::vector<double>& captor : captorCoordinates)
+    { 
+      RealVector q{captor[0]/Lx, captor[1]/Lz};
+      Index iObsPoint = findGlobLocIndex(q, fespace);
+      // If iObsPoint the given point is really in the domain and we store it
+      if(iObsPoint < fespace.getNumDoFs())
+      {   
+          iObsPoint_vector.push_back(iObsPoint);
+      }
+    }
+    std::cout<< iObsPoint_vector.size() << std::endl; 
+
     // reset values for phi and pressure vectors
     std::fill(phi.getVector(0).begin(), phi.getVector(0).end(), 0);
     std::fill(phi.getVector(1).begin(), phi.getVector(1).end(), 0);
@@ -231,7 +236,10 @@ public:
         // Writing solution.
         if (iStep % OutputFreq == 0)
         { 
-          output[0].push_back( pressure.getVector(0)(iObsPoint_vector[0]) ) ;
+          for (Index iObs=0;iObs<iObsPoint_vector.size() ;++iObs)
+          {
+            output[0].push_back( pressure.getVector(0)(iObsPoint_vector[iObs]) ) ;
+          }
         }
         // Swapping solutions.
         phi.Swap();
@@ -264,7 +272,6 @@ private:
   LAL::VectorSequence phi_hat, wx; 
   LAL::Vector sourceVol;
   //LAL::Vector pressure; 
-  std::vector<Index> iObsPoint_vector;
   
   Field::Scalar<Field::Regularity::C0> Rho_cm2;
   Field::Scalar<Field::Regularity::C0> Rho;

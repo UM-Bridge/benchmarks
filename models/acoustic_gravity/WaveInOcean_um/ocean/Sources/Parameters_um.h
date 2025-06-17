@@ -27,10 +27,11 @@ Index Nx = 43; // number of subdivisions in the x direction
 Index Nz = 10;  // number of subdivisions in the z direction  
 
 //// Recordings at one point
-const Index nPointX = 1;
+const Index nPointX = 2;
 const Index nPointZ = 1;
 // Captors coordinates given in [0,Lx] and [0,Lz]
-Real listX[nPointX] = {28}; 
+// Captors are located between [7, 36]
+Real listX[nPointX] = {20,28}; 
 Real listZ[nPointZ] = {0.9};
 
 // parameters for the function g(t)
