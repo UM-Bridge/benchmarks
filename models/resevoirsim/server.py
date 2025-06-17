@@ -25,7 +25,7 @@ class PFLOTRANModel(umbridge.Model):
         return [15]  # 12 parameters for each layer + perm + 2 faults
 
     def get_output_sizes(self, config):
-        return [18]
+        return [19]
 
     def __call__(self, parameters, config):
         try:
@@ -35,11 +35,15 @@ class PFLOTRANModel(umbridge.Model):
             os.system("cat " + self.input_file_path)
 
             # Run the PFLOTRAN simulation
+            from timeit import default_timer as timer
+            start = timer()
             self.run_simulation()
+            end = timer()
             logging.info("Simulation ran successfully.")
 
             # Process the output file to extract results
             result = self.process_output_file()
+            result[0][18] = end - start
             logging.info("Output processed successfully.")
 
             return result
@@ -82,6 +86,7 @@ class PFLOTRANModel(umbridge.Model):
         result.append(float(df["BSgas 5_7_1"].iloc[-1]))
         result.append(float(df["BSgas 6_7_1"].iloc[-1]))
         result.append(float(df["BSgas 7_7_1"].iloc[-1]))
+        result.append(0.0) # placeholder for time
         return [result]
 
 
