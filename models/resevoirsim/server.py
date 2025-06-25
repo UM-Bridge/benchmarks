@@ -121,7 +121,7 @@ FIPNOGO 5 1 7 1 7 2* /
 EQUALS  -- <== PARAMETER TO TUNE (Obtained using the excel file provided)
 """
             for i, porosity in enumerate(porosities, start=1):
-                input_data += f"    PORO    {porosity:.2f}    4*    {i}    {i}    /\n"
+                input_data += f"    PORO    {porosity}    4*    {i}    {i}    /\n"
 
             input_data += """
 /
@@ -130,7 +130,7 @@ EQUALS  -- <== PARAMETER TO TUNE (Obtained using the excel file provided)
 EQUALS  -- <== PARAMETER TO GET FROM POROSITY USING: PERMX = 10^(15.6*poro - 0.9)
 """
             for i, porosity in enumerate(porosities, start=1):
-                input_data += f"    PERMX    {10**(15.6*porosity-0.9):.2f}    4*    {i}    {i}    /\n"
+                input_data += f"    PERMX    {10**(15.6*porosity-0.9)}    4*    {i}    {i}    /\n"
 
             input_data += """
 /
@@ -144,7 +144,7 @@ PERMX PERMZ /
 -- Apply KvKh correction
 MULTIPLY
 """
-            input_data += f"     PERMZ    {permz:.2f} /  -- <== PARAMETER TO TUNE\n"
+            input_data += f"     PERMZ    {permz} /  -- <== PARAMETER TO TUNE\n"
 
             input_data += """
 /
@@ -251,8 +251,8 @@ FAULTS
 -- Control the transmissibility of the faults
 MULTFLT
 """
-            input_data += f"FAULTA {faulta:.2f} / -- Upper fault -- <== PARAMETER TO TUNE\n"
-            input_data += f"FAULTB {faultb:.2f} / -- Lower fault -- <== PARAMETER TO TUNE\n"
+            input_data += f"FAULTA {faulta} / -- Upper fault -- <== PARAMETER TO TUNE\n"
+            input_data += f"FAULTB {faultb} / -- Lower fault -- <== PARAMETER TO TUNE\n"
 
             input_data += """
 /
