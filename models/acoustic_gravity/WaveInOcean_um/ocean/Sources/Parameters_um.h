@@ -21,18 +21,17 @@ const Index FEOrderZ = 5;
 
 //std::string NameSimu="Dual" +std::to_string(FEOrderX)+"_"+std::to_string(FEOrderZ)+"_"+ std::to_string(Nx)+"_"+std::to_string(Nz);
 // domain: take 6 length units at each end to avoid reflexions  -> 12 length units not usable 
-Real Lx = 43;// scaling in the x direction -> 64.5 km
+Real Lx = 30; //43;// scaling in the x direction -> 64.5 km
 Real Lz = 1; // scaling in the z direction -> 1 km
-Index Nx = 43; // number of subdivisions in the x direction  
+Index Nx = 150; //43; // number of subdivisions in the x direction  
 Index Nz = 10;  // number of subdivisions in the z direction  
 
-//// Recordings at one point
-const Index nPointX = 2;
-const Index nPointZ = 1;
+/* Not used anymore: now in config file 
 // Captors coordinates given in [0,Lx] and [0,Lz]
 // Captors are located between [7, 36]
-Real listX[nPointX] = {20,28}; 
+Real listX[nPointX] = {20,28};  
 Real listZ[nPointZ] = {0.9};
+*/
 
 // parameters for the function g(t)
 Real timeWidth = 25;
