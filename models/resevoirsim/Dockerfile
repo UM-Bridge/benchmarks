@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y cmake build-essential git gfortran python3 python3-six python-six flex bison python3-pip python3-venv && \
 	python3 -m venv venv && . venv/bin/activate && \
-	pip3 install umbridge numpy scipy pandas
+	pip3 install umbridge numpy scipy pandas scikit-learn
 
 RUN git clone -b release https://bitbucket.org/opengosim/pflotran_ogs_1.8.git
 
@@ -20,7 +20,10 @@ ENV USER=root
 
 RUN cd pflotran_ogs_1.8/src/pflotran && make -j4 pflotran modern_gfortran=1
 
-COPY  server.py /server.py
+COPY mlmc_server.py *.pkl /
+
+COPY fine_model /fine_model
+
 COPY coarse_model /coarse_model
 
 RUN mkdir /output
@@ -29,4 +32,4 @@ ENV PFT_PATH=/
 RUN sed -i 's|^PFT_PATH=.*|PFT_PATH=/pflotran_ogs_1.8|' /pflotran_ogs_1.8/macros/pft1.8
 ENV PORT=4243
 
-CMD . venv/bin/activate && cd coarse_model && python3 /server.py
+CMD . venv/bin/activate && python3 /mlmc_server.py

@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO)
 class PFLOTRANModel(umbridge.Model):
     def __init__(self):
         super().__init__("pflotran_simulation")
-        self.simulation_script = "~/pflotran_ogs_1.8/src/pflotran/pflotran"
+        self.simulation_script = "/pflotran_ogs_1.8/macros/pft1.8"
         self.cnt = 0 # Count simulations
 
     def get_input_sizes(self, config):
@@ -27,7 +27,7 @@ class PFLOTRANModel(umbridge.Model):
         try:
             # Prepare the input file for PFLOTRAN based on parameters
             iteration = str(config.get("iteration"))
-            self.output_folder = "~/output/"
+            self.output_folder = "/output/"
 
             self.level = int(config.get("l"))
 
@@ -55,7 +55,7 @@ class PFLOTRANModel(umbridge.Model):
             elif self.level == 1:  
                 # Run the PFLOTRAN simulation
                 self.pflotran_folder = self.output_folder + "pflotran/coarse/" + iteration + os.sep
-                self.input_folder = "./coarse_model/"
+                self.input_folder = "/coarse_model/"
                 self.pflotran_input_path = self.pflotran_folder + "Coarse_CCS_3DF.in"
                 self.infile = self.pflotran_folder + "Coarse_CCS_3DF-mas.dat"
                 self.outfile = self.pflotran_folder + "Coarse_CCS_3DF.csv"#+"_"+str(self.cnt)+".csv"
@@ -75,7 +75,7 @@ class PFLOTRANModel(umbridge.Model):
             elif self.level == 2:  
                 # Run the PFLOTRAN simulation
                 self.pflotran_folder = self.output_folder + "pflotran/fine/" + iteration + os.sep
-                self.input_folder = "./fine_model/"
+                self.input_folder = "/fine_model/"
                 self.pflotran_input_path = self.pflotran_folder + "FINE_CCS_3DF.in"
                 self.infile = self.pflotran_folder + "FINE_CCS_3DF-mas.dat"
                 self.outfile = self.pflotran_folder + "FINE_CCS_3DF.csv"#+"_"+str(self.cnt)+".csv"
@@ -104,11 +104,11 @@ class PFLOTRANModel(umbridge.Model):
             return result
 
     def gp(self, X):
-        with open("./opengosim_gp.pkl", "rb") as h:
+        with open("/opengosim_gp.pkl", "rb") as h:
             GP = pickle.load(h)
-        with open("./opengosim_xscaler.pkl", "rb") as h:
+        with open("/opengosim_xscaler.pkl", "rb") as h:
             xscaler = pickle.load(h)
-        with open("./opengosim_yscaler.pkl", "rb") as h:
+        with open("/opengosim_yscaler.pkl", "rb") as h:
             yscaler = pickle.load(h)
         X = xscaler.transform(X)
         output = yscaler.inverse_transform(GP.predict(X).reshape(-1, 1)) / 1e8
@@ -159,7 +159,7 @@ class PFLOTRANModel(umbridge.Model):
     def run_simulation(self):
         self.cnt = self.cnt+1
         try:
-            os.system("mpirun -n 6 " + self.simulation_script + " -pflotranin "+  self.pflotran_input_path)
+            os.system(self.simulation_script + " " +  self.pflotran_input_path + " 4")
 
         except Exception as e:
             logging.error(f"Error running simulation: {e}")
