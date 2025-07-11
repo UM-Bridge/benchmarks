@@ -32,4 +32,4 @@ ENV PFT_PATH=/
 RUN sed -i 's|^PFT_PATH=.*|PFT_PATH=/pflotran_ogs_1.8|' /pflotran_ogs_1.8/macros/pft1.8
 ENV PORT=4243
 
-CMD . venv/bin/activate && python3 /mlmc_server.py
+CMD . /venv/bin/activate && python3 /mlmc_server.py

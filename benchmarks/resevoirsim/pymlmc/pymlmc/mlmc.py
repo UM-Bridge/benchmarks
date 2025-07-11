@@ -141,8 +141,6 @@ def mlmc(Lmin, Lmax, N0, eps, mlmc_fn, alpha_0, beta_0, gamma_0, *args, **kwargs
                     dNl = numpy.maximum(0, Ns-Nl)
 
     # finally, evaluate the multilevel estimator
-    print(suml)
-    print(Nl)
     P = sum(suml[0,:]/Nl)
 
     return (P, Nl, Cl)
