@@ -14,7 +14,11 @@ RUN cd petsc && git checkout v3.19.1
 ENV PETSC_DIR=/petsc
 ENV PETSC_ARCH=ubuntu-opt
 
-RUN cd petsc && ./configure  --download-hypre=https://github.com/hypre-space/hypre.git  --download-mpich=yes --download-hdf5=yes --with-hdf5-fortran-bindings=yes --download-fblaslapack=yes --download-ptscotch=yes --with-debugging=0 COPTFLAGS=-O3 CXXOPTFLAGS=-O3 FOPTFLAGS=-O3 && make PETSC_DIR=/petsc PETSC_ARCH=ubuntu-opt all && make PETSC_DIR=/petsc PETSC_ARCH=ubuntu-opt check
+RUN cd petsc && ./configure  --download-hypre=https://github.com/hypre-space/hypre.git  --download-openmpi=yes --download-hdf5=yes --with-hdf5-fortran-bindings=yes --download-fblaslapack=yes --download-ptscotch=yes --with-debugging=0 COPTFLAGS=-O3 CXXOPTFLAGS=-O3 FOPTFLAGS=-O3 
+
+RUN cd petsc && make PETSC_DIR=/petsc PETSC_ARCH=ubuntu-opt all 
+
+RUN cd petsc && make PETSC_DIR=/petsc PETSC_ARCH=ubuntu-opt OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1 check
 
 ENV USER=root
 
