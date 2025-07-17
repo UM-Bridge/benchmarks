@@ -59,7 +59,7 @@ MPI with Singularity + UM-Bridge
 The official recomendation (from OpenMPI, Singularity, Intel etc) uses the so-called Hybrid model
 where the `singularity run` command is prepended with `mpirun` or `srun`. It is the most straightforward
 way but not without its problems, which you can look up on the recommender's website. Other than the 
-documented issues, it also relies on the resources manager being MPI aware and vice versa, this is 
+documented issues, it also relies on the resources manager being MPI-aware and vice versa, this is 
 something configured by sysadmins and outside of normal users' control.
 
 Using the Hybrid model method
@@ -91,3 +91,9 @@ inaccurate slot count.
 
 You can bind all of the host root directory in to the container to make it aware of the resource manager. But, in
 my testing, it messes up the environment (compilers, python etc) and make the application impossible to work.
+
+
+In both cases, particularly the latter, we assume the container will only use resources in one node and not
+spanning across multiple nodes. The former will likely work for workload that spans across multiple nodes provided
+it is launched with `srun`. Whereas the latter will almost certainly fail because `srun` is not present inside
+the container.
