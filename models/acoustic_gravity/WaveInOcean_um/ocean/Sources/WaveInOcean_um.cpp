@@ -127,7 +127,7 @@ public:
 
   std::vector<std::size_t> GetOutputSizes(const json& config) const override {
     std::vector<std::vector<double>> captorCoordinates = config["captors"].get<std::vector<std::vector<double>>>();
-    return {106*captorCoordinates.size()};
+    return {159*captorCoordinates.size()};
   }
 
   std::vector<std::vector<double>> Evaluate(const std::vector<std::vector<double>>& inputs, json config) override {
