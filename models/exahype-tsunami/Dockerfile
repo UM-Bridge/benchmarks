@@ -1,6 +1,8 @@
-FROM chun9l/openmpi-builder:0.3.0 as builder
+FROM mpioperator/openmpi-builder:0.3.0 as builder
 
 ENV DEBIAN_FRONTEND=noninteractive
+
+RUN echo "deb http://archive.debian.org/debian buster main" > /etc/apt/sources.list
 
 RUN apt-get update && \
     apt-get install -y python3 git cmake wget curl zlib1g pkg-config libhdf5-openmpi-dev libc6-dev libnuma-dev doxygen libyaml-cpp-dev gfortran libtbb-dev libstdc++-8-dev liblua5.3-dev
@@ -21,7 +23,7 @@ ENV PKG_CONFIG_PATH="/dependencies/ImpalaJIT/build/:/dependencies/netcf-c-4.8.1/
 ENV CMAKE_PREFIX_PATH=/dependencies/netcdf-c-4.8.1/lib/
 
 RUN cd /dependencies && git clone --recursive https://github.com/TUM-I5/ASAGI.git && \
-    cd ASAGI/ && \
+    cd ASAGI/ && git checkout 51f9c93 && \
     mkdir build && cd build && \
     NetCDF_LIBRARY=/dependencies/netcdf-c-4.8.1/lib cmake -DMPI_C_COMPILER=mpicc -DMPI_CXX_COMPILER=mpicxx -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ \
                -DTHREADSAFE=ON -DNONUMA=ON -DSHARED_LIB=1 -DCMAKE_CXX_FLAGS="-I/dependencies/netcdf-c-4.8.1/include/" ..  && \
@@ -31,7 +33,7 @@ ENV COMPILER_LFLAGS=" -L/dependencies/ImpalaJIT/build/ -limpalajit -L/dependenci
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/lib/:/dependencies/ImpalaJIT/build"
 
 RUN cd /dependencies/ && git clone https://github.com/SeisSol/easi.git && \
-    cd easi && git checkout 647ff0863a83c011e56c8eb6b4fc522fa355c153 &&\
+    cd easi && git checkout 647ff0863a83c011e56c8eb6b4fc522fa355c153 && \
     mkdir build && cd build && \
     CC=mpicc CXX=mpicxx cmake -DPKG_CONFIG_USE_CMAKE_PREFIX_PATH=TRUE -DCMAKE_PREFIX_PATH=/dependencies/ -DCMAKE_INSTALL_PREFIX=/dependencies/easi/build/ .. && \
     make -j4
@@ -74,6 +76,8 @@ RUN cd /server && \
 FROM mpioperator/openmpi:0.3.0
 
 SHELL ["/bin/bash", "-c"]
+
+RUN echo "deb http://archive.debian.org/debian buster main" > /etc/apt/sources.list
 
 RUN apt-get update && \
     apt-get install -y python3 libyaml-cpp0.6 libtbb2 libhdf5-openmpi-103 liblua5.3-dev && \
