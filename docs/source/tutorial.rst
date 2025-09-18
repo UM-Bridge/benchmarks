@@ -35,7 +35,7 @@ An UM-Bridge server offers such models to clients, which may range from simple t
 Interacting with a model
 --------------------------
 
-Let us now request a model evaluation from a Python script. You can copy and run the following code:
+Let us now request a model evaluation from a Python script. You can copy and run the following code::
 
     import umbridge
 
