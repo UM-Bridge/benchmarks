@@ -373,33 +373,33 @@ Run the client and point it to the cluster's address.
 UM-Bridge load balancer
 ---------------------------------
 
-We provide an in-house load balancer to perform parallel model evaluations in HPC environments. This load balancer behaves like a proxy, i.e.,
+We provide an in-house load balancer to perform parallel model evaluations in HPC environments. This load balancer behaves like a proxy:
 it appears as a regular UM-Bridge server to the client and, conversely, acts like a client to the model server.
 
-The following steps will deploy a simple load balancer using the SLURM backend. You can learn more about the different backend
+The following steps will deploy a simple load balancer using the SLURM backend. You can learn more about the different backends
  `here <https://github.com/UM-Bridge/umbridge/tree/main/hpc>`__.
 
-Firstly, you'll need the C++ source code for the load balancer; you can find it in the `hpc` directory after cloning the 
+Firstly, you'll need the C++ source code for the load balancer, which can be found in the `hpc` directory after cloning the 
 `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main>`__. A Makefile is provided to compile the executable
  (by typing `make` in the terminal).
 
-Next, you'll need to modify the SLURM job script in `hpc/slurm_script/job.sh`. This script is no different than a generic SLURM job script, 
-so you can follow instructions supplied by your cluster manager to specify the compute resources required. Additionally, you also need to 
+Next, you'll need to modify the SLURM job script in `hpc/slurm_script/job.sh`. This script is no different from a generic SLURM job script, 
+so you can follow instructions supplied by your cluster manager to specify the compute resources required. Additionally, you need to 
 replace the line marked with `# CHANGE ME!` with the command to launch your server.
 
 For the purpose of this tutorial, you only need to replace `#SBATCH --partition=devel` with your cluster setting, and write `./testmodel` 
-as the model server since the `Makefile` would have compile this dummy model automatically; this server is exactly the same as the 
+as the model server since the `Makefile` will have compile this dummy model automatically; this server is exactly the same as the 
 `minimal-server.py` in early sections.
 
-The load balancer can be launched with `./load-balancer --scheduler=slurm`. The terminal should shows something like::
+The load balancer can be launched with `./load-balancer --scheduler=slurm`. The terminal should show something like::
     Argument --port not set! Using port 4242 as default.
     Waiting for URL file: urls/url-15053556.txt
     ==============================MODEL INFO==============================
     Available models and corresponding job-scripts:
-    * Model 'pflotran_simulation' --> 'slurm_scripts/job.sh'
+    * Model 'forward' --> 'slurm_scripts/job.sh'
 
     ======================================================================
     Listening on port 4242...
 
 Once the `Listening on port` line is displayed, you can finally connect the parallel client to it. Again, for the purpose of this tutorial, 
-you can reuse the `basic-parallel-client.py` in earlier section.
+you can reuse the `basic-parallel-client.py` script in earlier section.
