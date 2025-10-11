@@ -389,7 +389,7 @@ replace the line marked with `# CHANGE ME!` with the command to launch your serv
 
 For the purpose of this tutorial, you only need to replace `#SBATCH --partition=devel` with your cluster setting, and write `./testmodel` 
 as the model server since the `Makefile` will have compile this dummy model automatically; this server is exactly the same as the 
-`minimal-server.py` in early sections.
+`minimal-server.py` in earlier sections.
 
 The load balancer can be launched with `./load-balancer --scheduler=slurm`. The terminal should show something like::
 
@@ -402,7 +402,7 @@ The load balancer can be launched with `./load-balancer --scheduler=slurm`. The 
     ======================================================================
     Listening on port 4242...
 
-Once the `Listening on port` line is displayed, you can finally connect the parallel client to it. Again, for the purpose of this tutorial, 
+Once the `Listening on port` line is displayed, you can connect the parallel client to it. Again, for the purpose of this tutorial, 
 you can reuse the `basic-parallel-client.py` script in earlier section.
 
 
@@ -410,7 +410,7 @@ you can reuse the `basic-parallel-client.py` script in earlier section.
 (Optional) Running the Loadbalancer using the Hyperqueue backend
 --------------------------------------------------------------------
 
-Hyperqueue (HQ) is a tool designed to handle execution of large number of tasks on HPC clusters. It allows the user to simplify the execution
+`Hyperqueue (HQ) <https://it4innovations.github.io/hyperqueue/stable/>`__ is a tool designed to handle execution of large number of tasks on HPC clusters. It allows the user to simplify the execution
 of such workflows without needing to submit individual (small) jobs to the native scheduler on the system, which is often discouraged by 
 system admins. In essence, Hyperqueue is a plugin scheduler that works on top of the native scheduler, e.g., SLURM, where HQ requests and 
 manages the allocated compute resources. 
@@ -426,7 +426,7 @@ resources.
 * `--max-worker-count` limits the number of workers that HQ can spawn.
 * Any flags after `--` is passed to SLURM. For example, `-- --mem=1G` specifies the memory request to SLURM.
 
-Further details can be found on their `documentation <https://it4innovations.github.io/hyperqueue/stable/>`__. The UM-Bridge repository
+Further details can be found on their `documentation <https://it4innovations.github.io/hyperqueue/stable/deployment/allocation/>`__. The UM-Bridge repository
 also contains some tips for specifying the resource options.
 
 For this section, the default specification should work as long as SLURM receives all the necessary information such as resource
