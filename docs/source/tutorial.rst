@@ -369,3 +369,107 @@ Modify the client to run in parallel: The ``UMBridgeWrapper`` takes an argument 
 Run the client and point it to the cluster's address.
 
 * Try different values for ``parallel``. Does run time scale as expected?
+
+UM-Bridge load balancer
+---------------------------------
+
+We provide an in-house load balancer to perform parallel model evaluations in HPC environments. This load balancer behaves like a proxy:
+it appears as a regular UM-Bridge server to the client and, conversely, acts like a client to the model server.
+
+The following steps will deploy a simple load balancer using the SLURM backend. You can learn more about the different backends
+ `here <https://github.com/UM-Bridge/umbridge/tree/main/hpc>`__.
+
+Firstly, you'll need the C++ source code for the load balancer, which can be found in the `hpc` directory after cloning the 
+`UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main>`__. A Makefile is provided to compile the executable
+ (by typing `make` in the terminal).
+
+Next, you'll need to modify the SLURM job script in `hpc/slurm_script/job.sh`. This script is no different from a generic SLURM job script, 
+so you can follow instructions supplied by your cluster manager to specify the compute resources required. Additionally, you need to 
+replace the line marked with `# CHANGE ME!` with the command to launch your server.
+
+For the purpose of this tutorial, you only need to replace `#SBATCH --partition=devel` with your cluster setting, and write `./testmodel` 
+as the model server since the `Makefile` will have compile this dummy model automatically; this server is exactly the same as the 
+`minimal-server.py` in earlier sections.
+
+The load balancer can be launched with `./load-balancer --scheduler=slurm`. The terminal should show something like::
+
+    Argument --port not set! Using port 4242 as default.
+    Waiting for URL file: urls/url-15053556.txt
+    ==============================MODEL INFO==============================
+    Available models and corresponding job-scripts:
+    * Model 'forward' --> 'slurm_scripts/job.sh'
+
+    ======================================================================
+    Listening on port 4242...
+
+Once the `Listening on port` line is displayed, you can connect the parallel client to it. Again, for the purpose of this tutorial, 
+you can reuse the `basic-parallel-client.py` script in earlier section.
+
+
+
+(Optional) Running the Loadbalancer using the Hyperqueue backend
+--------------------------------------------------------------------
+
+`Hyperqueue (HQ) <https://it4innovations.github.io/hyperqueue/stable/>`__ is a tool designed to handle execution of large number of tasks on HPC clusters. It allows the user to simplify the execution
+of such workflows without needing to submit individual (small) jobs to the native scheduler on the system, which is often discouraged by 
+system admins. In essence, Hyperqueue is a plugin scheduler that works on top of the native scheduler, e.g., SLURM, where HQ requests and 
+manages the allocated compute resources. 
+
+The workflow for using the Hyperqueue backend is more or less the same as the SLURM version; it has an additional 
+configuration script (`allocation_queue.sh`) to request resources from SLURM. We provide a template for this script in the `hq_scripts` 
+directory. Important options within the configuration script is summarised below:
+
+* The `--time-limit` parameter sets the allocation time for resources similar to `--time` in SLURM.
+* The `--worker-per-alloc` parameter sets the number of compute nodes (workers in HQ terms) requested.
+* `--idle-timeout` allows HQ to terminate the allocation after a period of inactivity to prevent wastage of 
+resources.
+* `--max-worker-count` limits the number of workers that HQ can spawn.
+* Any flags after `--` is passed to SLURM. For example, `-- --mem=1G` specifies the memory request to SLURM.
+
+Further details can be found on their `documentation <https://it4innovations.github.io/hyperqueue/stable/deployment/allocation/>`__. The UM-Bridge repository
+also contains some tips for specifying the resource options.
+
+For this section, the default specification should work as long as SLURM receives all the necessary information such as resource
+ partition (`-- -p "<your_cluster_partition>"`).
+
+The job script for HQ offer more flexibility per task in terms of resource requirements. Users are able to specify an expected 
+runtime (`--time-request`) in addition to the hard time limit (`--time-limit`) using an SBATCH-style comment at the top of the 
+file; the `--time-request` only aids HQ with scheduling submitted tasks and allowed to be overrun. Note that these options does
+not modify the ones in `allocation_queue.sh`. You can also specify the location and name for the job's output using `--stdout` 
+and `--stderr`. Or, alternatively, disable them by writing `none`.
+
+
+Similar to the SLURM case, you will need to modify `job.sh` to use the correct model server. After that, the load balancer can be lauched with `./load-balancer --scheduler=hyperqueue`; you do have to recompile the binary.
+
+You should see something similar on the terminal output::
+
+  2025-10-09T11:03:59Z INFO No online server found, starting a new server
+  2025-10-09T11:03:59Z INFO Storing access file as '/<user_home>/.hq-server/048/access.json'
+  +------------------+-------------------------+
+  | Server directory | <user_home>/.hq-server  |
+  | Server UID       | sOZxYI                  |
+  | Client host      | <cluster_hostname>      |
+  | Client port      | 46609                   |
+  | Worker host      | <cluster_hostname>      |
+  | Worker port      | 34921                   |
+  | Version          | v0.22.0                 |
+  | Pid              | 3296858                 |
+  | Start date       | 2025-10-09 11:03:59 UTC |
+  +------------------+-------------------------+
+  2025-10-09T11:04:00Z INFO A trial allocation was submitted successfully. It was immediately canceled to avoid wasting resources.
+  2025-10-09T11:04:00Z INFO Allocation queue 1 successfully created
+  Waiting for URL file: urls/url-1.txt
+  2025-10-09T11:04:00Z INFO Queued 1 worker(s) into queue 1: allocation ID 15074539
+  2025-10-09T11:04:01Z INFO Worker 1 registered from <cluster_ip>:<port>
+  2025-10-09T11:04:01Z INFO Worker 1 connected from allocation 15074539
+  2025-10-09T11:04:03Z INFO Job 1 canceled (1 tasks canceled, 0 tasks already finished)
+  ==============================MODEL INFO==============================
+  Available models and corresponding job-scripts:
+  * Model 'forward' --> 'hq_scripts/job.sh'
+
+  ======================================================================
+  Listening on port 4242...
+
+If you see the workers are allocated, but the `Listening on port` line is missing. Please check the `stdout` or `stderr` files
+produced by HQ. They may be disabled in the job script. But if all goes well, you can connect your client to the load balancer like in the previous example.
+
