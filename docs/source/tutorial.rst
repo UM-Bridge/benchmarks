@@ -376,7 +376,7 @@ UM-Bridge load balancer
 We provide an in-house load balancer to perform parallel model evaluations in HPC environments. This load balancer behaves like a proxy:
 it appears as a regular UM-Bridge server to the client and, conversely, acts like a client to the model server.
 
-The following steps will deploy a simple load balancer using the SLURM backend. You can learn more about the different backends `here <https://github.com/UM-Bridge/umbridge/tree/main/hpc>`__.
+The following steps will deploy a simple load balancer using the SLURM backend. You can learn more about the different backends `here <https://github.com/UM-Bridge/umbridge/tree/main/hpc>`__. If you are using a containerised application, you may also wish to look at :ref:`mpi-container`.
 
 Firstly, you'll need the C++ source code for the load balancer, which can be found in the ``hpc`` directory after cloning the `UM-Bridge repository <https://github.com/UM-Bridge/umbridge/tree/main>`__. A Makefile is provided to compile the executable (by typing ``make`` in the terminal).
 

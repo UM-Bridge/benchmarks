@@ -1,3 +1,4 @@
+.. _mpi-container:
 ===============================================
 Launching containerised MPI applications in HPC
 ===============================================
@@ -89,8 +90,8 @@ of a resource manager, you will need to modify the server file to make MPI aware
 For example with OpenMPI::
     mpirun -n <num_tasks> --host <node_name>:<available_slots> --oversubscribe <your_binary>
 where
-* ``--host`` flag provides the node (<node_name>) where MPI should launch the application and how many "slots" 
-(see MPI definition of a slot) are available
+
+* ``--host`` flag provides the node (<node_name>) where MPI should launch the application and how many "slots" (see MPI definition of a slot) are available.
 * ``--oversubscribe`` flag ignores the automatically detected slot count. This flag is important if you are using 
 our load-balancer framework with Hyperqueue as the HQ workers are launched with ``srun`` with ``--ntasks=1`` leading to
 inaccurate slot count.
