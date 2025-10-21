@@ -131,4 +131,5 @@ for f in $(find ../../umbridge/ -name 'README.md'); do
    $NAME
 EOF
 done
+echo "   ../mpi_container" >> docs_output/source/umbridge/index.rst
 
