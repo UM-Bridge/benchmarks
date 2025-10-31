@@ -25,7 +25,9 @@ print(model([[100.0]]))
 
 Interested? Continue with [quickstart](https://um-bridge-benchmarks.readthedocs.io/en/docs/quickstart.html) or [tutorial](https://um-bridge-benchmarks.readthedocs.io/en/docs/tutorial.html) for a guided tour. See [clients](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/clients.html) for how to interact with a model from any supported language or UQ package, and [models](https://um-bridge-benchmarks.readthedocs.io/en/docs/umbridge/models.html) for how to add UM-Bridge support to your own model code.
 
-In addition, UM-Bridge comes with a community-driven **library of UQ benchmark** problems, which you find listed on the left.
+We also run a yearly onlline workshop in December that is open to everyone! You can find more details [here](https://um-bridge.github.io/workshop/).
+
+In addition, UM-Bridge comes with a community-driven **library of UQ benchmark** problems, which you can find listed under the table of contents in the [documentation](https://um-bridge-benchmarks.readthedocs.io/en/docs/index.html).
 
 We'd like to hear about your application, so [join our slack channel](https://join.slack.com/t/um-bridge/shared_invite/zt-1da1ebkly-8s0YQdZUIYkJ1vws6edsAQ)!
 
