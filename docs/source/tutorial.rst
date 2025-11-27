@@ -142,7 +142,7 @@ The QMCPy client is already set up to solve the UQ problem defined in the beam b
     python3 qmcpy-client.py http://localhost:4243
 
 * Compare your solution to the plot in the beam problem's documentation. Does the mean value make sense?
-* Optional: Have a closer look at ``qmcpy-client.py``. Try and change the distribution to a different one, e.g. change the bounds of the uniform distribution or use a normal distribution with similar variance. Refer to `QMCPy's documentation <https://qmcpy.readthedocs.io/en/latest/>`_ for details.
+* Optional: Have a closer look at ``qmcpy-client.py``. Try and change the distribution to a different one, e.g. change the bounds of the uniform distribution or use a normal distribution with similar variance. Refer to `QMCPy's documentation <https://qmcsoftware.github.io/QMCSoftware/>`_ for details.
 
 Bayesian inverse problems
 ------------------------------
