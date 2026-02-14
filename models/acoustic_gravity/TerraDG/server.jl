@@ -3,17 +3,20 @@ tempdir = mktempdir()
 Pkg.activate(tempdir)
 Pkg.add(["UMBridge"])
 using UMBridge
+Pkg.develop(path="/home/areinarz/Desktop/TerraDG.jl") # here an absolute path to the TerraDG installation, you can run the file from anywhere
+using TerraDG
 
 function run_simulation(theta)
     # Write levelset input to file
     open("levelset.csv", write=true) do f
+        write(f, "value\n") 
         for val in theta
+            val = Int(val)
             write(f, "$(val)\n")
         end
     end
 
     # Run simulation
-    include("TerraDG.jl")
     TerraDG.main("src/earthquake.yaml")
 
     # Read pressure sensor output
@@ -31,7 +34,7 @@ end
 model = UMBridge.Model(
     name = "forward",
     inputSizes = [100],
-    outputSizes = [400],
+    outputSizes = [100],
     evaluate = (input, config) -> [run_simulation(input[1])]
 )
 
