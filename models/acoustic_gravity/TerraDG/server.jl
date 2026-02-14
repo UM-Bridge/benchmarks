@@ -28,13 +28,14 @@ function run_simulation(theta)
             push!(output, parse(Float64, parts[4]))
         end
     end
+    print(output)
     return output
 end
 
 model = UMBridge.Model(
     name = "forward",
     inputSizes = [100],
-    outputSizes = [100],
+    outputSizes = [101],
     evaluate = (input, config) -> [run_simulation(input[1])]
 )
 
