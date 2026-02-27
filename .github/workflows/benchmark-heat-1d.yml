@@ -30,6 +30,7 @@ jobs:
         with:
           context: benchmarks/heat-1d/
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: linusseelinger/benchmark-heat-1d:latest
 
   test:

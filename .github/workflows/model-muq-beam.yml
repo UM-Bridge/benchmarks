@@ -30,6 +30,7 @@ jobs:
         with:
           context: models/muq-beam/
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: linusseelinger/model-muq-beam:latest
 
   test:

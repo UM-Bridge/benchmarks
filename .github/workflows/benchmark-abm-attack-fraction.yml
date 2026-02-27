@@ -30,6 +30,7 @@ jobs:
         with:
           context: benchmarks/abm-attack-fraction/
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: linusseelinger/benchmark-abm-attack-fraction:latest
 
   test:

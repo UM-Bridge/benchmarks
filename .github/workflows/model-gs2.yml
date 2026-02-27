@@ -30,6 +30,7 @@ jobs:
         with:
           context: models/gs2/
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: linusseelinger/model-gs2:latest
 
   test:
