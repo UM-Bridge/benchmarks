@@ -4,7 +4,7 @@
 Mathematical abstraction in UM-Bridge
 =====================================
 
-UM-Bridge's interface can be described mathematically, which is what we will do here.
+In this section, we will describe UM-Bridge's interface mathematically.
 
 Model Evaluation
 ================
@@ -84,9 +84,15 @@ the matrix is the Hessian of an objective function. The Hessian, :math:`H`, is g
     \frac{\partial^2 L}{\partial \mathbf{x}\,\partial \mathbf{x}}
     = \frac{\partial}{\partial \mathbf{x}}
     \left(
-        \frac{\partial \mathbf{f}}{\partial \mathbf{x}}
+    \frac{\partial \mathbf{f}}{\partial \mathbf{x}}
     \right)^{\!\top}
-    \boldsymbol{\lambda},
+    \boldsymbol{\lambda} = 
+    H = \begin{bmatrix}
+    \dfrac{\partial^2 L}{\partial x_1^2} & \dfrac{\partial^2 L}{\partial x_1 \partial x_2} & \cdots & \dfrac{\partial^2 L}{\partial x_1 \partial x_n} \\[18pt]
+    \dfrac{\partial^2 L}{\partial x_2 \partial x_1} & \dfrac{\partial^2 L}{\partial x_2^2} & \cdots & \dfrac{\partial^2 L}{\partial x_2 \partial x_n} \\[18pt]
+    \vdots & \vdots & \ddots & \vdots \\[6pt]
+    \dfrac{\partial^2 L}{\partial x_n \partial x_1} & \dfrac{\partial^2 L}{\partial x_n \partial x_2} & \cdots & \dfrac{\partial^2 L}{\partial x_n^2}
+    \end{bmatrix},
 
 where :math:`L` is the objective function and :math:`\mathbf{\lambda}` is the sensitivity vector as defined in the ``gradient`` 
 section.
