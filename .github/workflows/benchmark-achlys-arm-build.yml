@@ -1,10 +1,7 @@
-name: model-muq-beam
+name: benchmark-achlys-arm-build
 
 on:
-  push:
-    branches:
-      - 'main'
-
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,7 +14,7 @@ jobs:
         uses: docker/setup-qemu-action@v1
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v1
       -
         name: Login to DockerHub
         uses: docker/login-action@v1
@@ -26,11 +23,12 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v2
         with:
-          context: models/muq-beam/
+          context: benchmarks/achlys/
+          platforms: linux/arm64
           push: true
-          tags: linusseelinger/model-muq-beam:latest
+          tags: linusseelinger/benchmark-achlys:latest
 
   test:
     runs-on: ubuntu-latest
@@ -38,12 +36,12 @@ jobs:
 
     services:
       model:
-        image: linusseelinger/model-muq-beam:latest
+        image: linusseelinger/benchmark-achlys:latest
         ports:
-        - 4242:4242
+        - 4243:4243
 
     steps:
        -
         name: Validate
         run: |
-          docker run --network=host -e model_host=http://localhost:4242 -e input_value=1.0 linusseelinger/testing-protocol-conformity-current:latest
+          docker run --platform linux/amd64 --network=host -e input_value="[0.8,1.0,1.3,9e-4,9e-4]" -e model_host=http://localhost:4243 linusseelinger/testing-protocol-conformity-current:latest

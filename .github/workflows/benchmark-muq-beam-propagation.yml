@@ -30,7 +30,6 @@ jobs:
         with:
           context: benchmarks/muq-beam-propagation/
           push: true
-          platforms: linux/amd64,linux/arm64
           tags: linusseelinger/benchmark-muq-beam-propagation:latest
 
   test:
