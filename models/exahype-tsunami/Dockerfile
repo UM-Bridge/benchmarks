@@ -1,4 +1,4 @@
-FROM mpioperator/openmpi-builder:0.3.0 as builder
+FROM chun9l/openmpi-builder:0.3.0 as builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
