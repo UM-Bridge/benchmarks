@@ -132,4 +132,5 @@ for f in $(find ../../umbridge/ -name 'README.md'); do
 EOF
 done
 echo "   ../mpi_container" >> docs_output/source/umbridge/index.rst
+echo "   ../math_description" >> docs_output/source/umbridge/index.rst
 
