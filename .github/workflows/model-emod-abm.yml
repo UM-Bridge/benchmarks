@@ -30,6 +30,7 @@ jobs:
         with:
           context: models/emod-abm/
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: linusseelinger/model-emod-abm:latest
 
   test:
