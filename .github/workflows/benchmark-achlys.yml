@@ -30,7 +30,6 @@ jobs:
         with:
           context: benchmarks/achlys/
           push: true
-          platforms: linux/amd64,linux/arm64
           tags: linusseelinger/benchmark-achlys:latest
 
   test:

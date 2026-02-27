@@ -1,10 +1,7 @@
 name: model-muq-beam
 
 on:
-  push:
-    branches:
-      - 'main'
-
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,6 +27,7 @@ jobs:
         with:
           context: models/muq-beam/
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: linusseelinger/model-muq-beam:latest
 
   test:
@@ -46,4 +44,4 @@ jobs:
        -
         name: Validate
         run: |
-          docker run --network=host -e model_host=http://localhost:4242 -e input_value=1.0 linusseelinger/testing-protocol-conformity-current:latest
+          docker run --platform linux/amd64 --network=host -e model_host=http://localhost:4242 -e input_value=1.0 linusseelinger/testing-protocol-conformity-current:latest
