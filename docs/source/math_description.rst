@@ -4,37 +4,43 @@
 Mathematical abstraction in UM-Bridge
 =====================================
 
-In this section, we will describe UM-Bridge's interface mathematically.
+In this section, we will describe UM-Bridge's interface mathematically. Note that both inputs and 
+ouputs are required to be list of lists in actual implementation, but we only consider a single 
+element within the outer list to simply notation.
+
+Let :math:`F` denote the numerical model that maps the model input vector, :math:`\mathbf{\theta}` 
+to the output vector :math:`\mathbf{F}(\mathbf{\theta})`:
+
+.. math::    
+    F\, : \,
+    \mathbb{R}^n
+    \;\longrightarrow\;
+    \mathbb{R}^m.
+
+Additionally, there may be an objective function :math:`L = L(\mathbf{F}(\mathbf{\theta}))`. UM-Bridge
+allows the following four operations.
 
 Model Evaluation
 ================
-Let :math:`\mathcal{F}` denote the numerical model that maps the model input vector, :math:`\mathbf{x}` to
-the output vector :math:`\mathbf{f(\mathbf{x})}`:
-
-.. math::    
-    \mathcal{F}\, : \,
-    \mathbf{x}
-    \;\longrightarrow\;
-    \mathbf{f}(\mathbf{x}), \quad
-    \mathbf{x} \in \mathbb{R}^d, \;
-    \mathbf{f}(\mathbf{x}) \in \mathbb{R}^n.
+This is simply the so called forward map that takes an input 
+:math:`\mathbf{\theta} = (\theta_1, \ldots, \theta_n) \in \mathbb{R}^n` and returns the output 
+:math:`\mathbf{F}(\mathbf{\theta}) = (F(\mathbf{\theta})_1, \ldots, F(\mathbf{\theta})_m) \in \mathbb{R}^m`.
 
 
 Gradient Evaluation
 ===================
 
 The ``gradient`` function evaluates the sensitivity of a scalar 
-objective, :math:`L(\mathbf{f}(\mathbf{x}))`, that depends on the model output, with respect to the model input. Using the 
-chain rule:
+objective. Using the chain rule:
 
 .. math::
-    \nabla_{\mathbf{x}}L
-    = \left(\frac{\partial \mathbf{f}}{\partial \mathbf{x}}\right)^{\!\top}
+    \nabla_{\mathbf{\theta}}L
+    = \left(\frac{\partial \mathbf{f}}{\partial \mathbf{\theta}}\right)^{\!\top}
     \boldsymbol{\lambda},
     \qquad
     \boldsymbol{\lambda} = \frac{\partial L}{\partial \mathbf{f}},
 
-where :math:`\lambda` is known as the sensitivity vector.
+where :math:`\mathbf{\lambda}` is known as the sensitivity vector.
 
 
 Applying Jacobian
@@ -46,7 +52,7 @@ is given by
  
 .. math::
     J =
-    \frac{\partial \mathbf{f}}{\partial \mathbf{x}} =
+    \frac{\partial \mathbf{f}}{\partial \mathbf{\theta}} =
     \left[
     \begin{array}{ccc}
     \dfrac{\partial \mathbf{f}}{\partial x_1} & \cdots & \dfrac{\partial \mathbf{f}}{\partial x_d}
@@ -67,9 +73,9 @@ The output of this function for a chosen :math:`\mathbf{v} \in \mathbb{R}^{d}` i
 .. math::
     \texttt{output}
     = J\,\mathbf{v}
-    = \frac{\partial \mathbf{f}}{\partial \mathbf{x}}\,\mathbf{v}.
+    = \frac{\partial \mathbf{f}}{\partial \mathbf{\theta}}\,\mathbf{v}.
 
-Additionally, we can use this (or vice versa) to expression the ``gradient`` function by setting 
+Additionally, we can use this (or vice versa) to express the ``gradient`` function by setting 
 :math:`\mathbf{v} = \mathbf{\lambda}`.  
 
 
@@ -81,13 +87,13 @@ the matrix is the Hessian of an objective function. The Hessian, :math:`H`, is g
 
 .. math::
     H =
-    \frac{\partial^2 L}{\partial \mathbf{x}\,\partial \mathbf{x}}
-    = \frac{\partial}{\partial \mathbf{x}}
+    \frac{\partial^2 L}{\partial \mathbf{\theta}\,\partial \mathbf{\theta}}
+    = \frac{\partial}{\partial \mathbf{\theta}}
     \left(
-    \frac{\partial \mathbf{f}}{\partial \mathbf{x}}
+    \frac{\partial \mathbf{f}}{\partial \mathbf{\theta}}
     \right)^{\!\top}
     \boldsymbol{\lambda} = 
-    H = \begin{bmatrix}
+    \begin{bmatrix}
     \dfrac{\partial^2 L}{\partial x_1^2} & \dfrac{\partial^2 L}{\partial x_1 \partial x_2} & \cdots & \dfrac{\partial^2 L}{\partial x_1 \partial x_n} \\[18pt]
     \dfrac{\partial^2 L}{\partial x_2 \partial x_1} & \dfrac{\partial^2 L}{\partial x_2^2} & \cdots & \dfrac{\partial^2 L}{\partial x_2 \partial x_n} \\[18pt]
     \vdots & \vdots & \ddots & \vdots \\[6pt]
@@ -101,9 +107,9 @@ So the output for a chosen vector can be written as
 
 .. math::
     H\,\mathbf{v}
-    = \frac{\partial^2 \mathcal{L}}{\partial \mathbf{x}\,\partial \mathbf{x}}\,\mathbf{v} = 
-    \left[\frac{\partial}{\partial \mathbf{x}}
+    = \frac{\partial^2 \mathcal{L}}{\partial \mathbf{\theta}\,\partial \mathbf{\theta}}\,\mathbf{v} = 
+    \left[\frac{\partial}{\partial \mathbf{\theta}}
     \left(
-    \frac{\partial \mathbf{f}}{\partial \mathbf{x}}
+    \frac{\partial \mathbf{f}}{\partial \mathbf{\theta}}
     \right)^{\!\top}
     \boldsymbol{\lambda}\right]\,\mathbf{v}.
