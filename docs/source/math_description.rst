@@ -61,7 +61,7 @@ where :math:`\lambda_j` is the ``sens`` argument in the code.
 Applying Jacobian to a vector
 =============================
 
-The apply jacobian function evaluates the product of the model's Jacobian, :math:`J`, and a
+The apply Jacobian function evaluates the product of the model's Jacobian, :math:`J`, and a
 vector, :math:`\mathbf{v}`, of the user's choice (``vec``). The Jacobian of a vector-valued function 
 is given by
  
@@ -106,7 +106,7 @@ where the the :math:`i^{th}` and :math:`j^{th}` indices coresspond to ``inWrt`` 
 Applying Hessian to a vector
 ============================
 
-This is a combination of the previous two sections: the action is still a matrix-vector product, but 
+The apply Hessian action is a combination of the previous two sections: the action is still a matrix-vector product, but 
 the matrix is the Hessian of an objective function. The Hessian, :math:`H`, is given by
 
 .. math::
@@ -126,7 +126,7 @@ the matrix is the Hessian of an objective function. The Hessian, :math:`H`, is g
 
 where :math:`L` is the objective function and :math:`\mathbf{\lambda}` is the sensitivity vector as defined previously.
 
-So the output for a chosen vector can be written as
+So the product of :math:`H` and the chosen vector can be written as
 
 .. math::
     H\,\mathbf{v}
@@ -136,3 +136,15 @@ So the output for a chosen vector can be written as
     \frac{\partial \mathbf{f}}{\partial \mathbf{\theta}}
     \right)^{\!\top}
     \boldsymbol{\lambda}\right]\,\mathbf{v}.
+
+Again, we don't evaluate the full Hessian in UM-Bridge. As in the apply Jacobian action, we select certain indices and
+apply them the vector. Since :math:`H` contains the seconds derivative of :math:`L`, we require two indices for the input:
+:math:`inWrt1` and :math:`inWrt2`. The output of this action is 
+
+.. math::
+    \texttt{output} =
+    \left( \frac{\partial}{\partial \theta_i}
+    \left[ \frac{\partial F_k}{\partial x_j} \, \lambda_k \right]
+    \, \mathbf{v} \right).
+
+
