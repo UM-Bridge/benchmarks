@@ -73,7 +73,7 @@ COPY . /server
 RUN cd /server && \
     g++ -o server server.cpp -I /umbridge/lib -lpthread
 
-FROM mpioperator/openmpi:0.3.0
+FROM chun9l/openmpi:0.3.0
 
 SHELL ["/bin/bash", "-c"]
 
