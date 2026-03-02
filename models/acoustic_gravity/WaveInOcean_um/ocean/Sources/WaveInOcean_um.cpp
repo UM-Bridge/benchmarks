@@ -118,42 +118,46 @@ public:
 
   std::vector<std::size_t> GetInputSizes(const json& config) const override {
     //if(config.is_null() || config.empty()) {
-    if(config["fixedFloor"].is_null() || config["fixedFloor"].empty()) {
-      return {Nx}; 
-    }
-    std::vector<int> fixedFloor = config["fixedFloor"].get<std::vector<int>>();
-    return {Nx-fixedFloor.size()};
+    // if(config["fixedFloor"].is_null() || config["fixedFloor"].empty()) {
+    //   return {Nx}; 
+    // }
+    // std::vector<int> fixedFloor = config["fixedFloor"].get<std::vector<int>>();
+    // return {Nx-fixedFloor.size()};
+    return {Nx};
   }
 
   std::vector<std::size_t> GetOutputSizes(const json& config) const override {
     std::vector<std::vector<double>> captorCoordinates = config["captors"].get<std::vector<std::vector<double>>>();
-    return {159*captorCoordinates.size()};
+    return {106*captorCoordinates.size()};
   }
 
   std::vector<std::vector<double>> Evaluate(const std::vector<std::vector<double>>& inputs, json config) override {
-    // Do the actual model evaluation
-
+    // Do the actual model evaluation 
+    
     // Get the seabed source from the config file 
-    if(config["fixedFloor"].is_null() || config["fixedFloor"].empty())
-    {
-      dataFunctionSpace = inputs[0];
-    }
-    else 
-    {
-      dataFunctionSpace = {};
-      int i_input=0;
-      std::vector<int> fixedFloor = config["fixedFloor"].get<std::vector<int>>();
-      for (Index i=0;i<inputs[0].size() + fixedFloor.size() ;++i)
-      {
-        if( std::find(fixedFloor.begin(), fixedFloor.end(), i )!=fixedFloor.end())
-        { dataFunctionSpace.push_back(0.); }
-        else 
-        {
-          dataFunctionSpace.push_back(inputs[0][i_input]);
-          i_input ++; 
-        }
-      }
-    }
+    dataFunctionSpace = inputs[0];
+
+    // // Get the seabed source from the config file 
+    // if(config["fixedFloor"].is_null() || config["fixedFloor"].empty())
+    // {
+    //   dataFunctionSpace = inputs[0];
+    // }
+    // else 
+    // {
+    //   dataFunctionSpace = {};
+    //   int i_input=0;
+    //   std::vector<int> fixedFloor = config["fixedFloor"].get<std::vector<int>>();
+    //   for (Index i=0;i<inputs[0].size() + fixedFloor.size() ;++i)
+    //   {
+    //     if( std::find(fixedFloor.begin(), fixedFloor.end(), i )!=fixedFloor.end())
+    //     { dataFunctionSpace.push_back(0.); }
+    //     else 
+    //     {
+    //       dataFunctionSpace.push_back(inputs[0][i_input]);
+    //       i_input ++; 
+    //     }
+    //   }
+    // }
 
     // Get the captors location from the config file
     assert(! config["captors"].is_null() && ! config["captors"].empty());

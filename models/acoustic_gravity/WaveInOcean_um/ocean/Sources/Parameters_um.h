@@ -12,18 +12,17 @@ std::string NameSimu = "um";
 Real delta2 = 0.006;  
 
 //// Final time and output frequency
-Real T_end = 15. ; //50.0; // Final time in seconds
+Real T_end = 10. ; //50.0; // Final time in seconds
 Real OutputDeltat = 0.1; // write pressure output every outputDeltat (in seconds)
 
 // Finite element order in the x respectively the z direction 
 const Index FEOrderX = 5; 
 const Index FEOrderZ = 5; 
 
-//std::string NameSimu="Dual" +std::to_string(FEOrderX)+"_"+std::to_string(FEOrderZ)+"_"+ std::to_string(Nx)+"_"+std::to_string(Nz);
-// domain: take 6 length units at each end to avoid reflexions  -> 12 length units not usable 
-Real Lx = 30; //43;// scaling in the x direction -> 64.5 km
-Real Lz = 1; // scaling in the z direction -> 1 km
-Index Nx = 150; //43; // number of subdivisions in the x direction  
+// domain: take 2 length units at each end to avoid reflexions -> 2 length units not usable 
+Real Lx = 20; // scaling in the x direction 
+Real Lz = 1;  // scaling in the z direction -> 1.5 km
+Index Nx = 200; // number of subdivisions in the x direction  
 Index Nz = 10;  // number of subdivisions in the z direction  
 
 /* Not used anymore: now in config file 
