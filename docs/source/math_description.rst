@@ -6,13 +6,13 @@ Mathematical abstraction in UM-Bridge
 
 In this section, we will describe UM-Bridge's interface mathematically. Note that both inputs and 
 ouputs are required to be a list of lists in the actual implementation, but we only consider a single 
-element within the outer list to simply the notation from hereon.
+element within the outer list to simplify the notation from hereon.
 
-Let :math:`F` denote the numerical model that maps the model input vector, :math:`\boldsymbol{\theta}` 
+Let :math:`\mathbf{F}` denote the numerical model that maps the model input vector, :math:`\boldsymbol{\theta}` 
 to the output vector :math:`\mathbf{F}(\boldsymbol{\theta})`:
 
 .. math::    
-    F\, : \,
+    \mathbf{F}\, : \,
     \mathbb{R}^n
     \;\longrightarrow\;
     \mathbb{R}^m.
@@ -77,8 +77,8 @@ is given by
     \dfrac{\partial F_{1}}{\partial \theta_{1}} & \cdots &
     \dfrac{\partial F_{1}}{\partial \theta_{n}} \\[12pt]
     \vdots & \ddots & \vdots \\[4pt]
-    \dfrac{\partial F_{n}}{\partial \theta_{1}} & \cdots &
-    \dfrac{\partial F_{n}}{\partial \theta_{n}}
+    \dfrac{\partial F_{m}}{\partial \theta_{1}} & \cdots &
+    \dfrac{\partial F_{m}}{\partial \theta_{n}}
     \end{pmatrix}
     \in \mathbb{R}^{m \times n}.
 
@@ -101,7 +101,7 @@ action is then
     J_{ji}\,\mathbf{v}
     = \dfrac{\partial F_j}{\partial \theta_i}\,\mathbf{v},
 
-where the the :math:`i^{th}` and :math:`j^{th}` indices coresspond to ``inWrt`` and ``outWrt``.
+where the :math:`i^{th}` and :math:`j^{th}` indices coresspond to ``inWrt`` and ``outWrt``.
 
 Applying Hessian to a vector
 ============================
@@ -118,7 +118,7 @@ the matrix is the Hessian of an objective function. The Hessian, :math:`H`, is g
     \right)^{\!\top}
     \boldsymbol{\lambda} = 
     \begin{bmatrix}
-    \dfrac{\partial^2 L}{\partial \theta_1^2} & \dfrac{\partial^2 L}{\partial \theta_1 \partial x_2} & \cdots & \dfrac{\partial^2 L}{\partial \theta_1 \partial \theta_n} \\[18pt]
+    \dfrac{\partial^2 L}{\partial \theta_1^2} & \dfrac{\partial^2 L}{\partial \theta_1 \partial \theta_2} & \cdots & \dfrac{\partial^2 L}{\partial \theta_1 \partial \theta_n} \\[18pt]
     \dfrac{\partial^2 L}{\partial \theta_2 \partial \theta_1} & \dfrac{\partial^2 L}{\partial \theta_2^2} & \cdots & \dfrac{\partial^2 L}{\partial \theta_2 \partial \theta_n} \\[18pt]
     \vdots & \vdots & \ddots & \vdots \\[6pt]
     \dfrac{\partial^2 L}{\partial \theta_n \partial \theta_1} & \dfrac{\partial^2 L}{\partial \theta_n \partial \theta_2} & \cdots & \dfrac{\partial^2 L}{\partial \theta_n^2}
