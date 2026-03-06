@@ -337,7 +337,8 @@ public:
         //////////////// END PML
 
 
-        // Get pressure, velocity formulation, old computation 
+        // Pressure, old computation: 
+        // \partial_t p = \rho_0 \partial^2_{tt} \varphi + \rho_0 g \partial_z \varphi 
         // Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
         //     1,       //DimU
         //     1,       //DimV
@@ -354,8 +355,9 @@ public:
         // LAL::Solve(massMatrixUnit, pressure.getVector(0));
         // pressure.getVector(0) += pressure.getVector(1); 
         
-        // Pressure, new computation 
-        // Compute auxiliary variable for the pressure 
+        // Pressure, new computation:
+        // p = \rho_0 \partial_{t} \varphi + \int_0^t \rho_0 g \partial_z \varphi 
+        // Compute the term \int_0^t \rho_0 g \partial_z \varphi
         Core::MltAdd< Square<Scaling<2>>,Square<Scaling<2>>,true,true,true, Core::QuadratureOpt::Default,
             1,       //DimU
             1,       //DimV
@@ -367,20 +369,19 @@ public:
             Field::Vector<2>,
             Field::Identity
             >
-            (fespace, fespace, Rho, dt , phi.getVector(1), 1, pressure_int,
+            (fespace, fespace, Rho, dt, phi.getVector(1), 1, pressure_int,
                 field_ez, Field::IdentityField); 
 
         // Writing solution.
         if (iStep % OutputFreq == 0)
         { 
-          // Pressure, new computation 
-          // For a velocity input: compute d_t phi and d_t psi
+          // Pressure, new computation
           tempPressure  =   phi.getVector(0);
           tempPressure += - phi.getVector(2);
           tempPressure  =   tempPressure/(2*dt);
 
           pressure = matrixPressure * (tempPressure + delta2 * pressure_int) ;
-          for (Index iObs=0;iObs<iObsPoint_vector.size() ;++iObs)
+          for (Index iObs=0;iObs<iObsPoint_vector.size();++iObs)
           { 
             // old pressure computation 
             //output[0].push_back( pressure.getVector(0)(iObsPoint_vector[iObs]) ) ;

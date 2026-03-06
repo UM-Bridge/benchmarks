@@ -7,6 +7,8 @@ Pkg.develop(path="/home/dubois/Dokumente/Code/Inversion/TerraDG/TerraDG.jl") # h
 using TerraDG
 
 function run_simulation(theta)
+    t0 = time()
+    print("Reading input...")
     # Write levelset input to file
     open("levelset.csv", write=true) do f
         write(f, "value\n") 
@@ -15,11 +17,18 @@ function run_simulation(theta)
             write(f, "$(val)\n")
         end
     end
+    elapsed = time()-t0
+    print("Reading done in ", elapsed, ".\n Start simulation...")
 
     # Run simulation
+    t1 = time()
     TerraDG.main("/home/dubois/Dokumente/Code/Inversion/TerraDG/TerraDG.jl/src/earthquake.yaml")
 
+    elapsed = time()-t1
+    print("Simulation done in ", elapsed,".\n Write output...")
+
     # Read pressure sensor output
+    t2 = time()
     output = Float64[]
     open("/home/dubois/Dokumente/Code/Inversion/TerraDG/TerraDG.jl/output/plot_pressure_sensors.csv", read=true) do f
         readline(f) # skip header
@@ -28,14 +37,16 @@ function run_simulation(theta)
             push!(output, parse(Float64, parts[4]))
         end
     end
-    print(output)
+
+    elapsed = time()-t2
+    print("Writing done in ", elapsed,".\n")
     return output
 end
 
 model = UMBridge.Model(
     name = "forward",
     inputSizes = [100],
-    outputSizes = [101],
+    outputSizes = [202],
     evaluate = (input, config) -> [run_simulation(input[1])]
 )
 
