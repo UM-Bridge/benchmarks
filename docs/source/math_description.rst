@@ -42,7 +42,9 @@ The gradient function evaluates the sensitivity of the scalar objective. Using t
     \qquad
     \boldsymbol{\lambda} = \frac{\partial L}{\partial \mathbf{F}},
 
-where :math:`\boldsymbol{\lambda}` is known as the sensitivity vector.
+where :math:`\boldsymbol{\lambda}` is known as the sensitivity vector and 
+:math:`\dfrac{\partial \mathbf{F}}{\partial \boldsymbol{\theta}}` is actually the Jacobian of the
+forward map.
 
 Most UQ algorithms do not evaluate the full gradient vector but rather select a specific
 component within the input (:math:`\theta_i`) and output vectors (:math:`F_j`). These indices are
@@ -58,10 +60,15 @@ chosen using ``inWrt`` and ``outWrt``, respectively, in the implementation. So :
     
 where :math:`\lambda_j` is the ``sens`` argument in the code. 
 
+The output of this operation is a vector even though we are essentially selecting an element of the 
+Jacobian through ``inWrt`` and ``outWrt``. For the multiplication with ``sens`` to make sense in 
+accordance with :ref:`(1) <eq:1>`, ``sens`` must be a zero vector of length :math:`n` except at 
+the :math:`i^{th}` location where the value is :math:`\lambda_j`.
+
 Applying Jacobian to a vector
 =============================
 
-The apply Jacobian function evaluates the product of the model's Jacobian, :math:`J`, and a
+The apply Jacobian function evaluates the product of the transpose of the model's Jacobian, :math:`J^{\top}`, and a
 vector, :math:`\mathbf{v}`, of the user's choice (``vec``). The Jacobian of a vector-valued function 
 is given by
  
@@ -86,11 +93,11 @@ is given by
 For a chosen :math:`\mathbf{v} \in \mathbb{R}^{n}`, this is simply
 
 .. math::
-    J\,\mathbf{v}
-    = \dfrac{\partial \mathbf{F}}{\partial \boldsymbol{\theta}}\,\mathbf{v}.
+    J^{\!\top}\,\mathbf{v}
+    = \left( \dfrac{\partial \mathbf{F}}{\partial \boldsymbol{\theta}} \right) ^ {\!\top} \,\mathbf{v}.
 
 Additionally, we can use this to express the gradient function by setting 
-:math:`\mathbf{v} = \boldsymbol{\lambda}`.  
+:math:`\mathbf{v} = \boldsymbol{\lambda}` as mentioned before.
 
 However, we don't actually assemble the full Jacobian. We apply specific indices of the Jacobian, 
 :math:`J_{ji} = \frac{\partial F_j}{\partial \theta_i}`, to the vector instead. The output of this 
@@ -102,6 +109,10 @@ action is then
     = \dfrac{\partial F_j}{\partial \theta_i}\,\mathbf{v},
 
 where the :math:`i^{th}` and :math:`j^{th}` indices coresspond to ``inWrt`` and ``outWrt``.
+
+Unlike the gradient operation, the vector :math:`\mathbf{v}` is not required to be a zero vector except at certain index,
+but it should still be of length :math:`n`, which is the size of the input dimension. This also applies to the following
+action.
 
 Applying Hessian to a vector
 ============================
