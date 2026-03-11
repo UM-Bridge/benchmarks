@@ -30,7 +30,7 @@ jobs:
           tags: linusseelinger/benchmark-exahype-tsunami:latest
 
   build-arm64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       -
         name: Checkout
@@ -54,7 +54,7 @@ jobs:
           context: benchmarks/exahype-tsunami/
           platforms: linux/arm64
           push: true
-          tags: linusseelinger/benchmark-exahype-tsunami-arm:latest
+          tags: linusseelinger/benchmark-exahype-tsunami:latest
 
   test-amd64:
     runs-on: ubuntu-latest
@@ -75,7 +75,7 @@ jobs:
     needs: build-arm64
     services:
       model:
-        image: linusseelinger/benchmark-exahype-tsunami-arm:latest
+        image: linusseelinger/benchmark-exahype-tsunami:latest
         ports:
         - 4243:4243
     steps:
