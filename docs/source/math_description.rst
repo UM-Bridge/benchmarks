@@ -4,18 +4,22 @@
 Mathematical abstraction in UM-Bridge
 =====================================
 
-In this section, we will describe UM-Bridge's interface mathematically. Note that both inputs and 
-ouputs are required to be a list of lists in the actual implementation, but we only consider a single 
-element within the outer list to simplify the notation from hereon.
+In this section, we will describe UM-Bridge's interface mathematically. 
 
 Let :math:`\mathbf{F}` denote the numerical model that maps the model input vector, :math:`\boldsymbol{\theta}` 
-to the output vector :math:`\mathbf{F}(\boldsymbol{\theta})`:
+to the output vector :math:`\mathbf{F}(\boldsymbol{\theta})`. We will use bold font to 
+indicate vectors. Note that both inputs and ouputs are required to be a list of lists in the actual 
+implementation. For a list of :math:`d` input vectors each with :math:`n` dimensions, we have
 
 .. math::    
     \mathbf{F}\, : \,
-    \mathbb{R}^n
+    \mathbb{R}^n \times d
     \;\longrightarrow\;
-    \mathbb{R}^m.
+    \mathbb{R}^m \times d.
+
+The arguments ``inWrt`` and ``outWrt`` in functions, where derivatives are involved, allow the user to 
+select particular indices (out of :math:`d` indices) at which the derivative should be evaluated with 
+respect to. However, more of this will be clarified in the respective sections.
 
 Additionally, there may be an objective function :math:`L = L(\mathbf{F}(\boldsymbol{\theta}))`. 
 
@@ -23,8 +27,9 @@ UM-Bridge allows the following four operations.
 
 Model Evaluation
 ================
-This is simply the so called forward map that takes an input 
-:math:`\boldsymbol{\theta} = (\theta_1, \ldots, \theta_n) \in \mathbb{R}^n` and returns the model output 
+
+This is simply the so called forward map that takes an element from the list of input vectors, 
+:math:`\boldsymbol{\theta} = (\theta_1, \ldots, \theta_n) \in \mathbb{R}^n`, and returns the model output, 
 :math:`\mathbf{F}(\boldsymbol{\theta}) = (F(\boldsymbol{\theta})_1, \ldots, F(\boldsymbol{\theta})_m) \in \mathbb{R}^m`.
 
 
@@ -46,24 +51,24 @@ where :math:`\boldsymbol{\lambda}` is known as the sensitivity vector and
 :math:`\dfrac{\partial \mathbf{F}}{\partial \boldsymbol{\theta}}` is actually the Jacobian of the
 forward map.
 
-Most UQ algorithms do not evaluate the full gradient vector but rather select a specific
-component within the input (:math:`\theta_i`) and output vectors (:math:`F_j`). These indices are
-chosen using ``inWrt`` and ``outWrt``, respectively, in the implementation. So :ref:`(1) <eq:1>` becomes
+Since there are multiple choices due to the format of the input and output, we can select a specific
+component within the input (:math:`\boldsymbol{\theta}_i \in \mathbb{R}^n`) and output list of 
+lists (:math:`\mathbf{F}_j \in \mathbb{R}^m`). These indices are chosen using ``inWrt`` and ``outWrt``, respectively, 
+in the implementation.
+
+So :ref:`(1) <eq:1>` becomes
 
 .. math::
     
-    \dfrac{\partial L}{\partial \theta_i}
-    = \dfrac{\partial F_j}{\partial \theta_i}
-    \lambda_j,
+    \dfrac{\partial L}{\partial \boldsymbol{\theta}_i}
+    = \dfrac{\partial \mathbf{F}_j}{\partial \boldsymbol{\theta}_i}
+    \boldsymbol{\lambda}_j,
     \qquad
-    \lambda_j = \dfrac{\partial L}{\partial F_j},
+    \boldsymbol{\lambda}_j = \dfrac{\partial L}{\partial \mathbf{F}_j},
     
-where :math:`\lambda_j` is the ``sens`` argument in the code. 
+where :math:`\boldsymbol{\lambda}_j` is the ``sens`` argument in the code. 
 
-The output of this operation is a vector even though we are essentially selecting an element of the 
-Jacobian through ``inWrt`` and ``outWrt``. For the multiplication with ``sens`` to make sense in 
-accordance with :ref:`(1) <eq:1>`, ``sens`` must be a zero vector of length :math:`n` except at 
-the :math:`i^{th}` location where the value is :math:`\lambda_j`.
+The output of this operation is a vector because we are essentially doing a matrix vector product.
 
 Applying Jacobian to a vector
 =============================
@@ -99,20 +104,16 @@ For a chosen :math:`\mathbf{v} \in \mathbb{R}^{n}`, this is simply
 Additionally, we can use this to express the gradient function by setting 
 :math:`\mathbf{v} = \boldsymbol{\lambda}` as mentioned before.
 
-However, we don't actually assemble the full Jacobian. We apply specific indices of the Jacobian, 
-:math:`J_{ji} = \frac{\partial F_j}{\partial \theta_i}`, to the vector instead. The output of this 
+However, as before, we can choose an index each from the input and output to construct the Jacobian such that
+:math:`J_{ji} = \frac{\partial \mathbf{F}_j}{\partial \boldsymbol{\theta}_i}`. The output of this 
 action is then
 
 .. math::
     \texttt{output} =
     J_{ji}\,\mathbf{v}
-    = \dfrac{\partial F_j}{\partial \theta_i}\,\mathbf{v},
+    = \dfrac{\partial \mathbf{F}_j}{\partial \boldsymbol{\theta}_i}\,\mathbf{v},
 
 where the :math:`i^{th}` and :math:`j^{th}` indices coresspond to ``inWrt`` and ``outWrt``.
-
-Unlike the gradient operation, the vector :math:`\mathbf{v}` is not required to be a zero vector except at certain index,
-but it should still be of length :math:`n`, which is the size of the input dimension. This also applies to the following
-action.
 
 Applying Hessian to a vector
 ============================
@@ -137,7 +138,7 @@ the matrix is the Hessian of an objective function. The Hessian, :math:`H`, is g
 
 where :math:`L` is the objective function and :math:`\boldsymbol{\lambda}` is the sensitivity vector as defined previously.
 
-So the product of :math:`H` and the chosen vector can be written as
+So the product of :math:`H` and the chosen vector (of size :math:`n`) can be written as
 
 .. math::
     H\,\mathbf{v}
@@ -148,14 +149,14 @@ So the product of :math:`H` and the chosen vector can be written as
     \right)^{\!\top}
     \boldsymbol{\lambda}\right]\,\mathbf{v}.
 
-Again, we don't evaluate the full Hessian in UM-Bridge. As in the apply Jacobian action, we select certain indices and
-apply them the vector. Since :math:`H` contains the second derivative of :math:`L`, we require two indices for the input:
+As in the apply Jacobian action, we can select certain indices from the list of lists to construct the Hessian. 
+Since :math:`H` contains the second derivative of :math:`L`, we require two indices from the input:
 ``inWrt1`` and ``inWrt2``. The output of this action is 
 
 .. math::
     \texttt{output} =
-    \left( \dfrac{\partial}{\partial \theta_i}
-    \left[ \dfrac{\partial F_k}{\partial \theta_j} \, \lambda_k \right] \right)
+    \left( \dfrac{\partial}{\partial \boldsymbol{\theta}_i}
+    \left[ \dfrac{\partial \mathbf{F}_k}{\partial \boldsymbol{\theta}_j} \, \boldsymbol{\lambda}_k \right] \right)
     \, \mathbf{v}.
 
 
