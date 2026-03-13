@@ -13,9 +13,9 @@ implementation. For a list of :math:`d` input vectors each with :math:`n` dimens
 
 .. math::    
     \mathbf{F}\, : \,
-    \mathbb{R}^n \times d
+    \mathbb{R}^{n \times d}
     \;\longrightarrow\;
-    \mathbb{R}^m \times d.
+    \mathbb{R}^{m \times d}.
 
 The arguments ``inWrt`` and ``outWrt`` in functions, where derivatives are involved, allow the user to 
 select particular indices (out of :math:`d` indices) at which the derivative should be evaluated with 
@@ -60,8 +60,8 @@ So :ref:`(1) <eq:1>` becomes
 
 .. math::
     
-    \dfrac{\partial L}{\partial \boldsymbol{\theta}_i}
-    = \dfrac{\partial \mathbf{F}_j}{\partial \boldsymbol{\theta}_i}
+    \nabla_{\boldsymbol{\theta}_i}
+    = \left( \dfrac{\partial \mathbf{F}_j}{\partial \boldsymbol{\theta}_i} \right) ^ {\!\top}
     \boldsymbol{\lambda}_j,
     \qquad
     \boldsymbol{\lambda}_j = \dfrac{\partial L}{\partial \mathbf{F}_j},
@@ -156,7 +156,7 @@ Since :math:`H` contains the second derivative of :math:`L`, we require two indi
 .. math::
     \texttt{output} =
     \left( \dfrac{\partial}{\partial \boldsymbol{\theta}_i}
-    \left[ \dfrac{\partial \mathbf{F}_k}{\partial \boldsymbol{\theta}_j} \, \boldsymbol{\lambda}_k \right] \right)
+    \left[ \left( \dfrac{\partial \mathbf{F}_k}{\partial \boldsymbol{\theta}_j} \right) ^ {\!\top} \, \boldsymbol{\lambda}_k \right] \right)
     \, \mathbf{v}.
 
 
