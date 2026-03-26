@@ -3,7 +3,8 @@ tempdir = mktempdir()
 Pkg.activate(tempdir)
 Pkg.add(["UMBridge"])
 using UMBridge
-Pkg.develop(path="/home/dubois/Dokumente/Code/Inversion/TerraDG/TerraDG.jl") # here an absolute path to the TerraDG installation, you can run the file from anywhere
+TerraDG_path="/home/areinarz/Desktop/TerraDG.jl"
+Pkg.develop(path=TerraDG_path) # here an absolute path to the TerraDG installation, you can run the file from anywhere
 using TerraDG
 
 function run_simulation(theta)
@@ -22,7 +23,7 @@ function run_simulation(theta)
 
     # Run simulation
     t1 = time()
-    TerraDG.main("/home/dubois/Dokumente/Code/Inversion/TerraDG/TerraDG.jl/src/earthquake.yaml")
+    TerraDG.main(TerraDG_path * "/src/earthquake.yaml")
 
     elapsed = time()-t1
     print("Simulation done in ", elapsed,".\n Write output...")
@@ -30,7 +31,7 @@ function run_simulation(theta)
     # Read pressure sensor output
     t2 = time()
     output = Float64[]
-    open("/home/dubois/Dokumente/Code/Inversion/TerraDG/TerraDG.jl/output/plot_pressure_sensors.csv", read=true) do f
+    open(TerraDG_path * "/output/plot_pressure_sensors.csv", read=true) do f
         readline(f) # skip header
         for line in eachline(f)
             parts = split(line, ",")
