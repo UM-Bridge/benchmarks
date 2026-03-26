@@ -58,8 +58,8 @@ Real _Rho(const RealVector &p)
 {   
     // Input: (x,z) in the transformed domain (= not the reference square)
     //return 1.;
-    Real alpha = -  delta2 / (CConst * CConst * Lz);
-    return exp( - p[1] * alpha );
+    Real alpha = - delta2 / (CConst * CConst * Lz);
+    return exp( p[1] * alpha );
 }
 
 Real _c(const RealVector &p)

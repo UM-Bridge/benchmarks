@@ -3,7 +3,8 @@ tempdir = mktempdir()
 Pkg.activate(tempdir)
 Pkg.add(["UMBridge"])
 using UMBridge
-TerraDG_path="/home/areinarz/Desktop/TerraDG.jl"
+#TerraDG_path="/home/areinarz/Desktop/TerraDG.jl"
+TerraDG_path="/home/dubois/Dokumente/Code/Inversion/TerraDG/TerraDG.jl" # TODO: change to my path 
 Pkg.develop(path=TerraDG_path) # here an absolute path to the TerraDG installation, you can run the file from anywhere
 using TerraDG
 
