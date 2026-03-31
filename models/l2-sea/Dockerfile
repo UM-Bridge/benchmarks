@@ -5,13 +5,13 @@ RUN apt update && \
     python3 -m venv venv && . venv/bin/activate && \
     pip install umbridge f90nml
 
-RUN git clone https://github.com/MAORG-CNR-INM/NATO-AVT-331-L2-Sea-Benchmark.git
+RUN git clone https://github.com/cnr-inm-mao/l2-sea-benchmark.git
 
-RUN cd NATO-AVT-331-L2-Sea-Benchmark && \
+RUN cd l2-sea-benchmark && \
     make
 
 # Symlink model output directory to /output for easier bind mounts
-RUN mkdir -p /NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/CPU000 && ln -s /NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/CPU000 /output
+RUN mkdir -p /l2-sea-benchmark/examples/DTMB-5415/CPU000 && ln -s /l2-sea-benchmark/examples/DTMB-5415/CPU000 /output
 
 COPY umbridge-server.py /
 
