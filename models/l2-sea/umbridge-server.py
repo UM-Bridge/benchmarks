@@ -15,16 +15,16 @@ class L2Sea_model(umbridge.Model):
 
     def __call__(self, parameters, config):
         # Write first (and only) parameter vector to file
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/variables.inp', 'w') as f:
+        with open('/l2-sea-benchmark/examples/DTMB-5415/variables.inp', 'w') as f:
             for param in parameters[0][2:]:
                 f.write(str(param) + '\n')
             f.close()
 
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/variables.inp', 'r') as f:
+        with open('/l2-sea-benchmark/examples/DTMB-5415/variables.inp', 'r') as f:
             print(f.read())
 
 
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/SBDF.nml') as nml_file:
+        with open('/l2-sea-benchmark/examples/DTMB-5415/SBDF.nml') as nml_file:
             nml = f90nml.read(nml_file)
 
         nml['MAIN_PARAMETERS']['igrid'] = config.get("fidelity", 7)
@@ -33,17 +33,17 @@ class L2Sea_model(umbridge.Model):
         nml['FREE_WARP']['trimoff'] = config.get("trimoff", 'y')
         nml['PANCA_PARAMETERS']['ztrasla'] = parameters[0][1]
 
-        nml.write('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/SBDF.aux')
+        nml.write('/l2-sea-benchmark/examples/DTMB-5415/SBDF.aux')
 
         # System call, cd into working directory and call model binary
         print(config)
-        return_value = os.system('cd /NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415; mv SBDF.aux SBDF.nml; ../../bin/L2-Sea')
+        return_value = os.system('cd /l2-sea-benchmark/examples/DTMB-5415; mv SBDF.aux SBDF.nml; ../../bin/L2-Sea')
         if return_value != 0:
             return [[0,0,0,0,0]]
 
 
         # Read second line of output file, split and return last 5 elements as output
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/CPU000/objective.out', 'r') as f:
+        with open('/l2-sea-benchmark/examples/DTMB-5415/CPU000/objective.out', 'r') as f:
             f.readline() # Skip first line
             line = f.readline() # Read second line
             line_split = line.split()[-5:] # Split and keep last 5 elements
@@ -67,17 +67,17 @@ class L2Sea_benchmarkUQ(umbridge.Model):
 
     def __call__(self, parameters, config):
         # Write first (and only) parameter vector to file
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/variables.inp', 'w') as f:
+        with open('/l2-sea-benchmark/examples/DTMB-5415/variables.inp', 'w') as f:
             x = [0]*14
             for i in x:
                 f.write(str(i) + '\n')
             f.close()
 
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/variables.inp', 'r') as f:
+        with open('/l2-sea-benchmark/examples/DTMB-5415/variables.inp', 'r') as f:
             print(f.read())
 
 
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/SBDF.nml') as nml_file:
+        with open('/l2-sea-benchmark/examples/DTMB-5415/SBDF.nml') as nml_file:
             nml = f90nml.read(nml_file)
 
         nml['MAIN_PARAMETERS']['igrid'] = config.get("fidelity", 7)
@@ -86,17 +86,17 @@ class L2Sea_benchmarkUQ(umbridge.Model):
         nml['FREE_WARP']['trimoff'] = 'y' #config.get("trimoff", 'y')
         nml['PANCA_PARAMETERS']['ztrasla'] = parameters[0][1]
 
-        nml.write('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/SBDF.aux')
+        nml.write('/l2-sea-benchmark/examples/DTMB-5415/SBDF.aux')
 
         # System call, cd into working directory and call model binary
         print(config)
-        return_value = os.system('cd /NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415; mv SBDF.aux SBDF.nml; ../../bin/L2-Sea')
+        return_value = os.system('cd /l2-sea-benchmark/examples/DTMB-5415; mv SBDF.aux SBDF.nml; ../../bin/L2-Sea')
         if return_value != 0:
             return [[0]]
 
 
         # Read second line of output file, split and return last 5 elements as output
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/CPU000/objective.out', 'r') as f:
+        with open('/l2-sea-benchmark/examples/DTMB-5415/CPU000/objective.out', 'r') as f:
             f.readline() # Skip first line
             line = f.readline() # Read second line
             line_split = line.split()[-5:] # Split and keep last 5 elements
@@ -120,16 +120,16 @@ class L2Sea_benchmarkOPT(umbridge.Model):
 
     def __call__(self, parameters, config):
         # Write first (and only) parameter vector to file
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/variables.inp', 'w') as f:
+        with open('/l2-sea-enchmark/examples/DTMB-5415/variables.inp', 'w') as f:
             for param in parameters[0][0:]:
                 f.write(str(param) + '\n')
             f.close()
 
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/variables.inp', 'r') as f:
+        with open('/l2-sea-benchmark/examples/DTMB-5415/variables.inp', 'r') as f:
             print(f.read())
 
 
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/SBDF.nml') as nml_file:
+        with open('/l2-sea-benchmark/examples/DTMB-5415/SBDF.nml') as nml_file:
             nml = f90nml.read(nml_file)
 
         nml['MAIN_PARAMETERS']['igrid'] = config.get("fidelity", 7)
@@ -138,17 +138,17 @@ class L2Sea_benchmarkOPT(umbridge.Model):
         nml['FREE_WARP']['trimoff'] = 'y' #config.get("trimoff", 'y')
         nml['PANCA_PARAMETERS']['ztrasla'] = -6.16 #parameters[0][1]
 
-        nml.write('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/SBDF.aux')
+        nml.write('/l2-sea-benchmark/examples/DTMB-5415/SBDF.aux')
 
         # System call, cd into working directory and call model binary
         print(config)
-        return_value = os.system('cd /NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415; mv SBDF.aux SBDF.nml; ../../bin/L2-Sea')
+        return_value = os.system('cd /l2-sea-benchmark/examples/DTMB-5415; mv SBDF.aux SBDF.nml; ../../bin/L2-Sea')
         if return_value != 0:
             return [[0,0,0,0,0]]
 
 
         # Read second line of output file, split and return last 5 elements as output
-        with open('/NATO-AVT-331-L2-Sea-Benchmark/examples/DTMB-5415/CPU000/objective.out', 'r') as f:
+        with open('/l2-sea-benchmark/examples/DTMB-5415/CPU000/objective.out', 'r') as f:
             f.readline() # Skip first line
             line = f.readline() # Read second line
             line_split = line.split()[-5:] # Split and keep last 5 elements
