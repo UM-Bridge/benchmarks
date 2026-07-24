@@ -71,7 +71,7 @@ RUN cd / && git clone https://github.com/UM-Bridge/umbridge.git
 # Build model server
 COPY . /server
 RUN cd /server && \
-    g++ -o server server.cpp -I /umbridge/lib -lpthread
+    g++ -o server server.cpp -I /umbridge/lib -lpthread -lrt
 
 FROM chun9l/openmpi:0.3.0
 
