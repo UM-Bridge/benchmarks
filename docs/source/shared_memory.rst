@@ -1,4 +1,5 @@
 .. _shared-memory:
+
 =============================================
 Client-Server Communication via Shared Memory
 =============================================
@@ -10,10 +11,10 @@ alternative that uses shared memory (RAM) to transfer data. This approach
 works by using allocated memory buffers in RAM as the transfer medium for 
 UM-Bridge inputs and outputs. To prevent data races in a parallel setting, 
 each memory buffer is tagged with the ID of the thread making the request 
-in the client, and this ID is also shared (through a JSON entry) so that 
+in the parallel client, and this ID is shared through a JSON entry so that 
 the model can access the correct buffer. 
 
 Currently, only the C++ and Python implementations are supported, and this
-feature is enabled automatically. The code will first perform a test 
-transfer using shared memory when the client connects to the server; it 
-reverts back to HTTP if this test fails.
+feature is enabled automatically when available. The code will first 
+perform a test transfer using shared memory when the client first connects 
+to the server; it reverts back to HTTP if this test fails.
