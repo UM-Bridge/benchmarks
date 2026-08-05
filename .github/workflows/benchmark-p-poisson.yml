@@ -3,7 +3,7 @@ name: benchmark-p-poisson
 on:
   push:
     branches:
-      - 'chun9l/fix-some-CI'
+      - 'main'
 
 jobs:
   build:

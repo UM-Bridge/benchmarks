@@ -3,7 +3,7 @@ name: model-emod-abm
 on:
   push:
     branches:
-      - 'chun9l/fix-some-CI'
+      - 'main'
 
 jobs:
   build:
