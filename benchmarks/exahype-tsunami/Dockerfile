@@ -19,4 +19,4 @@ RUN pip3.8 install --upgrade pip
 
 RUN pip3.8 install scipy umbridge
 
-CMD /server/server & python3 /benchmark-server/benchmark-server.py
+CMD /server/server & python3.8 /benchmark-server/benchmark-server.py
