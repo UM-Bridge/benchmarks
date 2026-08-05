@@ -2,7 +2,7 @@ name: benchmark-exahype-tsunami
 on:
   push:
     branches:
-      - 'main'
+      - 'chun9l/fix-some-CI'
   workflow_dispatch:
 env:
   REGISTRY_IMAGE: linusseelinger/benchmark-exahype-tsunami
