@@ -3,7 +3,7 @@ name: model-laplace
 on:
   push:
     branches:
-      - 'main'
+      - 'chun9l/fix-some-CI'
 
 jobs:
   build:

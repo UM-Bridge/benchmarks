@@ -3,7 +3,7 @@ name: benchmark-muq-beam
 on:
   push:
     branches:
-      - 'main'
+      - 'chun9l/fix-some-CI'
 
 jobs:
   build:
