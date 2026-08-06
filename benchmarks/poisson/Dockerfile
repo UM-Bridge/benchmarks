@@ -1,6 +1,9 @@
 FROM quay.io/fenicsproject/dev
 
 USER root
+
+RUN apt update && apt install -y python3.8
+
 RUN pip3 install --upgrade pip
 
 USER fenics
