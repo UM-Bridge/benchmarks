@@ -3,45 +3,55 @@ tempdir = mktempdir()
 Pkg.activate(tempdir)
 Pkg.add(["UMBridge"])
 using UMBridge
-#TerraDG_path="/home/areinarz/Desktop/TerraDG.jl"
-TerraDG_path="/home/dubois/Dokumente/Code/Inversion/TerraDG/TerraDG.jl" # TODO: change to my path 
+TerraDG_path="/home/nxdj93/TerraDG.jl"
 Pkg.develop(path=TerraDG_path) # here an absolute path to the TerraDG installation, you can run the file from anywhere
 using TerraDG
 
+const CONFIG_FILE = TerraDG_path * "/src/earthquake.yaml"
+
 function run_simulation(theta)
+    print("Julia threads available: ", Threads.nthreads())
+    workdir = mktempdir()
+
     t0 = time()
     print("Reading input...")
-    # Write levelset input to file
-    open("levelset.csv", write=true) do f
-        write(f, "value\n") 
+    levelset_path = joinpath(workdir, "levelset.csv")
+    open(levelset_path, write=true) do f
+        write(f, "value\n")
         for val in theta
-            val = Int(val)
-            write(f, "$(val)\n")
+            write(f, "$(Int(val))\n")
         end
     end
-    elapsed = time()-t0
+    elapsed = time() - t0
     print("Reading done in ", elapsed, ".\n Start simulation...")
 
-    # Run simulation
+    # Run simulation, with explicit unique paths - no reliance on cwd,
+    # no shared files with any other concurrent call.
     t1 = time()
-    TerraDG.main(TerraDG_path * "/src/earthquake.yaml")
-
-    elapsed = time()-t1
-    print("Simulation done in ", elapsed,".\n Write output...")
+    output_prefix = joinpath(workdir, "output", "plot")
+    TerraDG.main(
+		         CONFIG_FILE;
+			         output_prefix=output_prefix,
+				         level_set_filename=levelset_path,
+					     )
+    elapsed = time() - t1
+    print("Simulation done in ", elapsed, ".\n Write output...")
 
     # Read pressure sensor output
     t2 = time()
     output = Float64[]
-    open(TerraDG_path * "/output/plot_pressure_sensors.csv", read=true) do f
+    open(output_prefix * "_pressure_sensors.csv", read=true) do f
         readline(f) # skip header
         for line in eachline(f)
             parts = split(line, ",")
             push!(output, parse(Float64, parts[4]))
         end
     end
+    elapsed = time() - t2
+    print("Writing done in ", elapsed, ".\n")
 
-    elapsed = time()-t2
-    print("Writing done in ", elapsed,".\n")
+    rm(workdir, recursive=true, force=true) # cleanup
+
     return output
 end
 
