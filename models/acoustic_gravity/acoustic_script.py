@@ -186,8 +186,12 @@ pcn_scaling = 0.15
 pcn_adaptive = True
 my_proposal = CrankNicolson(scaling=pcn_scaling, adaptive=pcn_adaptive)
 
+# For testing purposes, iteration number is small for the given problem; Choose a larger number for real applications.
+my_chains = tda.sample(my_posterior, my_proposal, iterations=2, n_chains=2, force_sequential=True)
+
 import arviz as az
 
+burnin = 0 
 idata = tda.to_inference_data(my_chains, burnin=burnin)
 az.to_netcdf(idata, "results_dg_10000.nc") # to store
 
