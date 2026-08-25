@@ -1,12 +1,8 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-import matplotlib.colors as colors
 from scipy.stats import multivariate_normal
 from scipy.spatial.distance import cdist
 from scipy.signal import hilbert
 
-import pandas as pd
 import tinyDA as tda
 import umbridge
 
@@ -25,15 +21,13 @@ sensors_sort = np.array(sensors, dtype=[('x',float),('y',float)])
 sensors_sort = np.sort(sensors_sort, order=['x','y'])
 sensors = sensors_sort.tolist()
 n_sensors = len(sensors)
-print(n_sensors)
+print("Number of pressure sensors:", n_sensors)
 
 # connect to the UM-Bridge model.
 umbridge_model = umbridge.HTTPModel('http://localhost:4242', "forward")
 
 # wrap the UM-Bridge model in the tinyDA UM-Bridge interface.
 config={"captors":sensors}
-
-# my_model = tda.UmBridgeModel(umbridge_model) # DG: for now without config 
 my_model = tda.UmBridgeModel(umbridge_model, umbridge_config=config)
 
 # For now the DG file does not use the arg config 
@@ -49,7 +43,6 @@ idx_middle = int(nx/2)
 source_width = 4 # in length unit 
 idx_width = int(0.5 * source_width / Lx * nx )
 exact[idx_middle - idx_width : idx_middle + idx_width]=1
-#print(exact)
 d_true = my_model(exact)
 
 # add some noise to the model output
@@ -85,6 +78,8 @@ cov += eps * np.eye(nx)
 mean = np.zeros(nx)
 my_prior = multivariate_normal(mean=mean, cov=cov)
 
+
+# Set up log-likelihood 
 def sigma_linear(v, b):
     return v + b
 
@@ -140,6 +135,8 @@ class MultiSensorLoglike:
         x = np.asarray(x, dtype=float).ravel()   # <- use the argument, not a stored copy
         return sum(like.loglike(x[i::self.n_sensors]) for i, like in enumerate(self.likelihoods))
     
+
+    
 # Test for Gaussian log like
 sigma = 2.0
 cov_likelihood = sigma**2*np.eye(d_true.shape[0])
@@ -147,20 +144,21 @@ my_loglike_gaussian = tda.GaussianLogLike(d_true, cov_likelihood)
 
 # Test for Wasserstain based log like
 # TODO move implementation into tinyDA
+lam = sigma_noise * sigma_noise
 my_loglike = MultiSensorLoglike(likelihoods=[
-    WassersteinLoglike(d_true[0::n_sensors], sigma_signsensitive, lam=0.001, b=0.01),
-    WassersteinLoglike(d_true[1::n_sensors], sigma_signsensitive, lam=0.001, b=0.01),
-], n_sensors=2)
+    WassersteinLoglike(d_true[0::n_sensors], sigma_signsensitive, lam=lam, b=100.0),
+    WassersteinLoglike(d_true[1::n_sensors], sigma_signsensitive, lam=0.001, b=1.0),
+], n_sensors=n_sensors)
 
 my_loglike_linear = MultiSensorLoglike(likelihoods=[
-    WassersteinLoglike(d_true[0::n_sensors], sigma_linear, lam=1.0, b=0.1),
-    WassersteinLoglike(d_true[1::n_sensors], sigma_linear, lam=1.0, b=1.1),
-], n_sensors=2)
+    WassersteinLoglike(d_true[0::n_sensors], sigma_linear, lam=lam, b=0.1),
+    WassersteinLoglike(d_true[1::n_sensors], sigma_linear, lam=lam, b=1.1),
+], n_sensors=n_sensors)
 
 my_loglike_envelope = MultiSensorLoglike(likelihoods=[
-    WassersteinLoglike(d_true[0::n_sensors], sigma_envelope_exp, lam=35.22, b=5.0),
-    WassersteinLoglike(d_true[1::n_sensors], sigma_envelope_exp, lam=72.03, b=5.0),
-], n_sensors=2)
+    WassersteinLoglike(d_true[0::n_sensors], sigma_envelope_exp, lam=lam, b=15.0),
+    WassersteinLoglike(d_true[1::n_sensors], sigma_envelope_exp, lam=lam, b=5.0),
+], n_sensors=n_sensors)
 
 def levelset_model(parameters):
     levelset_params = restriction(parameters)
@@ -168,6 +166,7 @@ def levelset_model(parameters):
 
 my_posterior = tda.Posterior(my_prior, my_loglike, levelset_model)
 
+# Custom Crank-Nicolson with cutoff and levelset
 class CrankNicolson(tda.CrankNicolson):
     def __init__(self, scaling, adaptive):
         super().__init__(scaling=scaling, adaptive=adaptive)
@@ -186,14 +185,16 @@ pcn_scaling = 0.15
 pcn_adaptive = True
 my_proposal = CrankNicolson(scaling=pcn_scaling, adaptive=pcn_adaptive)
 
+
 # For testing purposes, iteration number is small for the given problem; Choose a larger number for real applications.
-my_chains = tda.sample(my_posterior, my_proposal, iterations=2, n_chains=2, force_sequential=True)
+iter = 2
+my_chains = tda.sample(my_posterior, my_proposal, iterations=iter, n_chains=2, force_sequential=True)
 
 import arviz as az
 
 burnin = 0 
 idata = tda.to_inference_data(my_chains, burnin=burnin)
-az.to_netcdf(idata, "results_dg_10000.nc") # to store
+az.to_netcdf(idata, f"wasserstein_myloglike_{iter}.nc") # to store
 
 
 
