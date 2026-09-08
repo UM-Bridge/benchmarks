@@ -5,6 +5,7 @@ from scipy.signal import hilbert
 
 import tinyDA as tda
 import umbridge
+import arviz as az
 
 # Set domain size and simulation time: this info is shared between the forward and parameter models 
 Lx = 20
@@ -186,15 +187,15 @@ pcn_adaptive = True
 my_proposal = CrankNicolson(scaling=pcn_scaling, adaptive=pcn_adaptive)
 
 
-# For testing purposes, iteration number is small for the given problem; Choose a larger number for real applications.
-iter = 2
-my_chains = tda.sample(my_posterior, my_proposal, iterations=iter, n_chains=2, force_sequential=True)
 
-import arviz as az
+if __name__ == "main":
+    # For testing purposes, iteration number is small for the given problem; Choose a larger number for real applications.
+    iter = 2
+    my_chains = tda.sample(my_posterior, my_proposal, iterations=iter, n_chains=2, force_sequential=True)
 
-burnin = 0 
-idata = tda.to_inference_data(my_chains, burnin=burnin)
-az.to_netcdf(idata, f"wasserstein_myloglike_{iter}.nc") # to store
+    burnin = 0 
+    idata = tda.to_inference_data(my_chains, burnin=burnin)
+    az.to_netcdf(idata, f"wasserstein_myloglike_{iter}.nc") # to store
 
 
 

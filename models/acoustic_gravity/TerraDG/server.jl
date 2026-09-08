@@ -4,7 +4,8 @@ Pkg.activate(tempdir)
 Pkg.add(["UMBridge"])
 using UMBridge
 # TO EDIT: Path to TerraDG on your machine, script can be executed from anywhere
-TerraDG_path="/home/areinarz/Desktop/TerraDG.jl"
+# TerraDG_path="/home/areinarz/Desktop/TerraDG.jl"
+TerraDG_path="/home/dubois/Dokumente/Code/Inversion/TerraDG/TerraDG.jl"
 Pkg.develop(path=TerraDG_path) # here an absolute path to the TerraDG installation, you can run the file from anywhere
 using TerraDG
 
