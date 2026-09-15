@@ -15,6 +15,7 @@ in the parallel client, and this ID is shared through a JSON entry so that
 the model can access the correct buffer. 
 
 Currently, only the C++ and Python implementations are supported, and this
-feature is enabled automatically when available. The code will first 
-perform a test transfer using shared memory when the client first connects 
-to the server; it reverts back to HTTP if this test fails.
+feature is off by default unless enabled through the ``use_shmem`` option
+when instantiating the ``HTTPModel`` object. The code will first 
+perform a test transfer using shared memory to check whether the client and
+server are able to communicate; it reverts back to HTTP if this test fails.
