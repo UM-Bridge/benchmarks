@@ -131,6 +131,9 @@ for f in $(find ../../umbridge/ -name 'README.md'); do
    $NAME
 EOF
 done
+
+# Extra docs. Added manually
+echo "   ../shared_memory" >> docs_output/source/umbridge/index.rst
 echo "   ../mpi_container" >> docs_output/source/umbridge/index.rst
 echo "   ../math_description" >> docs_output/source/umbridge/index.rst
 
