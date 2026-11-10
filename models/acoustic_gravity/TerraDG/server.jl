@@ -3,9 +3,10 @@ tempdir = mktempdir()
 Pkg.activate(tempdir)
 Pkg.add(["UMBridge"])
 using UMBridge
+
 # TO EDIT: Path to TerraDG on your machine, script can be executed from anywhere
-# TerraDG_path="/home/areinarz/Desktop/TerraDG.jl"
-TerraDG_path="/home/dubois/Dokumente/Code/Inversion/TerraDG/TerraDG.jl"
+TerraDG_path="/home/anne/Desktop/TerraDG.jl"
+
 Pkg.develop(path=TerraDG_path) # here an absolute path to the TerraDG installation, you can run the file from anywhere
 using TerraDG
 
@@ -32,6 +33,7 @@ function run_simulation(theta, sensor_locations)
     # Run simulation, with explicit unique paths
     t1 = time()
     output_prefix = joinpath(workdir, "output", "plot")
+    println(output_prefix)
     overrides = Dict(
         "level_set_filename" => levelset_path,
         "output" => Dict(
@@ -40,6 +42,9 @@ function run_simulation(theta, sensor_locations)
             )
         )
     )
+    if bathymetry !== nothing
+        overrides["bathymetry"] = bathymetry
+    end 
     TerraDG.main(
         CONFIG_FILE;
         output_prefix=output_prefix,
@@ -70,6 +75,18 @@ function get_sensor_locations(config)
     raw_locations = config["captors"]
     return [(Float64(l[1]), Float64(l[2])) for l in raw_locations]
 end
+
+
+function get_bathymetry(config)
+    haskey(config, "bathymetry_file") || return nothing
+    file = abspath(TerraDG_path, config["bathymetry_file"])
+    isfile(file) || error("Bathymetry file not found: $(file)")
+    if endswith(file, ".csv")
+        return Dict("type" => "points", "file" => file)
+    end
+    return Dict("file" => file)
+end
+
 
 model = UMBridge.Model(
     name = "forward",
